@@ -178,6 +178,7 @@ Rd = [];
         elseif(InertialDelta_options.bDinuka == 1)
             nt = size(imudata,1);
             imufulldata = imudata;% ts, wb,fb
+            rng('default');
             imufulldata(:,2:4) = imufulldata(:,2:4) + fnGenGaussNoise(nt, 3, sigma_w_real);
             imufulldata(:,5:7) = imufulldata(:,5:7) + fnGenGaussNoise(nt, 3, sigma_f_real);
         end
