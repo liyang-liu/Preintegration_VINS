@@ -1,6 +1,7 @@
-function [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, bUVonly, ...
-    bPreInt, nPoses, RptFeatureObs, ImuTimestamps)
+function [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps)
 
+    global InertialDelta_options
+    
 nObsId_FeatureObs = 2;
 nFeatures = size(RptFeatureObs, 1);
 idRow = [];
@@ -15,11 +16,11 @@ for fid=1:nFeatures
         if(pid > nPoses)
             break;
         end        
-        if(bUVonly == 1)
+        if(InertialDelta_options.bUVonly == 1)
             idPbase = 6*(pid-2);
             idFbase = 6*(nPoses-1);
             idATu2cbase = 6*(nPoses-1)+3*nFeatures;
-        elseif(bPreInt == 1)
+        elseif(InertialDelta_options.bPreInt == 1)
             idPbase = 6*(pid-2);
             idFbase = 6*(nPoses-1);
             idATu2cbase = 6*(nPoses-1)+3*nFeatures+3*nPoses+3;

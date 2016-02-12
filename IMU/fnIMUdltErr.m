@@ -1,8 +1,9 @@
-function [e] = fnIMUdltErr(x, Zobs, nPoses, nPts, bf0, bw0, dt, J, nIMUrate,...
-    bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw)%g, 
+function [e] = fnIMUdltErr(x, Zobs, nPoses, nPts, bf0, bw0, dt, J, nIMUrate )%g, 
+
+global InertialDelta_options
 
 e = zeros(size(Zobs));
-if(bPreInt == 1)
+if(InertialDelta_options.bPreInt == 1)
    idx = ((nPoses-1)*6+nPts*3+3*nPoses+10);
 else
    idx = ((nPoses-1)*nIMUrate*6+nPts*3+3*((nPoses-1)*nIMUrate+1)+10); 
@@ -11,7 +12,7 @@ bf = x(idx:(idx+2),1);
 dbf = bf - bf0;
 bw = x((idx+3):(idx+5),1);
 dbw = bw - bw0;
-if(bPreInt == 1)
+if(InertialDelta_options.bPreInt == 1)
     idx = (nPoses-1)*6+nPts*3+3*nPoses+1;
 else
     idx = ((nPoses-1)*nIMUrate*6+nPts*3+3*((nPoses-1)*nIMUrate+1)+1);
@@ -20,7 +21,7 @@ g = x(idx:(idx+2),1);
 Ru1 = eye(3); 
 Tu1 = zeros(3,1);
 % Reprojection at each pose
-if(bPreInt == 1)
+if(InertialDelta_options.bPreInt == 1)
     for pid=2:nPoses    
         idx = ((pid-2)*6+1);%(nPoses-1)*6+nPts*3+3*nPoses + 9
         alpha = x(idx);beta = x(idx + 1); gamma = x(idx + 2);
@@ -68,7 +69,8 @@ else
 end
 
 %% After IMU observations
-if((bPreInt == 1))% && ((bAddZg == 1) || (bAddZtu2c == 1)  || (bAddZau2c == 1)|| (bAddZantu2c == 1) || (bAddZbf == 1)))
+if((InertialDelta_options.bPreInt == 1)) %... 
+    % && ((InertialDelta_options.bAddZg == 1) || (InertialDelta_options.bAddZtu2c == 1)  || (InertialDelta_options.bAddZau2c == 1)|| (InertialDelta_options.bAddZantu2c == 1) || (InertialDelta_options.bAddZbf == 1)))
     id1x = (nPoses-1)*9+1;
     tid = (nPoses-1)*6+nPts*3+3*nPoses+1;
 else
@@ -84,35 +86,35 @@ end
 %     idx_vi = idx_vi + 3;
 % end
 
-    if(bAddZg == 1)
+    if(InertialDelta_options.bAddZg == 1)
         %% g
         idx_g = tid;
         g = x(idx_g:(idx_g+2));
         e(id1x:(id1x+2)) = g - Zobs(id1x:(id1x+2));
         id1x = id1x + 3;
     end
-    if(bAddZau2c == 1)
+    if(InertialDelta_options.bAddZau2c == 1)
     %% Au2c
         idx_Au2c = tid+3;
         Au2c = x(idx_Au2c:(idx_Au2c+2));
         e(id1x:(id1x+2)) = Au2c - Zobs(id1x:(id1x+2)); 
         id1x = id1x + 3;
     end
-    if(bAddZtu2c == 1)
+    if(InertialDelta_options.bAddZtu2c == 1)
     %% Tu2c
         idx_Tu2c = tid+6;
         Tu2c = x(idx_Tu2c:(idx_Tu2c+2));
         e(id1x:(id1x+2)) = Tu2c - Zobs(id1x:(id1x+2));
         id1x = id1x + 3;
     end        
-    if(bAddZbf == 1)
+    if(InertialDelta_options.bAddZbf == 1)
     %% g
         idx_bf = tid+9;
         bf = x(idx_bf:(idx_bf+2));
         e(id1x:(id1x+2)) = bf - Zobs(id1x:(id1x+2)); 
         id1x = id1x + 3;
     end
-    if(bAddZbw == 1)
+    if(InertialDelta_options.bAddZbw == 1)
     %% bf
         idx_bw = tid+12;
         bw = x(idx_bw:(idx_bw+2));

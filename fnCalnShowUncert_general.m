@@ -1,7 +1,7 @@
-function [] = fnCalnShowUncert_general(bUVonly, nUV, RptFeatureObs, ImuTimestamps, ...
-    dtIMU, ef, K, x, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata, bPreInt, ...
-    bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias)
-
+function [] = fnCalnShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
+    dtIMU, ef, K, x, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata )
+    
+global InertialDelta_options
 
 % J = fnJduvd_CnU_dbg(K, x, nPoses, nPts, nIMUrate, bPreInt);
 % if(bPreInt == 1)
@@ -10,7 +10,7 @@ function [] = fnCalnShowUncert_general(bUVonly, nUV, RptFeatureObs, ImuTimestamp
 %     J = fnJdaw0_IMU(J, nPoses, nPts, x, nIMUrate, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw);
 % end
 
-    [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, bUVonly, bPreInt, nPoses, RptFeatureObs, ImuTimestamps);
+    [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps);
     if(bUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
         idx_au2c = (nPoses-1)*6+nPts*3;
         uidRow = [1,2,3,1,2,3,1,2,3, ... %Au2c

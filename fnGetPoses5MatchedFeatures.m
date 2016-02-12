@@ -1,6 +1,8 @@
 function [Rp, Ap, Tp, Feature3D] = fnGetPoses5MatchedFeatures(nPoses, nPts, ...
-    K, fscaleGT, bSimData, RptFeatureObs, kfids)%, bAddInitialNoise, sigmauov)
+    K, fscaleGT, RptFeatureObs, kfids)%, bAddInitialNoise, sigmauov)
 
+    global InertialDelta_options
+    
 R = eye(3);
 Ap = zeros(3, nPoses);
 Tp = zeros(3, nPoses);

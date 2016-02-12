@@ -1,7 +1,9 @@
-function [e] = fnUVDErr_C1U(K, x, Zobs, nPoses, nPts, nIMUrate, bPreInt)
+function [e] = fnUVDErr_C1U(K, x, Zobs, nPoses, nPts, nIMUrate)
+
+global InertialDelta_options
 
 f = K(1,1); cx0 = K(1,3); cy0 = K(2,3);
-if(bPreInt == 1)
+if(InertialDelta_options.bPreInt == 1)
     idx = (nPoses-1)*6;
 else
     idx = (nPoses-1)*nIMUrate*6;

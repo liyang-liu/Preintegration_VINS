@@ -1,9 +1,10 @@
-
 function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
-    CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-    bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias)
-%nMaxIter, fLowerbound_ferr, fLowerbound_dx, 
-%% Initialize related parameters.
+    CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
+
+    global InertialDelta_options
+    
+    %nMaxIter, fLowerbound_ferr, fLowerbound_dx, 
+    %% Initialize related parameters.
     nMaxIter = 5000;
     v = 2;
     tao = 1e-3;
@@ -15,9 +16,10 @@ function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
     Reason = 0;
     k = 0;
 
-%% Calculate indices for Jacobians
-    [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, bUVonly, bPreInt, nPoses, RptFeatureObs, ImuTimestamps);
-    if(bUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
+    %% Calculate indices for Jacobians
+    [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps);
+    
+    if(InertialDelta_optionsbUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
         idx_au2c = (nPoses-1)*6+nPts*3;
         uidRow = [1,2,3,1,2,3,1,2,3, ... %Au2c
                   4,5,6,4,5,6,4,5,6, ... %Tu2c
@@ -32,38 +34,41 @@ function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
                   4 ... %6
                  ]; 
         unJacs = 3*3*2+1; 
-    else%if(bPreInt == 1)
-        [uidRow, uidCol, unJacs] = fnFndJacIDimu(ImuTimestamps, nIMUdata, bUVonly, nPoses, nPts, bAddZg, ...
-            bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias, bPreInt);        
+        
+    else%if(InertialDelta_optionsbPreInt == 1)
+        
+        [uidRow, uidCol, unJacs] = fnFndJacIDimu(ImuTimestamps, nIMUdata, nPoses, nPts );        
+        
     end
 
-%% Pre-calculate Errors
+    %% Pre-calculate Errors
     [ferr] = fnCnUPredErr_lsqnonlin_general(x);
+    
     chi2 = 2*ferr'*CovMatrixInv*ferr/nUV;
+    
     [maxe, id] = max(abs(ferr));
     fprintf('Iteration 0: chi2=%0.8f, maxE = %f, id=%d ', chi2, maxe, id);
-
     
-%% Pre-check exiting condition 1   
+    %% Pre-check exiting condition 1   
     fErrorPre = chi2;
+    
     %% Calculate Jacobians
     % UV part
     [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ImuTimestamps, ...
-        RptFeatureObs, bUVonly, bPreInt, nUV, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, ...
-        bAddZbw, bVarBias);
+                            RptFeatureObs, nUV, );
     % IMU part
-    if((bUVonly == 1) || (bPreInt == 1))
-        J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, bUVonly, dtIMU, Jd, nPoses, nPts, x, ...
-                bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
+    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+        J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x);
     else
-        J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata, ...
-            bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias, nPoses);    
-    end    
+        J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata, nPoses);    
+    end 
+    
     % End of calculation of Jacobians
     
 %     G = J'*ferr;
     E = -J'*CovMatrixInv*ferr;
-    g = max(abs(E));
+    
+    g = max(abs(E));    
     if(g <= ferr1)
         bStop = 1;
         Reason = 1;
@@ -78,27 +83,22 @@ function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
         k = k+1;
         P = -1;
         j = 0;
+        
         while((bStop ~= 1) && (P <= 0))% && (j <= nMaxIter)) 
+            
             j = j + 1;
-    %         [DeltaP,DeltaF,Sum_Delta] = FuncDeltaLMSBA(A,G,mu,PVector,Feature(:,2),FixVa);
-    %         P2 = FuncGetP2(PVector,FixVa);
-    %         Info = J'*CovMatrixInv*J;
             muI = speye(nr, nc) * mu;
-    %         E = -J'*CovMatrixInv*ferr;
             dx = (Info+muI)\E;
             normdx = sqrt(dx'*dx);%
             normx = sqrt(x'*x);%
+            
             if normdx <=ferr2*(normx+ferr2);
                 bStop = 1;
                 Reason = 2;
             else
-      %           [PVector] = FuncUpdate(PVector,DeltaP,DeltaF);
                 xnew = x + dx;
-       %          [ferr, Sum_ferr]= FuncDiffSBA(xVector,PVector,Feature,K);
-       %          Delta = [DeltaP;DeltaF];
                 [ferr] = fnCnUPredErr_lsqnonlin_general(xnew);
                 chi2 = 2*ferr'*CovMatrixInv*ferr/nUV;                
-                % L(0) - L(dx) = 0.5*dx'*(mu*dx + E);
                 P = (fErrorPre-chi2)/(0.5*dx'*(mu*dx + E));
                 if P>0;
                     x = xnew;%ferr
@@ -110,16 +110,15 @@ function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
                     %% Calculate Jacobians
                     % UV part
                     [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ImuTimestamps, ...
-                        RptFeatureObs, bUVonly, bPreInt, nUV, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, ...
-                        bAddZbw, bVarBias);
+                                        RptFeatureObs, nUV );
+                                    
                     % IMU part
-                    if((bUVonly == 1) || (bPreInt == 1))
-                        J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, bUVonly, dtIMU, Jd, nPoses, nPts, x, ...
-                                bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
+                    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+                        J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x);
                     else
-                        J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata, ...
-                            bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias, nPoses);    
+                        J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata);    
                     end    
+                    
                     % End of calculation of Jacobians
             %         A = J'*J;
             %         G = J'*ferr;
@@ -134,10 +133,9 @@ function [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
                     end;
                     mu = mu*max(1/3,1-(2*P-1)^3);
                     v = 2;
-                else    
-           %          DeltaP = -DeltaP;
-           %          DeltaF = -DeltaF;
-           %          [PVector] = FuncUpdate(PVector,DeltaP,DeltaF);
+                    
+                else
+                    
                     mu = v*mu;
                     v = v*2;
                 end;

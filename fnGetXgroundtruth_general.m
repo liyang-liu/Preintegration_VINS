@@ -1,10 +1,13 @@
-function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMalaga, ...
-    bDinuka, datadir, nPoseNew, ImuTimestamps, gtIMUposes, selpids, bPreInt, ...
-    nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, Au2c, Ru2c, Tu2c, ...
-    gtVelfulldir, g_true, bf_true, bw_true)
+function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
+                ImuTimestamps, gtIMUposes, selpids, nPts, PBAFeature, ...
+                RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, ...
+                dp, dv, Au2c, Ru2c, Tu2c, ...
+                gtVelfulldir, g_true, bf_true, bw_true)
 
+        global InertialDelta_options
+            
         %% Poses
-        if(bMalaga == 1)
+        if(InertialDelta_options.bMalaga == 1)
             load([datadir 'PBAPose.mat']);    
             tv = (PBAPose(1:nPoseNew, :))';
             ABGcam = [tv(3, :);tv(2, :);tv(1, :)];%tv(1:3, :);%
@@ -27,7 +30,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
             else
                [xg] = fnLinearInterpPoses(nPoseNew, ABGimu, Timu, ImuTimestamps, xg);
             end
-        elseif(bDinuka == 1)
+        elseif(InertialDelta_options.bDinuka == 1)
             tv = (gtIMUposes(selpids(1:(nPoseNew)), 2:7))';
             ABGimu = tv(1:3, :);
             Timu = tv(4:6, :);
@@ -37,7 +40,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
                 Rimu = fnR5ABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
                 Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
             end
-            if(bPreInt == 1)
+            if(InertialDelta_options.bPreInt == 1)
                 [xg] = fnCal9RelativePoses(xg, nPoseNew, tv);
             else
                 pall = (gtIMUposes(selpids(1):(nIMUdata+selpids(1)), 2:7))';
@@ -46,17 +49,17 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
         end  
         
     %%   Fill in ground truth of features
-        if(bPreInt == 1)
+        if(InertialDelta_options.bPreInt == 1)
            idend = 6*(nPoseNew-1); 
         else
            idend = 6*nIMUdata; 
         end
         idstart = idend + 1; 
         idend = idend + 3*nPts;    
-        if(bMalaga == 1)
+        if(InertialDelta_options.bMalaga == 1)
             tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features
             Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);
-        elseif(bDinuka == 1)
+        elseif(InertialDelta_options.bDinuka == 1)
             load([datadir 'feature_pos.mat']);
             tv = feature_pos(RptFidSet, :)';
             abg10 = (gtIMUposes(selpids(1), 2:4))'; % Rotation of the IMU pose corresponding to the first key frame
@@ -67,10 +70,10 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
         xg(idstart:idend) = Pf1u(:);        
         
         %% Velocity
-        if(bUVonly == 0)
-            if(bDinuka == 1)
+        if(InertialDelta_options.bUVonly == 0)
+            if(InertialDelta_options.bDinuka == 1)
                 load(gtVelfulldir);
-                if(bPreInt == 1)
+                if(InertialDelta_options.bPreInt == 1)
                     idstart = idend + 1;%(nPoseNew-1)*6+3*nPts
                     idend = idend + 3*nPoseNew;%(nPoseNew-1)*6+3*nPts
                     tv = (true_vel(ImuTimestamps(1:nPoseNew), 2:end))';
@@ -81,19 +84,13 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
                 end        
                 xg(idstart:idend) = tv(:);
             else
-%                 if(bPreInt == 1)
-%                     idend = (nPoseNew-1)*6+3*nPts;
-%                 else
-%                     idend = nIMUdata*6+3*nPts;
-%                 end
-                %[xg] = fnCalV5Kposes(bPreInt, xg, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata);
                 [xg,idend] = fnCalV5Kposes(nIMUdata, ImuTimestamps, ...
-                    nIMUrate, bDinuka, bPreInt, xg, nPoseNew, dtIMU, idend, ...
+                    nIMUrate, xg, nPoseNew, dtIMU, idend, ...
                     dp, dv, g_true, bf_true, imufulldata);
             end 
         end
         
-        if(bUVonly == 0)
+        if(InertialDelta_options.bUVonly == 0)
             %% g
             idstart = idend + 1; idend = idend + 3;
             xg(idstart:idend) = g_true;
@@ -101,9 +98,9 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
          %% Au2c, Tu2c
         idstart = idend + 1; idend = idend + 6;
         xg(idstart:idend) = [Au2c;Tu2c];
-        if(bUVonly == 0)
+        if(InertialDelta_options.bUVonly == 0)
             %% bf, bw
-            if(bVarBias == 0)
+            if(InertialDelta_options.bVarBias == 0)
                 idstart = idend + 1; idend = idend + 6;
                 xg(idstart:idend) = [bf_true;bw_true];
             else
@@ -119,19 +116,6 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, bUVonly, bVarBias, bMala
         
         % Calculate translational scales
         fscaleGT = zeros(nPoseNew, 1);
-    %     if(bDinuka == 1)
-    % %         t0 = tv(4:6, 1);
-    % %         for(pid=2:nPoses)        
-    % %            Timu = tv(4:6, pid) - tv(4:6, pid-1); 
-    % %            fscaleGT(pid) = norm(Timu);
-    % %         end
-    %     elseif(bMalaga == 1)
-    % %         tv = [zeros(6,1), tv];
-    % %         for(pid=1:(nPoses-1))        
-    % %            Timu = tv(4:6, pid) - tv(4:6, pid-1); 
-    % %            fscaleGT(pid) = norm(Timu);
-    % %         end        
-    %     end
         for(pid=2:nPoseNew)        
            Timu = Tcam(:, pid) - Tcam(:, pid-1); 
            fscaleGT(pid) = norm(Timu);

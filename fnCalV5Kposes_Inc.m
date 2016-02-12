@@ -1,10 +1,12 @@
 function [tv,idend] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
-    nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, bDinuka, ...
-    bPreInt, x, dtIMU, dp, dv, g0, bf0, imufulldata)    
-
+    nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
+    x, dtIMU, dp, dv, g0, bf0, imufulldata)    
+    
+    global InertialDelta_options
+    
     idend = 0;
     tv = zeros(3*(nIMUdata+1), 1);
-    if(bPreInt == 1)   
+    if(InertialDelta_options.bPreInt == 1)   
         if(nPoseOld == 1)
             % The velocity of the first pose.
             idstart = idend + 1;
@@ -33,10 +35,7 @@ function [tv,idend] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
            tv(idstart:idend) = x((idx+1):(idx+3), 1)+dtIMU(nPoseNew)*g0...
                 +Ri'*dv(:,nPoseNew);    
         end
-%             idp1s = (nPoses-1)*6+nPts*3+1;
-%             x((idp1s):(idp1s+2)) = x((idp1s+3):(idp1s+2+3));            
     else
-        %idend = idend + 3*nIMUdata;%(nPoses-1)*nIMUrate
         dt = 1.0/nIMUrate;
         % The velocity of the first pose.IMUparking6L
         if(bDinuka == 1)
@@ -46,7 +45,6 @@ function [tv,idend] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
             idstart = idend + 1;
             idend = idend + 3; 
             tv(idstart:idend, 1) = (x(4:6,1)-0.5*dt*dt*g0-0.5*dt*dt*((imufulldata(ImuTimestamps(1), 2:4))'-bf0))/dt; 
-%             pid_start = nIMUdata_Old+2;
         end
         nIMUdata_Old = ImuTimestamps(nPoseOld) - ImuTimestamps(1)+1;
         pid_start = nIMUdata_Old+1;
