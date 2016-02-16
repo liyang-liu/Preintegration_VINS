@@ -47,97 +47,60 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPo
     % in UVs
     for(fidx=1:nRptfs)
        nObs = 1;
-       %if(RptFeatureObs(fidx, 3*nObs) >= nPoseNew)
        if(RptFeatureObs(fidx).obsv(nObs).pid >= nPoseNew)
            continue;
        end
        
-       %while((RptFeatureObs(fidx, 3*nObs) < nPoseNew) && ...
-       %        (nObs < RptFeatureObs(fidx, 2)))
        while( ( RptFeatureObs(fidx).obsv(nObs).pid < nPoseNew ) && ...
                ( nObs < RptFeatureObs(fidx).nObs ) )
            nObs = nObs + 1;
        end
 
-       if 1 %Liyang
-           tv = RptFeatureObs(fidx).obsv; 
-           
-           %%%%%
-           pids = [tv.pid];
-           fpdis = Tcam(:, pids) - repmat(Tcam(:, pids(1)), 1, nObs);
-           fpdis = complex(fpdis(1,:), fpdis(2,:));
-           fpdis = abs(fpdis);
-           [~, idx] = sort(fpdis);
-           idx = idx(end);
+       tv = RptFeatureObs(fidx).obsv; 
 
-           comid = RptFeatureObs(fidx).fid;
-           %%%
+       %%%%%
+       pids = [tv.pid];
+       fpdis = Tcam(:, pids) - repmat(Tcam(:, pids(1)), 1, nObs);
+       fpdis = complex(fpdis(1,:), fpdis(2,:));
+       fpdis = abs(fpdis);
+       [~, idx] = sort(fpdis);
+       idx = idx(end);
 
-           pid1 = tv(1).pid;%1;%
-           pid2 = tv(idx).pid;%2;%
-           %%%
+       comid = RptFeatureObs(fidx).fid;
+       %%%
 
-           comfeatures = [tv(1).uv, tv(idx).uv];
-           [p3d] = fnTrianguFeatures(K, Rcam(:, :, pid1), Tcam(:, pid1), ...
-                                Rcam(:, :, pid2), Tcam(:, pid2), comfeatures);
+       pid1 = tv(1).pid;%1;%
+       pid2 = tv(idx).pid;%2;%
+       %%%
 
-            p1f = p3d' - Tcam(:, pid1); p2f = p3d' - Tcam(:, pid2);
-            fangle = 180*acos(p1f'*p2f/(norm(p1f)*norm(p2f)))/pi;
+       comfeatures = [tv(1).uv, tv(idx).uv]';
+       [p3d] = fnTrianguFeatures(K, Rcam(:, :, pid1), Tcam(:, pid1), ...
+                            Rcam(:, :, pid2), Tcam(:, pid2), comfeatures);
 
-            if(fangle < 1)%0.5)%1.5)%
-               fprintf('P%d-P%d: Angle(%d) = %f!\n', pid1, pid2, comid, fangle); 
-               smallAngleSet = [smallAngleSet, fidx];
-               continue;
-            end
+        p1f = p3d' - Tcam(:, pid1); p2f = p3d' - Tcam(:, pid2);
+        fangle = 180*acos(p1f'*p2f/(norm(p1f)*norm(p2f)))/pi;
 
-           
-       else %YouBing
-           tv = (RptFeatureObs(fidx, (3):(3*nObs+2)))'; % *nId1
-           tv = reshape(tv, 3, []);
-
-           %%%%%
-           pids = tv(1,:);
-           fpdis = Tcam(:, pids) - repmat(Tcam(:, pids(1)), 1, nObs);
-           fpdis = complex(fpdis(1,:), fpdis(2,:));
-           fpdis = abs(fpdis);
-           [~, idx] = sort(fpdis);
-           idx = idx(end);
-
-           %%%%%
-    %        idx = 2;
-           comid = RptFeatureObs(fidx, fId_FeatureObs);
-           %%%
-
-           pid1 = tv(1,1);%1;%
-           pid2 = tv(1,idx);%2;%
-           %%%
-
-           comfeatures = [tv(2:3,1); tv(2:3,idx)];
-           [p3d] = fnTrianguFeatures(K, Rcam(:, :, pid1), Tcam(:, pid1), ...
-                                Rcam(:, :, pid2), Tcam(:, pid2), comfeatures);
-
-            p1f = p3d' - Tcam(:, pid1); p2f = p3d' - Tcam(:, pid2);
-            fangle = 180*acos(p1f'*p2f/(norm(p1f)*norm(p2f)))/pi;
-
-            if(fangle < 1)%0.5)%1.5)%
-               fprintf('P%d-P%d: Angle(%d) = %f!\n', pid1, pid2, comid, fangle); 
-               smallAngleSet = [smallAngleSet, fidx];
-               continue;
-            end
-        
-       end % Liyang
+        if(fangle < 1)%0.5)%1.5)%
+           fprintf('P%d-P%d: Angle(%d) = %f!\n', pid1, pid2, comid, fangle); 
+           smallAngleSet = [smallAngleSet, fidx];
+           continue;
+        end           
        
-        Feature3D(comid, nTrianguTimes) = Feature3D(comid, nTrianguTimes) + 1;
-        ntrigtms = Feature3D(comid, nTrianguTimes);
-        Feature3D(comid, (3+5*(ntrigtms-1)):(7+5*(ntrigtms-1))) = ...
-            [pid1, pid2, -p3d];       
+        %Feature3D(comid, nTrianguTimes) = Feature3D(comid, nTrianguTimes) + 1;
+        %ntrigtms = Feature3D(comid, nTrianguTimes);
+        %Feature3D(comid, (3+5*(ntrigtms-1)):(7+5*(ntrigtms-1))) = ...
+        %    [pid1, pid2, -p3d];       
+
+        Feature3D(comid).numTriangs = Feature3D(comid).numTriangs + 1;
+        ntrigtms = Feature3D(comid).numTriangus);
+        Feature3D(comid)., (3+5*(ntrigtms-1)):(7+5*(ntrigtms-1))) = ...
+            [pid1, pid2, -p3d];               
     end 
     
     fprintf('\n%d/%d to be removed. \n', ...
         size(smallAngleSet, 2), size(RptFidSet,1));
     
     RptFidSet(smallAngleSet) = [];
-    %RptFeatureObs(smallAngleSet, :) = [];
     RptFeatureObs(smallAngleSet) = [];
         
 end

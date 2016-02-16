@@ -1,5 +1,5 @@
 %% The main function.
-if 0
+if 1
     close all;    
     clear all;
     clear class;
@@ -161,7 +161,7 @@ Rd = [];
     FeatureInfo_Def = struct( ...
         'fid',  [], ...
         'nObs', 0, ...
-        'obsv', Observation_Def ... % array of observations, size will grow
+        'obsv', Observation_Def ...
         );
     FeatureObs = repmat( FeatureInfo_Def, nPts, 1);
     %fids = mat2cell( 1:nPts, 1, ones(1, nPts)); 
@@ -169,6 +169,8 @@ Rd = [];
     [FeatureObs(:).fid] = fids{:};        
     
     % Define data structure for Feature3D
+    %Feature3D = zeros(nPts1, 50);
+    %Feature3D(:, fId_FeatureObs) = 1:nPts1;
     TriangulateInfo_Def = struct( ...
         'pid1', [], ...
         'pid2', [], ...
@@ -177,7 +179,7 @@ Rd = [];
     Feature3DInfo_Def = struct( ...
         'fid',  [], ...
         'numTriangs', 0, ...
-        'triangs', TriangulateInfo_Def ... % is array of triangulates, size will grow
+        'triangs', TriangulateInfo_Def ... % will to 
         );
     Feature3D = repmat( Feature3DInfo_Def, nPts, 1);
     fids = num2cell( 1:nPts );

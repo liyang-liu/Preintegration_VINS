@@ -103,7 +103,14 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
     idstart = idend + 1; 
     idstart_new = idstart;
     idend = idend + 3*nPts;
-    tv =  (Feature3D(RptFidSet, 5:7))';% select the first group      
+    
+    % select the first group of triangulations
+    tv = [];
+    for fidx=1:size(RptFidSet)        
+        tv = [tv; Feature3D(RptFidSet(fidx)).triangs(1).p3D ]; 
+    end
+    tv = tv';
+    
     Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);                
     x(idstart:idend) = Pf1u(:);
     if(nPoseOld > 1)
