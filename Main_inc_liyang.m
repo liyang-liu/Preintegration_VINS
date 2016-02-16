@@ -1,8 +1,8 @@
 %% The main function.
 if 1
+    close all;    
     clear all;
     clear class;
-    close all;    
     clc;
 end
 
@@ -154,10 +154,20 @@ Rd = [];
     %%%%%%%%%%%%%%
     % camera observations  
 
-    FeatureObs = zeros(nPts, 500);%[fid, nObs, [pid, ui,vi]]
-    fId_FeatureObs = 1; nObsId_FeatureObs = 2;
-    FeatureObs(:, fId_FeatureObs) = 1:nPts;
-
+    Observation_Def = struct( ...
+        'pid', [], ...
+        'uv',  zeros(1,2) ...
+        );
+    FeatureInfo_Def = struct( ...
+        'fid',  [], ...
+        'nObs', 0, ...
+        'obsv', Observation_Def ...
+        );
+    FeatureObs = repmat( FeatureInfo_Def, nPts, 1);
+    
+    %fids = mat2cell( 1:nPts, 1, ones(1, nPts)); 
+    fids = num2cell( 1:nPts );
+    [FeatureObs(:).fid] = fids{:};        
     %%%%%%%%%%%%%%%%%%%%%%%%%
     
     nIMUdata = 0;    
@@ -229,31 +239,31 @@ Rd = [];
         if(nPoseOld == 1)
             pid = 1;
             [FeatureObs] = fnCollectfObs5Imgs( ...
-                                kfids, pid, imgdir, sigma_uov_real, FeatureObs, ...
-                                nObsId_FeatureObs);                              
+                                kfids, pid, imgdir, sigma_uov_real, FeatureObs );                              
         end 
         
         for(pid=(nPoseOld+1):nPoseNew)
                [FeatureObs] = fnCollectfObs5Imgs( ...
-                                kfids, pid, imgdir, sigma_uov_real, FeatureObs, ...
-                                nObsId_FeatureObs); 
+                                kfids, pid, imgdir, sigma_uov_real, FeatureObs ); 
         end
         
         if(InertialDelta_options.bMalaga == 1)
             load([datadir 'PBAFeature.mat']);
-            RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, nMinObsTimes));
+            %RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, nMinObsTimes));
+            %RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
+            %RptFeatureObs = FeatureObs(RptFidSet, :);
+            RptFidSet = find( [FeatureObs(:).nObs] > 1);
+            RptFidSet = RptFidSet(:);
             RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
-            RptFeatureObs = FeatureObs(RptFidSet, :);
-            
+            RptFeatureObs = FeatureObs(RptFidSet);
         elseif(InertialDelta_options.bDinuka == 1)
-
-            RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, InertialDelta_options.nMinObsTimes));
-            RptFeatureObs = FeatureObs(RptFidSet, :);        
-            
+            RptFidSet = find( [FeatureObs(:).nObs] >= min(nPoseNew, InertialDelta_options.nMinObsTimes));
+            RptFidSet = RptFidSet(:);
+            RptFeatureObs = FeatureObs(RptFidSet);
         end
+        
         nPts = size(RptFidSet, 1);
-               
-    
+                   
         nIMUdata = ImuTimestamps(nPoseNew) - ImuTimestamps(1);
         
         %% X---the state vector
@@ -338,9 +348,11 @@ Rd = [];
         %% camera observations (u,v)
         zidend = 0;     
         for(fid=1:nPts)% local id
-            nObs = RptFeatureObs(fid, nObsId_FeatureObs);
+            %nObs = RptFeatureObs(fid, nObsId_FeatureObs);
+            nObs = RptFeatureObs(fid).nObs;
             for(oid=1:nObs)
-                tv = (RptFeatureObs(fid, (oid*3+1):(oid*3+2)))';
+                %tv = (RptFeatureObs(fid, (oid*3+1):(oid*3+2)))';
+                tv = RptFeatureObs(fid).obsv(oid).uv';
                 zidstart = zidend + 1; zidend = zidend + 2;%*size(tv, 2);
                 Zobs(zidstart:zidend, 1) = tv;%(:);
             end

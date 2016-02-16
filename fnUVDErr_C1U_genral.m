@@ -2,7 +2,7 @@ function [e, nUV] = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts,
 
     global InertialDelta_options
 
-    nObsId_FeatureObs = 2;
+    %nObsId_FeatureObs = 2;
     fx = K(1,1); cx0 = K(1,3); fy = K(2,2); cy0 = K(2,3);
 
     if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
@@ -32,25 +32,34 @@ function [e, nUV] = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts,
     nUV = 0;
     % Reprojection at each pose
     nfs = size(RptFeatureObs,1);
+    
     for(fid=1:nfs)
-        nObs = RptFeatureObs(fid, nObsId_FeatureObs);
-        for(oid=1:nObs)
-            pid = (RptFeatureObs(fid, oid*3))'; 
+        
+        nObs = RptFeatureObs(fid).nObs;
+        
+        for(oid=1:nObs)            
+            
+            pid = RptFeatureObs(fid).obsv(oid).pid; 
+            
             if(pid > nPoses)
                 break;
             elseif(pid > 1)
+                
                 if((InertialDelta_options.bUVonly == 1) ||(InertialDelta_options.bPreInt == 1))
                     idx = (pid-2)*6;
                 else
                     idx = (ImuTimestamps(pid)-ImuTimestamps(1)-1)*6;%  (pid-1)*nIMUrate -6???
                 end
+                
                 alpha = x(1+idx); beta = x(2+idx); gamma = x(3+idx); 
                 Tu = x((4+idx):(idx+6), 1);
                 Ru = fnR5ABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
-            else % Pose 1 is special
+                
+            else % Pose 1 is special                
                 Tu = zeros(3,1); 
-                Ru = eye(3);
+                Ru = eye(3);                
             end
+            
             Rc = Ru2c * Ru;
             Tc = Tu + (Ru)' * Tu2c;
             ncurrentObsdPts = 1;%size(obsfeatures{pid}, 1);    

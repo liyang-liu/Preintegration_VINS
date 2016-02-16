@@ -13,7 +13,7 @@ function [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata,
     tmpv = zeros(1, nJacs);
     tidend = 0;
 
-    nObsId_FeatureObs = 2;
+    %nObsId_FeatureObs = 2;
     fx = K(1,1); cx0 = K(1,3); fy = K(2,2); cy0 = K(2,3);
 
     % Section for pose 1
@@ -89,11 +89,11 @@ function [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata,
     % Section for all of the poses
     for(fid=1:nPts)
         
-        nObs = RptFeatureObs(fid, nObsId_FeatureObs);
+        nObs = RptFeatureObs(fid).nObs;
         
         for(oid=1:nObs)
             
-            pid = RptFeatureObs(fid, oid*3); 
+            pid = RptFeatureObs(fid).obsv(oid).pid; 
             if(pid > nPoses)
                 break;
             end

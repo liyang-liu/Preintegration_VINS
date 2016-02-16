@@ -2,7 +2,7 @@ function [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs
 
     global InertialDelta_options
     
-nObsId_FeatureObs = 2;
+%nObsId_FeatureObs = 2;
 nFeatures = size(RptFeatureObs, 1);
 idRow = [];
 idCol = [];
@@ -10,9 +10,11 @@ nJacs = 0;
 nUV = 0;
 
 for fid=1:nFeatures
-    nObs = RptFeatureObs(fid, nObsId_FeatureObs);
+    %nObs = RptFeatureObs(fid, nObsId_FeatureObs);
+    nObs = RptFeatureObs(fid).nObs;
     for(oid=1:nObs)
-        pid = RptFeatureObs(fid, oid*3); 
+        %pid = RptFeatureObs(fid, oid*3); 
+        pid = RptFeatureObs(fid).obsv(oid).pid; 
         if(pid > nPoses)
             break;
         end        
