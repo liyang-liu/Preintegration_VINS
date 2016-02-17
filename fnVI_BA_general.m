@@ -1,7 +1,9 @@
-function [x, nReason] = fnVI_BA_general(nUV, K, x, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
-    fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
+function [X_obj, nReason] = fnVI_BA_general(nUV, K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
+                fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
     
     global InertialDelta_options
+    
+    x = XObject2Vector( X_obj );
     
 	nReason = 0;
     [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps);
@@ -141,3 +143,5 @@ function [x, nReason] = fnVI_BA_general(nUV, K, x, nPoses, nPts, Jd, CovMatrixIn
         nReason = -3;
         fprintf(' ***REACH MAXIMUM TIMES***\n');
     end
+    
+    X_obj = XVector2Object( x, X_obj );

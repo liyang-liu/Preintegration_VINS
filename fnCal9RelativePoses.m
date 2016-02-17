@@ -11,6 +11,8 @@ function [xg] = fnCal9RelativePoses(xg, nPoses, tv)
         Ri1 = Ri0*R10';
         [Ai1, Bi1, Gi1] = fnABG5R(Ri1);
         Ti1 = R10'*(Ti0 - T10);
-        idstart = idend + 1; idend = idend + 6;
-        xg(idstart:idend) = [Ai1;Bi1;Gi1;Ti1];
+        %idstart = idend + 1; idend = idend + 6;
+        %xg(idstart:idend) = [Ai1;Bi1;Gi1;Ti1];
+        xg.pose(pid-1).ans = [Ai1; Bi1; Gi1];
+        xg.pose(pid-1).trans = Ti1;
     end

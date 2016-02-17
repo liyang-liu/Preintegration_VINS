@@ -172,7 +172,7 @@ Rd = [];
     TriangulateInfo_Def = struct( ...
         'pid1', [], ...
         'pid2', [], ...
-        'p3D',  zeros(1,3) ...  % 3D co-ordinates (x, y, z)
+        'p3D',  zeros(3,1) ...  % 3D co-ordinates (x, y, z)
         );
     Feature3DInfo_Def = struct( ...
         'fid',  [], ...
@@ -249,6 +249,10 @@ Rd = [];
     
 %% Incrementally construct x, z and cov, then solve them trhough iterations 
     while(nPoseOld < nAllposes)
+        fprintf('\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n');
+        fprintf('n%%            PoseOld - %d, nPoseNew - %d                  %%\n', nPoseOld, nPoseNew);
+        fprintf('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n');
+        
         nPoses = nPoseNew - nPoseOld;
         if(nPoseOld == 1)
             pid = 1;
@@ -281,14 +285,54 @@ Rd = [];
         nIMUdata = ImuTimestamps(nPoseNew) - ImuTimestamps(1);
         
         %% X---the state vector
+        Pose_Def = struct( ...
+            'ang',      zeros(3, 1), ...
+            'trans',    zeros(3, 1) ...
+            );
+
+        Feature_Def = struct( ...
+            'xyz',      zeros(3, 1) ...
+            );
+
+        Velocity_Def = struct ( ...
+            'xyz',      zeros(3, 1) ...
+            );
         if(InertialDelta_options.bUVonly == 1)
             x = zeros(6*(nPoseNew-1)+3*nPts+3*2,1);
+                X_Def = struct( ...
+                    'pose',     repmat( Pose_Def, nIMUdata) , ...
+                    'feature',  repmat( Feature_Def, nPts ), ...
+                    'Au2c',     zeros(3, 1), ...
+                    'Tu2c',     zeros(3, 1) ...
+                    );
         else
             if(InertialDelta_options.bPreInt == 0)
-                x = zeros((nIMUdata)*6+nPts*3+3*(nIMUdata+1)+15+6,1);%???(nPoses-1)*nIMUrate (nPoses-1)*nIMUrate+1 one additional 6 for convenience
+                %x = zeros((nIMUdata)*6+nPts*3+3*(nIMUdata+1)+15+6,1);%???(nPoses-1)*nIMUrate (nPoses-1)*nIMUrate+1 one additional 6 for convenience
+                X_Def = struct( ...
+                    'pose',     repmat( Pose_Def, nIMUdata) , ...
+                    'feature',  repmat( Feature_Def, nPts ), ...
+                    'velocity', repmat( Velocity_Def, nIMUdata+1, 1), ...
+                    'g',        zeros(3, 1), ...
+                    'Au2c',     zeros(3, 1), ...
+                    'Tu2c',     zeros(3, 1), ...
+                    'Bf',       zeros(3, 1), ...
+                    'Wf',       zeros(3, 1) ...
+                    );
             else
-                x = zeros((nPoseNew-1)*6+nPts*3+3*nPoseNew+3+6+6, 1); 
-            end  
+                %x = zeros((nPoseNew-1)*6+nPts*3+3*nPoseNew+3+6+6, 1); 
+                
+                X_Def = struct( ...
+                    'pose',     repmat( Pose_Def, nPoseNew - 1, 1 ) , ...
+                    'feature',  repmat( Feature_Def, nPts, 1 ), ...
+                    'velocity',        repmat( Velocity_Def, nPoseNew, 1), ...
+                    'g',        zeros(3, 1), ...
+                    'Au2c',     zeros(3, 1), ...
+                    'Tu2c',     zeros(3, 1), ...
+                    'Bf',       zeros(3, 1), ...
+                    'Bw',       zeros(3, 1) ...
+                    );
+            end
+            x = X_Def;
         end   
 
         xg = x;
@@ -317,14 +361,20 @@ Rd = [];
         
             
         % Display Xgt
-        fprintf('Ground Truth Value:\n\t Xg=[');
-        fprintf('%f ', xg(1:20));
+        fprintf('Ground Truth Value:\n\t Xg=[\nAng: ');
+        %fprintf('%f ', xg(1:20));
+        fprintf('%f ', xg.pose(1:3).ang);
+        fprintf('\nTrans: ');
+        fprintf('%f ', xg.pose(1:3).trans);
+        fprintf('\nFeature_1: ');
+        fprintf('%f ', xg.feature(1).xyz');
         fprintf('...]\n');  
         
         if(InertialDelta_options.bMalaga == 1)
             z2= xg(4);% Timu(:,4) correspond to Tcam(:,6)==> x-z
         elseif(InertialDelta_options.bDinuka == 1)
-            z2 = xg(6);
+            %z2 = xg(6);
+            z2 = xg.pose(2).trans(3);
         end         
         
         if(InertialDelta_options.bInitPnF5VoU == 0)
@@ -336,10 +386,16 @@ Rd = [];
 %             x = x(1:(size(xg,1)));
         end
         % Display X0
-        fprintf('\nInitial Value:\n\t X0=[');
-        fprintf('%f ', x(1:20));
+        fprintf('\nInitial Value:\n\t X0=[\nAng: ');
+        %fprintf('%f ', x(1:20));
+        fprintf('%f ', x.pose(1:3).ang);
+        fprintf('\nTrans: ');
+        fprintf('%f ', x.pose(1:3).trans);
+        fprintf('\nFeature_1: ');
+        fprintf('%f ', x.feature(1).xyz');
         fprintf('...]\n');    
-    ie = x-xg;
+    %ie = x-xg;
+    ie = XObject2Vector( XObjectDiff(x, xg) );
     [me, id] = max(abs(ie))   
     if(nPoseNew == 25)
         aa = 1;
@@ -563,7 +619,7 @@ Rd = [];
         %xf = x;
         %load('Xgt.mat');%xf
 
-        ef = x - xg;
+        ef = XObject2Vector( XObjectDiff( x, xg ));
         [maxe, idx] = max(abs(ef));
         fprintf('Final Error: maxXef=%f, idx=%d\n', maxe, idx);
 
@@ -578,8 +634,10 @@ Rd = [];
         if(InertialDelta_options.bPreInt == 1)
             for(pid = 2:nPoseNew)
                 %Rcam = Ru2c*Rimu*Ru2c;
-                Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
-                Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
+                %Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
+                %Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
+                Rimu = fnR5ABG( x.pose(pid-1).ang(1), x.pose(pid-1).ang(2), x.pose(pid-1).ang(3));
+                Timu(:, pid) = x.pose(pid-1).trans;
                 Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
             end
             

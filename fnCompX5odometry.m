@@ -31,11 +31,14 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
             if(id > 1)
                 pid = pids(id);
                 idx = 6*(pid-2);
-                R0imu(:, :, id) = fnR5ABG(x_old(idx+1), x_old(idx+2), x_old(idx+3));
-                T0imu(:, id) = x_old((idx+4):(idx+6)); 
+                %R0imu(:, :, id) = fnR5ABG(x_old(idx+1), x_old(idx+2), x_old(idx+3));
+                %T0imu(:, id) = x_old((idx+4):(idx+6)); 
+                R0imu(:, :, id) = fnR5ABG(x_old.pose(pid-1).ang(1), x_old.pose(pid-1).ang(2), x_old.pose(pid-1).ang(3));
+                T0imu(:, id) = x_old.pose(pid-1).trans; 
             end
             if(InertialDelta_options.bUVonly == 0)
-                v0imu(:, id) = x_old((idx_v(id)+1):(idx_v(id)+3)); 
+                %v0imu(:, id) = x_old((idx_v(id)+1):(idx_v(id)+3)); 
+                v0imu(:, id) = x_old.velocity(id).xyz; 
             end
         end
     else
@@ -69,15 +72,20 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
     idend = 0; 
     if(InertialDelta_options.bPreInt == 1)
         if(nPoseOld > 1)
-            idstart = idend + 1;                
-            idend = idend + 6*(nPoseOld-1); 
-            x(idstart:idend) = x_old(idstart:idend); 
+            %idstart = idend + 1;                
+            %idend = idend + 6*(nPoseOld-1); 
+            %x(idstart:idend) = x_old(idstart:idend); 
+            x.pose(1:nPoseOld-1) = x_old.pose;
         end
-        idstart  = idend + 1; 
-        idend = 6*(nPoseNew - 1);
-        tv = [ABGimu(:,(nPoseOld+1):end); Timu(:,(nPoseOld+1):end)];%
-        x(idstart:idend) = tv(:);
-    else
+        %idstart  = idend + 1; 
+        %idend = 6*(nPoseNew - 1);
+        %tv = [ABGimu(:,(nPoseOld+1):end); Timu(:,(nPoseOld+1):end)];%
+        %x(idstart:idend) = tv(:);
+        for p = nPoseOld-1+1:nPoseNew-1
+            x.pose(p).ang = ABGimu(:,p+1);
+            x.pose(p).trans = Timu(:,p+1);
+        end
+    else % PreInt == 0
         if(nPoseOld > 1)
             idstart = idend + 1; 
             idend = idend + 6*nIMUdata_old; 
@@ -95,34 +103,51 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
             T0imu(:,nPoseOld), v0imu(:, nPoseOld), imufulldata, ... % Timu0, vimu0
             ImuTimestamps, nIMUrate, bf0, bw0, g0);
         x(idstart:idend) = upos;
-    end 
+    end % if PreInt
 
     % Intial values of features at the initial IMU pose
     % Given Pf1c, Pf1u can be calculated as:
     % Pf1u = Ru2c'*Pf1c + Tu2c
-    idstart = idend + 1; 
-    idstart_new = idstart;
-    idend = idend + 3*nPts;
     
-    % select the first group of triangulations
-    tv = [];
-    for fidx=1:size(RptFidSet)        
-        tv = [tv; Feature3D(RptFidSet(fidx)).triangs(1).p3D ]; 
-    end
-    tv = tv';
+    if 1 %Liyang   
+        actualNumFeatures = size(RptFidSet);
+        for fidx=1:actualNumFeatures
+            fid = RptFidSet(fidx);
+            tv = Feature3D(fid).triangs(1).p3D ; 
+            Pf1u = Ru2c'*tv + Tu2c;
+            x.feature(fidx).xyz = Pf1u;
+        end
+        x.feature(actualNumFeatures+1:end) = [];%delete unnecessary features 
+    else  %Youbing
+        idstart = idend + 1; 
+        idstart_new = idstart;
+        idend = idend + 3*nPts;
+        
+        % select the first group of triangulations
+        tv = [];
+        for fidx=1:size(RptFidSet)        
+            fid = RptFidSet(fidx);
+            tv = [tv; Feature3D(fid).triangs(1).p3D ]; 
+        end
+        tv = tv';
+
+        Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);                
+        x(idstart:idend) = Pf1u(:);
+    end % if Liyang
     
-    Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);                
-    x(idstart:idend) = Pf1u(:);
     if(nPoseOld > 1)
         [~, idrptf, idrptf_old] = intersect(RptFidSet, RptFidSet_old);
-        if(InertialDelta_options.bPreInt == 1)
-            idstart_old = 6*(nPoseOld-1)+1;
-        else                        
-            idstart_old = 6*nIMUdata_old+1;
-        end    
-        for(fid=1:size(idrptf,1))
-            x((idstart_new+(idrptf(fid)-1)*3):(idstart_new+(idrptf(fid)-1)*3+2)) = x_old(...
-                (idstart_old+(idrptf_old(fid)-1)*3):(idstart_old+(idrptf_old(fid)-1)*3+2));
+        %if(InertialDelta_options.bPreInt == 1)
+        %    idstart_old = 6*(nPoseOld-1)+1;
+        %else                        
+        %    idstart_old = 6*nIMUdata_old+1;
+        %end    
+        for(fidx=1:size(idrptf,1))
+            %x((idstart_new+(idrptf(fidx)-1)*3):(idstart_new+(idrptf(fidx)-1)*3+2)) = x_old(...
+            %    (idstart_old+(idrptf_old(fidx)-1)*3):(idstart_old+(idrptf_old(fidx)-1)*3+2));
+            fid = idrptf(fidx);
+            fid_old = idrptf_old(fidx);
+            x.feature(fid).xyz = x_old.feature(fid_old).xyz;
         end
     end
 
@@ -132,12 +157,13 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
 %                 x, nPoseNew, dtIMU, idend, dp, dv, g0, bf0, imufulldata);
         if(nPoseOld > 1)
             if(InertialDelta_options.bPreInt == 1)
-                idstart = idend + 1;
-                idend = idend + 3*nPoseOld;
-                idend_old = 6*(nPoseOld-1) + 3*size(RptFidSet_old,1);
-                idstart_old = idend_old + 1;
-                idend_old = idend_old + 3*nPoseOld;
-                x(idstart:idend) = x_old(idstart_old:idend_old);
+                %idstart = idend + 1;
+                %idend = idend + 3*nPoseOld;
+                %idend_old = 6*(nPoseOld-1) + 3*size(RptFidSet_old,1);
+                %idstart_old = idend_old + 1;
+                %idend_old = idend_old + 3*nPoseOld;
+                %x(idstart:idend) = x_old(idstart_old:idend_old);
+                x.velocity(1:nPoseOld) = x_old.velocity;
             else
                 idstart = idend + 1;
                 idend = idend + 3*(nIMUdata_old+1);
@@ -146,17 +172,23 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
                 idend_old = idend_old + 3*(nIMUdata_old+1);
                 x(idstart:idend) = x_old(idstart_old:idend_old);
             end
-        end
+        end % if nPoseOld > 1
         [tv,~] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
                         nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
                         x, dtIMU, dp, dv, g0, bf0, imufulldata);
         if(InertialDelta_options.bPreInt == 1)
-            idstart = idend + 1;
-            idend = idend + 3*nPoses;
-            if(nPoseOld == 1)
-                idend = idend + 3;
+            %idstart = idend + 1;
+            %idend = idend + 3*nPoses;
+            %if(nPoseOld == 1)
+            %    idend = idend + 3;
+            %end
+            %x(idstart:idend) = tv;
+            if (nPoseOld == 1)
+                v_range = 1:nPoseNew;
+            else
+                v_range = nPoseOld+1:nPoseNew;
             end
-            x(idstart:idend) = tv;
+            x.velocity(v_range) = tv;
         else
             idstart = idend + 1;
             if(nPoseOld == 1)
@@ -168,22 +200,26 @@ function [x, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
         end
 
         % Intial values of g 
-        idstart = idend + 1; idend = idend + 3;
-        x(idstart:idend) = g0;%[0,0,-9.8]';           
-    end
+        %idstart = idend + 1; idend = idend + 3;
+        %x(idstart:idend) = g0;%[0,0,-9.8]';           
+        x.g = g0;
+    end % if UVOnly == 0
     %% Au2c, Tu2c
-    idstart = idend + 1; idend = idend + 6;
-    x(idstart:idend) = [Au2c;Tu2c];
-
+    %idstart = idend + 1; idend = idend + 6;
+    %x(idstart:idend) = [Au2c;Tu2c];
+    x.Au2c = Au2c;
+    x.Tu2c = Tu2c;
     if(InertialDelta_options.bUVonly == 0)
         %% bf, bw
         if(InertialDelta_options.bVarBias == 0)
-            idstart = idend + 1; idend = idend + 6;
-            x(idstart:idend) = [bf0;bw0];%zeros(6,1);  
+            %idstart = idend + 1; idend = idend + 6;
+            %x(idstart:idend) = [bf0;bw0];%zeros(6,1);  
+            x.Bf = bf0;
+            x.Bw = bw0;
         else
             idstart = idend + 1; idend = idend + 6*(nPoseNew-1);                
             x(idstart:idend) = repmat([bf0;bw0],nPoseNew-1, 1);%zeros(6,1); 
         end
     end 
-    x = x(1:idend);
+    %x = x(1:idend);
         
