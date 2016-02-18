@@ -30,12 +30,15 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
         end
     end
     
+    load('Zobs.mat');
+    
     times = 0;    
     while(times < nMaxIter)
         
         fprintf('times=%d ',times);
 		% [e] = fnCnUPredErr(K,x,Zobs,nPoses,nPts,bf0,bw0,dt,Jd);%g,
 		% Debug v2
+        
         
 		E_obj = fnCnUPredErr_lsqnonlin_general(X_obj);
         [e] = ZObject2Vector( E_obj );
@@ -54,8 +57,10 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
             break;
         end
         
+        X_vec = XObject2Vector( X_obj );
+        
   		%%%%%%%%%%%%  L M            
-		if((chi2 < 1e0) && (max(abs(x)) > 1e3))%30)%- 3-15/30
+		if((chi2 < 1e0) && (max(abs(X_vec)) > 1e3))%30)%- 3-15/30
 		    fprintf('\n');
     		[x,nReason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
     	    CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs );  
@@ -64,7 +69,6 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
   		%%%%%%%%%%%%
 
         J_obj = InertialDelta_InitJacobian( );
-        load('Zobs.mat');
         %[J] = fnJduvd_CnU_gq( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
         %                       ImuTimestamps, RptFeatureObs, nUV );
         J_obj = fnJduvd_CnU_gq(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );
@@ -126,7 +130,6 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
 		% %% IMU part
 		% x = x + dx;
         %x = x + dx;
-        X_vec = XObject2Vector( X_obj );
         X_vec = X_vec + dx;
         X_obj = XVector2Object( X_vec, X_obj );
         

@@ -35,8 +35,9 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
                 idx = 6*(pid-2);
                 %R0imu(:, :, id) = fnR5ABG(x_old(idx+1), x_old(idx+2), x_old(idx+3));
                 %T0imu(:, id) = x_old((idx+4):(idx+6)); 
-                R0imu(:, :, id) = fnR5ABG(x_old.pose(pid-1).ang(1), x_old.pose(pid-1).ang(2), x_old.pose(pid-1).ang(3));
-                T0imu(:, id) = x_old.pose(pid-1).trans; 
+                A0imu = x_old.pose(pid-1).ang.val;
+                R0imu(:, :, id) = fnR5ABG(A0imu(1), A0imu(2), A0imu(3));
+                T0imu(:, id) = x_old.pose(pid-1).trans.val; 
             end
             if(InertialDelta_options.bUVonly == 0)
                 %v0imu(:, id) = x_old((idx_v(id)+1):(idx_v(id)+3)); 

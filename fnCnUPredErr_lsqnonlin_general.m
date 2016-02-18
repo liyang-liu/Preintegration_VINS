@@ -52,11 +52,11 @@ function e = fnCnUPredErr_lsqnonlin_general(x)
     ePreInt = fnIMUdltErr_general(x, Zobs, nPoseNew, nPts, bf0, ...
                             bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
-    e.preInt =  ePreInt.intlDelta;
-    e.Au2c   =  ePreInt.Au2c;
-    e.Tu2c   =  ePreInt.Tu2c;
-    e.Bf     =  ePreInt.Bf;
-    e.Bw     =  ePreInt.Bw;
+    e.intlDelta =  ePreInt.intlDelta;
+    e.Au2c      =  ePreInt.Au2c;
+    e.Tu2c      =  ePreInt.Tu2c;
+    e.Bf        =  ePreInt.Bf;
+    e.Bw        =  ePreInt.Bw;
     
     
 

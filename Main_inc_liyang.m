@@ -612,8 +612,9 @@ Rd = [];
                 %Rcam = Ru2c*Rimu*Ru2c;
                 %Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
                 %Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
-                Rimu = fnR5ABG( X_obj.pose(pid-1).ang(1), X_obj.pose(pid-1).ang(2), X_obj.pose(pid-1).ang(3));
-                Timu(:, pid) = X_obj.pose(pid-1).trans;
+                Aimu = X_obj.pose(pid-1).ang.val;
+                Rimu = fnR5ABG( Aimu(1), Aimu(2), Aimu(3));
+                Timu(:, pid) = X_obj.pose(pid-1).trans.val;
                 Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
             end
             

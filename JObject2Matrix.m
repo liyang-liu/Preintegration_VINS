@@ -9,7 +9,7 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
     J_col = [];
     
     %% dUv_dX
-    numUV = length( J_obj.dUv_dX )
+    numUV = length( J_obj.dUv_dX );
     for i=1:numUV
         if ( ~isempty( J_obj.dUv_dX(i).dAbgxyz_1 ) )
             %dAbgxyz
@@ -30,7 +30,7 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
     end
     
     %% dIntlDelta_dX
-    numIntlDelta = length( J_obj.dIntlDelta_dX )
+    numIntlDelta = length( J_obj.dIntlDelta_dX );
     for i=1:numIntlDelta
         
         %% dDp_dX
@@ -148,11 +148,11 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
     J_col = [ J_col; J_obj.dBw_dX.col(:) ];
     J_vec = [ J_vec; J_obj.dBw_dX.val(:) ];            
     
-    fprintf('J_row.len = %d, J_col.len = %d, J_vec.len=%d\n', ...
-        length(J_row), length(J_col), length(J_vec));
+    %fprintf('J_row.len = %d, J_col.len = %d, J_vec.len=%d\n', ...
+    %               length(J_row), length(J_col), length(J_vec));
     
-    M = Zobs.Bw.row(end)
-    N = X_obj.Bw.col(end)
+    M = Zobs.Bw.row(end);
+    N = X_obj.Bw.col(end);
     
     J_mat = sparse( J_row, J_col, J_vec, M, N );
     
