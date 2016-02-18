@@ -1,4 +1,4 @@
-function e = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts, ImuTimestamps)
+function e = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
 
     global InertialDelta_options
 
@@ -12,8 +12,8 @@ function e = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts, ImuTim
         idx = (nIMUdata)*6;%(nPoses-1)*nIMUrate
     end
     
-    %p3d0 = reshape(x((idx+1):(idx+3*nPts), 1), 3, []);
-    p3d0 = x.feature;
+    %p3d0 = reshape(X((idx+1):(idx+3*nPts), 1), 3, []);
+    p3d0 = X.feature;
     e = Zobs;
     
     % index of Au2c, Tu2c
@@ -27,11 +27,11 @@ function e = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts, ImuTim
         end
     end
     
-    %alpha = x(idx+1);beta = x(idx + 2); gamma = x(idx + 3);
-    alpha = x.Au2c.val(1); beta = x.Au2c.val(2); gamma = x.Au2c.val(3);
+    %alpha = X(idx+1);beta = X(idx + 2); gamma = X(idx + 3);
+    alpha = X.Au2c.val(1); beta = X.Au2c.val(2); gamma = X.Au2c.val(3);
     Ru2c = fnR5ABG(alpha, beta, gamma);
-    %Tu2c = x((idx+4):(idx+6));
-    Tu2c = x.Tu2c.val;
+    %Tu2c = X((idx+4):(idx+6));
+    Tu2c = X.Tu2c.val;
     nUV = 0;
     % Reprojection at each pose
     nfs = size(RptFeatureObs,1);
@@ -53,11 +53,11 @@ function e = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoses, nPts, ImuTim
                     idx = (ImuTimestamps(pid)-ImuTimestamps(1)-1)*6;%  (pid-1)*nIMUrate -6???
                 end
                 
-                %alpha = x(1+idx); beta = x(2+idx); gamma = x(3+idx); 
-                %Tu = x((4+idx):(idx+6), 1);
-                Au = x.pose(pid-1).ang.val;
+                %alpha = X(1+idx); beta = X(2+idx); gamma = X(3+idx); 
+                %Tu = X((4+idx):(idx+6), 1);
+                Au = X.pose(pid-1).ang.val;
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
-                Tu = x.pose(pid-1).trans.val;
+                Tu = X.pose(pid-1).trans.val;
                 Ru = fnR5ABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
                 
             else % Pose 1 is special                

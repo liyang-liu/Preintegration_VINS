@@ -102,7 +102,7 @@ function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             J.dIntlDelta_dX(tid).dDp_dX.dDp_dTrans_2.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
             J.dIntlDelta_dX(tid).dDp_dX.dDp_dTrans_2.col = [ col; col; col ];
             
-            col = (X.velocity(pid).col(:))';
+            col = (X.velocity(pid-1).col(:))';
             J.dIntlDelta_dX(tid).dDp_dX.dDp_dV_1.val = (ddpdv1(:))';
             J.dIntlDelta_dX(tid).dDp_dX.dDp_dV_1.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
             J.dIntlDelta_dX(tid).dDp_dX.dDp_dV_1.col = [ col; col; col ];
@@ -205,10 +205,16 @@ function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             %tmpv(tidstart:tidend) = [(ddphida2(:))', (ddphidb2(:))', (ddphidg2(:))', (ddphidbw(:))'];
             col = (X.pose(pid-1).ang.col(:))';
             J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dAbg_2.val = ...
-                        [(ddphida2(:))', (ddphidb2(:))', (ddphidg2(:))', (ddphidbw(:))'];
+                        [(ddphida2(:))', (ddphidb2(:))', (ddphidg2(:))'];
             J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dAbg_2.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
             J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dAbg_2.col = [col; col; col];
 
+            
+            col = (X.Bw.col(:))';
+            J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dBw.val = (ddphidbw(:))';
+            J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dBw.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
+            J.dIntlDelta_dX(tid).dDphi_dX.dDphi_dBw.col = [col; col; col];
+            
         % 	a1 = a2; b1 = b2; g1 = g2;
             drda1 = drda2; drdb1 = drdb2; drdg1 = drdg2;
             T1 = T2;R1 = R2;
@@ -286,8 +292,8 @@ function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             col = X.Bw.col;
             
             J.dBw_dX.val = tv;
-            J.dBf_dw.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
-            J.dBf_dw.col = [col; col; col];
+            J.dBw_dX.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
+            J.dBw_dX.col = [col; col; col];
         end        
         
     else

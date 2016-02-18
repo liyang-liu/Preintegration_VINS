@@ -133,7 +133,7 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
             duvdxyz_u2c = duvd(1:2,:) * dxyz_u2c;                    
 
             %% d(uv)/d(abgxyz)c, 2x6
-            if(pid == 1)  
+            if(pid == 1)  %dxf,dyf,dzf, (da,db,dg,dx,dy,dz)u2c
                 
                 %tidstart = tidend + 1;
                 %tidend = tidend + 6 + 12;
@@ -146,10 +146,13 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
                 J.dUv_dX(zid).dFxyz.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3) ]; 
                 J.dUv_dX(zid).dFxyz.col = [ col; col ]; 
                                 
-                col = (X.Tu2c.col(:))';
-                J.dUv_dX(zid).dTu2c.val = (duvdxyz_u2c(:))';
-                J.dUv_dX(zid).dTu2c.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3) ]; 
-                J.dUv_dX(zid).dTu2c.col = [ col ; col ]; 
+                col = [X.Au2c.col(:); X.Tu2c.col(:)]';
+                clen = length(col);
+                rlen = length(row);
+                assert( rlen*clen == length(duvdxyz_u2c(:)) );
+                J.dUv_dX(zid).dATu2c.val = (duvdxyz_u2c(:))';                
+                J.dUv_dX(zid).dATu2c.row = [ row(1) * ones(1, clen) ; row(2) * ones(1, clen) ]; 
+                J.dUv_dX(zid).dATu2c.col = [ col ; col ]; 
                 
                 J.dUv_dX(zid).dAbgxyz_1 = []; %delete
                 
@@ -174,11 +177,14 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
                 J.dUv_dX(zid).dFxyz.val = (duvdfxyz(:))';
                 J.dUv_dX(zid).dFxyz.row = [ row(1) * ones(1,3); row(2) * ones(1,3) ];
                 J.dUv_dX(zid).dFxyz.col = [ col; col ];
-                
-                col = (X.Tu2c.col(:))';
-                J.dUv_dX(zid).dTu2c.val = (duvdxyz_u2c(:))';
-                J.dUv_dX(zid).dTu2c.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3) ]; 
-                J.dUv_dX(zid).dTu2c.col = [ col ; col ]; 
+                                
+                col = [X.Au2c.col(:); X.Tu2c.col(:)]';
+                clen = length(col);
+                rlen = length(row);
+                assert( rlen*clen == length(duvdxyz_u2c(:)) );
+                J.dUv_dX(zid).dATu2c.val = (duvdxyz_u2c(:))';
+                J.dUv_dX(zid).dATu2c.row = [ row(1) * ones(1, clen) ; row(2) * ones(1, clen) ]; 
+                J.dUv_dX(zid).dATu2c.col = [ col ; col ]; 
                 
             end             
         end

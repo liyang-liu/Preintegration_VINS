@@ -15,7 +15,7 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
             %dAbgxyz
             J_row = [ J_row; J_obj.dUv_dX(i).dAbgxyz_1.row(:) ];
             J_col = [ J_col; J_obj.dUv_dX(i).dAbgxyz_1.col(:) ];
-            J_vec = [ J_vec; J_obj.dUv_dX(i).dAbgxyz_1.val(:) ];        
+            J_vec = [ J_vec; J_obj.dUv_dX(i).dAbgxyz_1.val(:) ];
         end
         
         %dFxyz
@@ -23,10 +23,10 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
         J_col = [ J_col; J_obj.dUv_dX(i).dFxyz.col(:) ];
         J_vec = [ J_vec; J_obj.dUv_dX(i).dFxyz.val(:) ];
         
-        %dTu2c
-        J_row = [ J_row; J_obj.dUv_dX(i).dTu2c.row(:) ];
-        J_col = [ J_col; J_obj.dUv_dX(i).dTu2c.col(:) ];
-        J_vec = [ J_vec; J_obj.dUv_dX(i).dTu2c.val(:) ];        
+        %dATu2c
+        J_row = [ J_row; J_obj.dUv_dX(i).dATu2c.row(:) ];
+        J_col = [ J_col; J_obj.dUv_dX(i).dATu2c.col(:) ];
+        J_vec = [ J_vec; J_obj.dUv_dX(i).dATu2c.val(:) ];        
     end
     
     %% dIntlDelta_dX
@@ -54,6 +54,11 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
         J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dTrans_2.col(:) ];
         J_vec = [ J_vec; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dTrans_2.val(:) ];            
 
+        % dDp_dV_1
+        J_row = [ J_row; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dV_1.row(:) ];
+        J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dV_1.col(:) ];
+        J_vec = [ J_vec; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dV_1.val(:) ];            
+        
         %dDp_dG
         J_row = [ J_row; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dG.row(:) ];
         J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDp_dX.dDp_dG.col(:) ];
@@ -117,6 +122,10 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
         J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dAbg_2.col(:) ];
         J_vec = [ J_vec; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dAbg_2.val(:) ];            
         
+        %dDphi_dBw
+        J_row = [ J_row; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.row(:) ];
+        J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.col(:) ];
+        J_vec = [ J_vec; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.val(:) ];
     end
     
     %% dAu2c_dX
@@ -138,6 +147,9 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
     J_row = [ J_row; J_obj.dBw_dX.row(:) ];
     J_col = [ J_col; J_obj.dBw_dX.col(:) ];
     J_vec = [ J_vec; J_obj.dBw_dX.val(:) ];            
+    
+    fprintf('J_row.len = %d, J_col.len = %d, J_vec.len=%d\n', ...
+        length(J_row), length(J_col), length(J_vec));
     
     M = Zobs.Bw.row(end)
     N = X_obj.Bw.col(end)

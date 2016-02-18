@@ -126,9 +126,9 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
 		% %% IMU part
 		% x = x + dx;
         %x = x + dx;
-        X_vec = XObject2Vector(X_obj);
+        X_vec = XObject2Vector( X_obj );
         X_vec = X_vec + dx;
-        X_obj = XVector2Object( X_vec );
+        X_obj = XVector2Object( X_vec, X_obj );
         
         times = times + 1;
         
