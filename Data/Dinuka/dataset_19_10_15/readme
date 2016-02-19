@@ -1,0 +1,16 @@
+Imu_camera_transformation => vec_in_camera_frame   = 	[0 1 0] * vec_in_IMU_frame
+							[0 0 1]
+							[1 0 0]
+
+
+for small noise data
+accelerometer standard deviation = 0.1
+gyroscope standard deviation = 0.01
+
+for large noise data
+accelerometer standard deviation = 0.2
+gyroscope standard deviation = 0.03
+
+for all IMU data biases are 0
+
+ground truth position, velocity and orientation are with respect to world coordinate frame which coincides with the IMU coordinate frame at t=0. For ground truth Euler angles the 'ZYX' convention was used.
