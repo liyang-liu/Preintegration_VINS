@@ -1,0 +1,2919 @@
+>> Main_inc_liyang
+Warning: The value of local variables may have been changed to match the
+         globals.  Future versions of MATLAB will require that you declare
+         a variable to be global before you use that variable. 
+> In Main_inc_liyang at 10 
+nPoseOld =
+     1
+nAddPoses =
+     1
+nPoseNew =
+     4
+nPts =
+       60000
+nAllposes =
+    60
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 1, nPoseNew - 4                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P2: Angle(29) = 0.995855!
+P1-P2: Angle(52) = 0.649005!
+P1-P2: Angle(64) = 0.601497!
+P1-P2: Angle(257) = 0.768401!
+P1-P2: Angle(272) = 0.972607!
+P1-P2: Angle(311) = 0.678599!
+P1-P2: Angle(355) = 0.725617!
+P1-P2: Angle(412) = 0.995450!
+P1-P2: Angle(436) = 0.696186!
+P1-P2: Angle(438) = 0.536572!
+P1-P2: Angle(482) = 0.810669!
+P1-P2: Angle(574) = 0.867400!
+P1-P2: Angle(654) = 0.869690!
+P1-P2: Angle(657) = 0.716626!
+P1-P2: Angle(774) = 0.667137!
+P1-P2: Angle(781) = 0.574320!
+P1-P2: Angle(819) = 0.684156!
+P1-P2: Angle(952) = 0.774433!
+P1-P2: Angle(959) = 0.688811!
+P1-P2: Angle(1029) = 0.668791!
+P1-P2: Angle(1038) = 0.978500!
+P1-P2: Angle(1066) = 0.968371!
+P1-P2: Angle(1072) = 0.822991!
+P1-P2: Angle(1102) = 0.769321!
+P1-P2: Angle(1172) = 0.732675!
+P1-P2: Angle(1184) = 0.999566!
+P1-P2: Angle(1210) = 0.661723!
+P1-P2: Angle(1262) = 0.891526!
+P1-P2: Angle(1338) = 0.777183!
+P1-P2: Angle(1441) = 0.578650!
+
+30/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 30.594582 9.684921 13.728925 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.001837 -0.000512 -0.001050 0.000738 -0.001260 -0.002299 -0.000835 -0.001284 -0.002631 
+Trans: 0.000384 -0.000598 0.618484 0.003266 -0.000339 0.308868 0.010934 -0.001474 0.387298 
+Feature_1: 22.774323 7.187256 10.230569 ...]
+me =
+    9.5416
+id =
+    34
+times=0 chi2=30.90817652, maxE = 4.680314, id=96 JObject2Matrix
+maxDx = 7.918269
+times=1 chi2=1.19313134, maxE = 0.917415, id=96 JObject2Matrix
+maxDx = 3.003275
+times=2 chi2=0.12307027, maxE = 0.173897, id=71 JObject2Matrix
+maxDx = 0.420734
+times=3 chi2=0.12049543, maxE = 0.172199, id=71 JObject2Matrix
+maxDx = 0.095799
+times=4 chi2=0.12048560, maxE = 0.172019, id=71 JObject2Matrix
+maxDx = 0.010769
+times=5 chi2=0.12048535, maxE = 0.171917, id=71 JObject2Matrix
+maxDx = 0.002751
+times=6 chi2=0.12048534, maxE = 0.171899, id=71 JObject2Matrix
+maxDx = 0.000318
+times=7 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000086
+times=8 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000010
+times=9 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000003
+times=10 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+times=11 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+times=12 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+times=13 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+times=14 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+times=15 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 15
+nReason =
+     0
+Elapsed time is 1.379839 seconds.
+
+###Poses[x(1-18)], Features[x(19-54)], Velocity[x(55-66)]###
+Final Error: maxXef=2.920698, idx=43
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 4, nPoseNew - 5                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P5: Angle(52) = 0.874944!
+P1-P5: Angle(64) = 0.712147!
+P1-P5: Angle(355) = 0.931413!
+P1-P5: Angle(436) = 0.836049!
+P1-P5: Angle(438) = 0.773632!
+P1-P5: Angle(657) = 0.885336!
+P1-P5: Angle(774) = 0.956952!
+P1-P5: Angle(781) = 0.640446!
+P1-P5: Angle(819) = 0.911423!
+P1-P5: Angle(952) = 0.916423!
+P1-P5: Angle(959) = 0.846123!
+P1-P5: Angle(1029) = 0.798217!
+P1-P5: Angle(1072) = 0.989437!
+P1-P5: Angle(1102) = 0.995637!
+P1-P5: Angle(1172) = 0.955302!
+P1-P5: Angle(1210) = 0.938972!
+P1-P5: Angle(1338) = 0.978288!
+P1-P5: Angle(1441) = 0.796586!
+
+18/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000955 -0.001122 -0.000418 0.000539 -0.001326 -0.000633 0.000459 -0.000485 -0.000740 
+Trans: 0.004887 0.010181 0.782753 0.009892 0.018837 0.666727 0.018245 0.022128 0.968070 
+Feature_1: 46.237035 7.048508 -2.710837 ...]
+me =
+    5.5187
+id =
+    91
+times=0 chi2=1.45533753, maxE = 0.593826, id=109 JObject2Matrix
+maxDx = 2.587506
+times=1 chi2=0.13880726, maxE = 0.194519, id=195 JObject2Matrix
+maxDx = 0.564994
+times=2 chi2=0.13775754, maxE = 0.199271, id=15 JObject2Matrix
+maxDx = 0.042289
+times=3 chi2=0.13775591, maxE = 0.199524, id=15 JObject2Matrix
+maxDx = 0.004262
+times=4 chi2=0.13775590, maxE = 0.199552, id=15 JObject2Matrix
+maxDx = 0.000298
+times=5 chi2=0.13775590, maxE = 0.199553, id=15 JObject2Matrix
+maxDx = 0.000032
+times=6 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000002
+times=7 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000000
+times=10 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000000
+times=11 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 11
+nReason =
+     0
+Elapsed time is 1.275561 seconds.
+
+###Poses[x(1-24)], Features[x(25-96)], Velocity[x(97-111)]###
+Final Error: maxXef=4.210601, idx=70
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 5, nPoseNew - 6                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P6: Angle(64) = 0.939862!
+P1-P6: Angle(781) = 0.896972!
+P1-P6: Angle(1441) = 0.991747!
+
+3/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000786 -0.000341 0.000043 0.000303 -0.000105 0.000163 0.000151 -0.000250 0.000219 
+Trans: -0.004634 -0.012799 0.832505 -0.009170 -0.017862 0.730031 -0.012610 -0.019312 1.008720 
+Feature_1: 46.751452 7.155199 -2.746898 ...]
+me =
+    6.9275
+id =
+   130
+times=0 chi2=0.99045145, maxE = 0.723324, id=95 JObject2Matrix
+maxDx = 6.027881
+times=1 chi2=0.15490656, maxE = 0.212830, id=277 JObject2Matrix
+maxDx = 1.054499
+times=2 chi2=0.15010976, maxE = 0.204935, id=277 JObject2Matrix
+maxDx = 0.036767
+times=3 chi2=0.15010820, maxE = 0.204696, id=277 JObject2Matrix
+maxDx = 0.002442
+times=4 chi2=0.15010820, maxE = 0.204686, id=277 JObject2Matrix
+maxDx = 0.000141
+times=5 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000014
+times=6 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000001
+times=7 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000000
+times=10 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 10
+nReason =
+     0
+Elapsed time is 1.809422 seconds.
+
+###Poses[x(1-30)], Features[x(31-147)], Velocity[x(148-165)]###
+Final Error: maxXef=6.791097, idx=61
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 6, nPoseNew - 7                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P7: Angle(64) = 0.915671!
+P1-P7: Angle(438) = 0.926065!
+P1-P7: Angle(781) = 0.828767!
+P1-P7: Angle(1441) = 0.986089!
+
+4/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000509 -0.000611 0.000239 0.000172 -0.000460 0.000341 0.000328 -0.000627 0.000381 
+Trans: -0.003316 -0.016013 0.819772 -0.006607 -0.022297 0.711413 -0.008415 -0.023511 0.991066 
+Feature_1: 46.020701 7.051144 -2.698472 ...]
+me =
+    6.7911
+id =
+    67
+times=0 chi2=0.51892346, maxE = 0.701475, id=111 JObject2Matrix
+maxDx = 1.610918
+times=1 chi2=0.16277795, maxE = 0.226554, id=348 JObject2Matrix
+maxDx = 0.062067
+times=2 chi2=0.16274739, maxE = 0.223406, id=348 JObject2Matrix
+maxDx = 0.013445
+times=3 chi2=0.16274727, maxE = 0.223478, id=348 JObject2Matrix
+maxDx = 0.000333
+times=4 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000082
+times=5 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000003
+times=6 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000000
+times=10 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 10
+nReason =
+     0
+Elapsed time is 1.996466 seconds.
+
+###Poses[x(1-36)], Features[x(37-150)], Velocity[x(151-171)]###
+Final Error: maxXef=6.309183, idx=67
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 7, nPoseNew - 8                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P8: Angle(64) = 0.856830!
+P1-P8: Angle(438) = 0.992766!
+P1-P8: Angle(781) = 0.843302!
+
+3/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000663 -0.000684 0.000205 0.000311 -0.000532 0.000311 0.000376 -0.000654 0.000372 
+Trans: -0.003480 -0.013590 0.817586 -0.007093 -0.019661 0.708713 -0.009235 -0.022572 0.989499 
+Feature_1: 46.468779 7.118998 -2.728708 ...]
+me =
+    7.2743
+id =
+   157
+times=0 chi2=0.54054327, maxE = 0.608657, id=384 JObject2Matrix
+maxDx = 4.839435
+times=1 chi2=0.17075331, maxE = 0.252384, id=272 JObject2Matrix
+maxDx = 0.386630
+times=2 chi2=0.17021120, maxE = 0.255540, id=272 JObject2Matrix
+maxDx = 0.004601
+times=3 chi2=0.17021112, maxE = 0.255480, id=272 JObject2Matrix
+maxDx = 0.000288
+times=4 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000024
+times=5 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 2.038032 seconds.
+
+###Poses[x(1-42)], Features[x(43-159)], Velocity[x(160-183)]###
+Final Error: maxXef=5.595505, idx=73
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 8, nPoseNew - 9                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P9: Angle(64) = 0.891137!
+P1-P9: Angle(781) = 0.831354!
+
+2/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000521 -0.000663 0.000122 0.000152 -0.000428 0.000168 0.000171 -0.000543 0.000223 
+Trans: -0.001313 -0.009475 0.823960 -0.003704 -0.013011 0.719086 -0.005640 -0.015183 1.001562 
+Feature_1: 47.216463 7.229585 -2.778438 ...]
+me =
+    5.5955
+id =
+    79
+times=0 chi2=0.47018502, maxE = 0.744404, id=449 JObject2Matrix
+maxDx = 1.931558
+times=1 chi2=0.17926584, maxE = 0.272530, id=462 JObject2Matrix
+maxDx = 0.134906
+times=2 chi2=0.17923915, maxE = 0.272804, id=462 JObject2Matrix
+maxDx = 0.008859
+times=3 chi2=0.17923911, maxE = 0.272863, id=462 JObject2Matrix
+maxDx = 0.000502
+times=4 chi2=0.17923910, maxE = 0.272865, id=462 JObject2Matrix
+maxDx = 0.000036
+times=5 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
+maxDx = 0.000002
+times=6 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 2.501048 seconds.
+
+###Poses[x(1-48)], Features[x(49-168)], Velocity[x(169-195)]###
+Final Error: maxXef=5.235472, idx=79
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 9, nPoseNew - 10                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P1-P10: Angle(64) = 0.841919!
+P1-P10: Angle(781) = 0.771856!
+
+2/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000428 -0.000646 0.000013 0.000079 -0.000518 -0.000009 0.000198 -0.000667 0.000035 
+Trans: -0.000857 -0.004138 0.818256 -0.003138 -0.004409 0.709337 -0.005279 -0.005516 0.989405 
+Feature_1: 46.963700 7.192205 -2.765095 ...]
+me =
+    5.2355
+id =
+    85
+times=0 chi2=0.57530758, maxE = 1.093715, id=580 JObject2Matrix
+maxDx = 1.266100
+times=1 chi2=0.18069805, maxE = 0.298377, id=512 JObject2Matrix
+maxDx = 0.040537
+times=2 chi2=0.18069048, maxE = 0.298625, id=512 JObject2Matrix
+maxDx = 0.002725
+times=3 chi2=0.18069047, maxE = 0.298642, id=512 JObject2Matrix
+maxDx = 0.000068
+times=4 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000009
+times=5 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 2.752827 seconds.
+
+###Poses[x(1-54)], Features[x(55-174)], Velocity[x(175-204)]###
+Final Error: maxXef=5.686799, idx=133
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 10, nPoseNew - 11                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+0/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000442 -0.000719 0.000012 0.000088 -0.000553 -0.000011 0.000210 -0.000723 0.000030 
+Trans: -0.002061 -0.004286 0.819985 -0.005020 -0.004585 0.712324 -0.007334 -0.005574 0.993213 
+Feature_1: 47.730657 7.308400 -2.817187 ...]
+me =
+    5.6868
+id =
+   145
+times=0 chi2=0.78330654, maxE = 0.917194, id=681 JObject2Matrix
+maxDx = 3.450285
+times=1 chi2=0.18141905, maxE = 0.324743, id=606 JObject2Matrix
+maxDx = 0.148535
+times=2 chi2=0.18096743, maxE = 0.322197, id=606 JObject2Matrix
+maxDx = 0.003850
+times=3 chi2=0.18096741, maxE = 0.322201, id=606 JObject2Matrix
+maxDx = 0.000161
+times=4 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000014
+times=5 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 2.816898 seconds.
+
+###Poses[x(1-60)], Features[x(61-186)], Velocity[x(187-219)]###
+Final Error: maxXef=4.402809, idx=67
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 11, nPoseNew - 12                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+0/42 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000325 -0.000430 -0.000031 0.000047 -0.000223 -0.000073 0.000158 -0.000279 -0.000026 
+Trans: -0.002101 -0.002531 0.823164 -0.004557 -0.001627 0.717919 -0.006275 -0.002021 1.000505 
+Feature_1: 47.204049 7.225347 -2.788527 ...]
+me =
+    4.4028
+id =
+    73
+times=0 chi2=0.23837719, maxE = 0.459165, id=551 JObject2Matrix
+maxDx = 0.924076
+times=1 chi2=0.18251149, maxE = 0.310689, id=660 JObject2Matrix
+maxDx = 0.035960
+times=2 chi2=0.18250978, maxE = 0.310588, id=660 JObject2Matrix
+maxDx = 0.001593
+times=3 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000080
+times=4 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000004
+times=5 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 2.732662 seconds.
+
+###Poses[x(1-66)], Features[x(67-192)], Velocity[x(193-228)]###
+Final Error: maxXef=4.710068, idx=73
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 12, nPoseNew - 13                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P13: Angle(583) = 0.068261!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000321 -0.000453 -0.000003 0.000043 -0.000230 -0.000027 0.000153 -0.000290 0.000035 
+Trans: -0.003624 -0.004001 0.824041 -0.007165 -0.004234 0.719488 -0.009617 -0.005450 1.002590 
+Feature_1: 47.163206 7.220365 -2.783543 ...]
+me =
+    4.7101
+id =
+    79
+times=0 chi2=0.40046604, maxE = 0.702491, id=1078 JObject2Matrix
+maxDx = 1.612385
+times=1 chi2=0.18913109, maxE = 0.320120, id=714 JObject2Matrix
+maxDx = 0.034314
+times=2 chi2=0.18912310, maxE = 0.319791, id=714 JObject2Matrix
+maxDx = 0.002291
+times=3 chi2=0.18912309, maxE = 0.319787, id=714 JObject2Matrix
+maxDx = 0.000047
+times=4 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
+maxDx = 0.000006
+times=5 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 2.901986 seconds.
+
+###Poses[x(1-72)], Features[x(73-198)], Velocity[x(199-237)]###
+Final Error: maxXef=3.703459, idx=79
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 13, nPoseNew - 14                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P14: Angle(583) = 0.333143!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000367 -0.000371 -0.000030 0.000084 -0.000164 -0.000067 0.000210 -0.000196 -0.000017 
+Trans: -0.003835 -0.002881 0.823708 -0.007326 -0.002318 0.718926 -0.009624 -0.002967 1.001904 
+Feature_1: 47.040904 7.202265 -2.778142 ...]
+me =
+    3.7035
+id =
+    85
+times=0 chi2=0.52279663, maxE = 1.079895, id=84 JObject2Matrix
+maxDx = 1.150706
+times=1 chi2=0.19334255, maxE = 0.327261, id=768 JObject2Matrix
+maxDx = 0.020652
+times=2 chi2=0.19333876, maxE = 0.327523, id=768 JObject2Matrix
+maxDx = 0.002263
+times=3 chi2=0.19333876, maxE = 0.327520, id=768 JObject2Matrix
+maxDx = 0.000022
+times=4 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
+maxDx = 0.000005
+times=5 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 3.122651 seconds.
+
+###Poses[x(1-78)], Features[x(79-204)], Velocity[x(205-246)]###
+Final Error: maxXef=3.883179, idx=85
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 14, nPoseNew - 15                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P15: Angle(583) = 0.314002!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000367 -0.000439 -0.000055 0.000080 -0.000194 -0.000108 0.000203 -0.000239 -0.000070 
+Trans: -0.004074 -0.001574 0.825344 -0.007684 -0.000069 0.721886 -0.009987 -0.000061 1.005918 
+Feature_1: 47.299996 7.242317 -2.792970 ...]
+me =
+    3.8832
+id =
+    91
+times=0 chi2=0.34071031, maxE = 0.686414, id=389 JObject2Matrix
+maxDx = 0.894990
+times=1 chi2=0.19676427, maxE = 0.322797, id=822 JObject2Matrix
+maxDx = 0.076122
+times=2 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000727
+times=3 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000154
+times=4 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000003
+times=5 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 3.353565 seconds.
+
+###Poses[x(1-84)], Features[x(85-210)], Velocity[x(211-255)]###
+Final Error: maxXef=3.910509, idx=91
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 15, nPoseNew - 16                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P16: Angle(583) = 0.317028!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000401 -0.000545 -0.000088 0.000115 -0.000317 -0.000161 0.000252 -0.000408 -0.000139 
+Trans: -0.003954 0.000078 0.823774 -0.007714 0.002730 0.719043 -0.010288 0.003508 1.002062 
+Feature_1: 47.745389 7.311246 -2.823751 ...]
+me =
+    3.9105
+id =
+    97
+times=0 chi2=0.26797430, maxE = 0.567522, id=416 JObject2Matrix
+maxDx = 0.972938
+times=1 chi2=0.19714027, maxE = 0.322231, id=592 JObject2Matrix
+maxDx = 0.069910
+times=2 chi2=0.19713864, maxE = 0.322414, id=592 JObject2Matrix
+maxDx = 0.002145
+times=3 chi2=0.19713864, maxE = 0.322416, id=592 JObject2Matrix
+maxDx = 0.000208
+times=4 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000009
+times=5 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 3.877574 seconds.
+
+###Poses[x(1-90)], Features[x(91-216)], Velocity[x(217-264)]###
+Final Error: maxXef=4.689197, idx=160
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 16, nPoseNew - 17                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P17: Angle(583) = 0.413512!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000355 -0.000595 -0.000088 0.000076 -0.000370 -0.000165 0.000198 -0.000482 -0.000144 
+Trans: -0.004500 0.000290 0.823362 -0.008724 0.003113 0.718297 -0.011669 0.003992 1.001043 
+Feature_1: 48.006871 7.352257 -2.842521 ...]
+me =
+    4.6892
+id =
+   166
+times=0 chi2=0.21857728, maxE = 0.332685, id=1189 JObject2Matrix
+maxDx = 0.868493
+times=1 chi2=0.19689212, maxE = 0.319041, id=930 JObject2Matrix
+maxDx = 0.073171
+times=2 chi2=0.19689058, maxE = 0.318997, id=930 JObject2Matrix
+maxDx = 0.001008
+times=3 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000186
+times=4 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000006
+times=5 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 3.631757 seconds.
+
+###Poses[x(1-96)], Features[x(97-222)], Velocity[x(223-273)]###
+Final Error: maxXef=4.901517, idx=166
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 17, nPoseNew - 18                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P18: Angle(583) = 0.579622!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000369 -0.000669 -0.000092 0.000090 -0.000439 -0.000170 0.000216 -0.000579 -0.000149 
+Trans: -0.004810 0.000430 0.823205 -0.009359 0.003305 0.717979 -0.012579 0.004180 1.000558 
+Feature_1: 48.187816 7.378277 -2.852698 ...]
+me =
+    4.9015
+id =
+   172
+times=0 chi2=0.50083595, maxE = 0.954621, id=323 JObject2Matrix
+maxDx = 0.514374
+times=1 chi2=0.19998583, maxE = 0.319223, id=984 JObject2Matrix
+maxDx = 0.081517
+times=2 chi2=0.19998372, maxE = 0.319282, id=984 JObject2Matrix
+maxDx = 0.000394
+times=3 chi2=0.19998372, maxE = 0.319278, id=984 JObject2Matrix
+maxDx = 0.000236
+times=4 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000005
+times=5 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 4.304675 seconds.
+
+###Poses[x(1-102)], Features[x(103-228)], Velocity[x(229-282)]###
+Final Error: maxXef=4.872821, idx=109
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 18, nPoseNew - 19                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P19: Angle(583) = 0.460122!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000399 -0.000703 -0.000120 0.000119 -0.000484 -0.000215 0.000257 -0.000642 -0.000208 
+Trans: -0.004533 0.001886 0.822398 -0.008931 0.005762 0.716489 -0.012081 0.007309 0.998497 
+Feature_1: 48.100181 7.364719 -2.844292 ...]
+me =
+    4.8728
+id =
+   115
+times=0 chi2=0.41902073, maxE = 0.878723, id=1482 JObject2Matrix
+maxDx = 0.721583
+times=1 chi2=0.20220563, maxE = 0.316134, id=1038 JObject2Matrix
+maxDx = 0.007736
+times=2 chi2=0.20220435, maxE = 0.316276, id=1038 JObject2Matrix
+maxDx = 0.001637
+times=3 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000052
+times=4 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000005
+times=5 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 4.082189 seconds.
+
+###Poses[x(1-108)], Features[x(109-234)], Velocity[x(235-291)]###
+Final Error: maxXef=4.190440, idx=178
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 19, nPoseNew - 20                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P20: Angle(583) = 0.703995!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000408 -0.000644 -0.000123 0.000131 -0.000462 -0.000222 0.000273 -0.000609 -0.000218 
+Trans: -0.004251 0.002030 0.820798 -0.008428 0.006047 0.713590 -0.011465 0.007733 0.994552 
+Feature_1: 48.161475 7.375089 -2.855024 ...]
+me =
+    4.1904
+id =
+   184
+times=0 chi2=0.26079630, maxE = 0.501206, id=360 JObject2Matrix
+maxDx = 0.319114
+times=1 chi2=0.20100451, maxE = 0.316829, id=1092 JObject2Matrix
+maxDx = 0.003517
+times=2 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000170
+times=3 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000013
+times=4 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 4.332859 seconds.
+
+###Poses[x(1-114)], Features[x(115-240)], Velocity[x(241-300)]###
+Final Error: maxXef=4.270110, idx=184
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 20, nPoseNew - 21                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.756395!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000428 -0.000646 -0.000127 0.000147 -0.000452 -0.000227 0.000296 -0.000595 -0.000225 
+Trans: -0.003982 0.002145 0.821406 -0.007956 0.006257 0.714702 -0.010834 0.008037 0.996080 
+Feature_1: 48.248732 7.387590 -2.860933 ...]
+me =
+    4.2701
+id =
+   190
+times=0 chi2=0.28153265, maxE = 0.550422, id=1008 JObject2Matrix
+maxDx = 0.589039
+times=1 chi2=0.20337400, maxE = 0.317626, id=1146 JObject2Matrix
+maxDx = 0.018079
+times=2 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000574
+times=3 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000022
+times=4 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000001
+times=5 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 4.524294 seconds.
+
+###Poses[x(1-120)], Features[x(121-246)], Velocity[x(247-309)]###
+Final Error: maxXef=3.969447, idx=127
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 21, nPoseNew - 22                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.687709!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000437 -0.000617 -0.000130 0.000153 -0.000409 -0.000229 0.000304 -0.000536 -0.000226 
+Trans: -0.004500 0.002252 0.822294 -0.008738 0.006354 0.716346 -0.011716 0.008052 0.998365 
+Feature_1: 48.100604 7.365047 -2.849382 ...]
+me =
+    3.9694
+id =
+   133
+times=0 chi2=2.00626608, maxE = 0.844326, id=1404 JObject2Matrix
+maxDx = 0.588290
+times=1 chi2=0.20514038, maxE = 0.317467, id=1196 JObject2Matrix
+maxDx = 0.011815
+times=2 chi2=0.20513901, maxE = 0.317589, id=1196 JObject2Matrix
+maxDx = 0.000166
+times=3 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000029
+times=4 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000001
+times=5 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 4.633760 seconds.
+
+###Poses[x(1-126)], Features[x(127-252)], Velocity[x(253-318)]###
+Final Error: maxXef=4.421709, idx=133
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 22, nPoseNew - 23                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.682018!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000422 -0.000664 -0.000134 0.000139 -0.000438 -0.000237 0.000284 -0.000575 -0.000235 
+Trans: -0.004574 0.002572 0.823002 -0.008890 0.006880 0.717663 -0.011904 0.008684 1.000203 
+Feature_1: 48.164750 7.375711 -2.850656 ...]
+me =
+    4.4217
+id =
+   139
+times=0 chi2=1.25844857, maxE = 0.494101, id=1463 JObject2Matrix
+maxDx = 0.451205
+times=1 chi2=0.20882008, maxE = 0.319350, id=1246 JObject2Matrix
+maxDx = 0.082902
+times=2 chi2=0.20881907, maxE = 0.319318, id=1246 JObject2Matrix
+maxDx = 0.001834
+times=3 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000276
+times=4 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000010
+times=5 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 5.334483 seconds.
+
+###Poses[x(1-132)], Features[x(133-258)], Velocity[x(259-327)]###
+Final Error: maxXef=4.194200, idx=139
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 23, nPoseNew - 24                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.686654!
+
+1/43 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000429 -0.000636 -0.000141 0.000144 -0.000411 -0.000248 0.000292 -0.000536 -0.000247 
+Trans: -0.004496 0.002952 0.823039 -0.008752 0.007475 0.717811 -0.011740 0.009368 1.000513 
+Feature_1: 48.142977 7.372228 -2.850544 ...]
+me =
+    4.1942
+id =
+   145
+times=0 chi2=0.78940829, maxE = 0.497111, id=1476 JObject2Matrix
+maxDx = 1.589028
+times=1 chi2=0.20964563, maxE = 0.317513, id=1296 JObject2Matrix
+maxDx = 0.016720
+times=2 chi2=0.20963916, maxE = 0.317210, id=1296 JObject2Matrix
+maxDx = 0.004285
+times=3 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000063
+times=4 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000017
+times=5 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 5.592218 seconds.
+
+###Poses[x(1-138)], Features[x(139-264)], Velocity[x(265-336)]###
+Final Error: maxXef=5.501181, idx=145
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 24, nPoseNew - 25                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683654!
+P24-P25: Angle(1287) = 0.288987!
+
+2/44 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000450 -0.000860 -0.000157 0.000151 -0.000519 -0.000265 0.000299 -0.000678 -0.000268 
+Trans: -0.004714 0.003553 0.827564 -0.009317 0.008454 0.726460 -0.012504 0.010559 1.012888 
+Feature_1: 49.019068 7.506510 -2.900878 ...]
+me =
+    5.5012
+id =
+   151
+times=0 chi2=0.80101239, maxE = 0.856338, id=1634 JObject2Matrix
+maxDx = 0.942831
+times=1 chi2=0.20867121, maxE = 0.319221, id=1346 JObject2Matrix
+maxDx = 0.035746
+times=2 chi2=0.20866991, maxE = 0.318941, id=1346 JObject2Matrix
+maxDx = 0.002028
+times=3 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000151
+times=4 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000010
+times=5 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000001
+times=6 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000000
+times=9 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 9
+nReason =
+     0
+Elapsed time is 5.735119 seconds.
+
+###Poses[x(1-144)], Features[x(145-270)], Velocity[x(271-345)]###
+Final Error: maxXef=4.757224, idx=151
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 25, nPoseNew - 26                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683311!
+P24-P26: Angle(1287) = 0.625997!
+
+2/44 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000476 -0.000753 -0.000160 0.000177 -0.000441 -0.000270 0.000336 -0.000575 -0.000274 
+Trans: -0.004704 0.003667 0.826782 -0.009141 0.008608 0.724828 -0.012165 0.010725 1.010375 
+Feature_1: 48.681890 7.454603 -2.881006 ...]
+me =
+    4.7572
+id =
+   157
+times=0 chi2=0.53223915, maxE = 0.440974, id=249 JObject2Matrix
+maxDx = 2.113655
+times=1 chi2=0.21148913, maxE = 0.321754, id=1396 JObject2Matrix
+maxDx = 0.016343
+times=2 chi2=0.21144805, maxE = 0.320265, id=1396 JObject2Matrix
+maxDx = 0.003054
+times=3 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000095
+times=4 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000008
+times=5 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000000
+times=8 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 8
+nReason =
+     0
+Elapsed time is 5.368509 seconds.
+
+###Poses[x(1-150)], Features[x(151-276)], Velocity[x(277-354)]###
+Final Error: maxXef=2.958348, idx=157
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 26, nPoseNew - 27                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.684232!
+P26-P27: Angle(698) = 0.476449!
+
+2/45 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000433 -0.000410 -0.000143 0.000153 -0.000242 -0.000254 0.000305 -0.000309 -0.000254 
+Trans: -0.004549 0.003185 0.821794 -0.008484 0.007813 0.715191 -0.011121 0.009727 0.996457 
+Feature_1: 47.582289 7.286554 -2.821614 ...]
+me =
+    2.9583
+id =
+   163
+times=0 chi2=0.51986268, maxE = 0.603738, id=204 JObject2Matrix
+maxDx = 0.819737
+times=1 chi2=0.21070989, maxE = 0.315969, id=1446 JObject2Matrix
+maxDx = 0.011121
+times=2 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000397
+times=3 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000008
+times=4 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 7
+nReason =
+     0
+Elapsed time is 4.944058 seconds.
+
+###Poses[x(1-156)], Features[x(157-285)], Velocity[x(286-366)]###
+Final Error: maxXef=3.414100, idx=163
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 27, nPoseNew - 28                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683666!
+P26-P28: Angle(698) = 0.929685!
+
+2/46 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000459 -0.000515 -0.000156 0.000174 -0.000312 -0.000271 0.000333 -0.000402 -0.000277 
+Trans: -0.004322 0.003678 0.822769 -0.008184 0.008669 0.717146 -0.010758 0.010863 0.999372 
+Feature_1: 48.114443 7.368313 -2.858771 ...]
+me =
+    3.4141
+id =
+   169
+times=0 chi2=0.38843628, maxE = 0.476599, id=2099 JObject2Matrix
+maxDx = 1.237899
+times=1 chi2=0.21030206, maxE = 0.315900, id=1500 JObject2Matrix
+maxDx = 0.040005
+times=2 chi2=0.21028699, maxE = 0.315418, id=1500 JObject2Matrix
+maxDx = 0.000954
+times=3 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
+maxDx = 0.000027
+times=4 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
+maxDx = 0.000001
+times=5 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 7
+nReason =
+     0
+Elapsed time is 5.270730 seconds.
+
+###Poses[x(1-162)], Features[x(163-294)], Velocity[x(295-378)]###
+Final Error: maxXef=2.380843, idx=169
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 28, nPoseNew - 29                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P28-P29: Angle(407) = 0.649446!
+P12-P21: Angle(583) = 0.682974!
+
+2/47 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000434 -0.000318 -0.000152 0.000161 -0.000209 -0.000271 0.000316 -0.000264 -0.000277 
+Trans: -0.004185 0.003691 0.819375 -0.007737 0.008712 0.710660 -0.010093 0.010927 0.990099 
+Feature_1: 47.423791 7.262878 -2.821204 ...]
+me =
+    2.8825
+id =
+   238
+times=0 chi2=0.40046830, maxE = 0.702834, id=2378 JObject2Matrix
+maxDx = 2.082897
+times=1 chi2=0.21088811, maxE = 0.317898, id=1560 JObject2Matrix
+maxDx = 0.068035
+times=2 chi2=0.21087199, maxE = 0.317782, id=1560 JObject2Matrix
+maxDx = 0.000341
+times=3 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
+maxDx = 0.000017
+times=4 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
+maxDx = 0.000000
+times=7 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 7
+nReason =
+     0
+Elapsed time is 5.419843 seconds.
+
+###Poses[x(1-168)], Features[x(169-303)], Velocity[x(304-390)]###
+Final Error: maxXef=2.039655, idx=175
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 29, nPoseNew - 30                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683258!
+
+1/48 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000434 -0.000250 -0.000152 0.000163 -0.000162 -0.000272 0.000319 -0.000203 -0.000278 
+Trans: -0.004259 0.003717 0.818918 -0.007741 0.008751 0.709638 -0.010001 0.010978 0.988445 
+Feature_1: 47.173494 7.224368 -2.803983 ...]
+me =
+    3.6572
+id =
+   205
+times=0 chi2=0.36882166, maxE = 0.678737, id=767 JObject2Matrix
+maxDx = 1.866438
+times=1 chi2=0.21293875, maxE = 0.315892, id=1622 JObject2Matrix
+maxDx = 0.073207
+times=2 chi2=0.21293277, maxE = 0.315871, id=1622 JObject2Matrix
+maxDx = 0.000088
+times=3 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
+maxDx = 0.000005
+times=4 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 4.894537 seconds.
+
+###Poses[x(1-174)], Features[x(175-315)], Velocity[x(316-405)]###
+Final Error: maxXef=1.994323, idx=181
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 30, nPoseNew - 31                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.684758!
+P30-P31: Angle(850) = 0.731002!
+
+2/50 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000481 -0.000282 -0.000164 0.000203 -0.000172 -0.000287 0.000374 -0.000215 -0.000297 
+Trans: -0.004486 0.004095 0.819764 -0.008125 0.009340 0.711276 -0.010456 0.011692 0.990815 
+Feature_1: 47.325812 7.248279 -2.815086 ...]
+me =
+    1.9943
+id =
+   187
+times=0 chi2=0.32188218, maxE = 0.787418, id=1793 JObject2Matrix
+maxDx = 1.846095
+times=1 chi2=0.21214286, maxE = 0.315282, id=1682 JObject2Matrix
+maxDx = 0.113794
+times=2 chi2=0.21213433, maxE = 0.315237, id=1682 JObject2Matrix
+maxDx = 0.000359
+times=3 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.075040 seconds.
+
+###Poses[x(1-180)], Features[x(181-324)], Velocity[x(325-417)]###
+Final Error: maxXef=2.261794, idx=187
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 31, nPoseNew - 32                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683732!
+
+1/50 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000453 -0.000308 -0.000156 0.000177 -0.000189 -0.000275 0.000338 -0.000239 -0.000282 
+Trans: -0.004687 0.003746 0.820032 -0.008490 0.008782 0.711804 -0.010925 0.011010 0.991593 
+Feature_1: 47.453539 7.267504 -2.824487 ...]
+me =
+    2.6078
+id =
+   283
+times=0 chi2=0.26992465, maxE = 0.746310, id=2502 JObject2Matrix
+maxDx = 0.747366
+times=1 chi2=0.21301175, maxE = 0.307011, id=1036 JObject2Matrix
+maxDx = 0.013729
+times=2 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
+maxDx = 0.000193
+times=3 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
+maxDx = 0.000009
+times=4 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.237906 seconds.
+
+###Poses[x(1-186)], Features[x(187-333)], Velocity[x(334-429)]###
+Final Error: maxXef=2.064967, idx=193
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 32, nPoseNew - 33                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683418!
+P32-P33: Angle(1297) = 0.795267!
+
+2/51 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000449 -0.000272 -0.000158 0.000175 -0.000170 -0.000279 0.000336 -0.000213 -0.000288 
+Trans: -0.004967 0.003841 0.819439 -0.008848 0.008959 0.710657 -0.011262 0.011262 0.989933 
+Feature_1: 47.467397 7.268684 -2.831693 ...]
+me =
+    2.0650
+id =
+   199
+times=0 chi2=0.32332350, maxE = 0.686284, id=846 JObject2Matrix
+maxDx = 0.818842
+times=1 chi2=0.21330124, maxE = 0.304121, id=1068 JObject2Matrix
+maxDx = 0.006053
+times=2 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
+maxDx = 0.000155
+times=3 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
+maxDx = 0.000004
+times=4 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.436464 seconds.
+
+###Poses[x(1-192)], Features[x(193-339)], Velocity[x(340-438)]###
+Final Error: maxXef=1.711019, idx=199
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 33, nPoseNew - 34                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683742!
+
+1/52 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000467 -0.000231 -0.000163 0.000194 -0.000152 -0.000288 0.000361 -0.000186 -0.000298 
+Trans: -0.005082 0.004066 0.818514 -0.008982 0.009312 0.708995 -0.011388 0.011685 0.987699 
+Feature_1: 47.290615 7.241884 -2.820399 ...]
+me =
+    2.3829
+id =
+   259
+times=0 chi2=0.33726192, maxE = 0.838830, id=1144 JObject2Matrix
+maxDx = 1.519170
+times=1 chi2=0.21410465, maxE = 0.302606, id=1100 JObject2Matrix
+maxDx = 0.079505
+times=2 chi2=0.21409012, maxE = 0.302613, id=1100 JObject2Matrix
+maxDx = 0.000226
+times=3 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.651679 seconds.
+
+###Poses[x(1-198)], Features[x(199-351)], Velocity[x(352-453)]###
+Final Error: maxXef=1.733653, idx=205
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 34, nPoseNew - 35                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.684197!
+P34-P35: Angle(945) = 0.630505!
+
+2/54 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000470 -0.000241 -0.000164 0.000196 -0.000156 -0.000288 0.000363 -0.000190 -0.000298 
+Trans: -0.005287 0.004074 0.818679 -0.009324 0.009308 0.709378 -0.011802 0.011656 0.988333 
+Feature_1: 47.376778 7.254464 -2.825233 ...]
+me =
+    1.7337
+id =
+   211
+times=0 chi2=0.29621973, maxE = 0.703203, id=1269 JObject2Matrix
+maxDx = 0.456654
+times=1 chi2=0.21332004, maxE = 0.306026, id=1930 JObject2Matrix
+maxDx = 0.003573
+times=2 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
+maxDx = 0.000062
+times=3 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.746798 seconds.
+
+###Poses[x(1-204)], Features[x(205-360)], Velocity[x(361-465)]###
+Final Error: maxXef=1.917757, idx=211
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 35, nPoseNew - 36                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683643!
+
+1/54 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000466 -0.000274 -0.000165 0.000192 -0.000184 -0.000290 0.000358 -0.000227 -0.000301 
+Trans: -0.005340 0.004126 0.818747 -0.009444 0.009415 0.709543 -0.011967 0.011815 0.988618 
+Feature_1: 47.487824 7.271210 -2.833018 ...]
+me =
+    1.9178
+id =
+   217
+times=0 chi2=0.25397490, maxE = 0.476801, id=2472 JObject2Matrix
+maxDx = 0.586946
+times=1 chi2=0.21314065, maxE = 0.309955, id=1994 JObject2Matrix
+maxDx = 0.008307
+times=2 chi2=0.21314002, maxE = 0.309933, id=1994 JObject2Matrix
+maxDx = 0.000029
+times=3 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
+maxDx = 0.000005
+times=4 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 5.904671 seconds.
+
+###Poses[x(1-210)], Features[x(211-369)], Velocity[x(370-477)]###
+Final Error: maxXef=2.085397, idx=217
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 36, nPoseNew - 37                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683091!
+P36-P37: Angle(808) = 0.727736!
+
+2/55 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000459 -0.000302 -0.000165 0.000185 -0.000206 -0.000290 0.000349 -0.000257 -0.000301 
+Trans: -0.005521 0.004128 0.818823 -0.009762 0.009426 0.709712 -0.012364 0.011837 0.988891 
+Feature_1: 47.563341 7.282767 -2.837999 ...]
+me =
+    2.0854
+id =
+   223
+times=0 chi2=0.28614205, maxE = 0.878881, id=2543 JObject2Matrix
+maxDx = 0.477778
+times=1 chi2=0.21549653, maxE = 0.316253, id=2617 JObject2Matrix
+maxDx = 0.002690
+times=2 chi2=0.21549622, maxE = 0.315429, id=2617 JObject2Matrix
+maxDx = 0.000048
+times=3 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 6.080024 seconds.
+
+###Poses[x(1-216)], Features[x(217-375)], Velocity[x(376-486)]###
+Final Error: maxXef=2.234537, idx=223
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 37, nPoseNew - 38                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683060!
+P37-P38: Angle(1060) = 0.787031!
+
+2/56 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000448 -0.000327 -0.000163 0.000176 -0.000230 -0.000288 0.000336 -0.000289 -0.000298 
+Trans: -0.005784 0.004105 0.818756 -0.010288 0.009370 0.709617 -0.013102 0.011735 0.988823 
+Feature_1: 47.642319 7.295001 -2.842818 ...]
+me =
+    2.2345
+id =
+   229
+times=0 chi2=0.23803695, maxE = 0.487516, id=2608 JObject2Matrix
+maxDx = 0.427388
+times=1 chi2=0.21613811, maxE = 0.310549, id=2112 JObject2Matrix
+maxDx = 0.004048
+times=2 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
+maxDx = 0.000003
+times=3 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 5
+nReason =
+     0
+Elapsed time is 5.351337 seconds.
+
+###Poses[x(1-222)], Features[x(223-384)], Velocity[x(385-498)]###
+Final Error: maxXef=2.295778, idx=229
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 38, nPoseNew - 39                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P38-P39: Angle(117) = 0.834103!
+P12-P21: Angle(583) = 0.682918!
+P38-P39: Angle(604) = 0.579970!
+P38-P39: Angle(707) = 0.600803!
+P38-P39: Angle(1490) = 0.683423!
+
+5/61 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000446 -0.000337 -0.000164 0.000175 -0.000240 -0.000289 0.000334 -0.000305 -0.000299 
+Trans: -0.005582 0.004155 0.818679 -0.010027 0.009454 0.709439 -0.012884 0.011835 0.988523 
+Feature_1: 47.699724 7.303016 -2.847575 ...]
+me =
+    2.2958
+id =
+   235
+times=0 chi2=0.24829467, maxE = 0.490086, id=737 JObject2Matrix
+maxDx = 0.893172
+times=1 chi2=0.21538242, maxE = 0.308683, id=2168 JObject2Matrix
+maxDx = 0.013810
+times=2 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
+maxDx = 0.000037
+times=3 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
+maxDx = 0.000003
+times=4 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 6.484311 seconds.
+
+###Poses[x(1-228)], Features[x(229-396)], Velocity[x(397-513)]###
+Final Error: maxXef=2.339104, idx=385
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 39, nPoseNew - 40                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.682979!
+
+1/63 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000444 -0.000330 -0.000168 0.000173 -0.000237 -0.000297 0.000332 -0.000300 -0.000309 
+Trans: -0.005505 0.004417 0.818578 -0.009894 0.009892 0.709244 -0.012717 0.012382 0.988243 
+Feature_1: 47.671633 7.298914 -2.845921 ...]
+me =
+    3.2004
+id =
+   250
+times=0 chi2=0.34536513, maxE = 0.998192, id=3225 JObject2Matrix
+maxDx = 3.639340
+times=1 chi2=0.21428647, maxE = 0.307960, id=2250 JObject2Matrix
+maxDx = 0.255427
+times=2 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
+maxDx = 0.001133
+times=3 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 6.589045 seconds.
+
+###Poses[x(1-234)], Features[x(235-420)], Velocity[x(421-540)]###
+Final Error: maxXef=2.289939, idx=241
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 40, nPoseNew - 41                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.682920!
+P40-P41: Angle(1005) = 0.545039!
+
+2/64 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000446 -0.000334 -0.000163 0.000175 -0.000234 -0.000289 0.000334 -0.000297 -0.000298 
+Trans: -0.005721 0.004120 0.818896 -0.010229 0.009393 0.709822 -0.013098 0.011761 0.989027 
+Feature_1: 47.689189 7.301946 -2.846872 ...]
+me =
+    2.2899
+id =
+   247
+times=0 chi2=0.26471878, maxE = 0.547765, id=1048 JObject2Matrix
+maxDx = 1.095812
+times=1 chi2=0.21306434, maxE = 0.309129, id=2314 JObject2Matrix
+maxDx = 0.025618
+times=2 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
+maxDx = 0.000024
+times=3 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 6.820106 seconds.
+
+###Poses[x(1-240)], Features[x(241-426)], Velocity[x(427-549)]###
+Final Error: maxXef=2.287150, idx=247
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 41, nPoseNew - 42                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683055!
+
+1/64 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000448 -0.000336 -0.000164 0.000176 -0.000236 -0.000289 0.000337 -0.000299 -0.000299 
+Trans: -0.005806 0.004129 0.818894 -0.010354 0.009412 0.709826 -0.013231 0.011793 0.989040 
+Feature_1: 47.696916 7.303101 -2.848224 ...]
+me =
+    3.0445
+id =
+   380
+times=0 chi2=0.27108426, maxE = 0.627922, id=2761 JObject2Matrix
+maxDx = 1.850005
+times=1 chi2=0.21186872, maxE = 0.309990, id=2378 JObject2Matrix
+maxDx = 0.068132
+times=2 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
+maxDx = 0.000101
+times=3 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 5
+nReason =
+     0
+Elapsed time is 6.053857 seconds.
+
+###Poses[x(1-246)], Features[x(247-435)], Velocity[x(436-561)]###
+Final Error: maxXef=2.276270, idx=253
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 42, nPoseNew - 43                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683133!
+
+1/64 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000449 -0.000337 -0.000166 0.000178 -0.000238 -0.000293 0.000338 -0.000301 -0.000304 
+Trans: -0.005854 0.004228 0.818818 -0.010422 0.009579 0.709698 -0.013300 0.012003 0.988880 
+Feature_1: 47.680203 7.301144 -2.846115 ...]
+me =
+    2.2763
+id =
+   259
+times=0 chi2=0.24676345, maxE = 0.530157, id=3499 JObject2Matrix
+maxDx = 0.379879
+times=1 chi2=0.21275878, maxE = 0.310560, id=2442 JObject2Matrix
+maxDx = 0.005654
+times=2 chi2=0.21275872, maxE = 0.310552, id=2442 JObject2Matrix
+maxDx = 0.000018
+times=3 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
+maxDx = 0.000003
+times=4 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 7.121754 seconds.
+
+###Poses[x(1-252)], Features[x(253-441)], Velocity[x(442-570)]###
+Final Error: maxXef=2.279634, idx=259
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 43, nPoseNew - 44                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683025!
+P43-P44: Angle(622) = 0.432434!
+
+2/65 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000448 -0.000335 -0.000166 0.000176 -0.000234 -0.000294 0.000336 -0.000296 -0.000305 
+Trans: -0.005994 0.004262 0.818937 -0.010628 0.009632 0.709893 -0.013523 0.012066 0.989114 
+Feature_1: 47.675321 7.300559 -2.845397 ...]
+me =
+    2.2796
+id =
+   265
+times=0 chi2=0.39932742, maxE = 1.023603, id=3587 JObject2Matrix
+maxDx = 0.173217
+times=1 chi2=0.21343990, maxE = 0.310463, id=2504 JObject2Matrix
+maxDx = 0.004872
+times=2 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
+maxDx = 0.000036
+times=3 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 7.409192 seconds.
+
+###Poses[x(1-258)], Features[x(259-447)], Velocity[x(448-579)]###
+Final Error: maxXef=2.268564, idx=265
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 44, nPoseNew - 45                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683116!
+P43-P45: Angle(622) = 0.855819!
+P44-P45: Angle(712) = 0.275318!
+
+3/66 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000448 -0.000335 -0.000167 0.000177 -0.000236 -0.000294 0.000337 -0.000299 -0.000305 
+Trans: -0.006083 0.004277 0.818823 -0.010763 0.009655 0.709699 -0.013676 0.012090 0.988869 
+Feature_1: 47.679375 7.300670 -2.846456 ...]
+me =
+    2.2686
+id =
+   271
+times=0 chi2=0.29316220, maxE = 0.817874, id=3674 JObject2Matrix
+maxDx = 0.136071
+times=1 chi2=0.21315022, maxE = 0.308448, id=2564 JObject2Matrix
+maxDx = 0.000530
+times=2 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
+maxDx = 0.000001
+times=3 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 5
+nReason =
+     0
+Elapsed time is 6.502478 seconds.
+
+###Poses[x(1-264)], Features[x(265-453)], Velocity[x(454-588)]###
+Final Error: maxXef=2.227531, idx=271
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 45, nPoseNew - 46                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683317!
+P44-P46: Angle(712) = 0.540072!
+
+2/66 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000451 -0.000329 -0.000167 0.000179 -0.000230 -0.000294 0.000340 -0.000290 -0.000305 
+Trans: -0.006137 0.004266 0.818897 -0.010834 0.009631 0.709834 -0.013741 0.012054 0.989053 
+Feature_1: 47.665129 7.298674 -2.844903 ...]
+me =
+    2.2275
+id =
+   277
+times=0 chi2=0.28470959, maxE = 0.725592, id=3750 JObject2Matrix
+maxDx = 0.171600
+times=1 chi2=0.21210328, maxE = 0.308900, id=2632 JObject2Matrix
+maxDx = 0.001021
+times=2 chi2=0.21210314, maxE = 0.308905, id=2632 JObject2Matrix
+maxDx = 0.000032
+times=3 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 7.706405 seconds.
+
+###Poses[x(1-270)], Features[x(271-462)], Velocity[x(463-600)]###
+Final Error: maxXef=2.259492, idx=277
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 46, nPoseNew - 47                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683263!
+P46-P47: Angle(656) = 0.322832!
+P44-P47: Angle(712) = 0.794189!
+
+3/67 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000450 -0.000332 -0.000165 0.000178 -0.000230 -0.000291 0.000338 -0.000290 -0.000301 
+Trans: -0.006201 0.004172 0.819047 -0.010938 0.009473 0.710097 -0.013868 0.011858 0.989399 
+Feature_1: 47.685838 7.301597 -2.845906 ...]
+me =
+    2.2595
+id =
+   283
+times=0 chi2=0.22241433, maxE = 0.364411, id=896 JObject2Matrix
+maxDx = 0.101659
+times=1 chi2=0.21190312, maxE = 0.309442, id=3383 JObject2Matrix
+maxDx = 0.000317
+times=2 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
+maxDx = 0.000020
+times=3 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 5
+nReason =
+     0
+Elapsed time is 6.704888 seconds.
+
+###Poses[x(1-276)], Features[x(277-468)], Velocity[x(469-609)]###
+Final Error: maxXef=2.216702, idx=283
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 47, nPoseNew - 48                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P12-P21: Angle(583) = 0.683340!
+P46-P48: Angle(656) = 0.639011!
+
+2/67 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000449 -0.000325 -0.000167 0.000177 -0.000227 -0.000295 0.000338 -0.000287 -0.000306 
+Trans: -0.006139 0.004296 0.818862 -0.010840 0.009677 0.709750 -0.013758 0.012105 0.988909 
+Feature_1: 47.654285 7.296887 -2.844565 ...]
+me =
+    2.2167
+id =
+   289
+times=0 chi2=0.28246184, maxE = 0.794402, id=1785 JObject2Matrix
+maxDx = 0.116919
+times=1 chi2=0.21270069, maxE = 0.328074, id=4128 JObject2Matrix
+maxDx = 0.002891
+times=2 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
+maxDx = 0.000043
+times=3 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 7.979322 seconds.
+
+###Poses[x(1-282)], Features[x(283-477)], Velocity[x(478-621)]###
+Final Error: maxXef=2.156661, idx=289
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 48, nPoseNew - 49                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P48-P49: Angle(179) = 0.409647!
+P12-P21: Angle(583) = 0.683346!
+P46-P49: Angle(656) = 0.920664!
+P48-P49: Angle(1284) = 0.382192!
+
+4/69 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000448 -0.000312 -0.000169 0.000177 -0.000217 -0.000298 0.000337 -0.000274 -0.000310 
+Trans: -0.006158 0.004417 0.818835 -0.010847 0.009870 0.709662 -0.013751 0.012332 0.988737 
+Feature_1: 47.612464 7.290699 -2.841669 ...]
+me =
+    2.1567
+id =
+   295
+times=0 chi2=0.25798789, maxE = 0.805503, id=1230 JObject2Matrix
+maxDx = 0.082451
+times=1 chi2=0.21331460, maxE = 0.311175, id=1230 JObject2Matrix
+maxDx = 0.001535
+times=2 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
+maxDx = 0.000018
+times=3 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.161585 seconds.
+
+###Poses[x(1-288)], Features[x(289-483)], Velocity[x(484-630)]###
+Final Error: maxXef=2.098407, idx=295
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 49, nPoseNew - 50                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P48-P50: Angle(179) = 0.807463!
+P49-P50: Angle(480) = 0.337422!
+P12-P21: Angle(583) = 0.683424!
+P46-P49: Angle(656) = 0.917560!
+P48-P50: Angle(1284) = 0.758936!
+P49-P50: Angle(1410) = 0.447029!
+
+6/71 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000449 -0.000302 -0.000171 0.000178 -0.000210 -0.000301 0.000339 -0.000264 -0.000314 
+Trans: -0.006265 0.004523 0.818792 -0.010990 0.010038 0.709573 -0.013888 0.012530 0.988602 
+Feature_1: 47.584531 7.286382 -2.839674 ...]
+me =
+    2.0984
+id =
+   301
+times=0 chi2=0.27296555, maxE = 0.797519, id=3496 JObject2Matrix
+maxDx = 0.089035
+times=1 chi2=0.21316779, maxE = 0.311558, id=1242 JObject2Matrix
+maxDx = 0.001741
+times=2 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
+maxDx = 0.000037
+times=3 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.284135 seconds.
+
+###Poses[x(1-294)], Features[x(295-489)], Velocity[x(490-639)]###
+Final Error: maxXef=2.039592, idx=301
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 50, nPoseNew - 51                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P49-P51: Angle(480) = 0.659038!
+P50-P51: Angle(553) = 0.317754!
+P12-P21: Angle(583) = 0.683403!
+P46-P49: Angle(656) = 0.918370!
+P50-P51: Angle(1340) = 0.297212!
+P49-P51: Angle(1410) = 0.881801!
+
+6/73 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000447 -0.000291 -0.000174 0.000177 -0.000205 -0.000307 0.000338 -0.000258 -0.000320 
+Trans: -0.006173 0.004710 0.818562 -0.010836 0.010346 0.709123 -0.013708 0.012908 0.987950 
+Feature_1: 47.537980 7.279301 -2.836078 ...]
+me =
+    2.0396
+id =
+   307
+times=0 chi2=0.25507670, maxE = 0.759392, id=101 JObject2Matrix
+maxDx = 0.759868
+times=1 chi2=0.21293776, maxE = 0.308387, id=1262 JObject2Matrix
+maxDx = 0.014708
+times=2 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
+maxDx = 0.000057
+times=3 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.469373 seconds.
+
+###Poses[x(1-300)], Features[x(301-501)], Velocity[x(502-654)]###
+Final Error: maxXef=1.954096, idx=307
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 51, nPoseNew - 52                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P49-P52: Angle(480) = 0.980289!
+P50-P52: Angle(553) = 0.629893!
+P12-P21: Angle(583) = 0.683441!
+P46-P49: Angle(656) = 0.917823!
+P51-P52: Angle(1163) = 0.216009!
+P50-P52: Angle(1340) = 0.594768!
+
+6/74 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000445 -0.000275 -0.000177 0.000176 -0.000196 -0.000312 0.000337 -0.000246 -0.000326 
+Trans: -0.006167 0.004879 0.818337 -0.010808 0.010622 0.708681 -0.013663 0.013238 0.987302 
+Feature_1: 47.471356 7.269806 -2.832348 ...]
+me =
+    1.9541
+id =
+   313
+times=0 chi2=0.22573952, maxE = 0.489613, id=2686 JObject2Matrix
+maxDx = 0.458218
+times=1 chi2=0.21189073, maxE = 0.308388, id=1276 JObject2Matrix
+maxDx = 0.002933
+times=2 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
+maxDx = 0.000019
+times=3 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.481650 seconds.
+
+###Poses[x(1-306)], Features[x(307-510)], Velocity[x(511-666)]###
+Final Error: maxXef=1.932594, idx=313
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 52, nPoseNew - 53                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P50-P53: Angle(553) = 0.931555!
+P12-P21: Angle(583) = 0.683443!
+P46-P49: Angle(656) = 0.917086!
+P51-P53: Angle(1163) = 0.422497!
+P52-P53: Angle(1294) = 0.274924!
+P50-P53: Angle(1340) = 0.882391!
+
+6/75 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000444 -0.000272 -0.000178 0.000176 -0.000197 -0.000314 0.000337 -0.000246 -0.000329 
+Trans: -0.006221 0.004947 0.818184 -0.010889 0.010732 0.708402 -0.013756 0.013371 0.986922 
+Feature_1: 47.447669 7.266756 -2.830380 ...]
+me =
+    2.1460
+id =
+   371
+times=0 chi2=0.29884116, maxE = 1.184675, id=1789 JObject2Matrix
+maxDx = 1.055626
+times=1 chi2=0.21148396, maxE = 0.307442, id=3739 JObject2Matrix
+maxDx = 0.027182
+times=2 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
+maxDx = 0.000071
+times=3 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.671106 seconds.
+
+###Poses[x(1-312)], Features[x(313-519)], Velocity[x(520-678)]###
+Final Error: maxXef=1.974090, idx=319
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 53, nPoseNew - 54                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P53-P54: Angle(314) = 0.269881!
+P12-P21: Angle(583) = 0.683484!
+P46-P49: Angle(656) = 0.916972!
+P51-P54: Angle(1163) = 0.614730!
+P52-P54: Angle(1294) = 0.526664!
+
+5/76 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000446 -0.000281 -0.000176 0.000177 -0.000202 -0.000310 0.000338 -0.000253 -0.000324 
+Trans: -0.006286 0.004822 0.818306 -0.010998 0.010526 0.708655 -0.013882 0.013120 0.987308 
+Feature_1: 47.481329 7.271868 -2.832836 ...]
+me =
+    3.3037
+id =
+   389
+times=0 chi2=0.26276846, maxE = 0.722231, id=986 JObject2Matrix
+maxDx = 1.434065
+times=1 chi2=0.21158264, maxE = 0.309160, id=3799 JObject2Matrix
+maxDx = 0.034148
+times=2 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
+maxDx = 0.000028
+times=3 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 8.793153 seconds.
+
+###Poses[x(1-318)], Features[x(319-531)], Velocity[x(532-693)]###
+Final Error: maxXef=2.052826, idx=389
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 54, nPoseNew - 55                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P53-P55: Angle(314) = 0.526654!
+P54-P55: Angle(406) = 0.287078!
+P12-P21: Angle(583) = 0.683444!
+P46-P49: Angle(656) = 0.917223!
+P51-P55: Angle(1163) = 0.805822!
+P52-P55: Angle(1294) = 0.779086!
+P54-P55: Angle(1472) = 0.207976!
+P54-P55: Angle(1479) = 0.296696!
+
+8/79 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000445 -0.000284 -0.000176 0.000176 -0.000205 -0.000310 0.000337 -0.000257 -0.000325 
+Trans: -0.006327 0.004822 0.818247 -0.011068 0.010528 0.708551 -0.013972 0.013124 0.987167 
+Feature_1: 47.484505 7.272294 -2.833245 ...]
+me =
+    2.0528
+id =
+   395
+times=0 chi2=0.26206305, maxE = 0.962769, id=1732 JObject2Matrix
+maxDx = 0.219837
+times=1 chi2=0.21264447, maxE = 0.311222, id=3849 JObject2Matrix
+maxDx = 0.001207
+times=2 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
+maxDx = 0.000012
+times=3 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 5
+nReason =
+     0
+Elapsed time is 7.641790 seconds.
+
+###Poses[x(1-324)], Features[x(325-537)], Velocity[x(538-702)]###
+Final Error: maxXef=2.014820, idx=331
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 55, nPoseNew - 56                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P53-P56: Angle(314) = 0.780422!
+P54-P56: Angle(406) = 0.568195!
+P55-P56: Angle(447) = 0.248916!
+P12-P21: Angle(583) = 0.683415!
+P46-P49: Angle(656) = 0.917738!
+P51-P56: Angle(1163) = 0.994209!
+P55-P56: Angle(1238) = 0.408590!
+P54-P56: Angle(1472) = 0.413043!
+P54-P56: Angle(1479) = 0.587512!
+
+9/81 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000445 -0.000288 -0.000175 0.000176 -0.000206 -0.000308 0.000337 -0.000259 -0.000321 
+Trans: -0.006305 0.004741 0.818363 -0.011041 0.010395 0.708765 -0.013948 0.012960 0.987465 
+Feature_1: 47.503224 7.275160 -2.834218 ...]
+me =
+    2.0148
+id =
+   337
+times=0 chi2=0.24793742, maxE = 0.648453, id=398 JObject2Matrix
+maxDx = 0.146661
+times=1 chi2=0.21259491, maxE = 0.310504, id=3895 JObject2Matrix
+maxDx = 0.000812
+times=2 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
+maxDx = 0.000004
+times=3 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
+maxDx = 0.000000
+times=4 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 9.311622 seconds.
+
+###Poses[x(1-330)], Features[x(331-546)], Velocity[x(547-714)]###
+Final Error: maxXef=2.006170, idx=337
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 56, nPoseNew - 57                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P54-P57: Angle(406) = 0.848153!
+P55-P57: Angle(447) = 0.501149!
+P56-P57: Angle(492) = 0.265023!
+P12-P21: Angle(583) = 0.683426!
+P46-P49: Angle(656) = 0.917891!
+P55-P57: Angle(1238) = 0.812733!
+P54-P57: Angle(1472) = 0.615990!
+P56-P57: Angle(1476) = 0.107316!
+P54-P57: Angle(1479) = 0.875480!
+
+9/83 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000445 -0.000287 -0.000175 0.000176 -0.000207 -0.000309 0.000337 -0.000260 -0.000323 
+Trans: -0.006338 0.004778 0.818279 -0.011092 0.010455 0.708613 -0.014007 0.013034 0.987258 
+Feature_1: 47.495713 7.274020 -2.833814 ...]
+me =
+    2.3051
+id =
+   374
+times=0 chi2=0.27791639, maxE = 0.809910, id=3011 JObject2Matrix
+maxDx = 0.601792
+times=1 chi2=0.21180899, maxE = 0.309410, id=3949 JObject2Matrix
+maxDx = 0.005908
+times=2 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
+maxDx = 0.000005
+times=3 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 9.505692 seconds.
+
+###Poses[x(1-336)], Features[x(337-558)], Velocity[x(559-729)]###
+Final Error: maxXef=1.985971, idx=343
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 57, nPoseNew - 58                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P55-P58: Angle(447) = 0.738469!
+P56-P58: Angle(492) = 0.515590!
+P12-P21: Angle(583) = 0.683447!
+P46-P49: Angle(656) = 0.917817!
+P54-P58: Angle(1472) = 0.800409!
+P56-P57: Angle(1476) = 0.105387!
+
+6/83 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000444 -0.000285 -0.000176 0.000176 -0.000208 -0.000311 0.000337 -0.000262 -0.000325 
+Trans: -0.006334 0.004838 0.818109 -0.011086 0.010554 0.708305 -0.014006 0.013155 0.986840 
+Feature_1: 47.478290 7.271371 -2.832746 ...]
+me =
+    3.7921
+id =
+   389
+times=0 chi2=0.25518703, maxE = 0.909043, id=1617 JObject2Matrix
+maxDx = 1.486617
+times=1 chi2=0.21098106, maxE = 0.311724, id=4005 JObject2Matrix
+maxDx = 0.038489
+times=2 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
+maxDx = 0.000075
+times=3 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 9.511566 seconds.
+
+###Poses[x(1-342)], Features[x(343-573)], Velocity[x(574-747)]###
+Final Error: maxXef=2.686218, idx=389
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 58, nPoseNew - 59                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P55-P59: Angle(447) = 0.968840!
+P56-P59: Angle(492) = 0.755303!
+P58-P59: Angle(495) = 0.216467!
+P58-P59: Angle(501) = 0.176976!
+P12-P21: Angle(583) = 0.683420!
+P46-P49: Angle(656) = 0.918342!
+P58-P59: Angle(985) = 0.647985!
+P58-P59: Angle(1186) = 0.212600!
+P54-P59: Angle(1472) = 0.980115!
+P56-P57: Angle(1476) = 0.104953!
+
+10/87 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000447 -0.000303 -0.000173 0.000177 -0.000218 -0.000305 0.000338 -0.000274 -0.000317 
+Trans: -0.006421 0.004616 0.818412 -0.011242 0.010190 0.708897 -0.014194 0.012713 0.987702 
+Feature_1: 47.548607 7.282061 -2.837087 ...]
+me =
+    2.6862
+id =
+   395
+times=0 chi2=0.25469793, maxE = 0.866826, id=1830 JObject2Matrix
+maxDx = 0.377303
+times=1 chi2=0.21151823, maxE = 0.310481, id=4053 JObject2Matrix
+maxDx = 0.002972
+times=2 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
+maxDx = 0.000029
+times=3 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
+maxDx = 0.000002
+times=4 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 9.537219 seconds.
+
+###Poses[x(1-348)], Features[x(349-579)], Velocity[x(580-756)]###
+Final Error: maxXef=2.371183, idx=395
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+n%            PoseOld - 59, nPoseNew - 60                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+P59-P60: Angle(169) = 0.161626!
+P56-P60: Angle(492) = 0.988452!
+P58-P60: Angle(495) = 0.421014!
+P58-P60: Angle(501) = 0.341407!
+P12-P21: Angle(583) = 0.683474!
+P46-P49: Angle(656) = 0.917881!
+P59-P60: Angle(900) = 0.175261!
+P59-P60: Angle(917) = 0.227182!
+P58-P60: Angle(1186) = 0.415883!
+P56-P57: Angle(1476) = 0.104143!
+
+10/90 to be removed. 
+tid =
+     0
+Ground Truth Value:
+	 Xg_obj=[
+Ang: 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 
+Trans: 0.000000 0.000000 0.814803 0.000000 0.000000 0.703225 0.000000 0.000000 0.977447 
+Feature_1: 46.643367 7.134011 -2.781356 ...]
+
+Initial Value:
+	 X0=[
+Ang: 0.000446 -0.000297 -0.000174 0.000177 -0.000216 -0.000307 0.000338 -0.000272 -0.000321 
+Trans: -0.006404 0.004710 0.818219 -0.011209 0.010345 0.708544 -0.014154 0.012902 0.987215 
+Feature_1: 47.519543 7.277602 -2.835362 ...]
+me =
+    2.3712
+id =
+   401
+times=0 chi2=0.22322619, maxE = 0.465069, id=898 JObject2Matrix
+maxDx = 0.611089
+times=1 chi2=0.21196466, maxE = 0.310843, id=4115 JObject2Matrix
+maxDx = 0.005883
+times=2 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
+maxDx = 0.000030
+times=3 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
+maxDx = 0.000001
+times=4 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
+maxDx = 0.000000
+times=5 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
+maxDx = 0.000000
+times=6 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
+maxDx = 0.000000
+Iteration Times:	 N = 6
+nReason =
+     0
+Elapsed time is 9.725148 seconds.
+
+###Poses[x(1-354)], Features[x(355-594)], Velocity[x(595-774)]###
+Final Error: maxXef=2.121803, idx=401
