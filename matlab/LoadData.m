@@ -103,6 +103,6 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
             end
         end
                 
-        save('ImuTimestamps.mat', 'ImuTimestamps');
-        save('dtIMU.mat', 'dtIMU');
+        save( [ Data_config.TEMP_DIR 'ImuTimestamps.mat' ], 'ImuTimestamps' );
+        save( [ Data_config.TEMP_DIR 'dtIMU.mat' ], 'dtIMU' );
     end

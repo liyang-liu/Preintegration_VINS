@@ -1,9 +1,9 @@
 function e = fnCnUPredErr_lsqnonlin_general(x)
 
-    global InertialDelta_options
+    global InertialDelta_options Data_config
     
     addpath(genpath('IMU'));
-    load('consts.mat'); 
+    load( [ Data_config.TEMP_DIR 'consts.mat' ]); 
     %%%%
     %%%% Zobs is loaded
     %%%%
@@ -16,11 +16,11 @@ function e = fnCnUPredErr_lsqnonlin_general(x)
     %load('bUVonly.mat');
     %load('bVarBias.mat');
     
-    load('RptFeatureObs.mat');%obsfeatures
+    load( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ] );%obsfeatures
     
     if(InertialDelta_options.bUVonly == 0)
-        load('ImuTimestamps.mat');
-        load('dtIMU.mat');
+        load( [ Data_config.TEMP_DIR 'ImuTimestamps.mat' ] );
+        load( [ Data_config.TEMP_DIR 'dtIMU.mat' ] );
     else
         ImuTimestamps = [];
         dtIMU = [];

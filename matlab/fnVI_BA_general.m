@@ -1,7 +1,7 @@
 function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
                 fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
     
-    global InertialDelta_options
+    global InertialDelta_options Data_config
     
     
 	nReason = 0;
@@ -30,7 +30,7 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
         end
     end
     
-    load('Zobs.mat');
+    load( [ Data_config.TEMP_DIR 'Zobs.mat' ] );
     
     times = 0;    
     while(times < nMaxIter)

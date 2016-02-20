@@ -54,3 +54,4 @@ elseif ( InertialDelta_options.bDinuka )
 %         bAddZbf = 1; % Add pseudo observation of bias in acceleration or not
 %         bAddZbw = 1; % Add pseudo observation of bias in rotation or not           
 end
+

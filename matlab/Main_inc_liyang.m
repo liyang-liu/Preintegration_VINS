@@ -143,7 +143,7 @@ Rd = [];
         end
         
         if(InertialDelta_options.bMalaga == 1)
-            load([InertialDelta_options.DATA_DIR 'PBAFeature.mat']);
+            load([ Data_config.DATA_DIR 'PBAFeature.mat']);
             %RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, nMinObsTimes));
             %RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
             %RptFeatureObs = FeatureObs(RptFidSet, :);
@@ -226,7 +226,7 @@ Rd = [];
     if(nPoseNew == 25)
         aa = 1;
     end
-    %save('Xgt.mat','x');
+    
     % Show Pose-feature graph
     if((InertialDelta_options.bShowFnP == 1) && ((nPoseOld == 1) || (nPoseNew == nAllposes)))
         fnShowFeaturesnPoses(Xg_obj, nPoseNew, nPts, nIMUdata, 'Ground Truth Values');
@@ -239,15 +239,15 @@ Rd = [];
     Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params );
 
     %% Save data for nonlin method.
-    save('initX.mat','X_obj');
+    save( [ Data_config.TEMP_DIR 'initX.mat' ],'X_obj');
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
-    save('consts.mat','nIMUrate','K','Zobs','nPoseNew','nPts','SLAM_Params','dt','Jd');
-    save('Zobs.mat', 'Zobs'); 
-    save('RptFeatureObs.mat', 'RptFeatureObs'); 
+    save( [ Data_config.TEMP_DIR 'consts.mat' ],'nIMUrate','K','Zobs','nPoseNew','nPts','SLAM_Params','dt','Jd');
+    save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs'); 
+    save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs'); 
     
     %% Covariance matrix
     CovMatrixInv = fnCalcCovMatrixInv( SLAM_Params, Zobs, Rd, nPoseNew, nIMUdata );
-    save('CovMatrixInv.mat','CovMatrixInv', '-v7.3');    
+    save( [ Data_config.TEMP_DIR 'CovMatrixInv.mat' ], 'CovMatrixInv', '-v7.3');    
 
 
     tic
@@ -313,7 +313,7 @@ Rd = [];
             end        
         end
         
-        load(Data_config.gtFile);        
+        load( Data_config.gtFile );        
         figure(); hold on;
         if(InertialDelta_options.bMalaga == 1)
             % plot(GT_P0(:,4),GT_P0(:,6),'-+r');
@@ -344,7 +344,7 @@ Rd = [];
         title('Pose Translational Error');
         
     %%%%%%%%%%%%    
-        save('x_Jac.mat', 'X_obj');
+        save( [ Data_config.TEMP_DIR 'x_Jac.mat' ], 'X_obj');
         
         %% Show pose-feature graph
         if((InertialDelta_options.bShowFnP == 1) && (nPoseNew == nAllposes))

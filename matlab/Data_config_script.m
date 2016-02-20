@@ -1,3 +1,4 @@
+Data_config.BASE_DIR = pwd;
 
 if(InertialDelta_options.bMalaga == 1)
     Data_config.imufulldata = IMUparking6L;
@@ -9,3 +10,18 @@ elseif(InertialDelta_options.bDinuka == 1)
     Data_config.gtVelfulldir = [Data_config.DATA_DIR 'velocity_ground_truth.mat'];
     Data_config.gtFile = [Data_config.DATA_DIR 'gtIMUposes.mat'];    
 end
+
+
+% create temporary working directory
+Data_config.TEMP_DIR = [ Data_config.BASE_DIR filesep '..' filesep 'temp' filesep ];
+if ( ~exist( Data_config.TEMP_DIR, 'dir') )
+    mkdir ( Data_config.TEMP_DIR )
+end
+display( [' !!! Temporary working directory: \"' Data_config.TEMP_DIR '\" !!!' ] );
+
+% create result dir
+Data_config.RESULT_DIR = [ Data_config.BASE_DIR filesep '..' filesep 'result' filesep ];
+if ( ~exist( Data_config.RESULT_DIR, 'dir') )
+    mkdir ( Data_config.RESULT_DIR )
+end
+display( [' !!! Result directory: \"' Data_config.RESULT_DIR '\" !!!' ] );

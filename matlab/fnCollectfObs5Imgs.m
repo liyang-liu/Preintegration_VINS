@@ -1,15 +1,15 @@
 function [FeatureObs] = fnCollectfObs5Imgs( kfids, pid, imgdir, sigma_uov_real, FeatureObs )
-    global InertialDelta_options
+    global InertialDelta_options Data_config
 
             if(InertialDelta_options.bMalaga == 1)
-                load(sprintf('%sImage%d.mat', imgdir, pid));
+                load( sprintf('%sImage%d.mat', imgdir, pid ) );
 %                 obsfeatures{pid} = Image(2:end, 1:3);
                 fidset = Image(2:end, 1);
                 
             elseif(InertialDelta_options.bDinuka == 1)
                 
                 imid = kfids(pid);%1+(pid-1)*kfspan);
-                load(sprintf('%simage_%d.mat', imgdir, imid));
+                load( sprintf( '%simage_%d.mat', imgdir, imid ) );
 %                 obsfeatures{pid} = features;
                 fidset = features(:, 1);            
                 
