@@ -1,6 +1,6 @@
 function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
     nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
-    x, xcol, dtIMU, dp, dv, g0, bf0, imufulldata)    
+    x, xcol, dtIMU, dp, dv, SLAM_Params, imufulldata)    
     
     global InertialDelta_options
     
@@ -23,7 +23,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
             %idend = idend + 3;
             %tv(idstart:idend, 1) = (x(4:6,1)-0.5*dtIMU(2)*dtIMU(2)*g0-dp(:,2))/(dtIMU(2)); 
             tid = tid + 1;
-            tv(tid).xyz = (x.pose(1).trans.val - 0.5*dtIMU(2)*dtIMU(2)*g0 - dp(:,2))/(dtIMU(2));
+            tv(tid).xyz = (x.pose(1).trans.val - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0 - dp(:,2)) / (dtIMU(2));
             
             tv(tid).col = (1:3) + xcol;   
             xcol = xcol + 3;
@@ -41,8 +41,8 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
           %tv(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dtIMU(pid+1)...
           %    *dtIMU(pid+1)*g0-Ri'*dp(:,(pid+1)))/(dtIMU(pid+1));%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
           
-          tv(tid).xyz = ( x.pose(pid).trans.val - x.pose(pid-1).trans.val - 0.5*dtIMU(pid+1) ...
-              *dtIMU(pid+1)*g0 - Ri' * dp(:, (pid+1))) / dtIMU(pid+1);
+          tv(tid).xyz = ( x.pose(pid).trans.val - x.pose(pid-1).trans.val - 0.5 * dtIMU(pid+1) ...
+              * dtIMU(pid+1) * SLAM_Params.g0 - Ri' * dp(:, (pid+1))) / dtIMU(pid+1);
           tv(tid).col = (1:3) + xcol;   
           xcol = xcol + 3;
         end
@@ -57,7 +57,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
         %if(idstart > 3)
             %tv(idstart:idend) = tv((idstart-3):(idend-3), 1)+dtIMU(nPoseNew)*g0...
             %    +Ri'*dv(:,nPoseNew);             
-            tv(tid).xyz = tv(tid-1).xyz + dtIMU(nPoseNew) * g0 + Ri' * dv(:,nPoseNew);
+            tv(tid).xyz = tv(tid-1).xyz + dtIMU(nPoseNew) * SLAM_Params.g0 + Ri' * dv(:,nPoseNew);
             tv(tid).col = (1:3) + xcol;   
             xcol = xcol + 3;
 
@@ -67,7 +67,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
            %    +Ri'*dv(:,nPoseNew);    
            %tv(nPoseNew).xyz = x((idx+1):(idx+3), 1)+dtIMU(nPoseNew)*g0...
            %    +Ri'*dv(:,nPoseNew);    
-           tv(tid).xyz = x.velocity(nPoseNew - 1).xyz + dtIMU(nPoseNew) * g0...
+           tv(tid).xyz = x.velocity(nPoseNew - 1).xyz + dtIMU(nPoseNew) * SLAM_Params.g0...
                                 + Ri' * dv(:,nPoseNew);    
            tv(tid).col = (1:3) + xcol;   
            xcol = xcol + 3;
@@ -81,7 +81,8 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
         if(nPoseOld == 1)
             idstart = idend + 1;
             idend = idend + 3; 
-            tv(idstart:idend, 1) = (x(4:6,1)-0.5*dt*dt*g0-0.5*dt*dt*((imufulldata(ImuTimestamps(1), 2:4))'-bf0))/dt; 
+            tv(idstart:idend, 1) = (x(4:6,1)-0.5 * dt * dt * SLAM_Params.g0 ...
+                - 0.5 * dt * dt * ((imufulldata(ImuTimestamps(1), 2:4))' - bf0)) / dt; 
         end
         nIMUdata_Old = ImuTimestamps(nPoseOld) - ImuTimestamps(1)+1;
         pid_start = nIMUdata_Old+1;
@@ -91,7 +92,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
           idend = idend + 3;
           Ri = fnR5ABG(x(6*(pid-2)+1),x(6*(pid-2)+2),x(6*(pid-2)+3));
           tv(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dt...
-              *dt*g0-Ri'*0.5*dt*dt*((imufulldata(ImuTimestamps(1)+pid, 2:4))'-bf0))/dt;%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
+              * dt * SLAM_Params.g0 - Ri' * 0.5 * dt * dt * ((imufulldata(ImuTimestamps(1)+pid, 2:4))' - SLAM_Params.bf0))/dt;%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
         end
         % The velocity of the last pose.
         idstart = idend + 1;

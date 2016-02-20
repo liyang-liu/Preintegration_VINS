@@ -1,4 +1,4 @@
-function Z_obj = InertialDelta_InitZ( nPoseNew, nPts )
+function Z_obj = InertialDelta_CreateZ( nPoseNew, nPts )
     global InertialDelta_options
     
     UV_Def = struct( ...

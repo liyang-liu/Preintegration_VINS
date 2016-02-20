@@ -1,6 +1,6 @@
 function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPoses5IMUdata_Inc(nPoseOld, ...
-                nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, g0, dp, dv, dphi, ...
-                K, Feature3D, RptFidSet, RptFeatureObs, Tu2c, Ru2c)
+                nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
+                K, Feature3D, RptFidSet, RptFeatureObs, SLAM_Params)
             
     global InertialDelta_options
     
@@ -18,23 +18,23 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPo
     Rimu = cat(3, R0imu, Rimu);
     
     for(pid=1:nPoseOld)
-        Tcam(:, pid) = Ru2c*(T0imu(:,pid) - Tu2c + (R0imu(:,:,pid))'*Tu2c);
-        Rcam(:,:,pid) = Ru2c*R0imu(:,:,pid)*Ru2c';
+        Tcam(:, pid) = SLAM_Params.Ru2c * (T0imu(:,pid) - SLAM_Params.Tu2c + (R0imu(:,:,pid))' * SLAM_Params.Tu2c);
+        Rcam(:,:,pid) = SLAM_Params.Ru2c * R0imu(:,:,pid) * SLAM_Params.Ru2c';
         [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABG5R(Rcam(:,:,pid));  
     end
     
     for(pid = (nPoseOld+1):nPoseNew)%2:(nPoses+1))
         
-       vimu(:, pid) = vimu(:, pid-1) + dtIMU(pid)*g0 + ...
-           (Rimu(:,:,pid-1))'*dv(:,pid);
+       vimu(:, pid) = vimu(:, pid-1) + dtIMU(pid) * SLAM_Params.g0 + ...
+           (Rimu(:,:,pid-1))' * dv(:,pid);
        Timu(:, pid) = Timu(:, pid-1) + dtIMU(pid)*vimu(:, pid-1)...// (+vimu(:, pid))
-          +0.5*dtIMU(pid)*dtIMU(pid)*g0+...
-           (Rimu(:,:,pid-1))'*dp(:, pid);       
+          + 0.5 * dtIMU(pid) * dtIMU(pid) * SLAM_Params.g0 + ...
+           (Rimu(:,:,pid-1))' * dp(:, pid);       
        dR = fnR5ABG(dphi(1, pid), dphi(2, pid), dphi(3, pid));
        Rimu(:,:,pid) = dR * Rimu(:,:,pid-1);
 
-       Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + (Rimu(:,:,pid))'*Tu2c);
-       Rcam(:,:,pid) = Ru2c*Rimu(:,:,pid)*Ru2c';
+       Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + (Rimu(:,:,pid))' * SLAM_Params.Tu2c);
+       Rcam(:,:,pid) = SLAM_Params.Ru2c * Rimu(:,:,pid) * SLAM_Params.Ru2c';
        [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABG5R(Rcam(:,:,pid));
        
     end

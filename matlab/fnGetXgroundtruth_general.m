@@ -1,8 +1,7 @@
 function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 ImuTimestamps, gtIMUposes, selpids, nPts, PBAFeature, ...
                 RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, ...
-                dp, dv, Au2c, Ru2c, Tu2c, ...
-                gtVelfulldir, g_true, bf_true, bw_true)
+                dp, dv, gtVelfulldir, SLAM_Params)
 
         global InertialDelta_options
             
@@ -20,9 +19,9 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             % Rc1u = Rcam * Ru2c; Tc1u = Tu2c + Ru2c'*Tcam
             for(pid=1:(nPoseNew))% correspond to pose 1...n
                 Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
-                Rimu = Ru2c'*Rcam*Ru2c;
+                Rimu = SLAM_Params.Ru2c' * Rcam * SLAM_Params.Ru2c;
                 [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-                Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
+                Timu(:, pid) = SLAM_Params.Tu2c + SLAM_Params.Ru2c' * Tcam(:, pid) - Rimu' * SLAM_Params.Tu2c;
             end   
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
             if(bPreInt == 1)
@@ -38,7 +37,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             for(pid=1:nPoseNew)
                 % Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
                 Rimu = fnR5ABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
-                Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+                Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c);
             end
             if(InertialDelta_options.bPreInt == 1)
                 [xg] = fnCal9RelativePoses(xg, nPoseNew, tv);
@@ -58,7 +57,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
         idend = idend + 3*nPts;    
         if(InertialDelta_options.bMalaga == 1)
             tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features
-            Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);
+            Pf1u = SLAM_Params.Ru2c' * tv + repmat(SLAM_Params.Tu2c, 1, nPts);
         elseif(InertialDelta_options.bDinuka == 1)
             load([datadir 'feature_pos.mat']);
             tv = feature_pos(RptFidSet, :)';
@@ -104,20 +103,20 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             %% g
             %idstart = idend + 1; idend = idend + 3;
             %xg(idstart:idend) = g_true;
-            xg.g.val = g_true;
+            xg.g.val = SLAM_Params.g_true;
         end
          %% Au2c, Tu2c
         %idstart = idend + 1; idend = idend + 6;
         %xg(idstart:idend) = [Au2c;Tu2c];
-        xg.Au2c.val = Au2c;
-        xg.Tu2c.val = Tu2c;
+        xg.Au2c.val = SLAM_Params.Au2c_true;
+        xg.Tu2c.val = SLAM_Params.Tu2c_true;
         if(InertialDelta_options.bUVonly == 0)
             %% bf, bw
             if(InertialDelta_options.bVarBias == 0)
                 %idstart = idend + 1; idend = idend + 6;
                 %xg(idstart:idend) = [bf_true;bw_true];
-                xg.Bf.val = bf_true;
-                xg.Bw.val = bw_true;
+                xg.Bf.val = SLAM_Params.bf_true;
+                xg.Bw.val = SLAM_Params.bw_true;
             else
                 idstart = idend + 1; idend = idend + 6*(nPoseNew-1);
                 xg(idstart:idend) = repmat([bf_true;bw_true],nPoseNew-1, 1);

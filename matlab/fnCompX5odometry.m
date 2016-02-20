@@ -1,9 +1,8 @@
 function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
                     nPoseOld, nPoseNew, nPoses, nPts, x_old, ...
                     ImuTimestamps, nIMUdata, nIMUdata_old, Feature3D, RptFidSet, ...
-                    RptFidSet_old, dtIMU, g0, dp, dv, dphi, K, RptFeatureObs, ...
-                    Tu2c, Au2c, Ru2c, fscaleGT, kfids, nIMUrate, ...
-                    X, bf0, bw0, imufulldata)
+                    RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
+                    fscaleGT, kfids, nIMUrate, X, SLAM_Params, imufulldata )
    
     global InertialDelta_options
     
@@ -53,8 +52,8 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
      if(InertialDelta_options.bIMUodo == 1)
         %% Obtain initial poses from IMU data
         [Rcam, ~, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPoses5IMUdata_Inc(nPoseOld, ...
-            nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, g0, dp, dv, dphi, ...
-            K, Feature3D, RptFidSet, RptFeatureObs, Tu2c, Ru2c);
+            nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
+            K, Feature3D, RptFidSet, RptFeatureObs, SLAM_Params );
         nPts = size(RptFidSet,1);
     else
         %% obtain relative poses from visual odometry
@@ -66,9 +65,9 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
     Timu = zeros(3, nPoseNew);%nPoses+1); % ABGimu = zeros(3, nPoses);            
 
     for(pid=(nPoseOld+1):nPoseNew)%(nPoses+1))% correspond to pose 1...n
-        Rimu = Ru2c'*Rcam(:,:,pid)*Ru2c;
+        Rimu = SLAM_Params.Ru2c' * Rcam(:,:,pid) * SLAM_Params.Ru2c;
         [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-        Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
+        Timu(:, pid) = SLAM_Params.Tu2c + SLAM_Params.Ru2c' * Tcam(:, pid) - Rimu' * SLAM_Params.Tu2c;
     end
 
     %% Combine old and new poses into X        
@@ -113,7 +112,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
         idend = 6*nIMUdata; 
         [upos, uvel] = fnIMUnonPreIntPoses_Inc(nPoseNew, nPoseOld, ABGimu0, ...
             T0imu(:,nPoseOld), v0imu(:, nPoseOld), imufulldata, ... % Timu0, vimu0
-            ImuTimestamps, nIMUrate, bf0, bw0, g0);
+            ImuTimestamps, nIMUrate, SLAM_Params );
         X(idstart:idend) = upos;
     end % if PreInt
 
@@ -125,7 +124,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
     for fidx=1:actualNumFeatures
         fid = RptFidSet(fidx);
         tv = Feature3D(fid).triangs(1).p3D ; 
-        Pf1u = Ru2c'*tv + Tu2c;
+        Pf1u = SLAM_Params.Ru2c' * tv + SLAM_Params.Tu2c;
         
         X.feature(fidx).xyz = Pf1u;
         X.feature(fidx).col = (1:3) + xcol;
@@ -180,7 +179,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
         
         [tv,xcol,~] = fnCalV5Kposes_Inc( nPoseNew, nPoseOld, ...
                         nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
-                        X, xcol, dtIMU, dp, dv, g0, bf0, imufulldata );
+                        X, xcol, dtIMU, dp, dv, SLAM_Params,imufulldata );
                     
         if(InertialDelta_options.bPreInt == 1)
             %idstart = idend + 1;
@@ -208,7 +207,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
         % Intial values of g 
         %idstart = idend + 1; idend = idend + 3;
         %X(idstart:idend) = g0;%[0,0,-9.8]';           
-        X.g.val = g0;
+        X.g.val = SLAM_Params.g0;
         X.g.col = (1:3) + xcol;
         xcol = xcol + 3;
         
@@ -217,20 +216,20 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
     %% Au2c, Tu2c
     %idstart = idend + 1; idend = idend + 6;
     %X(idstart:idend) = [Au2c;Tu2c];
-    X.Au2c.val = Au2c;
+    X.Au2c.val = SLAM_Params.Au2c;
     X.Au2c.col = (1:3) + xcol ;    xcol = xcol + 3;
     
-    X.Tu2c.val = Tu2c;
+    X.Tu2c.val = SLAM_Params.Tu2c;
     X.Tu2c.col = (1:3) + xcol ;    xcol = xcol + 3;
     if(InertialDelta_options.bUVonly == 0)
         %% bf, bw
         if(InertialDelta_options.bVarBias == 0)
             %idstart = idend + 1; idend = idend + 6;
             %X(idstart:idend) = [bf0;bw0];%zeros(6,1);  
-            X.Bf.val = bf0;
+            X.Bf.val = SLAM_Params.bf0;
             X.Bf.col = (1:3) + xcol ;    xcol = xcol + 3;
             
-            X.Bw.val = bw0;
+            X.Bw.val = SLAM_Params.bw0;
             X.Bw.col = (1:3) + xcol ;    xcol = xcol + 3;
         else
             idstart = idend + 1; idend = idend + 6*(nPoseNew-1);                
