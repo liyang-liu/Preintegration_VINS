@@ -2,7 +2,7 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
 
     global InertialDelta_options
 
-    display('JObject2Matrix');
+    %display('JObject2Matrix');
     
     J_vec = [];
     J_row = [];

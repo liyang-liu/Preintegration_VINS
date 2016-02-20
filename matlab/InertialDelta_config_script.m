@@ -37,3 +37,20 @@ InertialDelta_options.kfspan = 10;%1;%2;%5;%10;%20;%15;%50;%30;% Choose keyframe
 InertialDelta_options.nMinObsTimes = 2;%10;%5;%3;%50;%30;%20;%4;%6;%
 InertialDelta_options.fMaxDistance = 1e6;%50;%1e2;%5e2;%80;%30;%20;%10;%84;%60;
 InertialDelta_options.nPts = 60000;%15000;%6640;%3243;%800;%14172;%1614;%58404;%
+
+if ( InertialDelta_options.bMalaga )
+%     bPerfectIMUdlt = 1;   
+%         bAddZg = 1; % Add pseudo observation of g or not
+%         bAddZau2c = 1; % Add pseudo observation of the relative rotation from IMU to camera or not
+%         bAddZtu2c = 1; % Add pseudo observation of the relative translation from IMU to camera or not   
+%         bAddZbf = 0; % Add pseudo observation of bias in acceleration or not
+%         bAddZbw = 0; % Add pseudo observation of bias in rotation or not    
+
+elseif ( InertialDelta_options.bDinuka )
+%     bPerfectIMUdlt = 1;
+%         bAddZg = 1; % Add pseudo observation of g or not
+%         bAddZau2c = 1; % Add pseudo observation of the relative rotation from IMU to camera or not
+%         bAddZtu2c = 1; % Add pseudo observation of the relative translation from IMU to camera or not   
+%         bAddZbf = 1; % Add pseudo observation of bias in acceleration or not
+%         bAddZbw = 1; % Add pseudo observation of bias in rotation or not           
+end

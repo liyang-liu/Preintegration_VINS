@@ -49,8 +49,8 @@ function e = fnCnUPredErr_lsqnonlin_general(x)
     e  = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoseNew, nPts, ImuTimestamps );
 
     % 2. IMU dlt error:
-    ePreInt = fnIMUdltErr_general(x, Zobs, nPoseNew, nPts, bf0, ...
-                            bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
+    ePreInt = fnIMUdltErr_general(x, Zobs, nPoseNew, nPts, SLAM_Params.bf0, ...
+                            SLAM_Params.bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
     e.intlDelta =  ePreInt.intlDelta;
     e.Au2c      =  ePreInt.Au2c;
