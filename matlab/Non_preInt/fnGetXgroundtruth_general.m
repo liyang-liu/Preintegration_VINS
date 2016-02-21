@@ -24,8 +24,8 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 Timu(:, pid) = SLAM_Params.Tu2c + SLAM_Params.Ru2c' * Tcam(:, pid) - Rimu' * SLAM_Params.Tu2c;
             end   
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
-
-               xg(1:((nPoseNew-1)*6)) = tv(:);
+           [xg] = fnLinearInterpPoses(nPoseNew, ABGimu, Timu, ImuTimestamps, xg);
+           
         elseif(InertialDelta_options.bDinuka == 1)
             tv = (gtIMUposes(selpids(1:(nPoseNew)), 2:7))';
             ABGimu = tv(1:3, :);
@@ -36,11 +36,13 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 Rimu = fnRFromABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
                 Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c);
             end
-                [xg] = fnCalcLocalRelativePoses(xg, nPoseNew, tv);
+            
+            pall = (gtIMUposes(selpids(1):(nIMUdata+selpids(1)), 2:7))';
+            [xg] = fnCalcLocalRelativePoses(xg, nIMUdata+1, pall);
         end  
         
     %%   Fill in ground truth of features
-       idend = 6*(nPoseNew-1); 
+        idend = 6*nIMUdata; 
         idstart = idend + 1; 
         idend = idend + 3*nPts;    
         if(InertialDelta_options.bMalaga == 1)
@@ -64,44 +66,51 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
         xg.feature(numFeatures+1:end) = [];
         
         %% Velocity
+        if(InertialDelta_options.bUVonly == 0)
+            if(InertialDelta_options.bDinuka == 1)
+                load(gtVelfulldir);
+                idstart = idend + 1;%nIMUdata*6+3*nPts
+                idend = idend +3*(nIMUdata+1);% nIMUdata*6+3*nPts
+                tv = (true_vel(ImuTimestamps(1):ImuTimestamps(nPoseNew), 2:end))';
+                %xg(idstart:idend) = tv(:);
+                for i = 1:size(xg.velocity, 1)
+                    xg.velocity(i).xyz = tv( (i-1)*3 + 1 : (i-1)*3 + 3)';
+                end
+            else
+                [xg,idend] = fnCalVFromKposes(nIMUdata, ImuTimestamps, ...
+                    nIMUrate, xg, nPoseNew, dtIMU, idend, ...
+                    dp, dv, g_true, bf_true, imufulldata);
+            end 
+        end
         
-        if(InertialDelta_options.bDinuka == 1)
-            load(gtVelfulldir);
-            
-            idstart = idend + 1;%(nPoseNew-1)*6+3*nPts
-            idend = idend + 3*nPoseNew;%(nPoseNew-1)*6+3*nPts
-            tv = (true_vel(ImuTimestamps(1:nPoseNew), 2:end))';
-            
-            
-            for i = 1:size(xg.velocity, 1)
-                xg.velocity(i).xyz = tv( (i-1)*3 + 1 : (i-1)*3 + 3)';
-            end
-        else
-            [xg,idend] = fnCalVFromKposes(nIMUdata, ImuTimestamps, ...
-                nIMUrate, xg, nPoseNew, dtIMU, idend, ...
-                dp, dv, g_true, bf_true, imufulldata);
-        end 
-        
-        
-        %% g
-        xg.g.val = SLAM_Params.g_true;
-        
+        if(InertialDelta_options.bUVonly == 0)
+            %% g
+            %idstart = idend + 1; idend = idend + 3;
+            %xg(idstart:idend) = g_true;
+            xg.g.val = SLAM_Params.g_true;
+        end
          %% Au2c, Tu2c
         %idstart = idend + 1; idend = idend + 6;
         %xg(idstart:idend) = [Au2c;Tu2c];
         xg.Au2c.val = SLAM_Params.Au2c_true;
         xg.Tu2c.val = SLAM_Params.Tu2c_true;
-        
-        %% bf, bw
-        if(InertialDelta_options.bVarBias == 0)
-            %idstart = idend + 1; idend = idend + 6;
-            %xg(idstart:idend) = [bf_true;bw_true];
-            xg.Bf.val = SLAM_Params.bf_true;
-            xg.Bw.val = SLAM_Params.bw_true;
-        else
-            idstart = idend + 1; idend = idend + 6*(nPoseNew-1);
-            xg(idstart:idend) = repmat([bf_true;bw_true],nPoseNew-1, 1);
+        if(InertialDelta_options.bUVonly == 0)
+            %% bf, bw
+            if(InertialDelta_options.bVarBias == 0)
+                %idstart = idend + 1; idend = idend + 6;
+                %xg(idstart:idend) = [bf_true;bw_true];
+                xg.Bf.val = SLAM_Params.bf_true;
+                xg.Bw.val = SLAM_Params.bw_true;
+            else
+                idstart = idend + 1; idend = idend + 6*(nPoseNew-1);
+                xg(idstart:idend) = repmat([bf_true;bw_true],nPoseNew-1, 1);
+            end
         end
+        %xg = xg(1:idend);
+        
+        
+        
+        
         
         % Calculate translational scales
         fscaleGT = zeros(nPoseNew, 1);

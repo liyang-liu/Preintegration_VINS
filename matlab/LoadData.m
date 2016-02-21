@@ -87,7 +87,7 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
                 dataIMU{pid} = imufulldata(uid0:uid1, :);                
             end
         end 
-        if(InertialDelta_options.bUVonly == 0)%InertialDelta_options.bPreInt == 1)%
+        if(InertialDelta_options.bUVonly == 0)
             % Generate pre-integration observations based on IMU raw data.         
             
             %%%%%%%%%%%%%%

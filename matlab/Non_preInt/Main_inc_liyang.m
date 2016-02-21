@@ -37,6 +37,11 @@ RptFidSet_old = [];
 gtIMUposes = [];
 selpids = [];
 
+% if(bPreInt == 1)
+%    bShowFnP = 1;
+% else
+%    bShowFnP = 0; 
+% end
 
 if(InertialDelta_options.bDinuka == 1)
     dtIMU = zeros(nPoseNew, 1);
@@ -259,10 +264,10 @@ Rd = [];
     
     toc
     
-    fprintf('\n###Poses[x(1-%d)], Features[x(%d-%d)], Velocity[x(%d-%d)]###\n',...
-        (nPoseNew-1)*6, (nPoseNew-1)*6+1, ...
-        (nPoseNew-1)*6+nPts*3, (nPoseNew-1)*6+nPts*3+1, ...
-        (nPoseNew-1)*6+nPts*3+3*nPoseNew);
+    fprintf('\n###Poses[x(1-%d)], Features[x(%d-%d)], Velocity[x(%d-%d]###\n',...
+        nIMUdata*6, nIMUdata*6+1, ...
+        nIMUdata*6+nPts*3, nIMUdata*6+nPts*3+1, ...
+        nIMUdata*6+nPts*3+3*(nIMUdata+1));
     
     % Check against the ground truth
     %xf = x;
@@ -278,17 +283,14 @@ Rd = [];
     
     if((nPoseOld == 1) || (nPoseNew == nAllposes))
         Tcam = zeros(3, nPoseNew);
-        Timu = Tcam;
-        
+        Timu = Tcam;        
+            
         for(pid = 2:nPoseNew)
-            %Rcam = Ru2c*Rimu*Ru2c;
-            %Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
-            %Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
-            Aimu = X_obj.pose(pid-1).ang.val;
-            Rimu = fnRFromABG( Aimu(1), Aimu(2), Aimu(3));
-            Timu(:, pid) = X_obj.pose(pid-1).trans.val;
-            Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
-        end
+            cid = ImuTimestamps(pid)-ImuTimestamps(1);
+            Rimu = fnR5ABG(X_obj(6*(cid-1)+1), X_obj(6*(cid-1)+2), X_obj(6*(cid-1)+3));
+            Timu(:, pid) = X_obj((6*(cid-1)+4):(6*(cid-1)+6),1);
+            Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+        end        
         
         load( Data_config.gtFile );        
         figure(); hold on;
@@ -328,7 +330,7 @@ Rd = [];
             fnShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
             
             %% Show uncertainty
-            fnCalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
+            fnCalcShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
                 dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
         end
         
