@@ -1,4 +1,4 @@
-function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
+function [tv,xcol,tid] = fnCalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
     nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
     x, xcol, dtIMU, dp, dv, SLAM_Params, imufulldata)    
     
@@ -37,7 +37,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
           %Ri = fnR5ABG(x(6*(pid-2)+1),x(6*(pid-2)+2),x(6*(pid-2)+3));
           tid = tid + 1;
           Au = x.pose(pid-1).ang.val;
-          Ri = fnR5ABG( Au(1), Au(2), Au(3) );
+          Ri = fnRFromABG( Au(1), Au(2), Au(3) );
           %tv(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dtIMU(pid+1)...
           %    *dtIMU(pid+1)*g0-Ri'*dp(:,(pid+1)))/(dtIMU(pid+1));%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
           
@@ -52,7 +52,7 @@ function [tv,xcol,tid] = fnCalV5Kposes_Inc(nPoseNew, nPoseOld, ...
         tid = tid + 1;
         %Ri = fnR5ABG(x(6*(nPoseNew-2)+1),x(6*(nPoseNew-2)+2),x(6*(nPoseNew-2)+3));
         Au = x.pose(nPoseNew-1).ang.val;
-        Ri = fnR5ABG( Au(1), Au(2), Au(3));
+        Ri = fnRFromABG( Au(1), Au(2), Au(3));
         if (tid > 1)
         %if(idstart > 3)
             %tv(idstart:idend) = tv((idstart-3):(idend-3), 1)+dtIMU(nPoseNew)*g0...

@@ -1,4 +1,4 @@
-function e = fnIMUdltErr_general(x, Zobs, nPoses, nPts, bf0, bw0, ...
+function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, ...
                                     dtIMU, J, nIMUrate, ImuTimestamps )%g, 
     global InertialDelta_options
     
@@ -57,7 +57,7 @@ function e = fnIMUdltErr_general(x, Zobs, nPoses, nPts, bf0, bw0, ...
                 %alpha = x(idx);beta = x(idx + 1); gamma = x(idx + 2);
                 Au = x.pose(pid-1).ang.val;
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
-                Ru2 = fnR5ABG(alpha, beta, gamma);
+                Ru2 = fnRFromABG(alpha, beta, gamma);
                 %Tu2 = x((idx+3):(idx+5));
                 Tu2 = x.pose(pid-1).trans.val;
                 %idx = ((nPoses-1)*6+nPts*3+(pid-2)*3+1);
@@ -65,7 +65,7 @@ function e = fnIMUdltErr_general(x, Zobs, nPoses, nPts, bf0, bw0, ...
                 v1 = x.velocity(pid-1).xyz;
                 v2 = x.velocity(pid).xyz;
                 dt = dtIMU(pid);
-                [dp,dv,dphi] = fnPredictIMUdlt(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
+                [dp,dv,dphi] = fnPredictIntlDelta(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
                 %idx = (pid-2)*9+1;
                 %e(idx:(idx+8)) = [dp;dv;dphi] - Zobs(idx:(idx+8));
                 e.intlDelta(pid-1).deltaP.val   = dp - Zobs.intlDelta(pid-1).deltaP.val;
@@ -108,7 +108,7 @@ function e = fnIMUdltErr_general(x, Zobs, nPoses, nPts, bf0, bw0, ...
                 end  
                 
                 phii = [alpha;beta;gamma];
-                Ri = fnR5ABG(alpha,beta,gamma);
+                Ri = fnRFromABG(alpha,beta,gamma);
                 % ai
                 ai = Ri*((vi1-vi)/dt-g)+bf;
                 % wi

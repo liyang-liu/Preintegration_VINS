@@ -1,4 +1,4 @@
-function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPoses5IMUdata_Inc(nPoseOld, ...
+function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPosesFromIMUdata_Inc(nPoseOld, ...
                 nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
                 K, Feature3D, RptFidSet, RptFeatureObs, SLAM_Params)
             
@@ -20,7 +20,7 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPo
     for(pid=1:nPoseOld)
         Tcam(:, pid) = SLAM_Params.Ru2c * (T0imu(:,pid) - SLAM_Params.Tu2c + (R0imu(:,:,pid))' * SLAM_Params.Tu2c);
         Rcam(:,:,pid) = SLAM_Params.Ru2c * R0imu(:,:,pid) * SLAM_Params.Ru2c';
-        [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABG5R(Rcam(:,:,pid));  
+        [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABGFromR(Rcam(:,:,pid));  
     end
     
     for(pid = (nPoseOld+1):nPoseNew)%2:(nPoses+1))
@@ -30,12 +30,12 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPo
        Timu(:, pid) = Timu(:, pid-1) + dtIMU(pid)*vimu(:, pid-1)...// (+vimu(:, pid))
           + 0.5 * dtIMU(pid) * dtIMU(pid) * SLAM_Params.g0 + ...
            (Rimu(:,:,pid-1))' * dp(:, pid);       
-       dR = fnR5ABG(dphi(1, pid), dphi(2, pid), dphi(3, pid));
+       dR = fnRFromABG(dphi(1, pid), dphi(2, pid), dphi(3, pid));
        Rimu(:,:,pid) = dR * Rimu(:,:,pid-1);
 
        Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + (Rimu(:,:,pid))' * SLAM_Params.Tu2c);
        Rcam(:,:,pid) = SLAM_Params.Ru2c * Rimu(:,:,pid) * SLAM_Params.Ru2c';
-       [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABG5R(Rcam(:,:,pid));
+       [Acam(1, pid), Acam(2, pid), Acam(3, pid)] = fnABGFromR(Rcam(:,:,pid));
        
     end
 

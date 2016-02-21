@@ -13,7 +13,7 @@ function [J1, R1] = fnIMUdltJnCov(Q, J0, R0, omega0, phi0, dt, fb0, bf, bo)
 %
 alpha = fndRdphi(phi0, (fb0-bf));
 beta =  fndEdphi(phi0, (omega0 - bo));
-Cb0n = (fnR5ABG(phi0(1), phi0(2), phi0(3)))';% EulerAngle(phi0);
+Cb0n = (fnRFromABG(phi0(1), phi0(2), phi0(3)))';% EulerAngle(phi0);
 % F
 F = zeros(15);
 F(1:3, 1:3) = eye(3);

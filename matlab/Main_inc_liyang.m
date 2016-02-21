@@ -111,7 +111,7 @@ Rd = [];
         SLAM_Params.Ru2c_true = ([0,1,0; 0,0,1; 1,0,0]); 
         SLAM_Params.Au2c_true = zeros(3,1);
         [SLAM_Params.Au2c_true(1), SLAM_Params.Au2c_ture(2), SLAM_Params.Au2c_true(3) ] = ...
-                                                fnABG5R(SLAM_Params.Ru2c_true);
+                                                fnABGFromR(SLAM_Params.Ru2c_true);
         SLAM_Params.Tu2c_true = zeros(3,1);
         %nIMUrate = 200; 
         dt = 1.0/nIMUrate;
@@ -133,12 +133,12 @@ Rd = [];
         nPoses = nPoseNew - nPoseOld;
         if(nPoseOld == 1)
             pid = 1;
-            [FeatureObs] = fnCollectfObs5Imgs( ...
+            [FeatureObs] = fnCollectfObsFromImgs( ...
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );                              
         end 
         
         for(pid=(nPoseOld+1):nPoseNew)
-               [FeatureObs] = fnCollectfObs5Imgs( ...
+               [FeatureObs] = fnCollectfObsFromImgs( ...
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs ); 
         end
         
@@ -173,7 +173,7 @@ Rd = [];
     
         %% Compose Initial value of X from odometry 
         if(InertialDelta_options.bInitPnF5VoU == 1)
-            [X_obj, RptFidSet, RptFeatureObs, nPts] = fnCompX5odometry( ...
+            [X_obj, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
                         nPoseOld, nPoseNew, nPoses, nPts, x_old, ...
                         ImuTimestamps, nIMUdata, nIMUdata_old, Feature3D, RptFidSet, ...
                         RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
@@ -253,12 +253,12 @@ Rd = [];
     tic
     if(InertialDelta_options.bGNopt == 1)
     %% GN Iterations 
-        [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
+        [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
                         nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
                         ImuTimestamps, dtIMU, RptFeatureObs );
         nReason
     else    
-        [X_obj,nReason,Info] = fnleastsquaresLM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
+        [X_obj,nReason,Info] = fnLeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
             CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs);        
     end        
     
@@ -298,7 +298,7 @@ Rd = [];
                 %Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
                 %Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
                 Aimu = X_obj.pose(pid-1).ang.val;
-                Rimu = fnR5ABG( Aimu(1), Aimu(2), Aimu(3));
+                Rimu = fnRFromABG( Aimu(1), Aimu(2), Aimu(3));
                 Timu(:, pid) = X_obj.pose(pid-1).trans.val;
                 Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
             end
@@ -351,7 +351,7 @@ Rd = [];
             fnShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
             
             %% Show uncertainty
-            fnCalnShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
+            fnCalcShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
                 dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
         end
         

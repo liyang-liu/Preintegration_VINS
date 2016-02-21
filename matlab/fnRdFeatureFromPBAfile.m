@@ -1,4 +1,4 @@
-function [Zobs, nPoses, nPts, PosFt_mat] = fnRdFeature5PBAfile(sFileFullPath)
+function [Zobs, nPoses, nPts, PosFt_mat] = fnRdFeatureFromPBAfile(sFileFullPath)
 
 fid = fopen(sFileFullPath, 'r');
 tl = fgetl(fid);

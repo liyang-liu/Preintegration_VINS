@@ -1,4 +1,4 @@
-function [] = fnCalnShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
+function [] = fnCalcShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
     dtIMU, ef, K, x, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata )
     
 global InertialDelta_options
@@ -31,12 +31,12 @@ global InertialDelta_options
             bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias, bPreInt);        
     end
     
-    [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ImuTimestamps, ...
+    [J] = fnJacobian_dUv_dX(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ImuTimestamps, ...
     RptFeatureObs, bUVonly, bPreInt, nUV, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, ...
     bAddZbw, bVarBias);
 
     if((bUVonly == 1) || (bPreInt == 1))
-        J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, bUVonly, dtIMU, Jd, nPoses, nPts, x, ...
+        J((nUV+1):end,:) = fnJacobian_dIntlDelta_dX(uidRow, uidCol, unJacs, nUV, bUVonly, dtIMU, Jd, nPoses, nPts, x, ...
                 bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
     else
         J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata, ...
@@ -47,7 +47,7 @@ Info = J'*CovMatrixInv*J;
 
 % Tao = linsolve(Info, eye(size(Info,1)));%Info \
 % Td = diag(Tao);
-Td = fnGetSigm5Info(Info);
+Td = fnGetSigmFromInfo(Info);
 Td = 3*sqrt(Td);
 %nTd = -Td;
 

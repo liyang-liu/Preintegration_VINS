@@ -18,9 +18,9 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             % Rimu = Ru2c' * Rc1u; Timu = Tc1u - Rimu '* Tu2c;
             % Rc1u = Rcam * Ru2c; Tc1u = Tu2c + Ru2c'*Tcam
             for(pid=1:(nPoseNew))% correspond to pose 1...n
-                Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
+                Rcam = fnRFromABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
                 Rimu = SLAM_Params.Ru2c' * Rcam * SLAM_Params.Ru2c;
-                [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
+                [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABGFromR(Rimu);
                 Timu(:, pid) = SLAM_Params.Tu2c + SLAM_Params.Ru2c' * Tcam(:, pid) - Rimu' * SLAM_Params.Tu2c;
             end   
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
@@ -36,14 +36,14 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             Tcam = zeros(3, nPoseNew);
             for(pid=1:nPoseNew)
                 % Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
-                Rimu = fnR5ABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
+                Rimu = fnRFromABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
                 Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c);
             end
             if(InertialDelta_options.bPreInt == 1)
-                [xg] = fnCal9RelativePoses(xg, nPoseNew, tv);
+                [xg] = fnCalcLocalRelativePoses(xg, nPoseNew, tv);
             else
                 pall = (gtIMUposes(selpids(1):(nIMUdata+selpids(1)), 2:7))';
-                [xg] = fnCal9RelativePoses(xg, nIMUdata+1, pall);
+                [xg] = fnCalcLocalRelativePoses(xg, nIMUdata+1, pall);
             end
         end  
         
@@ -62,7 +62,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             load([datadir 'feature_pos.mat']);
             tv = feature_pos(RptFidSet, :)';
             abg10 = (gtIMUposes(selpids(1), 2:4))'; % Rotation of the IMU pose corresponding to the first key frame
-            R10 = fnR5ABG(abg10(1, 1), abg10(2, 1), abg10(3, 1));
+            R10 = fnRFromABG(abg10(1, 1), abg10(2, 1), abg10(3, 1));
             Pf1u = R10'*(tv - repmat((gtIMUposes(selpids(1),5:7))', 1,size(RptFidSet,1)));
 %             clearvars gtIMUposes            
         end        
@@ -93,7 +93,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
                     xg.velocity(i).xyz = tv( (i-1)*3 + 1 : (i-1)*3 + 3)';
                 end
             else
-                [xg,idend] = fnCalV5Kposes(nIMUdata, ImuTimestamps, ...
+                [xg,idend] = fnCalVFromKposes(nIMUdata, ImuTimestamps, ...
                     nIMUrate, xg, nPoseNew, dtIMU, idend, ...
                     dp, dv, g_true, bf_true, imufulldata);
             end 

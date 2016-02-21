@@ -1,5 +1,5 @@
-function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs )
-    %[J] = fnJduvd_CnU_gq( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
+function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs )
+    %[J] = fnJacobian_dUv_dX( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
              %                   ImuTimestamps, RptFeatureObs, nUV )
 
     global InertialDelta_options
@@ -52,7 +52,7 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
     
     %a_u2c = x(idx); b_u2c = x(1+idx); g_u2c = x(2+idx);
     a_u2c = X.Au2c.val(1); b_u2c = X.Au2c.val(2); g_u2c = X.Au2c.val(3);    
-    Ru2c = fnR5ABG(a_u2c, b_u2c, g_u2c); %fRx(alpha) * fRy (beta) * fRz(gamma);         
+    Ru2c = fnRFromABG(a_u2c, b_u2c, g_u2c); %fRx(alpha) * fRy (beta) * fRz(gamma);         
     %Tu2c = x((3+idx):(5+idx), 1);
     Tu2c = X.Tu2c.val;
 
@@ -77,7 +77,7 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
             %a_cat(pid) = x(1+idx); b_cat(pid) = x(2+idx); g_cat(pid) = x(3+idx); 
             Au_cat = X.pose(pid-1).ang.val;
             a_cat(pid) = Au_cat(1); b_cat(pid) = Au_cat(2);  g_cat(pid) = Au_cat(3);
-            Ru_cat(:,:,pid) = fnR5ABG(a_cat(pid), b_cat(pid), g_cat(pid));%fRx(alpha) * fRy (beta) * fRz(gamma);
+            Ru_cat(:,:,pid) = fnRFromABG(a_cat(pid), b_cat(pid), g_cat(pid));%fRx(alpha) * fRy (beta) * fRz(gamma);
             
             %Tu_cat(:,pid) = x((4+idx):(idx+6), 1);            
             Tu_cat(:,pid) = X.pose(pid-1).trans.val;
@@ -117,11 +117,11 @@ function J = fnJduvd_CnU_gq(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps
             p3d1 = Rc * (X.feature(fid).xyz - Tc);    
             
             %[duvd] = fnuvd5xyz_dr_general(p3d1, fx, fy, ncurrentObsdPts);%[duvd] = fxyz2uvd_dr(p3d1(1,i), p3d1(2,i), p3d1(3,i), f);
-            [duvd] = fnuvd5xyz_dr_general(p3d1, fx, fy, 1);
+            [duvd] = fn_dUv_dCamFxyz_dr(p3d1, fx, fy, 1);
             %[dxyz,dxyz_u2c, ~] = fnxyz5abgxyz_drCIU(a, b, g, a_u2c, b_u2c, g_u2c, Ru, Ru2c, ...
             %                Tu, Tu2c, p3d0(:, fid), ncurrentObsdPts);
-            [dxyz,dxyz_u2c, ~] = fnxyz5abgxyz_drCIU(a, b, g, a_u2c, b_u2c, g_u2c, Ru, Ru2c, ...
-                                                    Tu, Tu2c, X.feature(fid).xyz, 1);
+            [dxyz,dxyz_u2c, ~] = fn_dCamFxyz_dWldFxyz_dCamU2c(a, b, g, a_u2c, b_u2c, g_u2c, Ru, Ru2c, ...
+                                                    Tu, Tu2c, X.feature(fid).xyz, 1); %%fnxyz5abgxyz_drCIU
                                %% d(uv)/d(xyz)f
             % d(xyz)/d(xyz)f
             dfxyz = Rc;

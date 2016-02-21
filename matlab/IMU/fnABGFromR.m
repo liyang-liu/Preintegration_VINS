@@ -1,4 +1,4 @@
-function [Alpha,Beta,Gamma] = fnABG5R(K)
+function [Alpha,Beta,Gamma] = fnABGFromR(K)
 %% Get abg from R
 % Input: 
 %%            R: rotation matrix, assumed in coordinate rotation form!!!!!!

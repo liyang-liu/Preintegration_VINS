@@ -1,4 +1,4 @@
-function [Rp, Ap, Tp, Feature3D] = fnGetPoses5MatchedFeatures(nPoses, nPts, ...
+function [Rp, Ap, Tp, Feature3D] = fnGetPosesFromMatchedFeatures(nPoses, nPts, ...
     K, fscaleGT, RptFeatureObs, kfids)%, bAddInitialNoise, sigmauov)
 
     global InertialDelta_options
@@ -58,7 +58,7 @@ function [Rp, Ap, Tp, Feature3D] = fnGetPoses5MatchedFeatures(nPoses, nPts, ...
     %         %Tp(:, pid) = Tp(:, pid-1) + R'*Ti;
     %         R = Ri*R;
     %         Rp(:, :, pid) = R;
-    %         [Ap(1, pid), Ap(2, pid), Ap(3, pid)] = fnABG5R(R);
+    %         [Ap(1, pid), Ap(2, pid), Ap(3, pid)] = fnABGFromR(R);
     %         Tp(:, pid) = Tp(:, pid-1) - R'*Ti;   
     %         nComPts = size(comid, 1);
     %         [p3d] = fnTrianguFeatures(K, Rp(:, :, pid-1), Tp(:, pid-1), ...
@@ -104,7 +104,7 @@ function [Rp, Ap, Tp, Feature3D] = fnGetPoses5MatchedFeatures(nPoses, nPts, ...
             %Tp(:, pid) = Tp(:, pid-1) + R'*Ti;
             R = Ri*R;
             Rp(:, :, pid) = R;
-            [Ap(1, pid), Ap(2, pid), Ap(3, pid)] = fnABG5R(R);
+            [Ap(1, pid), Ap(2, pid), Ap(3, pid)] = fnABGFromR(R);
             Tp(:, pid) = Tp(:, pid-1) - R'*Ti;   
             nComPts = size(comid, 1);
             [p3d] = fnTrianguFeatures(K, Rp(:, :, pid-1), Tp(:, pid-1), ...

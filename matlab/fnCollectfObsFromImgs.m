@@ -1,4 +1,4 @@
-function [FeatureObs] = fnCollectfObs5Imgs( kfids, pid, imgdir, sigma_uov_real, FeatureObs )
+function [FeatureObs] = fnCollectfObsFromImgs( kfids, pid, imgdir, sigma_uov_real, FeatureObs )
     global InertialDelta_options Data_config
 
             if(InertialDelta_options.bMalaga == 1)

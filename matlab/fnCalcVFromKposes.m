@@ -1,4 +1,4 @@
-function [x,idend] = fnCalV5Kposes(nIMUdata, ImuTimestamps, nIMUrate, x, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata)
+function [x,idend] = fnCalcVFromKposes(nIMUdata, ImuTimestamps, nIMUrate, x, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata)
     global InertialDelta_options
 
     if(InertialDelta_options.bPreInt == 1)            

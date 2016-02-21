@@ -1,11 +1,11 @@
-function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g, 
-    %fnJddpvphi_IMU_gq(J, idRow, idCol, nJacs, nUV, dtIMU, Jd, nPoses, nPts, x )%g, 
+function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g, 
+    %fnJacobian_dIntlDelta_dX(J, idRow, idCol, nJacs, nUV, dtIMU, Jd, nPoses, nPts, x )%g, 
     global InertialDelta_options
     
     %% Find Jacobian for dp, dv and dphi
     %% dp = Ru1 * (Tu2-Tu1-v1*dt-0.5*g*dt*dt) - ddpdbf*dbf - ddpdbw*dbw;
     %% dv = Ru1 * (v2-v1-g*dt) - ddvdbf*dbf - ddvdbw*dbw;
-    %% [a,b,g] = fnABG5R(Ru2*(Ru1)');
+    %% [a,b,g] = fnABGFromR(Ru2*(Ru1)');
     %% dphi = [a;b;g] - ddphidbw*dbw;
     % K: camera model
     % p3d0: 3D points at the first camera pose
@@ -47,7 +47,7 @@ function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             %a2 = x(idx_a2); b2 = x(idx_a2+1); g2 = x(idx_a2+2);
             Au2 = X.pose(pid-1).ang.val;
             a2 = Au2(1); b2 = Au2(2); g2 = Au2(3);
-            R2 = fnR5ABG(a2,b2,g2);
+            R2 = fnRFromABG(a2,b2,g2);
             %T2 = x((idx_a2+3):(idx_a2+5),1);
             T2 = X.pose(pid-1).trans.val;
             
@@ -175,7 +175,7 @@ function J = fnJddpvphi_IMU_gq(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             J.dIntlDelta_dX(tid).dDv_dX.dDv_dBw.row =  [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ]; 
             J.dIntlDelta_dX(tid).dDv_dX.dDv_dBw.col = [col; col; col];
             
-            %% 3. [a,b,g] = fnABG5R(Ru2*(Ru1)'); dphi = [a;b;g] - ddphidbw*dbw;
+            %% 3. [a,b,g] = fnABGFromR(Ru2*(Ru1)'); dphi = [a;b;g] - ddphidbw*dbw;
             row = Zobs.intlDelta(tid).deltaPhi.row;
             
             %idxr = idxr + 3;    

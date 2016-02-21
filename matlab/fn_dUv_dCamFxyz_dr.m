@@ -1,4 +1,4 @@
-function [duvd] = fnuvd5xyz_dr_general(p3d, fx, fy, N)
+function [duvd] = fn_dUv_dCamFxyz_dr(p3d, fx, fy, N)
 %% Compute the gradients of u(x,y,z) and v(x,y,z) in one go.
 % [u, v, 1]' = K * X: u = fx * x / z + x0, v = fy * y / z + y0
 % du = fx * dx / z - fx * x / z^2 * dz, 

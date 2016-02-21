@@ -20,7 +20,7 @@ end
 display( [' !!! Temporary working directory: \"' Data_config.TEMP_DIR '\" !!!' ] );
 
 % create result dir
-Data_config.RESULT_DIR = [ Data_config.BASE_DIR filesep '..' filesep 'result' filesep ];
+Data_config.RESULT_DIR = [ Data_config.BASE_DIR filesep '..' filesep 'results' filesep ];
 if ( ~exist( Data_config.RESULT_DIR, 'dir') )
     mkdir ( Data_config.RESULT_DIR )
 end

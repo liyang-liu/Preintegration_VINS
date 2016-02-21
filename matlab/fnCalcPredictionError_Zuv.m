@@ -1,4 +1,4 @@
-function e = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
+function e = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
 
     global InertialDelta_options
 
@@ -29,7 +29,7 @@ function e = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTim
     
     %alpha = X(idx+1);beta = X(idx + 2); gamma = X(idx + 3);
     alpha = X.Au2c.val(1); beta = X.Au2c.val(2); gamma = X.Au2c.val(3);
-    Ru2c = fnR5ABG(alpha, beta, gamma);
+    Ru2c = fnRFromABG(alpha, beta, gamma);
     %Tu2c = X((idx+4):(idx+6));
     Tu2c = X.Tu2c.val;
     nUV = 0;
@@ -58,7 +58,7 @@ function e = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTim
                 Au = X.pose(pid-1).ang.val;
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
                 Tu = X.pose(pid-1).trans.val;
-                Ru = fnR5ABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
+                Ru = fnRFromABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
                 
             else % Pose 1 is special                
                 Tu = zeros(3,1); 

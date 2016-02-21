@@ -1,4 +1,4 @@
-function Sigma0 = fnGetSigm5Info(Info)
+function Sigma0 = fnGetSigmFromInfo(Info)
 
 [m,n] = size(Info);
 

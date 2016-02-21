@@ -70,7 +70,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
     end
     if(InertialDelta_options.bAddZau2c == 1)
         % Add pseudo observation of Tu2c
-        [alpha, beta, gamma] = fnABG5R(SLAM_Params.Ru2c);
+        [alpha, beta, gamma] = fnABGFromR(SLAM_Params.Ru2c);
         %Zobs((utid+1):(utid+3)) = [alpha;beta;gamma];
         %utid = utid + 3;
         Zobs.Au2c.val = [alpha; beta; gamma];

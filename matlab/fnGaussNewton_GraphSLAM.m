@@ -1,4 +1,4 @@
-function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
+function [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
                 fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
     
     global InertialDelta_options Data_config
@@ -40,7 +40,7 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
 		% Debug v2
         
         
-		E_obj = fnCnUPredErr_lsqnonlin_general(X_obj);
+		E_obj = fnCalcPredictionError(X_obj);
         [e] = ZObject2Vector( E_obj );
         nUV = size( E_obj.fObs, 1 ) * 2;
 		chi2 = 2*e'*CovMatrixInv*e/nUV;
@@ -62,7 +62,7 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
   		%%%%%%%%%%%%  L M            
 		if((chi2 < 1e0) && (max(abs(X_vec)) > 1e3))%30)%- 3-15/30
 		    fprintf('\n');
-    		[x,nReason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
+    		[x,nReason,Info] = fnLeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...
     	    CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs );  
     		break;
 		end
@@ -71,13 +71,13 @@ function [X_obj, nReason] = fnVI_BA_general(K, X_obj, nPoses, nPts, Jd, CovMatri
         J_obj = InertialDelta_InitJacobian( );
         %[J] = fnJduvd_CnU_gq( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
         %                       ImuTimestamps, RptFeatureObs, nUV );
-        J_obj = fnJduvd_CnU_gq(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );
+        J_obj = fnJacobian_dUv_dX(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );
 
 
 		if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
 		
 		    %J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x );
-            J_obj = fnJddpvphi_IMU_gq( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
+            J_obj = fnJacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
         else
             
 			%   J = fnJdaw0_IMU_general(nUV, J, nPts, x, nIMUrate, nIMUdata);

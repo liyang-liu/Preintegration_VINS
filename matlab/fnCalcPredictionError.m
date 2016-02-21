@@ -1,4 +1,9 @@
-function e = fnCnUPredErr_lsqnonlin_general(x)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% e = f(X) - Zobs
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+function e = fnCalcPredictionError( X )
 
     global InertialDelta_options Data_config
     
@@ -30,9 +35,9 @@ function e = fnCnUPredErr_lsqnonlin_general(x)
     e = Zobs;
 
     % 1. UVD error:
-    %[e, nUV] = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoseNew, nPts, ImuTimestamps );
+    %[e, nUV] = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoseNew, nPts, ImuTimestamps );
     % 2. IMU dlt error:
-    %[e((nUV+1):end,1)] = fnIMUdltErr_general(x, Zobs((nUV+1):end,1), nPoseNew, nPts, bf0, ...
+    %[e((nUV+1):end,1)] = fnIMUdltErr_general(X, Zobs((nUV+1):end,1), nPoseNew, nPts, bf0, ...
     %    bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
     %ZobsPIDelta = struct ( ...
@@ -42,14 +47,14 @@ function e = fnCnUPredErr_lsqnonlin_general(x)
     %    'Bf',       Zobs.Bf, ...
     %    'Bw',       Zobs.Bw ...
     %    );
-    %[e((nUV+1):end,1)] = fnIMUdltErr_general(x, Zobs, nPoseNew, nPts, bf0, ...
+    %[e((nUV+1):end,1)] = fnIMUdltErr_general(X, Zobs, nPoseNew, nPts, bf0, ...
     %    bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
     % 1. UVD error:
-    e  = fnUVDErr_C1U_genral(RptFeatureObs, K, x, Zobs, nPoseNew, nPts, ImuTimestamps );
+    e  = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoseNew, nPts, ImuTimestamps );
 
     % 2. IMU dlt error:
-    ePreInt = fnIMUdltErr_general(x, Zobs, nPoseNew, nPts, SLAM_Params.bf0, ...
+    ePreInt = fnCalcPredictionError_ZintlDelta(X, Zobs, nPoseNew, nPts, SLAM_Params.bf0, ...
                             SLAM_Params.bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
     e.intlDelta =  ePreInt.intlDelta;
