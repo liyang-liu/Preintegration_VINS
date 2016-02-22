@@ -99,13 +99,13 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
         
         %% bf, bw
         if(InertialDelta_options.bVarBias == 0)
-            %idstart = idend + 1; idend = idend + 6;
-            %xg(idstart:idend) = [bf_true;bw_true];
             xg.Bf.val = SLAM_Params.bf_true;
             xg.Bw.val = SLAM_Params.bw_true;
         else
-            idstart = idend + 1; idend = idend + 6*(nPoseNew-1);
-            xg(idstart:idend) = repmat([bf_true;bw_true],nPoseNew-1, 1);
+            for pid=2:nPoseNew
+                xg.Bf.iter(pid-1).val = SLAM_Params.bf_true;;
+                xg.Bw.iter(pid-1).val = SLAM_Params.bw_true;;
+            end
         end
         
         % Calculate translational scales

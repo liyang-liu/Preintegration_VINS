@@ -83,12 +83,16 @@ function Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, 
             zrow = zrow + 3;
         end
     else
-
+        
         for(pid=2:(nPoseNew-1))
-           Zobs((utid+1):(utid+3)) = 0; %bfi-bfi1 = 0
-           utid = utid + 3; 
-           Zobs((utid+1):(utid+3)) = 0; %bwi-bwi1 = 0
-           utid = utid + 3;               
+           Zobs.Bf.iter(pid-1).val = 0; %bfi-bfi1 = 0
+           Zobs.Bf.iter(pid-1).row = (1:3) + zrow; zrow = zrow + 3;
         end
+           
+        for(pid=2:(nPoseNew-1))
+           Zobs.Bw.iter(pid-1).val = 0; %bwi-bwi1 = 0
+           Zobs.Bw.iter(pid-1).row = (1:3) + zrow; zrow = zrow + 3;
+        end
+           
     end
     

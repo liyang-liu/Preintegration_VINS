@@ -155,7 +155,14 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
         X.Bw.val = SLAM_Params.bw0;
         X.Bw.col = (1:3) + xcol ;    xcol = xcol + 3;
     else
-        idstart = idend + 1; idend = idend + 6*(nPoseNew-1);                
-        X(idstart:idend) = repmat([bf0;bw0],nPoseNew-1, 1);%zeros(6,1); 
+        for ( pid = 2:nPoseNew )
+            X.Bf.iter(pid-1).val = SLAM_Params.bf0;
+            X.Bf.iter(pid-1).col = (1:3) + xcol;    xcol = xcol + 3;
+        end
+        
+        for ( pid = 2:nPoseNew )
+            X.Bw.iter(pid-1).val = SLAM_Params.bw0;
+            X.Bw.iter(pid-1).col = (1:3) + xcol;    xcol = xcol + 3;
+        end        
     end
         

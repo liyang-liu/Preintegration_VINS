@@ -48,8 +48,6 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
 
 
     %% After IMU observations
-    id1x = (nPoses-1)*9+1;
-    tid = (nPoses-1)*6+nPts*3+3*nPoses+1;
     
     if(InertialDelta_options.bAddZg == 1)
         %% g
@@ -80,13 +78,12 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         
     else
 
-        idx_bf0 = tid + 9;
-        for(pid=2:(nPoses-1))
-            bfi = x((idx_bf0+(pid-2)*6):(idx_bf0+(pid-2)*6)+2);
-            bwi = x((idx_bf0+3+(pid-2)*6):(idx_bf0+(pid-2)*6+5));
-            bfi1 = x((idx_bf0+6+(pid-2)*6):(idx_bf0+(pid-2)*6+8));
-            bwi1 = x((idx_bf0+9+(pid-2)*6):((idx_bf0+(pid-2)*6+11)));
-            e(id1x:(id1x+5)) = [bfi-bfi1;bwi-bwi1] - Zobs(id1x:(id1x+5));
-            id1x = id1x + 6;
+        for(pid=2:(nPoses-1))            
+            bfi = x.Bf.iter(pid-1).val;
+            bwi = x.Bw.iter(pid-1).val;
+            bfi1 = x.Bf.iter(pid).val;
+            bwi1 = x.Bw.iter(pid).val;
+            e.Bf.iter(pid-1).val = (bfi-bfi1) - Zobs.Bf.iter(pid-1);
+            e.Bw.iter(pid-1).val = bwi-bwi1 - Zobs.Bw.iter(pid-1);
         end
     end

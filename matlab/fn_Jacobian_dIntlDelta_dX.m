@@ -246,24 +246,34 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
     else
         
         for(pid = 2:(nPoses-1))
+            row = Zobs.Bf.row;
             
-            tidstart = tidend + 1; tidend = tidend + 3*3*1;
             tv = eye(3);
-            tmpv(tidstart:tidend) = (tv(:))'; %dbfi
+            col = X.Bf.iter(pid-1).col;
+            J.dBf_dX.iter(pid-1).dX1.val = tv;
+            J.dBf_dX.iter(pid-1).dX1.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ];
+            J.dBf_dX.iter(pid-1).dX1.col = [col; col; col];
             
-            tidstart = tidend + 1; tidend = tidend + 3*3*1;
             tv = -eye(3);
-            tmpv(tidstart:tidend) = (tv(:))'; %dbfi1
-            
-            tidstart = tidend + 1; tidend = tidend + 3*3*1;
-            tv = eye(3);
-            tmpv(tidstart:tidend) = (tv(:))'; %dbwi
-            
-            tidstart = tidend + 1; tidend = tidend + 3*3*1;
-            tv = -eye(3);
-            tmpv(tidstart:tidend) = (tv(:))'; %dbwi1       
-            
+            col = X.Bf.iter(pid).col;
+            J.dBf_dX.iter(pid-1).dX2.val = tv;
+            J.dBf_dX.iter(pid-1).dX2.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ];
+            J.dBf_dX.iter(pid-1).dX2.col = [ col; col; col ];
         end
-        
+            
+        for(pid = 2:(nPoses-1))
+            row = Zobs.bw.row;            
+            tv = eye(3);
+            col = X.Bw.iter(pid-1).col;
+            J.dBw_dX.iter(pid-1).dX1.val = tv;
+            J.dBw_dX.iter(pid-1).dX1.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ];
+            J.dBw_dX.iter(pid-1).dX1.col = [col; col; col];
+            
+            tv = -eye(3);
+            col = X.Bw.iter(pid).col;
+            J.dBw_dX.iter(pid-1).dX2.val = tv;
+            J.dBw_dX.iter(pid-1).dX2.row = [ row(1) * ones(1, 3) ; row(2) * ones(1, 3); row(3) * ones(1, 3) ];
+            J.dBw_dX.iter(pid-1).dX2.col = [ col; col; col ];
+        end        
     end
 

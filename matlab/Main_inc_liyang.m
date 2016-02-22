@@ -12,6 +12,11 @@ global InertialDelta_options
 run Data_config_script
 global Data_config
 
+assert( InertialDelta_options.bDinuka == 1, 'Malag not tested');
+assert( InertialDelta_options.bPreInt == 1, 'Non-preintegration not tested');
+assert( InertialDelta_options.bUVonly == 0, 'UV only not tested');
+assert( InertialDelta_options.bVarBias == 0, 'Variable Bias not tested');
+
 nPoseOld = InertialDelta_options.nPoseOld
 nAddPoses = InertialDelta_options.nAddPoses
 nPoseNew = InertialDelta_options.nPoseNew
