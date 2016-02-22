@@ -1,8 +1,21 @@
 >> Main_inc_liyang
-Warning: The value of local variables may have been changed to match the
-         globals.  Future versions of MATLAB will require that you declare
-         a variable to be global before you use that variable. 
+Warning: The value of local variables may have been
+changed to match the
+         globals.  Future versions of MATLAB will
+         require that you declare
+         a variable to be global before you use that
+         variable. 
 > In Main_inc_liyang at 10 
+bDinuka
+ !!! Temporary working directory: \"D:\work\SLAM\Inertial_SLAM\InertialDelta_SLAM\matlab\..\temp\\" !!!
+ !!! Result directory: \"D:\work\SLAM\Inertial_SLAM\InertialDelta_SLAM\matlab\..\results\\" !!!
+Warning: The value of local variables may have been
+changed to match the
+         globals.  Future versions of MATLAB will
+         require that you declare
+         a variable to be global before you use that
+         variable. 
+> In Main_inc_liyang at 13 
 nPoseOld =
      1
 nAddPoses =
@@ -67,42 +80,26 @@ me =
     9.5416
 id =
     34
-times=0 chi2=30.90817652, maxE = 4.680314, id=96 JObject2Matrix
-maxDx = 7.918269
-times=1 chi2=1.19313134, maxE = 0.917415, id=96 JObject2Matrix
-maxDx = 3.003275
-times=2 chi2=0.12307027, maxE = 0.173897, id=71 JObject2Matrix
-maxDx = 0.420734
-times=3 chi2=0.12049543, maxE = 0.172199, id=71 JObject2Matrix
-maxDx = 0.095799
-times=4 chi2=0.12048560, maxE = 0.172019, id=71 JObject2Matrix
-maxDx = 0.010769
-times=5 chi2=0.12048535, maxE = 0.171917, id=71 JObject2Matrix
-maxDx = 0.002751
-times=6 chi2=0.12048534, maxE = 0.171899, id=71 JObject2Matrix
-maxDx = 0.000318
-times=7 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000086
-times=8 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000010
-times=9 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000003
-times=10 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
-times=11 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
-times=12 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
-times=13 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
-times=14 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
-times=15 chi2=0.12048534, maxE = 0.171895, id=71 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=30.90817652, maxE = 4.680314, id=96 maxDx = 7.918269
+times=1 chi2=1.19313134, maxE = 0.917415, id=96 maxDx = 3.003275
+times=2 chi2=0.12307027, maxE = 0.173897, id=71 maxDx = 0.420734
+times=3 chi2=0.12049543, maxE = 0.172199, id=71 maxDx = 0.095799
+times=4 chi2=0.12048560, maxE = 0.172019, id=71 maxDx = 0.010769
+times=5 chi2=0.12048535, maxE = 0.171917, id=71 maxDx = 0.002751
+times=6 chi2=0.12048534, maxE = 0.171899, id=71 maxDx = 0.000318
+times=7 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000086
+times=8 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000010
+times=9 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000003
+times=10 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
+times=11 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
+times=12 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
+times=13 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
+times=14 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
+times=15 chi2=0.12048534, maxE = 0.171895, id=71 maxDx = 0.000000
 Iteration Times:	 N = 15
 nReason =
      0
-Elapsed time is 1.379839 seconds.
+Elapsed time is 1.123498 seconds.
 
 ###Poses[x(1-18)], Features[x(19-54)], Velocity[x(55-66)]###
 Final Error: maxXef=2.920698, idx=43
@@ -148,34 +145,22 @@ me =
     5.5187
 id =
     91
-times=0 chi2=1.45533753, maxE = 0.593826, id=109 JObject2Matrix
-maxDx = 2.587506
-times=1 chi2=0.13880726, maxE = 0.194519, id=195 JObject2Matrix
-maxDx = 0.564994
-times=2 chi2=0.13775754, maxE = 0.199271, id=15 JObject2Matrix
-maxDx = 0.042289
-times=3 chi2=0.13775591, maxE = 0.199524, id=15 JObject2Matrix
-maxDx = 0.004262
-times=4 chi2=0.13775590, maxE = 0.199552, id=15 JObject2Matrix
-maxDx = 0.000298
-times=5 chi2=0.13775590, maxE = 0.199553, id=15 JObject2Matrix
-maxDx = 0.000032
-times=6 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000002
-times=7 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000000
-times=10 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000000
-times=11 chi2=0.13775590, maxE = 0.199554, id=15 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=1.45533753, maxE = 0.593826, id=109 maxDx = 2.587506
+times=1 chi2=0.13880726, maxE = 0.194519, id=195 maxDx = 0.564994
+times=2 chi2=0.13775754, maxE = 0.199271, id=15 maxDx = 0.042289
+times=3 chi2=0.13775591, maxE = 0.199524, id=15 maxDx = 0.004262
+times=4 chi2=0.13775590, maxE = 0.199552, id=15 maxDx = 0.000298
+times=5 chi2=0.13775590, maxE = 0.199553, id=15 maxDx = 0.000032
+times=6 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000002
+times=7 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000000
+times=8 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000000
+times=9 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000000
+times=10 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000000
+times=11 chi2=0.13775590, maxE = 0.199554, id=15 maxDx = 0.000000
 Iteration Times:	 N = 11
 nReason =
      0
-Elapsed time is 1.275561 seconds.
+Elapsed time is 1.067498 seconds.
 
 ###Poses[x(1-24)], Features[x(25-96)], Velocity[x(97-111)]###
 Final Error: maxXef=4.210601, idx=70
@@ -206,32 +191,21 @@ me =
     6.9275
 id =
    130
-times=0 chi2=0.99045145, maxE = 0.723324, id=95 JObject2Matrix
-maxDx = 6.027881
-times=1 chi2=0.15490656, maxE = 0.212830, id=277 JObject2Matrix
-maxDx = 1.054499
-times=2 chi2=0.15010976, maxE = 0.204935, id=277 JObject2Matrix
-maxDx = 0.036767
-times=3 chi2=0.15010820, maxE = 0.204696, id=277 JObject2Matrix
-maxDx = 0.002442
-times=4 chi2=0.15010820, maxE = 0.204686, id=277 JObject2Matrix
-maxDx = 0.000141
-times=5 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000014
-times=6 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000001
-times=7 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000000
-times=10 chi2=0.15010820, maxE = 0.204685, id=277 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.99045145, maxE = 0.723324, id=95 maxDx = 6.027881
+times=1 chi2=0.15490656, maxE = 0.212830, id=277 maxDx = 1.054499
+times=2 chi2=0.15010976, maxE = 0.204935, id=277 maxDx = 0.036767
+times=3 chi2=0.15010820, maxE = 0.204696, id=277 maxDx = 0.002442
+times=4 chi2=0.15010820, maxE = 0.204686, id=277 maxDx = 0.000141
+times=5 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000014
+times=6 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000001
+times=7 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000000
+times=8 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000000
+times=9 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000000
+times=10 chi2=0.15010820, maxE = 0.204685, id=277 maxDx = 0.000000
 Iteration Times:	 N = 10
 nReason =
      0
-Elapsed time is 1.809422 seconds.
+Elapsed time is 1.504064 seconds.
 
 ###Poses[x(1-30)], Features[x(31-147)], Velocity[x(148-165)]###
 Final Error: maxXef=6.791097, idx=61
@@ -263,32 +237,21 @@ me =
     6.7911
 id =
     67
-times=0 chi2=0.51892346, maxE = 0.701475, id=111 JObject2Matrix
-maxDx = 1.610918
-times=1 chi2=0.16277795, maxE = 0.226554, id=348 JObject2Matrix
-maxDx = 0.062067
-times=2 chi2=0.16274739, maxE = 0.223406, id=348 JObject2Matrix
-maxDx = 0.013445
-times=3 chi2=0.16274727, maxE = 0.223478, id=348 JObject2Matrix
-maxDx = 0.000333
-times=4 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000082
-times=5 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000003
-times=6 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000000
-times=10 chi2=0.16274727, maxE = 0.223476, id=348 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.51892346, maxE = 0.701475, id=111 maxDx = 1.610918
+times=1 chi2=0.16277795, maxE = 0.226554, id=348 maxDx = 0.062067
+times=2 chi2=0.16274739, maxE = 0.223406, id=348 maxDx = 0.013445
+times=3 chi2=0.16274727, maxE = 0.223478, id=348 maxDx = 0.000333
+times=4 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000082
+times=5 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000003
+times=6 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000000
+times=7 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000000
+times=8 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000000
+times=9 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000000
+times=10 chi2=0.16274727, maxE = 0.223476, id=348 maxDx = 0.000000
 Iteration Times:	 N = 10
 nReason =
      0
-Elapsed time is 1.996466 seconds.
+Elapsed time is 1.620560 seconds.
 
 ###Poses[x(1-36)], Features[x(37-150)], Velocity[x(151-171)]###
 Final Error: maxXef=6.309183, idx=67
@@ -319,30 +282,20 @@ me =
     7.2743
 id =
    157
-times=0 chi2=0.54054327, maxE = 0.608657, id=384 JObject2Matrix
-maxDx = 4.839435
-times=1 chi2=0.17075331, maxE = 0.252384, id=272 JObject2Matrix
-maxDx = 0.386630
-times=2 chi2=0.17021120, maxE = 0.255540, id=272 JObject2Matrix
-maxDx = 0.004601
-times=3 chi2=0.17021112, maxE = 0.255480, id=272 JObject2Matrix
-maxDx = 0.000288
-times=4 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000024
-times=5 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.17021112, maxE = 0.255484, id=272 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.54054327, maxE = 0.608657, id=384 maxDx = 4.839435
+times=1 chi2=0.17075331, maxE = 0.252384, id=272 maxDx = 0.386630
+times=2 chi2=0.17021120, maxE = 0.255540, id=272 maxDx = 0.004601
+times=3 chi2=0.17021112, maxE = 0.255480, id=272 maxDx = 0.000288
+times=4 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000024
+times=5 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000001
+times=6 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000000
+times=7 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000000
+times=8 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000000
+times=9 chi2=0.17021112, maxE = 0.255484, id=272 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 2.038032 seconds.
+Elapsed time is 1.660478 seconds.
 
 ###Poses[x(1-42)], Features[x(43-159)], Velocity[x(160-183)]###
 Final Error: maxXef=5.595505, idx=73
@@ -372,30 +325,20 @@ me =
     5.5955
 id =
     79
-times=0 chi2=0.47018502, maxE = 0.744404, id=449 JObject2Matrix
-maxDx = 1.931558
-times=1 chi2=0.17926584, maxE = 0.272530, id=462 JObject2Matrix
-maxDx = 0.134906
-times=2 chi2=0.17923915, maxE = 0.272804, id=462 JObject2Matrix
-maxDx = 0.008859
-times=3 chi2=0.17923911, maxE = 0.272863, id=462 JObject2Matrix
-maxDx = 0.000502
-times=4 chi2=0.17923910, maxE = 0.272865, id=462 JObject2Matrix
-maxDx = 0.000036
-times=5 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
-maxDx = 0.000002
-times=6 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.17923910, maxE = 0.272866, id=462 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.47018502, maxE = 0.744404, id=449 maxDx = 1.931558
+times=1 chi2=0.17926584, maxE = 0.272530, id=462 maxDx = 0.134906
+times=2 chi2=0.17923915, maxE = 0.272804, id=462 maxDx = 0.008859
+times=3 chi2=0.17923911, maxE = 0.272863, id=462 maxDx = 0.000502
+times=4 chi2=0.17923910, maxE = 0.272865, id=462 maxDx = 0.000036
+times=5 chi2=0.17923910, maxE = 0.272866, id=462 maxDx = 0.000002
+times=6 chi2=0.17923910, maxE = 0.272866, id=462 maxDx = 0.000000
+times=7 chi2=0.17923910, maxE = 0.272866, id=462 maxDx = 0.000000
+times=8 chi2=0.17923910, maxE = 0.272866, id=462 maxDx = 0.000000
+times=9 chi2=0.17923910, maxE = 0.272866, id=462 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 2.501048 seconds.
+Elapsed time is 1.889298 seconds.
 
 ###Poses[x(1-48)], Features[x(49-168)], Velocity[x(169-195)]###
 Final Error: maxXef=5.235472, idx=79
@@ -425,30 +368,20 @@ me =
     5.2355
 id =
     85
-times=0 chi2=0.57530758, maxE = 1.093715, id=580 JObject2Matrix
-maxDx = 1.266100
-times=1 chi2=0.18069805, maxE = 0.298377, id=512 JObject2Matrix
-maxDx = 0.040537
-times=2 chi2=0.18069048, maxE = 0.298625, id=512 JObject2Matrix
-maxDx = 0.002725
-times=3 chi2=0.18069047, maxE = 0.298642, id=512 JObject2Matrix
-maxDx = 0.000068
-times=4 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000009
-times=5 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.18069047, maxE = 0.298643, id=512 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.57530758, maxE = 1.093715, id=580 maxDx = 1.266100
+times=1 chi2=0.18069805, maxE = 0.298377, id=512 maxDx = 0.040537
+times=2 chi2=0.18069048, maxE = 0.298625, id=512 maxDx = 0.002725
+times=3 chi2=0.18069047, maxE = 0.298642, id=512 maxDx = 0.000068
+times=4 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000009
+times=5 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000000
+times=6 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000000
+times=7 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000000
+times=8 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000000
+times=9 chi2=0.18069047, maxE = 0.298643, id=512 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 2.752827 seconds.
+Elapsed time is 2.078488 seconds.
 
 ###Poses[x(1-54)], Features[x(55-174)], Velocity[x(175-204)]###
 Final Error: maxXef=5.686799, idx=133
@@ -476,30 +409,20 @@ me =
     5.6868
 id =
    145
-times=0 chi2=0.78330654, maxE = 0.917194, id=681 JObject2Matrix
-maxDx = 3.450285
-times=1 chi2=0.18141905, maxE = 0.324743, id=606 JObject2Matrix
-maxDx = 0.148535
-times=2 chi2=0.18096743, maxE = 0.322197, id=606 JObject2Matrix
-maxDx = 0.003850
-times=3 chi2=0.18096741, maxE = 0.322201, id=606 JObject2Matrix
-maxDx = 0.000161
-times=4 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000014
-times=5 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.18096741, maxE = 0.322202, id=606 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.78330654, maxE = 0.917194, id=681 maxDx = 3.450285
+times=1 chi2=0.18141905, maxE = 0.324743, id=606 maxDx = 0.148535
+times=2 chi2=0.18096743, maxE = 0.322197, id=606 maxDx = 0.003850
+times=3 chi2=0.18096741, maxE = 0.322201, id=606 maxDx = 0.000161
+times=4 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000014
+times=5 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000001
+times=6 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000000
+times=7 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000000
+times=8 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000000
+times=9 chi2=0.18096741, maxE = 0.322202, id=606 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 2.816898 seconds.
+Elapsed time is 2.297229 seconds.
 
 ###Poses[x(1-60)], Features[x(61-186)], Velocity[x(187-219)]###
 Final Error: maxXef=4.402809, idx=67
@@ -527,28 +450,19 @@ me =
     4.4028
 id =
     73
-times=0 chi2=0.23837719, maxE = 0.459165, id=551 JObject2Matrix
-maxDx = 0.924076
-times=1 chi2=0.18251149, maxE = 0.310689, id=660 JObject2Matrix
-maxDx = 0.035960
-times=2 chi2=0.18250978, maxE = 0.310588, id=660 JObject2Matrix
-maxDx = 0.001593
-times=3 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000080
-times=4 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000004
-times=5 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.18250978, maxE = 0.310586, id=660 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.23837719, maxE = 0.459165, id=551 maxDx = 0.924076
+times=1 chi2=0.18251149, maxE = 0.310689, id=660 maxDx = 0.035960
+times=2 chi2=0.18250978, maxE = 0.310588, id=660 maxDx = 0.001593
+times=3 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000080
+times=4 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000004
+times=5 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000000
+times=6 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000000
+times=7 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000000
+times=8 chi2=0.18250978, maxE = 0.310586, id=660 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 2.732662 seconds.
+Elapsed time is 2.208800 seconds.
 
 ###Poses[x(1-66)], Features[x(67-192)], Velocity[x(193-228)]###
 Final Error: maxXef=4.710068, idx=73
@@ -577,28 +491,19 @@ me =
     4.7101
 id =
     79
-times=0 chi2=0.40046604, maxE = 0.702491, id=1078 JObject2Matrix
-maxDx = 1.612385
-times=1 chi2=0.18913109, maxE = 0.320120, id=714 JObject2Matrix
-maxDx = 0.034314
-times=2 chi2=0.18912310, maxE = 0.319791, id=714 JObject2Matrix
-maxDx = 0.002291
-times=3 chi2=0.18912309, maxE = 0.319787, id=714 JObject2Matrix
-maxDx = 0.000047
-times=4 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
-maxDx = 0.000006
-times=5 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.18912309, maxE = 0.319788, id=714 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.40046604, maxE = 0.702491, id=1078 maxDx = 1.612385
+times=1 chi2=0.18913109, maxE = 0.320120, id=714 maxDx = 0.034314
+times=2 chi2=0.18912310, maxE = 0.319791, id=714 maxDx = 0.002291
+times=3 chi2=0.18912309, maxE = 0.319787, id=714 maxDx = 0.000047
+times=4 chi2=0.18912309, maxE = 0.319788, id=714 maxDx = 0.000006
+times=5 chi2=0.18912309, maxE = 0.319788, id=714 maxDx = 0.000000
+times=6 chi2=0.18912309, maxE = 0.319788, id=714 maxDx = 0.000000
+times=7 chi2=0.18912309, maxE = 0.319788, id=714 maxDx = 0.000000
+times=8 chi2=0.18912309, maxE = 0.319788, id=714 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 2.901986 seconds.
+Elapsed time is 2.439869 seconds.
 
 ###Poses[x(1-72)], Features[x(73-198)], Velocity[x(199-237)]###
 Final Error: maxXef=3.703459, idx=79
@@ -627,28 +532,19 @@ me =
     3.7035
 id =
     85
-times=0 chi2=0.52279663, maxE = 1.079895, id=84 JObject2Matrix
-maxDx = 1.150706
-times=1 chi2=0.19334255, maxE = 0.327261, id=768 JObject2Matrix
-maxDx = 0.020652
-times=2 chi2=0.19333876, maxE = 0.327523, id=768 JObject2Matrix
-maxDx = 0.002263
-times=3 chi2=0.19333876, maxE = 0.327520, id=768 JObject2Matrix
-maxDx = 0.000022
-times=4 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
-maxDx = 0.000005
-times=5 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.19333876, maxE = 0.327521, id=768 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.52279663, maxE = 1.079895, id=84 maxDx = 1.150706
+times=1 chi2=0.19334255, maxE = 0.327261, id=768 maxDx = 0.020652
+times=2 chi2=0.19333876, maxE = 0.327523, id=768 maxDx = 0.002263
+times=3 chi2=0.19333876, maxE = 0.327520, id=768 maxDx = 0.000022
+times=4 chi2=0.19333876, maxE = 0.327521, id=768 maxDx = 0.000005
+times=5 chi2=0.19333876, maxE = 0.327521, id=768 maxDx = 0.000000
+times=6 chi2=0.19333876, maxE = 0.327521, id=768 maxDx = 0.000000
+times=7 chi2=0.19333876, maxE = 0.327521, id=768 maxDx = 0.000000
+times=8 chi2=0.19333876, maxE = 0.327521, id=768 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 3.122651 seconds.
+Elapsed time is 2.598217 seconds.
 
 ###Poses[x(1-78)], Features[x(79-204)], Velocity[x(205-246)]###
 Final Error: maxXef=3.883179, idx=85
@@ -677,28 +573,19 @@ me =
     3.8832
 id =
     91
-times=0 chi2=0.34071031, maxE = 0.686414, id=389 JObject2Matrix
-maxDx = 0.894990
-times=1 chi2=0.19676427, maxE = 0.322797, id=822 JObject2Matrix
-maxDx = 0.076122
-times=2 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000727
-times=3 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000154
-times=4 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000003
-times=5 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.19676091, maxE = 0.322287, id=822 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.34071031, maxE = 0.686414, id=389 maxDx = 0.894990
+times=1 chi2=0.19676427, maxE = 0.322797, id=822 maxDx = 0.076122
+times=2 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000727
+times=3 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000154
+times=4 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000003
+times=5 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000000
+times=6 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000000
+times=7 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000000
+times=8 chi2=0.19676091, maxE = 0.322287, id=822 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 3.353565 seconds.
+Elapsed time is 2.717662 seconds.
 
 ###Poses[x(1-84)], Features[x(85-210)], Velocity[x(211-255)]###
 Final Error: maxXef=3.910509, idx=91
@@ -727,30 +614,20 @@ me =
     3.9105
 id =
     97
-times=0 chi2=0.26797430, maxE = 0.567522, id=416 JObject2Matrix
-maxDx = 0.972938
-times=1 chi2=0.19714027, maxE = 0.322231, id=592 JObject2Matrix
-maxDx = 0.069910
-times=2 chi2=0.19713864, maxE = 0.322414, id=592 JObject2Matrix
-maxDx = 0.002145
-times=3 chi2=0.19713864, maxE = 0.322416, id=592 JObject2Matrix
-maxDx = 0.000208
-times=4 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000009
-times=5 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.19713864, maxE = 0.322417, id=592 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26797430, maxE = 0.567522, id=416 maxDx = 0.972938
+times=1 chi2=0.19714027, maxE = 0.322231, id=592 maxDx = 0.069910
+times=2 chi2=0.19713864, maxE = 0.322414, id=592 maxDx = 0.002145
+times=3 chi2=0.19713864, maxE = 0.322416, id=592 maxDx = 0.000208
+times=4 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000009
+times=5 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000001
+times=6 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000000
+times=7 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000000
+times=8 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000000
+times=9 chi2=0.19713864, maxE = 0.322417, id=592 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 3.877574 seconds.
+Elapsed time is 3.159260 seconds.
 
 ###Poses[x(1-90)], Features[x(91-216)], Velocity[x(217-264)]###
 Final Error: maxXef=4.689197, idx=160
@@ -779,28 +656,19 @@ me =
     4.6892
 id =
    166
-times=0 chi2=0.21857728, maxE = 0.332685, id=1189 JObject2Matrix
-maxDx = 0.868493
-times=1 chi2=0.19689212, maxE = 0.319041, id=930 JObject2Matrix
-maxDx = 0.073171
-times=2 chi2=0.19689058, maxE = 0.318997, id=930 JObject2Matrix
-maxDx = 0.001008
-times=3 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000186
-times=4 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000006
-times=5 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.19689058, maxE = 0.318992, id=930 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.21857728, maxE = 0.332685, id=1189 maxDx = 0.868493
+times=1 chi2=0.19689212, maxE = 0.319041, id=930 maxDx = 0.073171
+times=2 chi2=0.19689058, maxE = 0.318997, id=930 maxDx = 0.001008
+times=3 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000186
+times=4 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000006
+times=5 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000001
+times=6 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000000
+times=7 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000000
+times=8 chi2=0.19689058, maxE = 0.318992, id=930 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 3.631757 seconds.
+Elapsed time is 2.972637 seconds.
 
 ###Poses[x(1-96)], Features[x(97-222)], Velocity[x(223-273)]###
 Final Error: maxXef=4.901517, idx=166
@@ -829,30 +697,20 @@ me =
     4.9015
 id =
    172
-times=0 chi2=0.50083595, maxE = 0.954621, id=323 JObject2Matrix
-maxDx = 0.514374
-times=1 chi2=0.19998583, maxE = 0.319223, id=984 JObject2Matrix
-maxDx = 0.081517
-times=2 chi2=0.19998372, maxE = 0.319282, id=984 JObject2Matrix
-maxDx = 0.000394
-times=3 chi2=0.19998372, maxE = 0.319278, id=984 JObject2Matrix
-maxDx = 0.000236
-times=4 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000005
-times=5 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.19998372, maxE = 0.319279, id=984 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.50083595, maxE = 0.954621, id=323 maxDx = 0.514374
+times=1 chi2=0.19998583, maxE = 0.319223, id=984 maxDx = 0.081517
+times=2 chi2=0.19998372, maxE = 0.319282, id=984 maxDx = 0.000394
+times=3 chi2=0.19998372, maxE = 0.319278, id=984 maxDx = 0.000236
+times=4 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000005
+times=5 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000001
+times=6 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000000
+times=7 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000000
+times=8 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000000
+times=9 chi2=0.19998372, maxE = 0.319279, id=984 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 4.304675 seconds.
+Elapsed time is 3.476332 seconds.
 
 ###Poses[x(1-102)], Features[x(103-228)], Velocity[x(229-282)]###
 Final Error: maxXef=4.872821, idx=109
@@ -881,28 +739,19 @@ me =
     4.8728
 id =
    115
-times=0 chi2=0.41902073, maxE = 0.878723, id=1482 JObject2Matrix
-maxDx = 0.721583
-times=1 chi2=0.20220563, maxE = 0.316134, id=1038 JObject2Matrix
-maxDx = 0.007736
-times=2 chi2=0.20220435, maxE = 0.316276, id=1038 JObject2Matrix
-maxDx = 0.001637
-times=3 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000052
-times=4 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000005
-times=5 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20220435, maxE = 0.316279, id=1038 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.41902073, maxE = 0.878723, id=1482 maxDx = 0.721583
+times=1 chi2=0.20220563, maxE = 0.316134, id=1038 maxDx = 0.007736
+times=2 chi2=0.20220435, maxE = 0.316276, id=1038 maxDx = 0.001637
+times=3 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000052
+times=4 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000005
+times=5 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000000
+times=6 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000000
+times=7 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000000
+times=8 chi2=0.20220435, maxE = 0.316279, id=1038 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 4.082189 seconds.
+Elapsed time is 3.304870 seconds.
 
 ###Poses[x(1-108)], Features[x(109-234)], Velocity[x(235-291)]###
 Final Error: maxXef=4.190440, idx=178
@@ -931,28 +780,19 @@ me =
     4.1904
 id =
    184
-times=0 chi2=0.26079630, maxE = 0.501206, id=360 JObject2Matrix
-maxDx = 0.319114
-times=1 chi2=0.20100451, maxE = 0.316829, id=1092 JObject2Matrix
-maxDx = 0.003517
-times=2 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000170
-times=3 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000013
-times=4 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20100431, maxE = 0.316817, id=1092 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26079630, maxE = 0.501206, id=360 maxDx = 0.319114
+times=1 chi2=0.20100451, maxE = 0.316829, id=1092 maxDx = 0.003517
+times=2 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000170
+times=3 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000013
+times=4 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000000
+times=5 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000000
+times=6 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000000
+times=7 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000000
+times=8 chi2=0.20100431, maxE = 0.316817, id=1092 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 4.332859 seconds.
+Elapsed time is 3.513471 seconds.
 
 ###Poses[x(1-114)], Features[x(115-240)], Velocity[x(241-300)]###
 Final Error: maxXef=4.270110, idx=184
@@ -981,28 +821,19 @@ me =
     4.2701
 id =
    190
-times=0 chi2=0.28153265, maxE = 0.550422, id=1008 JObject2Matrix
-maxDx = 0.589039
-times=1 chi2=0.20337400, maxE = 0.317626, id=1146 JObject2Matrix
-maxDx = 0.018079
-times=2 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000574
-times=3 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000022
-times=4 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000001
-times=5 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20337322, maxE = 0.317662, id=1146 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.28153265, maxE = 0.550422, id=1008 maxDx = 0.589039
+times=1 chi2=0.20337400, maxE = 0.317626, id=1146 maxDx = 0.018079
+times=2 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000574
+times=3 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000022
+times=4 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000001
+times=5 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000000
+times=6 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000000
+times=7 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000000
+times=8 chi2=0.20337322, maxE = 0.317662, id=1146 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 4.524294 seconds.
+Elapsed time is 3.609379 seconds.
 
 ###Poses[x(1-120)], Features[x(121-246)], Velocity[x(247-309)]###
 Final Error: maxXef=3.969447, idx=127
@@ -1031,28 +862,19 @@ me =
     3.9694
 id =
    133
-times=0 chi2=2.00626608, maxE = 0.844326, id=1404 JObject2Matrix
-maxDx = 0.588290
-times=1 chi2=0.20514038, maxE = 0.317467, id=1196 JObject2Matrix
-maxDx = 0.011815
-times=2 chi2=0.20513901, maxE = 0.317589, id=1196 JObject2Matrix
-maxDx = 0.000166
-times=3 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000029
-times=4 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000001
-times=5 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20513901, maxE = 0.317591, id=1196 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=2.00626608, maxE = 0.844326, id=1404 maxDx = 0.588290
+times=1 chi2=0.20514038, maxE = 0.317467, id=1196 maxDx = 0.011815
+times=2 chi2=0.20513901, maxE = 0.317589, id=1196 maxDx = 0.000166
+times=3 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000029
+times=4 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000001
+times=5 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000000
+times=6 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000000
+times=7 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000000
+times=8 chi2=0.20513901, maxE = 0.317591, id=1196 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 4.633760 seconds.
+Elapsed time is 3.713713 seconds.
 
 ###Poses[x(1-126)], Features[x(127-252)], Velocity[x(253-318)]###
 Final Error: maxXef=4.421709, idx=133
@@ -1081,30 +903,20 @@ me =
     4.4217
 id =
    139
-times=0 chi2=1.25844857, maxE = 0.494101, id=1463 JObject2Matrix
-maxDx = 0.451205
-times=1 chi2=0.20882008, maxE = 0.319350, id=1246 JObject2Matrix
-maxDx = 0.082902
-times=2 chi2=0.20881907, maxE = 0.319318, id=1246 JObject2Matrix
-maxDx = 0.001834
-times=3 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000276
-times=4 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000010
-times=5 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.20881907, maxE = 0.319311, id=1246 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=1.25844857, maxE = 0.494101, id=1463 maxDx = 0.451205
+times=1 chi2=0.20882008, maxE = 0.319350, id=1246 maxDx = 0.082902
+times=2 chi2=0.20881907, maxE = 0.319318, id=1246 maxDx = 0.001834
+times=3 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000276
+times=4 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000010
+times=5 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000001
+times=6 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000000
+times=7 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000000
+times=8 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000000
+times=9 chi2=0.20881907, maxE = 0.319311, id=1246 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 5.334483 seconds.
+Elapsed time is 4.341533 seconds.
 
 ###Poses[x(1-132)], Features[x(133-258)], Velocity[x(259-327)]###
 Final Error: maxXef=4.194200, idx=139
@@ -1133,30 +945,20 @@ me =
     4.1942
 id =
    145
-times=0 chi2=0.78940829, maxE = 0.497111, id=1476 JObject2Matrix
-maxDx = 1.589028
-times=1 chi2=0.20964563, maxE = 0.317513, id=1296 JObject2Matrix
-maxDx = 0.016720
-times=2 chi2=0.20963916, maxE = 0.317210, id=1296 JObject2Matrix
-maxDx = 0.004285
-times=3 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000063
-times=4 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000017
-times=5 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.20963916, maxE = 0.317212, id=1296 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.78940829, maxE = 0.497111, id=1476 maxDx = 1.589028
+times=1 chi2=0.20964563, maxE = 0.317513, id=1296 maxDx = 0.016720
+times=2 chi2=0.20963916, maxE = 0.317210, id=1296 maxDx = 0.004285
+times=3 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000063
+times=4 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000017
+times=5 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000001
+times=6 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000000
+times=7 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000000
+times=8 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000000
+times=9 chi2=0.20963916, maxE = 0.317212, id=1296 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 5.592218 seconds.
+Elapsed time is 4.478889 seconds.
 
 ###Poses[x(1-138)], Features[x(139-264)], Velocity[x(265-336)]###
 Final Error: maxXef=5.501181, idx=145
@@ -1186,30 +988,20 @@ me =
     5.5012
 id =
    151
-times=0 chi2=0.80101239, maxE = 0.856338, id=1634 JObject2Matrix
-maxDx = 0.942831
-times=1 chi2=0.20867121, maxE = 0.319221, id=1346 JObject2Matrix
-maxDx = 0.035746
-times=2 chi2=0.20866991, maxE = 0.318941, id=1346 JObject2Matrix
-maxDx = 0.002028
-times=3 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000151
-times=4 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000010
-times=5 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000001
-times=6 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000000
-times=9 chi2=0.20866991, maxE = 0.318935, id=1346 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.80101239, maxE = 0.856338, id=1634 maxDx = 0.942831
+times=1 chi2=0.20867121, maxE = 0.319221, id=1346 maxDx = 0.035746
+times=2 chi2=0.20866991, maxE = 0.318941, id=1346 maxDx = 0.002028
+times=3 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000151
+times=4 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000010
+times=5 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000001
+times=6 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000000
+times=7 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000000
+times=8 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000000
+times=9 chi2=0.20866991, maxE = 0.318935, id=1346 maxDx = 0.000000
 Iteration Times:	 N = 9
 nReason =
      0
-Elapsed time is 5.735119 seconds.
+Elapsed time is 4.640950 seconds.
 
 ###Poses[x(1-144)], Features[x(145-270)], Velocity[x(271-345)]###
 Final Error: maxXef=4.757224, idx=151
@@ -1239,28 +1031,19 @@ me =
     4.7572
 id =
    157
-times=0 chi2=0.53223915, maxE = 0.440974, id=249 JObject2Matrix
-maxDx = 2.113655
-times=1 chi2=0.21148913, maxE = 0.321754, id=1396 JObject2Matrix
-maxDx = 0.016343
-times=2 chi2=0.21144805, maxE = 0.320265, id=1396 JObject2Matrix
-maxDx = 0.003054
-times=3 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000095
-times=4 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000008
-times=5 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000000
-times=8 chi2=0.21144805, maxE = 0.320262, id=1396 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.53223915, maxE = 0.440974, id=249 maxDx = 2.113655
+times=1 chi2=0.21148913, maxE = 0.321754, id=1396 maxDx = 0.016343
+times=2 chi2=0.21144805, maxE = 0.320265, id=1396 maxDx = 0.003054
+times=3 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000095
+times=4 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000008
+times=5 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000000
+times=6 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000000
+times=7 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000000
+times=8 chi2=0.21144805, maxE = 0.320262, id=1396 maxDx = 0.000000
 Iteration Times:	 N = 8
 nReason =
      0
-Elapsed time is 5.368509 seconds.
+Elapsed time is 4.355382 seconds.
 
 ###Poses[x(1-150)], Features[x(151-276)], Velocity[x(277-354)]###
 Final Error: maxXef=2.958348, idx=157
@@ -1290,26 +1073,18 @@ me =
     2.9583
 id =
    163
-times=0 chi2=0.51986268, maxE = 0.603738, id=204 JObject2Matrix
-maxDx = 0.819737
-times=1 chi2=0.21070989, maxE = 0.315969, id=1446 JObject2Matrix
-maxDx = 0.011121
-times=2 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000397
-times=3 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000008
-times=4 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.21070805, maxE = 0.315865, id=1446 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.51986268, maxE = 0.603738, id=204 maxDx = 0.819737
+times=1 chi2=0.21070989, maxE = 0.315969, id=1446 maxDx = 0.011121
+times=2 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000397
+times=3 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000008
+times=4 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000000
+times=5 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000000
+times=6 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000000
+times=7 chi2=0.21070805, maxE = 0.315865, id=1446 maxDx = 0.000000
 Iteration Times:	 N = 7
 nReason =
      0
-Elapsed time is 4.944058 seconds.
+Elapsed time is 4.004019 seconds.
 
 ###Poses[x(1-156)], Features[x(157-285)], Velocity[x(286-366)]###
 Final Error: maxXef=3.414100, idx=163
@@ -1339,26 +1114,18 @@ me =
     3.4141
 id =
    169
-times=0 chi2=0.38843628, maxE = 0.476599, id=2099 JObject2Matrix
-maxDx = 1.237899
-times=1 chi2=0.21030206, maxE = 0.315900, id=1500 JObject2Matrix
-maxDx = 0.040005
-times=2 chi2=0.21028699, maxE = 0.315418, id=1500 JObject2Matrix
-maxDx = 0.000954
-times=3 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
-maxDx = 0.000027
-times=4 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
-maxDx = 0.000001
-times=5 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.21028699, maxE = 0.315417, id=1500 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.38843628, maxE = 0.476599, id=2099 maxDx = 1.237899
+times=1 chi2=0.21030206, maxE = 0.315900, id=1500 maxDx = 0.040005
+times=2 chi2=0.21028699, maxE = 0.315418, id=1500 maxDx = 0.000954
+times=3 chi2=0.21028699, maxE = 0.315417, id=1500 maxDx = 0.000027
+times=4 chi2=0.21028699, maxE = 0.315417, id=1500 maxDx = 0.000001
+times=5 chi2=0.21028699, maxE = 0.315417, id=1500 maxDx = 0.000000
+times=6 chi2=0.21028699, maxE = 0.315417, id=1500 maxDx = 0.000000
+times=7 chi2=0.21028699, maxE = 0.315417, id=1500 maxDx = 0.000000
 Iteration Times:	 N = 7
 nReason =
      0
-Elapsed time is 5.270730 seconds.
+Elapsed time is 4.165249 seconds.
 
 ###Poses[x(1-162)], Features[x(163-294)], Velocity[x(295-378)]###
 Final Error: maxXef=2.380843, idx=169
@@ -1388,26 +1155,18 @@ me =
     2.8825
 id =
    238
-times=0 chi2=0.40046830, maxE = 0.702834, id=2378 JObject2Matrix
-maxDx = 2.082897
-times=1 chi2=0.21088811, maxE = 0.317898, id=1560 JObject2Matrix
-maxDx = 0.068035
-times=2 chi2=0.21087199, maxE = 0.317782, id=1560 JObject2Matrix
-maxDx = 0.000341
-times=3 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
-maxDx = 0.000017
-times=4 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
-maxDx = 0.000000
-times=7 chi2=0.21087199, maxE = 0.317780, id=1560 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.40046830, maxE = 0.702834, id=2378 maxDx = 2.082897
+times=1 chi2=0.21088811, maxE = 0.317898, id=1560 maxDx = 0.068035
+times=2 chi2=0.21087199, maxE = 0.317782, id=1560 maxDx = 0.000341
+times=3 chi2=0.21087199, maxE = 0.317780, id=1560 maxDx = 0.000017
+times=4 chi2=0.21087199, maxE = 0.317780, id=1560 maxDx = 0.000000
+times=5 chi2=0.21087199, maxE = 0.317780, id=1560 maxDx = 0.000000
+times=6 chi2=0.21087199, maxE = 0.317780, id=1560 maxDx = 0.000000
+times=7 chi2=0.21087199, maxE = 0.317780, id=1560 maxDx = 0.000000
 Iteration Times:	 N = 7
 nReason =
      0
-Elapsed time is 5.419843 seconds.
+Elapsed time is 4.548915 seconds.
 
 ###Poses[x(1-168)], Features[x(169-303)], Velocity[x(304-390)]###
 Final Error: maxXef=2.039655, idx=175
@@ -1436,24 +1195,17 @@ me =
     3.6572
 id =
    205
-times=0 chi2=0.36882166, maxE = 0.678737, id=767 JObject2Matrix
-maxDx = 1.866438
-times=1 chi2=0.21293875, maxE = 0.315892, id=1622 JObject2Matrix
-maxDx = 0.073207
-times=2 chi2=0.21293277, maxE = 0.315871, id=1622 JObject2Matrix
-maxDx = 0.000088
-times=3 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
-maxDx = 0.000005
-times=4 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21293277, maxE = 0.315869, id=1622 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.36882166, maxE = 0.678737, id=767 maxDx = 1.866438
+times=1 chi2=0.21293875, maxE = 0.315892, id=1622 maxDx = 0.073207
+times=2 chi2=0.21293277, maxE = 0.315871, id=1622 maxDx = 0.000088
+times=3 chi2=0.21293277, maxE = 0.315869, id=1622 maxDx = 0.000005
+times=4 chi2=0.21293277, maxE = 0.315869, id=1622 maxDx = 0.000000
+times=5 chi2=0.21293277, maxE = 0.315869, id=1622 maxDx = 0.000000
+times=6 chi2=0.21293277, maxE = 0.315869, id=1622 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 4.894537 seconds.
+Elapsed time is 4.022923 seconds.
 
 ###Poses[x(1-174)], Features[x(175-315)], Velocity[x(316-405)]###
 Final Error: maxXef=1.994323, idx=181
@@ -1483,24 +1235,17 @@ me =
     1.9943
 id =
    187
-times=0 chi2=0.32188218, maxE = 0.787418, id=1793 JObject2Matrix
-maxDx = 1.846095
-times=1 chi2=0.21214286, maxE = 0.315282, id=1682 JObject2Matrix
-maxDx = 0.113794
-times=2 chi2=0.21213433, maxE = 0.315237, id=1682 JObject2Matrix
-maxDx = 0.000359
-times=3 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21213433, maxE = 0.315236, id=1682 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.32188218, maxE = 0.787418, id=1793 maxDx = 1.846095
+times=1 chi2=0.21214286, maxE = 0.315282, id=1682 maxDx = 0.113794
+times=2 chi2=0.21213433, maxE = 0.315237, id=1682 maxDx = 0.000359
+times=3 chi2=0.21213433, maxE = 0.315236, id=1682 maxDx = 0.000002
+times=4 chi2=0.21213433, maxE = 0.315236, id=1682 maxDx = 0.000000
+times=5 chi2=0.21213433, maxE = 0.315236, id=1682 maxDx = 0.000000
+times=6 chi2=0.21213433, maxE = 0.315236, id=1682 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.075040 seconds.
+Elapsed time is 4.272708 seconds.
 
 ###Poses[x(1-180)], Features[x(181-324)], Velocity[x(325-417)]###
 Final Error: maxXef=2.261794, idx=187
@@ -1529,24 +1274,17 @@ me =
     2.6078
 id =
    283
-times=0 chi2=0.26992465, maxE = 0.746310, id=2502 JObject2Matrix
-maxDx = 0.747366
-times=1 chi2=0.21301175, maxE = 0.307011, id=1036 JObject2Matrix
-maxDx = 0.013729
-times=2 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
-maxDx = 0.000193
-times=3 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
-maxDx = 0.000009
-times=4 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21301094, maxE = 0.307020, id=1036 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26992465, maxE = 0.746310, id=2502 maxDx = 0.747366
+times=1 chi2=0.21301175, maxE = 0.307011, id=1036 maxDx = 0.013729
+times=2 chi2=0.21301094, maxE = 0.307020, id=1036 maxDx = 0.000193
+times=3 chi2=0.21301094, maxE = 0.307020, id=1036 maxDx = 0.000009
+times=4 chi2=0.21301094, maxE = 0.307020, id=1036 maxDx = 0.000000
+times=5 chi2=0.21301094, maxE = 0.307020, id=1036 maxDx = 0.000000
+times=6 chi2=0.21301094, maxE = 0.307020, id=1036 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.237906 seconds.
+Elapsed time is 5.070690 seconds.
 
 ###Poses[x(1-186)], Features[x(187-333)], Velocity[x(334-429)]###
 Final Error: maxXef=2.064967, idx=193
@@ -1576,24 +1314,17 @@ me =
     2.0650
 id =
    199
-times=0 chi2=0.32332350, maxE = 0.686284, id=846 JObject2Matrix
-maxDx = 0.818842
-times=1 chi2=0.21330124, maxE = 0.304121, id=1068 JObject2Matrix
-maxDx = 0.006053
-times=2 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
-maxDx = 0.000155
-times=3 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
-maxDx = 0.000004
-times=4 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21330030, maxE = 0.304141, id=1068 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.32332350, maxE = 0.686284, id=846 maxDx = 0.818842
+times=1 chi2=0.21330124, maxE = 0.304121, id=1068 maxDx = 0.006053
+times=2 chi2=0.21330030, maxE = 0.304141, id=1068 maxDx = 0.000155
+times=3 chi2=0.21330030, maxE = 0.304141, id=1068 maxDx = 0.000004
+times=4 chi2=0.21330030, maxE = 0.304141, id=1068 maxDx = 0.000000
+times=5 chi2=0.21330030, maxE = 0.304141, id=1068 maxDx = 0.000000
+times=6 chi2=0.21330030, maxE = 0.304141, id=1068 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.436464 seconds.
+Elapsed time is 5.391987 seconds.
 
 ###Poses[x(1-192)], Features[x(193-339)], Velocity[x(340-438)]###
 Final Error: maxXef=1.711019, idx=199
@@ -1622,24 +1353,17 @@ me =
     2.3829
 id =
    259
-times=0 chi2=0.33726192, maxE = 0.838830, id=1144 JObject2Matrix
-maxDx = 1.519170
-times=1 chi2=0.21410465, maxE = 0.302606, id=1100 JObject2Matrix
-maxDx = 0.079505
-times=2 chi2=0.21409012, maxE = 0.302613, id=1100 JObject2Matrix
-maxDx = 0.000226
-times=3 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21409012, maxE = 0.302614, id=1100 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.33726192, maxE = 0.838830, id=1144 maxDx = 1.519170
+times=1 chi2=0.21410465, maxE = 0.302606, id=1100 maxDx = 0.079505
+times=2 chi2=0.21409012, maxE = 0.302613, id=1100 maxDx = 0.000226
+times=3 chi2=0.21409012, maxE = 0.302614, id=1100 maxDx = 0.000000
+times=4 chi2=0.21409012, maxE = 0.302614, id=1100 maxDx = 0.000000
+times=5 chi2=0.21409012, maxE = 0.302614, id=1100 maxDx = 0.000000
+times=6 chi2=0.21409012, maxE = 0.302614, id=1100 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.651679 seconds.
+Elapsed time is 5.368447 seconds.
 
 ###Poses[x(1-198)], Features[x(199-351)], Velocity[x(352-453)]###
 Final Error: maxXef=1.733653, idx=205
@@ -1669,24 +1393,17 @@ me =
     1.7337
 id =
    211
-times=0 chi2=0.29621973, maxE = 0.703203, id=1269 JObject2Matrix
-maxDx = 0.456654
-times=1 chi2=0.21332004, maxE = 0.306026, id=1930 JObject2Matrix
-maxDx = 0.003573
-times=2 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
-maxDx = 0.000062
-times=3 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21331947, maxE = 0.306007, id=1930 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.29621973, maxE = 0.703203, id=1269 maxDx = 0.456654
+times=1 chi2=0.21332004, maxE = 0.306026, id=1930 maxDx = 0.003573
+times=2 chi2=0.21331947, maxE = 0.306007, id=1930 maxDx = 0.000062
+times=3 chi2=0.21331947, maxE = 0.306007, id=1930 maxDx = 0.000002
+times=4 chi2=0.21331947, maxE = 0.306007, id=1930 maxDx = 0.000000
+times=5 chi2=0.21331947, maxE = 0.306007, id=1930 maxDx = 0.000000
+times=6 chi2=0.21331947, maxE = 0.306007, id=1930 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.746798 seconds.
+Elapsed time is 5.625838 seconds.
 
 ###Poses[x(1-204)], Features[x(205-360)], Velocity[x(361-465)]###
 Final Error: maxXef=1.917757, idx=211
@@ -1715,24 +1432,17 @@ me =
     1.9178
 id =
    217
-times=0 chi2=0.25397490, maxE = 0.476801, id=2472 JObject2Matrix
-maxDx = 0.586946
-times=1 chi2=0.21314065, maxE = 0.309955, id=1994 JObject2Matrix
-maxDx = 0.008307
-times=2 chi2=0.21314002, maxE = 0.309933, id=1994 JObject2Matrix
-maxDx = 0.000029
-times=3 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
-maxDx = 0.000005
-times=4 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21314002, maxE = 0.309932, id=1994 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.25397490, maxE = 0.476801, id=2472 maxDx = 0.586946
+times=1 chi2=0.21314065, maxE = 0.309955, id=1994 maxDx = 0.008307
+times=2 chi2=0.21314002, maxE = 0.309933, id=1994 maxDx = 0.000029
+times=3 chi2=0.21314002, maxE = 0.309932, id=1994 maxDx = 0.000005
+times=4 chi2=0.21314002, maxE = 0.309932, id=1994 maxDx = 0.000000
+times=5 chi2=0.21314002, maxE = 0.309932, id=1994 maxDx = 0.000000
+times=6 chi2=0.21314002, maxE = 0.309932, id=1994 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 5.904671 seconds.
+Elapsed time is 5.658524 seconds.
 
 ###Poses[x(1-210)], Features[x(211-369)], Velocity[x(370-477)]###
 Final Error: maxXef=2.085397, idx=217
@@ -1762,24 +1472,17 @@ me =
     2.0854
 id =
    223
-times=0 chi2=0.28614205, maxE = 0.878881, id=2543 JObject2Matrix
-maxDx = 0.477778
-times=1 chi2=0.21549653, maxE = 0.316253, id=2617 JObject2Matrix
-maxDx = 0.002690
-times=2 chi2=0.21549622, maxE = 0.315429, id=2617 JObject2Matrix
-maxDx = 0.000048
-times=3 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21549622, maxE = 0.315428, id=2617 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.28614205, maxE = 0.878881, id=2543 maxDx = 0.477778
+times=1 chi2=0.21549653, maxE = 0.316253, id=2617 maxDx = 0.002690
+times=2 chi2=0.21549622, maxE = 0.315429, id=2617 maxDx = 0.000048
+times=3 chi2=0.21549622, maxE = 0.315428, id=2617 maxDx = 0.000001
+times=4 chi2=0.21549622, maxE = 0.315428, id=2617 maxDx = 0.000000
+times=5 chi2=0.21549622, maxE = 0.315428, id=2617 maxDx = 0.000000
+times=6 chi2=0.21549622, maxE = 0.315428, id=2617 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 6.080024 seconds.
+Elapsed time is 5.623399 seconds.
 
 ###Poses[x(1-216)], Features[x(217-375)], Velocity[x(376-486)]###
 Final Error: maxXef=2.234537, idx=223
@@ -1809,22 +1512,16 @@ me =
     2.2345
 id =
    229
-times=0 chi2=0.23803695, maxE = 0.487516, id=2608 JObject2Matrix
-maxDx = 0.427388
-times=1 chi2=0.21613811, maxE = 0.310549, id=2112 JObject2Matrix
-maxDx = 0.004048
-times=2 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
-maxDx = 0.000003
-times=3 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21613806, maxE = 0.310539, id=2112 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.23803695, maxE = 0.487516, id=2608 maxDx = 0.427388
+times=1 chi2=0.21613811, maxE = 0.310549, id=2112 maxDx = 0.004048
+times=2 chi2=0.21613806, maxE = 0.310539, id=2112 maxDx = 0.000003
+times=3 chi2=0.21613806, maxE = 0.310539, id=2112 maxDx = 0.000000
+times=4 chi2=0.21613806, maxE = 0.310539, id=2112 maxDx = 0.000000
+times=5 chi2=0.21613806, maxE = 0.310539, id=2112 maxDx = 0.000000
 Iteration Times:	 N = 5
 nReason =
      0
-Elapsed time is 5.351337 seconds.
+Elapsed time is 4.784856 seconds.
 
 ###Poses[x(1-222)], Features[x(223-384)], Velocity[x(385-498)]###
 Final Error: maxXef=2.295778, idx=229
@@ -1857,24 +1554,17 @@ me =
     2.2958
 id =
    235
-times=0 chi2=0.24829467, maxE = 0.490086, id=737 JObject2Matrix
-maxDx = 0.893172
-times=1 chi2=0.21538242, maxE = 0.308683, id=2168 JObject2Matrix
-maxDx = 0.013810
-times=2 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
-maxDx = 0.000037
-times=3 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
-maxDx = 0.000003
-times=4 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21538180, maxE = 0.308678, id=2168 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.24829467, maxE = 0.490086, id=737 maxDx = 0.893172
+times=1 chi2=0.21538242, maxE = 0.308683, id=2168 maxDx = 0.013810
+times=2 chi2=0.21538180, maxE = 0.308678, id=2168 maxDx = 0.000037
+times=3 chi2=0.21538180, maxE = 0.308678, id=2168 maxDx = 0.000003
+times=4 chi2=0.21538180, maxE = 0.308678, id=2168 maxDx = 0.000000
+times=5 chi2=0.21538180, maxE = 0.308678, id=2168 maxDx = 0.000000
+times=6 chi2=0.21538180, maxE = 0.308678, id=2168 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 6.484311 seconds.
+Elapsed time is 5.679757 seconds.
 
 ###Poses[x(1-228)], Features[x(229-396)], Velocity[x(397-513)]###
 Final Error: maxXef=2.339104, idx=385
@@ -1903,24 +1593,17 @@ me =
     3.2004
 id =
    250
-times=0 chi2=0.34536513, maxE = 0.998192, id=3225 JObject2Matrix
-maxDx = 3.639340
-times=1 chi2=0.21428647, maxE = 0.307960, id=2250 JObject2Matrix
-maxDx = 0.255427
-times=2 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
-maxDx = 0.001133
-times=3 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21424285, maxE = 0.307976, id=2250 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.34536513, maxE = 0.998192, id=3225 maxDx = 3.639340
+times=1 chi2=0.21428647, maxE = 0.307960, id=2250 maxDx = 0.255427
+times=2 chi2=0.21424285, maxE = 0.307976, id=2250 maxDx = 0.001133
+times=3 chi2=0.21424285, maxE = 0.307976, id=2250 maxDx = 0.000001
+times=4 chi2=0.21424285, maxE = 0.307976, id=2250 maxDx = 0.000000
+times=5 chi2=0.21424285, maxE = 0.307976, id=2250 maxDx = 0.000000
+times=6 chi2=0.21424285, maxE = 0.307976, id=2250 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 6.589045 seconds.
+Elapsed time is 5.954318 seconds.
 
 ###Poses[x(1-234)], Features[x(235-420)], Velocity[x(421-540)]###
 Final Error: maxXef=2.289939, idx=241
@@ -1950,24 +1633,17 @@ me =
     2.2899
 id =
    247
-times=0 chi2=0.26471878, maxE = 0.547765, id=1048 JObject2Matrix
-maxDx = 1.095812
-times=1 chi2=0.21306434, maxE = 0.309129, id=2314 JObject2Matrix
-maxDx = 0.025618
-times=2 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
-maxDx = 0.000024
-times=3 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21306384, maxE = 0.309132, id=2314 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26471878, maxE = 0.547765, id=1048 maxDx = 1.095812
+times=1 chi2=0.21306434, maxE = 0.309129, id=2314 maxDx = 0.025618
+times=2 chi2=0.21306384, maxE = 0.309132, id=2314 maxDx = 0.000024
+times=3 chi2=0.21306384, maxE = 0.309132, id=2314 maxDx = 0.000000
+times=4 chi2=0.21306384, maxE = 0.309132, id=2314 maxDx = 0.000000
+times=5 chi2=0.21306384, maxE = 0.309132, id=2314 maxDx = 0.000000
+times=6 chi2=0.21306384, maxE = 0.309132, id=2314 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 6.820106 seconds.
+Elapsed time is 5.965809 seconds.
 
 ###Poses[x(1-240)], Features[x(241-426)], Velocity[x(427-549)]###
 Final Error: maxXef=2.287150, idx=247
@@ -1996,22 +1672,16 @@ me =
     3.0445
 id =
    380
-times=0 chi2=0.27108426, maxE = 0.627922, id=2761 JObject2Matrix
-maxDx = 1.850005
-times=1 chi2=0.21186872, maxE = 0.309990, id=2378 JObject2Matrix
-maxDx = 0.068132
-times=2 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
-maxDx = 0.000101
-times=3 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21186499, maxE = 0.309982, id=2378 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.27108426, maxE = 0.627922, id=2761 maxDx = 1.850005
+times=1 chi2=0.21186872, maxE = 0.309990, id=2378 maxDx = 0.068132
+times=2 chi2=0.21186499, maxE = 0.309982, id=2378 maxDx = 0.000101
+times=3 chi2=0.21186499, maxE = 0.309982, id=2378 maxDx = 0.000000
+times=4 chi2=0.21186499, maxE = 0.309982, id=2378 maxDx = 0.000000
+times=5 chi2=0.21186499, maxE = 0.309982, id=2378 maxDx = 0.000000
 Iteration Times:	 N = 5
 nReason =
      0
-Elapsed time is 6.053857 seconds.
+Elapsed time is 5.101695 seconds.
 
 ###Poses[x(1-246)], Features[x(247-435)], Velocity[x(436-561)]###
 Final Error: maxXef=2.276270, idx=253
@@ -2040,24 +1710,17 @@ me =
     2.2763
 id =
    259
-times=0 chi2=0.24676345, maxE = 0.530157, id=3499 JObject2Matrix
-maxDx = 0.379879
-times=1 chi2=0.21275878, maxE = 0.310560, id=2442 JObject2Matrix
-maxDx = 0.005654
-times=2 chi2=0.21275872, maxE = 0.310552, id=2442 JObject2Matrix
-maxDx = 0.000018
-times=3 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
-maxDx = 0.000003
-times=4 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21275872, maxE = 0.310551, id=2442 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.24676345, maxE = 0.530157, id=3499 maxDx = 0.379879
+times=1 chi2=0.21275878, maxE = 0.310560, id=2442 maxDx = 0.005654
+times=2 chi2=0.21275872, maxE = 0.310552, id=2442 maxDx = 0.000018
+times=3 chi2=0.21275872, maxE = 0.310551, id=2442 maxDx = 0.000003
+times=4 chi2=0.21275872, maxE = 0.310551, id=2442 maxDx = 0.000000
+times=5 chi2=0.21275872, maxE = 0.310551, id=2442 maxDx = 0.000000
+times=6 chi2=0.21275872, maxE = 0.310551, id=2442 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 7.121754 seconds.
+Elapsed time is 6.250401 seconds.
 
 ###Poses[x(1-252)], Features[x(253-441)], Velocity[x(442-570)]###
 Final Error: maxXef=2.279634, idx=259
@@ -2087,24 +1750,17 @@ me =
     2.2796
 id =
    265
-times=0 chi2=0.39932742, maxE = 1.023603, id=3587 JObject2Matrix
-maxDx = 0.173217
-times=1 chi2=0.21343990, maxE = 0.310463, id=2504 JObject2Matrix
-maxDx = 0.004872
-times=2 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
-maxDx = 0.000036
-times=3 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21343926, maxE = 0.310435, id=2504 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.39932742, maxE = 1.023603, id=3587 maxDx = 0.173217
+times=1 chi2=0.21343990, maxE = 0.310463, id=2504 maxDx = 0.004872
+times=2 chi2=0.21343926, maxE = 0.310435, id=2504 maxDx = 0.000036
+times=3 chi2=0.21343926, maxE = 0.310435, id=2504 maxDx = 0.000002
+times=4 chi2=0.21343926, maxE = 0.310435, id=2504 maxDx = 0.000000
+times=5 chi2=0.21343926, maxE = 0.310435, id=2504 maxDx = 0.000000
+times=6 chi2=0.21343926, maxE = 0.310435, id=2504 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 7.409192 seconds.
+Elapsed time is 6.067538 seconds.
 
 ###Poses[x(1-258)], Features[x(259-447)], Velocity[x(448-579)]###
 Final Error: maxXef=2.268564, idx=265
@@ -2135,22 +1791,16 @@ me =
     2.2686
 id =
    271
-times=0 chi2=0.29316220, maxE = 0.817874, id=3674 JObject2Matrix
-maxDx = 0.136071
-times=1 chi2=0.21315022, maxE = 0.308448, id=2564 JObject2Matrix
-maxDx = 0.000530
-times=2 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
-maxDx = 0.000001
-times=3 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21314994, maxE = 0.308441, id=2564 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.29316220, maxE = 0.817874, id=3674 maxDx = 0.136071
+times=1 chi2=0.21315022, maxE = 0.308448, id=2564 maxDx = 0.000530
+times=2 chi2=0.21314994, maxE = 0.308441, id=2564 maxDx = 0.000001
+times=3 chi2=0.21314994, maxE = 0.308441, id=2564 maxDx = 0.000000
+times=4 chi2=0.21314994, maxE = 0.308441, id=2564 maxDx = 0.000000
+times=5 chi2=0.21314994, maxE = 0.308441, id=2564 maxDx = 0.000000
 Iteration Times:	 N = 5
 nReason =
      0
-Elapsed time is 6.502478 seconds.
+Elapsed time is 5.228661 seconds.
 
 ###Poses[x(1-264)], Features[x(265-453)], Velocity[x(454-588)]###
 Final Error: maxXef=2.227531, idx=271
@@ -2180,24 +1830,17 @@ me =
     2.2275
 id =
    277
-times=0 chi2=0.28470959, maxE = 0.725592, id=3750 JObject2Matrix
-maxDx = 0.171600
-times=1 chi2=0.21210328, maxE = 0.308900, id=2632 JObject2Matrix
-maxDx = 0.001021
-times=2 chi2=0.21210314, maxE = 0.308905, id=2632 JObject2Matrix
-maxDx = 0.000032
-times=3 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21210314, maxE = 0.308904, id=2632 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.28470959, maxE = 0.725592, id=3750 maxDx = 0.171600
+times=1 chi2=0.21210328, maxE = 0.308900, id=2632 maxDx = 0.001021
+times=2 chi2=0.21210314, maxE = 0.308905, id=2632 maxDx = 0.000032
+times=3 chi2=0.21210314, maxE = 0.308904, id=2632 maxDx = 0.000000
+times=4 chi2=0.21210314, maxE = 0.308904, id=2632 maxDx = 0.000000
+times=5 chi2=0.21210314, maxE = 0.308904, id=2632 maxDx = 0.000000
+times=6 chi2=0.21210314, maxE = 0.308904, id=2632 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 7.706405 seconds.
+Elapsed time is 6.222487 seconds.
 
 ###Poses[x(1-270)], Features[x(271-462)], Velocity[x(463-600)]###
 Final Error: maxXef=2.259492, idx=277
@@ -2228,22 +1871,16 @@ me =
     2.2595
 id =
    283
-times=0 chi2=0.22241433, maxE = 0.364411, id=896 JObject2Matrix
-maxDx = 0.101659
-times=1 chi2=0.21190312, maxE = 0.309442, id=3383 JObject2Matrix
-maxDx = 0.000317
-times=2 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
-maxDx = 0.000020
-times=3 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21190310, maxE = 0.309422, id=3383 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.22241433, maxE = 0.364411, id=896 maxDx = 0.101659
+times=1 chi2=0.21190312, maxE = 0.309442, id=3383 maxDx = 0.000317
+times=2 chi2=0.21190310, maxE = 0.309422, id=3383 maxDx = 0.000020
+times=3 chi2=0.21190310, maxE = 0.309422, id=3383 maxDx = 0.000000
+times=4 chi2=0.21190310, maxE = 0.309422, id=3383 maxDx = 0.000000
+times=5 chi2=0.21190310, maxE = 0.309422, id=3383 maxDx = 0.000000
 Iteration Times:	 N = 5
 nReason =
      0
-Elapsed time is 6.704888 seconds.
+Elapsed time is 5.458154 seconds.
 
 ###Poses[x(1-276)], Features[x(277-468)], Velocity[x(469-609)]###
 Final Error: maxXef=2.216702, idx=283
@@ -2273,24 +1910,17 @@ me =
     2.2167
 id =
    289
-times=0 chi2=0.28246184, maxE = 0.794402, id=1785 JObject2Matrix
-maxDx = 0.116919
-times=1 chi2=0.21270069, maxE = 0.328074, id=4128 JObject2Matrix
-maxDx = 0.002891
-times=2 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
-maxDx = 0.000043
-times=3 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21270051, maxE = 0.327523, id=4128 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.28246184, maxE = 0.794402, id=1785 maxDx = 0.116919
+times=1 chi2=0.21270069, maxE = 0.328074, id=4128 maxDx = 0.002891
+times=2 chi2=0.21270051, maxE = 0.327523, id=4128 maxDx = 0.000043
+times=3 chi2=0.21270051, maxE = 0.327523, id=4128 maxDx = 0.000002
+times=4 chi2=0.21270051, maxE = 0.327523, id=4128 maxDx = 0.000000
+times=5 chi2=0.21270051, maxE = 0.327523, id=4128 maxDx = 0.000000
+times=6 chi2=0.21270051, maxE = 0.327523, id=4128 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 7.979322 seconds.
+Elapsed time is 6.573726 seconds.
 
 ###Poses[x(1-282)], Features[x(283-477)], Velocity[x(478-621)]###
 Final Error: maxXef=2.156661, idx=289
@@ -2322,24 +1952,17 @@ me =
     2.1567
 id =
    295
-times=0 chi2=0.25798789, maxE = 0.805503, id=1230 JObject2Matrix
-maxDx = 0.082451
-times=1 chi2=0.21331460, maxE = 0.311175, id=1230 JObject2Matrix
-maxDx = 0.001535
-times=2 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
-maxDx = 0.000018
-times=3 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21331459, maxE = 0.311447, id=1230 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.25798789, maxE = 0.805503, id=1230 maxDx = 0.082451
+times=1 chi2=0.21331460, maxE = 0.311175, id=1230 maxDx = 0.001535
+times=2 chi2=0.21331459, maxE = 0.311447, id=1230 maxDx = 0.000018
+times=3 chi2=0.21331459, maxE = 0.311447, id=1230 maxDx = 0.000001
+times=4 chi2=0.21331459, maxE = 0.311447, id=1230 maxDx = 0.000000
+times=5 chi2=0.21331459, maxE = 0.311447, id=1230 maxDx = 0.000000
+times=6 chi2=0.21331459, maxE = 0.311447, id=1230 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.161585 seconds.
+Elapsed time is 6.680434 seconds.
 
 ###Poses[x(1-288)], Features[x(289-483)], Velocity[x(484-630)]###
 Final Error: maxXef=2.098407, idx=295
@@ -2373,24 +1996,17 @@ me =
     2.0984
 id =
    301
-times=0 chi2=0.27296555, maxE = 0.797519, id=3496 JObject2Matrix
-maxDx = 0.089035
-times=1 chi2=0.21316779, maxE = 0.311558, id=1242 JObject2Matrix
-maxDx = 0.001741
-times=2 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
-maxDx = 0.000037
-times=3 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21316776, maxE = 0.311663, id=1242 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.27296555, maxE = 0.797519, id=3496 maxDx = 0.089035
+times=1 chi2=0.21316779, maxE = 0.311558, id=1242 maxDx = 0.001741
+times=2 chi2=0.21316776, maxE = 0.311663, id=1242 maxDx = 0.000037
+times=3 chi2=0.21316776, maxE = 0.311663, id=1242 maxDx = 0.000001
+times=4 chi2=0.21316776, maxE = 0.311663, id=1242 maxDx = 0.000000
+times=5 chi2=0.21316776, maxE = 0.311663, id=1242 maxDx = 0.000000
+times=6 chi2=0.21316776, maxE = 0.311663, id=1242 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.284135 seconds.
+Elapsed time is 6.982507 seconds.
 
 ###Poses[x(1-294)], Features[x(295-489)], Velocity[x(490-639)]###
 Final Error: maxXef=2.039592, idx=301
@@ -2424,24 +2040,17 @@ me =
     2.0396
 id =
    307
-times=0 chi2=0.25507670, maxE = 0.759392, id=101 JObject2Matrix
-maxDx = 0.759868
-times=1 chi2=0.21293776, maxE = 0.308387, id=1262 JObject2Matrix
-maxDx = 0.014708
-times=2 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
-maxDx = 0.000057
-times=3 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21293631, maxE = 0.308405, id=1262 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.25507670, maxE = 0.759392, id=101 maxDx = 0.759868
+times=1 chi2=0.21293776, maxE = 0.308387, id=1262 maxDx = 0.014708
+times=2 chi2=0.21293631, maxE = 0.308405, id=1262 maxDx = 0.000057
+times=3 chi2=0.21293631, maxE = 0.308405, id=1262 maxDx = 0.000002
+times=4 chi2=0.21293631, maxE = 0.308405, id=1262 maxDx = 0.000000
+times=5 chi2=0.21293631, maxE = 0.308405, id=1262 maxDx = 0.000000
+times=6 chi2=0.21293631, maxE = 0.308405, id=1262 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.469373 seconds.
+Elapsed time is 6.973302 seconds.
 
 ###Poses[x(1-300)], Features[x(301-501)], Velocity[x(502-654)]###
 Final Error: maxXef=1.954096, idx=307
@@ -2475,24 +2084,17 @@ me =
     1.9541
 id =
    313
-times=0 chi2=0.22573952, maxE = 0.489613, id=2686 JObject2Matrix
-maxDx = 0.458218
-times=1 chi2=0.21189073, maxE = 0.308388, id=1276 JObject2Matrix
-maxDx = 0.002933
-times=2 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
-maxDx = 0.000019
-times=3 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21189065, maxE = 0.308391, id=1276 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.22573952, maxE = 0.489613, id=2686 maxDx = 0.458218
+times=1 chi2=0.21189073, maxE = 0.308388, id=1276 maxDx = 0.002933
+times=2 chi2=0.21189065, maxE = 0.308391, id=1276 maxDx = 0.000019
+times=3 chi2=0.21189065, maxE = 0.308391, id=1276 maxDx = 0.000001
+times=4 chi2=0.21189065, maxE = 0.308391, id=1276 maxDx = 0.000000
+times=5 chi2=0.21189065, maxE = 0.308391, id=1276 maxDx = 0.000000
+times=6 chi2=0.21189065, maxE = 0.308391, id=1276 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.481650 seconds.
+Elapsed time is 7.006550 seconds.
 
 ###Poses[x(1-306)], Features[x(307-510)], Velocity[x(511-666)]###
 Final Error: maxXef=1.932594, idx=313
@@ -2526,24 +2128,17 @@ me =
     2.1460
 id =
    371
-times=0 chi2=0.29884116, maxE = 1.184675, id=1789 JObject2Matrix
-maxDx = 1.055626
-times=1 chi2=0.21148396, maxE = 0.307442, id=3739 JObject2Matrix
-maxDx = 0.027182
-times=2 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
-maxDx = 0.000071
-times=3 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21147949, maxE = 0.307451, id=3739 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.29884116, maxE = 1.184675, id=1789 maxDx = 1.055626
+times=1 chi2=0.21148396, maxE = 0.307442, id=3739 maxDx = 0.027182
+times=2 chi2=0.21147949, maxE = 0.307451, id=3739 maxDx = 0.000071
+times=3 chi2=0.21147949, maxE = 0.307451, id=3739 maxDx = 0.000000
+times=4 chi2=0.21147949, maxE = 0.307451, id=3739 maxDx = 0.000000
+times=5 chi2=0.21147949, maxE = 0.307451, id=3739 maxDx = 0.000000
+times=6 chi2=0.21147949, maxE = 0.307451, id=3739 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.671106 seconds.
+Elapsed time is 7.132170 seconds.
 
 ###Poses[x(1-312)], Features[x(313-519)], Velocity[x(520-678)]###
 Final Error: maxXef=1.974090, idx=319
@@ -2576,24 +2171,17 @@ me =
     3.3037
 id =
    389
-times=0 chi2=0.26276846, maxE = 0.722231, id=986 JObject2Matrix
-maxDx = 1.434065
-times=1 chi2=0.21158264, maxE = 0.309160, id=3799 JObject2Matrix
-maxDx = 0.034148
-times=2 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
-maxDx = 0.000028
-times=3 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21158088, maxE = 0.309156, id=3799 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26276846, maxE = 0.722231, id=986 maxDx = 1.434065
+times=1 chi2=0.21158264, maxE = 0.309160, id=3799 maxDx = 0.034148
+times=2 chi2=0.21158088, maxE = 0.309156, id=3799 maxDx = 0.000028
+times=3 chi2=0.21158088, maxE = 0.309156, id=3799 maxDx = 0.000000
+times=4 chi2=0.21158088, maxE = 0.309156, id=3799 maxDx = 0.000000
+times=5 chi2=0.21158088, maxE = 0.309156, id=3799 maxDx = 0.000000
+times=6 chi2=0.21158088, maxE = 0.309156, id=3799 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 8.793153 seconds.
+Elapsed time is 7.243365 seconds.
 
 ###Poses[x(1-318)], Features[x(319-531)], Velocity[x(532-693)]###
 Final Error: maxXef=2.052826, idx=389
@@ -2629,22 +2217,16 @@ me =
     2.0528
 id =
    395
-times=0 chi2=0.26206305, maxE = 0.962769, id=1732 JObject2Matrix
-maxDx = 0.219837
-times=1 chi2=0.21264447, maxE = 0.311222, id=3849 JObject2Matrix
-maxDx = 0.001207
-times=2 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
-maxDx = 0.000012
-times=3 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21264415, maxE = 0.311216, id=3849 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.26206305, maxE = 0.962769, id=1732 maxDx = 0.219837
+times=1 chi2=0.21264447, maxE = 0.311222, id=3849 maxDx = 0.001207
+times=2 chi2=0.21264415, maxE = 0.311216, id=3849 maxDx = 0.000012
+times=3 chi2=0.21264415, maxE = 0.311216, id=3849 maxDx = 0.000000
+times=4 chi2=0.21264415, maxE = 0.311216, id=3849 maxDx = 0.000000
+times=5 chi2=0.21264415, maxE = 0.311216, id=3849 maxDx = 0.000000
 Iteration Times:	 N = 5
 nReason =
      0
-Elapsed time is 7.641790 seconds.
+Elapsed time is 6.154733 seconds.
 
 ###Poses[x(1-324)], Features[x(325-537)], Velocity[x(538-702)]###
 Final Error: maxXef=2.014820, idx=331
@@ -2681,24 +2263,17 @@ me =
     2.0148
 id =
    337
-times=0 chi2=0.24793742, maxE = 0.648453, id=398 JObject2Matrix
-maxDx = 0.146661
-times=1 chi2=0.21259491, maxE = 0.310504, id=3895 JObject2Matrix
-maxDx = 0.000812
-times=2 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
-maxDx = 0.000004
-times=3 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
-maxDx = 0.000000
-times=4 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21259485, maxE = 0.310507, id=3895 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.24793742, maxE = 0.648453, id=398 maxDx = 0.146661
+times=1 chi2=0.21259491, maxE = 0.310504, id=3895 maxDx = 0.000812
+times=2 chi2=0.21259485, maxE = 0.310507, id=3895 maxDx = 0.000004
+times=3 chi2=0.21259485, maxE = 0.310507, id=3895 maxDx = 0.000000
+times=4 chi2=0.21259485, maxE = 0.310507, id=3895 maxDx = 0.000000
+times=5 chi2=0.21259485, maxE = 0.310507, id=3895 maxDx = 0.000000
+times=6 chi2=0.21259485, maxE = 0.310507, id=3895 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 9.311622 seconds.
+Elapsed time is 7.365151 seconds.
 
 ###Poses[x(1-330)], Features[x(331-546)], Velocity[x(547-714)]###
 Final Error: maxXef=2.006170, idx=337
@@ -2735,24 +2310,17 @@ me =
     2.3051
 id =
    374
-times=0 chi2=0.27791639, maxE = 0.809910, id=3011 JObject2Matrix
-maxDx = 0.601792
-times=1 chi2=0.21180899, maxE = 0.309410, id=3949 JObject2Matrix
-maxDx = 0.005908
-times=2 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
-maxDx = 0.000005
-times=3 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21180833, maxE = 0.309423, id=3949 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.27791639, maxE = 0.809910, id=3011 maxDx = 0.601792
+times=1 chi2=0.21180899, maxE = 0.309410, id=3949 maxDx = 0.005908
+times=2 chi2=0.21180833, maxE = 0.309423, id=3949 maxDx = 0.000005
+times=3 chi2=0.21180833, maxE = 0.309423, id=3949 maxDx = 0.000002
+times=4 chi2=0.21180833, maxE = 0.309423, id=3949 maxDx = 0.000000
+times=5 chi2=0.21180833, maxE = 0.309423, id=3949 maxDx = 0.000000
+times=6 chi2=0.21180833, maxE = 0.309423, id=3949 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 9.505692 seconds.
+Elapsed time is 7.620415 seconds.
 
 ###Poses[x(1-336)], Features[x(337-558)], Velocity[x(559-729)]###
 Final Error: maxXef=1.985971, idx=343
@@ -2786,24 +2354,17 @@ me =
     3.7921
 id =
    389
-times=0 chi2=0.25518703, maxE = 0.909043, id=1617 JObject2Matrix
-maxDx = 1.486617
-times=1 chi2=0.21098106, maxE = 0.311724, id=4005 JObject2Matrix
-maxDx = 0.038489
-times=2 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
-maxDx = 0.000075
-times=3 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21097817, maxE = 0.311710, id=4005 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.25518703, maxE = 0.909043, id=1617 maxDx = 1.486617
+times=1 chi2=0.21098106, maxE = 0.311724, id=4005 maxDx = 0.038489
+times=2 chi2=0.21097817, maxE = 0.311710, id=4005 maxDx = 0.000075
+times=3 chi2=0.21097817, maxE = 0.311710, id=4005 maxDx = 0.000001
+times=4 chi2=0.21097817, maxE = 0.311710, id=4005 maxDx = 0.000000
+times=5 chi2=0.21097817, maxE = 0.311710, id=4005 maxDx = 0.000000
+times=6 chi2=0.21097817, maxE = 0.311710, id=4005 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 9.511566 seconds.
+Elapsed time is 7.762909 seconds.
 
 ###Poses[x(1-342)], Features[x(343-573)], Velocity[x(574-747)]###
 Final Error: maxXef=2.686218, idx=389
@@ -2841,24 +2402,17 @@ me =
     2.6862
 id =
    395
-times=0 chi2=0.25469793, maxE = 0.866826, id=1830 JObject2Matrix
-maxDx = 0.377303
-times=1 chi2=0.21151823, maxE = 0.310481, id=4053 JObject2Matrix
-maxDx = 0.002972
-times=2 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
-maxDx = 0.000029
-times=3 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
-maxDx = 0.000002
-times=4 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21151800, maxE = 0.310472, id=4053 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.25469793, maxE = 0.866826, id=1830 maxDx = 0.377303
+times=1 chi2=0.21151823, maxE = 0.310481, id=4053 maxDx = 0.002972
+times=2 chi2=0.21151800, maxE = 0.310472, id=4053 maxDx = 0.000029
+times=3 chi2=0.21151800, maxE = 0.310472, id=4053 maxDx = 0.000002
+times=4 chi2=0.21151800, maxE = 0.310472, id=4053 maxDx = 0.000000
+times=5 chi2=0.21151800, maxE = 0.310472, id=4053 maxDx = 0.000000
+times=6 chi2=0.21151800, maxE = 0.310472, id=4053 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 9.537219 seconds.
+Elapsed time is 7.688287 seconds.
 
 ###Poses[x(1-348)], Features[x(349-579)], Velocity[x(580-756)]###
 Final Error: maxXef=2.371183, idx=395
@@ -2896,24 +2450,17 @@ me =
     2.3712
 id =
    401
-times=0 chi2=0.22322619, maxE = 0.465069, id=898 JObject2Matrix
-maxDx = 0.611089
-times=1 chi2=0.21196466, maxE = 0.310843, id=4115 JObject2Matrix
-maxDx = 0.005883
-times=2 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
-maxDx = 0.000030
-times=3 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
-maxDx = 0.000001
-times=4 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
-maxDx = 0.000000
-times=5 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
-maxDx = 0.000000
-times=6 chi2=0.21196455, maxE = 0.310834, id=4115 JObject2Matrix
-maxDx = 0.000000
+times=0 chi2=0.22322619, maxE = 0.465069, id=898 maxDx = 0.611089
+times=1 chi2=0.21196466, maxE = 0.310843, id=4115 maxDx = 0.005883
+times=2 chi2=0.21196455, maxE = 0.310834, id=4115 maxDx = 0.000030
+times=3 chi2=0.21196455, maxE = 0.310834, id=4115 maxDx = 0.000001
+times=4 chi2=0.21196455, maxE = 0.310834, id=4115 maxDx = 0.000000
+times=5 chi2=0.21196455, maxE = 0.310834, id=4115 maxDx = 0.000000
+times=6 chi2=0.21196455, maxE = 0.310834, id=4115 maxDx = 0.000000
 Iteration Times:	 N = 6
 nReason =
      0
-Elapsed time is 9.725148 seconds.
+Elapsed time is 7.903857 seconds.
 
 ###Poses[x(1-354)], Features[x(355-594)], Velocity[x(595-774)]###
 Final Error: maxXef=2.121803, idx=401

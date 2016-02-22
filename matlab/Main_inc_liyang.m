@@ -241,7 +241,7 @@ Rd = [];
     save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs'); 
     
     %% Covariance matrix
-    CovMatrixInv = fnCalcCovMatrixInv( SLAM_Params, Zobs, Rd, nPoseNew, nIMUdata );
+    CovMatrixInv = fnCalcCovMatrixInv( SLAM_Params, Zobs, Rd );
     save( [ Data_config.TEMP_DIR 'CovMatrixInv.mat' ], 'CovMatrixInv', '-v7.3');    
 
 
