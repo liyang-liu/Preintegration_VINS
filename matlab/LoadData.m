@@ -58,8 +58,8 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
             nt = size(imudata,1);
             imufulldata = imudata;% ts, wb,fb
             rng('default');
-            imufulldata(:,2:4) = imufulldata(:,2:4) + fnGenGaussNoise(nt, 3, SLAM_Params.sigma_w_real);
-            imufulldata(:,5:7) = imufulldata(:,5:7) + fnGenGaussNoise(nt, 3, SLAM_Params.sigma_f_real);
+            imufulldata(:,2:4) = imufulldata(:,2:4) + fn_GenGaussNoise(nt, 3, SLAM_Params.sigma_w_real);
+            imufulldata(:,5:7) = imufulldata(:,5:7) + fn_GenGaussNoise(nt, 3, SLAM_Params.sigma_f_real);
         end
         utid = 1; %ctid = 1;
         for(ctid = 1:nAllposes)
@@ -99,7 +99,7 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
             dphi = dp;    
             for pid=2:nAllposes%1e-2,1e-3+3*sigmaf+3*sigmaw
                 [dp(:,pid), dv(:,pid), dphi(:,pid), Jd{pid}, Rd{pid}] = ...
-                    fnDeltObsAccu(SLAM_Params.bf0, SLAM_Params.bw0, dataIMU{pid}, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov); 
+                    fn_DeltObsAccu(SLAM_Params.bf0, SLAM_Params.bw0, dataIMU{pid}, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov); 
             end
         end
                 

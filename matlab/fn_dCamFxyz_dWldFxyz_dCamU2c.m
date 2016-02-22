@@ -8,10 +8,13 @@ function [dxyz,dxyz_u2c, dp0] = fn_dCamFxyz_dWldFxyz_dCamU2c(a, b, g, a_u2c, b_u
 % X0 = (x0,y0,z0)';
 % dT = eye(3);
 % dT = repmat(dT(:), 1, N); % 9xN
+
 Tu2cN = repmat(Tu2c, 1, N);
 TuN = repmat(Tu, 1, N);
+
 %dxyz = sparse(3, 3*N+6*(nPoses-1), N);
-[drda, drdb, drdg] = fabg2r_dr(a, b, g);
+[drda, drdb, drdg] = fn_ABG2R_dr(a, b, g);
+
 %R1 = fRx(alpha) * fRy (beta) * fRz(gamma);
 % dxyzdabg: to Ru
 dxyzda = Ru2c*drda*(X0 - TuN); % 3xN
@@ -20,8 +23,9 @@ dxyzdg = Ru2c*drdg*(X0 - TuN); % 3xN
 dT = -Ru2c * Ru;
 dT = repmat(dT(:), 1, N);
 dxyz = reshape([dxyzda;dxyzdb;dxyzdg; dT], 3, []);% 3x6N
+
 % dxyzdabg: to Ru2c ---TobeVerified
-[drda, drdb, drdg] = fabg2r_dr(a_u2c, b_u2c, g_u2c);
+[drda, drdb, drdg] = fn_ABG2R_dr(a_u2c, b_u2c, g_u2c);
 dxyzda = drda * Ru * (X0 - Ru'* Tu2cN - TuN); % 3xN
 dxyzdb = drdb * Ru * (X0 - Ru'* Tu2cN - TuN); % 3xN
 dxyzdg = drdg * Ru * (X0 - Ru'* Tu2cN - TuN); % 3xN;

@@ -94,7 +94,7 @@ Rd = [];
    
     if(InertialDelta_options.bMalaga == 1)
         SLAM_Params.Au2c_true = [-87.23; -2.99; -88.43]*pi/180;%[0;0;0];%[-86.19;-3.53;-90.31]*pi/180;%
-        SLAM_Params.Ru2c_true = fnR5ABG(Au2c(1), Au2c(2), Au2c(3));
+        SLAM_Params.Ru2c_true = fn_RFromABG(Au2c(1), Au2c(2), Au2c(3));
         SLAM_Params.Tu2c_true = [2.2-0.25;-0.427-0.029;0.025+(23-13.9)*1e-3];%[0;0;0];%
         %nIMUrate = 100; 
         dt = 1e-2;
@@ -106,7 +106,7 @@ Rd = [];
         SLAM_Params.Ru2c_true = ([0,1,0; 0,0,1; 1,0,0]); 
         SLAM_Params.Au2c_true = zeros(3,1);
         [SLAM_Params.Au2c_true(1), SLAM_Params.Au2c_ture(2), SLAM_Params.Au2c_true(3) ] = ...
-                                                fnABGFromR(SLAM_Params.Ru2c_true);
+                                                fn_ABGFromR(SLAM_Params.Ru2c_true);
         SLAM_Params.Tu2c_true = zeros(3,1);
         %nIMUrate = 200; 
         dt = 1.0/nIMUrate;
@@ -128,12 +128,12 @@ Rd = [];
         nPoses = nPoseNew - nPoseOld;
         if(nPoseOld == 1)
             pid = 1;
-            [FeatureObs] = fnCollectfObsFromImgs( ...
+            [FeatureObs] = fn_CollectfObsFromImgs( ...
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );                              
         end 
         
         for(pid=(nPoseOld+1):nPoseNew)
-               [FeatureObs] = fnCollectfObsFromImgs( ...
+               [FeatureObs] = fn_CollectfObsFromImgs( ...
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs ); 
         end
         
@@ -157,18 +157,18 @@ Rd = [];
         nIMUdata = ImuTimestamps(nPoseNew) - ImuTimestamps(1);
         
         %% X---the state vector
-        X_obj = InertialDelta_CreateX( nPts, nPoseNew, nIMUdata );
+        X_obj = SLAM_X_Define( nPts, nPoseNew, nIMUdata );
         Xg_obj = X_obj;
 
         %% Compose the ground truth value 1
-        [~, fscaleGT] = fnGetXgroundtruth_general(Xg_obj, ...
+        [~, fscaleGT] = fn_GetXgroundtruth_general(Xg_obj, ...
             Data_config.DATA_DIR, nPoseNew, ImuTimestamps, gtIMUposes, selpids, ...
             nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, ...
             Data_config.gtVelfulldir, SLAM_Params );     
     
         %% Compose Initial value of X from odometry 
         if(InertialDelta_options.bInitPnF5VoU == 1)
-            [X_obj, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
+            [X_obj, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
                         nPoseOld, nPoseNew, nPoses, nPts, x_old, ...
                         ImuTimestamps, nIMUdata, nIMUdata_old, Feature3D, RptFidSet, ...
                         RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
@@ -177,7 +177,7 @@ Rd = [];
         end
         
         %% Compose the ground truth value 2
-        [Xg_obj, fscaleGT] = fnGetXgroundtruth_general(Xg_obj, ...
+        [Xg_obj, fscaleGT] = fn_GetXgroundtruth_general(Xg_obj, ...
             Data_config.DATA_DIR, nPoseNew, ImuTimestamps, gtIMUposes, selpids, ...
             nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, ...
             Data_config.gtVelfulldir, SLAM_Params);
@@ -216,7 +216,7 @@ Rd = [];
         fprintf('%f ', X_obj.feature(1).xyz');
         fprintf('...]\n');    
     %ie = x-xg;
-    ie = XObject2Vector( XObjectDiff(X_obj, Xg_obj) );
+    ie = SLAM_X_Object2Vector( SLAM_X_ObjectDiff(X_obj, Xg_obj) );
     [me, id] = max(abs(ie))   
     if(nPoseNew == 25)
         aa = 1;
@@ -224,14 +224,14 @@ Rd = [];
     
     % Show Pose-feature graph
     if((InertialDelta_options.bShowFnP == 1) && ((nPoseOld == 1) || (nPoseNew == nAllposes)))
-        fnShowFeaturesnPoses(Xg_obj, nPoseNew, nPts, nIMUdata, 'Ground Truth Values');
-        fnShowFeaturesnPoses(X_obj, nPoseNew, nPts, nIMUdata, 'Initial Values');
+        fn_ShowFeaturesnPoses( Xg_obj, nPoseNew, nPts, nIMUdata, 'Ground Truth Values' );
+        fn_ShowFeaturesnPoses( X_obj, nPoseNew, nPts, nIMUdata, 'Initial Values' );
     end
 
     %% Z---the observation vector
-    Zobs = InertialDelta_CreateZ( nPoseNew, nPts );
+    Zobs = SLAM_Z_Define( nPoseNew, nPts );
     
-    Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params );
+    Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params );
 
     %% Save data for nonlin method.
     save( [ Data_config.TEMP_DIR 'initX.mat' ],'X_obj');
@@ -241,19 +241,19 @@ Rd = [];
     save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs'); 
     
     %% Covariance matrix
-    CovMatrixInv = fnCalcCovMatrixInv( SLAM_Params, Zobs, Rd );
+    CovMatrixInv = SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
     save( [ Data_config.TEMP_DIR 'CovMatrixInv.mat' ], 'CovMatrixInv', '-v7.3');    
 
 
     tic
     if(InertialDelta_options.bGNopt == 1)
     %% GN Iterations 
-        [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
                         nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
                         ImuTimestamps, dtIMU, RptFeatureObs );
         nReason
     else    
-        [X_obj,nReason,Info] = fnLeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
+        [X_obj,nReason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
             CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs);        
     end        
     
@@ -268,7 +268,7 @@ Rd = [];
     %xf = x;
     %load('Xgt.mat');%xf
 
-    ef = XObject2Vector( XObjectDiff( X_obj, Xg_obj ));
+    ef = SLAM_X_Object2Vector( SLAM_X_ObjectDiff( X_obj, Xg_obj ));
     [maxe, idx] = max(abs(ef));
     fprintf('Final Error: maxXef=%f, idx=%d\n', maxe, idx);
 
@@ -281,11 +281,8 @@ Rd = [];
         Timu = Tcam;
         
         for(pid = 2:nPoseNew)
-            %Rcam = Ru2c*Rimu*Ru2c;
-            %Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
-            %Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
             Aimu = X_obj.pose(pid-1).ang.val;
-            Rimu = fnRFromABG( Aimu(1), Aimu(2), Aimu(3));
+            Rimu = fn_RFromABG( Aimu(1), Aimu(2), Aimu(3));
             Timu(:, pid) = X_obj.pose(pid-1).trans.val;
             Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
         end
@@ -325,10 +322,10 @@ Rd = [];
         
         %% Show pose-feature graph
         if((InertialDelta_options.bShowFnP == 1) && (nPoseNew == nAllposes))
-            fnShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
+            fn_ShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
             
             %% Show uncertainty
-            fnCalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
+            fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
                 dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
         end
         
