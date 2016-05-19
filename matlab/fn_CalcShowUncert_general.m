@@ -1,8 +1,9 @@
 function [] = fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
                 dtIMU, ef, K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata )
     
-global InertialDelta_options
-
+    global InertialDelta_options Data_config
+    
+    load( [ Data_config.TEMP_DIR 'Zobs.mat' ]); 
 
     J_obj = SLAM_Jacobian_Define( );
     J_obj = fn_Jacobian_dUv_dX(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );		

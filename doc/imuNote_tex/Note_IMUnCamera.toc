@@ -1,0 +1,74 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {subsection}{\numberline {1.1}The Formulation of the Original Optimization Problem}{4}
+\contentsline {subsection}{\numberline {1.2}Testing Methods}{4}
+\contentsline {section}{\numberline {2}Testing Cases and Results}{5}
+\contentsline {subsection}{\numberline {2.1}Test Version 1}{5}
+\contentsline {subsubsection}{\numberline {2.1.1}Observation Vector:}{5}
+\contentsline {subsubsection}{\numberline {2.1.2}Comparison of Results by Two Methods:}{5}
+\contentsline {subsection}{\numberline {2.2}Test Version 2}{5}
+\contentsline {subsubsection}{\numberline {2.2.1}Observation Vector:}{5}
+\contentsline {subsubsection}{\numberline {2.2.2}Comparison of Results by Two Methods:}{5}
+\contentsline {subsection}{\numberline {2.3}Test Version 3}{6}
+\contentsline {subsubsection}{\numberline {2.3.1}Observation Vector:}{6}
+\contentsline {subsubsection}{\numberline {2.3.2}Comparison of Results by Two Methods:}{6}
+\contentsline {subsection}{\numberline {2.4}Test Version 4}{6}
+\contentsline {subsubsection}{\numberline {2.4.1}Observation Vector:}{6}
+\contentsline {subsubsection}{\numberline {2.4.2}Comparison of Results by Two Methods:}{6}
+\contentsline {subsection}{\numberline {2.5}Test Version 5}{7}
+\contentsline {subsubsection}{\numberline {2.5.1}Observation Vector:}{7}
+\contentsline {subsubsection}{\numberline {2.5.2}Comparison of Results by Two Methods:}{7}
+\contentsline {subsection}{\numberline {2.6}Test Version 6}{7}
+\contentsline {subsubsection}{\numberline {2.6.1}Observation Vector:}{7}
+\contentsline {subsubsection}{\numberline {2.6.2}Effects:}{7}
+\contentsline {subsection}{\numberline {2.7}Test Version 7: Add Convariance Matrix into \textit {Nonlin}}{7}
+\contentsline {subsubsection}{\numberline {2.7.1}Observation Vector:}{7}
+\contentsline {subsubsection}{\numberline {2.7.2}Comparison of Results by Two Methods:}{7}
+\contentsline {subsubsection}{\numberline {2.7.3}Test Based on Version 6:}{9}
+\contentsline {subsection}{\numberline {2.8}Test Version 8}{9}
+\contentsline {subsubsection}{\numberline {2.8.1}Observation Vector:}{9}
+\contentsline {subsubsection}{\numberline {2.8.2}Effects:}{9}
+\contentsline {subsection}{\numberline {2.9}Test Version 9}{9}
+\contentsline {subsubsection}{\numberline {2.9.1}Observation Vector:}{9}
+\contentsline {subsubsection}{\numberline {2.9.2}Effects:}{9}
+\contentsline {subsection}{\numberline {2.10}Test Version 10}{9}
+\contentsline {subsubsection}{\numberline {2.10.1}Observation Vector:}{9}
+\contentsline {subsubsection}{\numberline {2.10.2}Constant Velocity Along a Line:}{10}
+\contentsline {subsubsection}{\numberline {2.10.3}Changing Velocity Along Sections of Lines in Different Planes:}{10}
+\contentsline {subsection}{\numberline {2.11}Test Version 11}{10}
+\contentsline {subsubsection}{\numberline {2.11.1}Observation Vector:}{10}
+\contentsline {subsubsection}{\numberline {2.11.2}The Special Routes that Make the Jacobian Matrix Non-singular:}{10}
+\contentsline {subsection}{\numberline {2.12}Test Version 12}{10}
+\contentsline {subsubsection}{\numberline {2.12.1}Observation Vector:}{10}
+\contentsline {subsubsection}{\numberline {2.12.2}The Special Routes:}{10}
+\contentsline {subsection}{\numberline {2.13}Test Version 13: Minimum Number of Features Needed}{11}
+\contentsline {subsubsection}{\numberline {2.13.1}Observation Vector:}{11}
+\contentsline {subsubsection}{\numberline {2.13.2}The Special Scenario:}{11}
+\contentsline {subsection}{\numberline {2.14}Test Version 14: Improve the Pre-integration Algorithm}{11}
+\contentsline {subsubsection}{\numberline {2.14.1}Observation Vector:}{11}
+\contentsline {subsubsection}{\numberline {2.14.2}The Simulated Scenario:}{11}
+\contentsline {subsubsection}{\numberline {2.14.3}The Original Pre-integration Method}{11}
+\contentsline {subsubsection}{\numberline {2.14.4}Proposed Modification to the Pre-integration Method}{12}
+\contentsline {subsubsection}{\numberline {2.14.5}Further Possible Modification to the Pre-integration Method}{12}
+\contentsline {subsection}{\numberline {2.15}Average Data Based Modification to the Pre-integration Method}{13}
+\contentsline {subsection}{\numberline {2.16}Evaluating the Pre-integration Method}{13}
+\contentsline {section}{\numberline {3}Formulation of The Problem}{15}
+\contentsline {subsection}{\numberline {3.1}The Raw Data From the Sensors}{15}
+\contentsline {subsubsection}{\numberline {3.1.1}The Raw Camera Data}{15}
+\contentsline {subsubsection}{\numberline {3.1.2}The Raw IMU Data}{15}
+\contentsline {subsection}{\numberline {3.2}The Noises Added to the Data Computed From Ground Truth}{16}
+\contentsline {subsection}{\numberline {3.3}The Non-pre-integration Method}{16}
+\contentsline {subsubsection}{\numberline {3.3.1}The State Vector $\textbf {x}$}{16}
+\contentsline {subsubsection}{\numberline {3.3.2}The Observation Vector}{16}
+\contentsline {subsubsection}{\numberline {3.3.3}The Observation Function $H(\textbf {x})$}{17}
+\contentsline {subsubsection}{\numberline {3.3.4}Jacobian Matrix}{18}
+\contentsline {subsubsection}{\numberline {3.3.5}The Corresponding Code Functions}{19}
+\contentsline {subsection}{\numberline {3.4}The Pre-integration Method}{20}
+\contentsline {subsubsection}{\numberline {3.4.1}The Observation Vector}{20}
+\contentsline {subsubsection}{\numberline {3.4.2}The State Vector $\textbf {x}$}{21}
+\contentsline {subsubsection}{\numberline {3.4.3}The Observation Function $H(\textbf {x})$}{21}
+\contentsline {subsubsection}{\numberline {3.4.4}Jacobian Matrix}{22}
+\contentsline {subsubsection}{\numberline {3.4.5}Covariance Matrix}{23}
+\contentsline {subsubsection}{\numberline {3.4.6}The Corresponding Code Functions}{23}
+\contentsline {subsection}{\numberline {3.5}Adding Pseudo Observations}{23}
+\contentsline {section}{\numberline {4}The Computation of Initial Values}{26}
+\contentsline {section}{\numberline {5}Bibliography}{27}

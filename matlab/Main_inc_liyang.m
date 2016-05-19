@@ -313,8 +313,9 @@ Rd = [];
         %     plot3(Timu(1,:),Timu(2,:), Timu(3,:),'-pg');
         view(-45,30);
         %     axis equal;
-        title('Comparison of Estimated Poses Against the Ground Truth');
-
+        title('Comparison of Estimated Pose Translation Against the Ground Truth');
+        xlabel('X'); ylabel('Y'); zlabel('Z');
+        
         figure();
         err = Tcam(:,1:nPoseNew) - GT_P0(1:nPoseNew, 4:6)';
         ce = complex(err(1,:), err(2,:));
@@ -326,12 +327,16 @@ Rd = [];
         save( [ Data_config.TEMP_DIR 'x_Jac.mat' ], 'X_obj');
         
         %% Show pose-feature graph
-        if((InertialDelta_options.bShowFnP == 1) && (nPoseNew == nAllposes))
-            fn_ShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
+        if( nPoseNew == nAllposes)
+            if ( InertialDelta_options.bShowFnP == 1 )
+                fn_ShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
+            end
             
             %% Show uncertainty
-            fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
-                dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
+            if ( InertialDelta_options.bShowUncertainty == 1 )
+                fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
+                    dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
+            end
         end
         
     end

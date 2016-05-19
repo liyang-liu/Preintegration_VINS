@@ -1,4 +1,4 @@
-function [] = fnShowFeaturesnPoses( X_obj, nPoses, nPts, nIMUdata, stitle)
+function [] = fnShowFeaturesnPoses_general(X_obj, nPoses, nPts, nIMUdata, stitle)
 %% Show the postions of features and poses according to the state vector x.
 %% Input: 
 % x: composed of nPoses poses, nPts 3D features and others. 
@@ -19,7 +19,8 @@ quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(1,1), R_cell{pid
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(2,1), R_cell{pid}(2,2), R_cell{pid}(2,3), ratio);
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(3,1), R_cell{pid}(3,2), R_cell{pid}(3,3), ratio);
 
-nMax = nPoses;
+nMax = length( X_obj.pose );
+    
 
 
 for pid=2:nMax
@@ -34,10 +35,8 @@ for pid=2:nMax
 end
 
 
-%id0 = (nPoses-1)*6;
-
 for pid=1:nPts
-    p(:, pid) = X_obj.feature(pid).xyz;    
+    p(:, pid) = X_obj.feature(pid).xyz;
 end
 
 figure(fh);
@@ -47,3 +46,30 @@ if(nPts > 0)
     plot3(p(1,:), p(2,:), p(3,:),'p');%r
 end
 view(-45, 20);
+
+nfontsize = 25;%22;%18;
+sDir = 'xyz';
+figure(); 
+set(gcf, 'Position', get(0, 'ScreenSize'));
+
+Vx = []; Vy = []; Vz= [];
+
+for p=1:length(X_obj.velocity)
+    Vx(end+1) = X_obj.velocity(p).xyz(1);
+    Vy(end+1) = X_obj.velocity(p).xyz(2);
+    Vz(end+1) = X_obj.velocity(p).xyz(3);
+end
+tv = [ Vx; Vy; Vz ];
+
+for(i=1:3)
+    subplot(3,1,i);hold all; 
+    set(gca,'FontSize', nfontsize);
+    set(get(gca,'XLabel'), 'FontSize', nfontsize);
+    set(get(gca,'YLabel'), 'FontSize', nfontsize);
+    plot((tv(i,:))', '*:'); 
+    legend(sprintf('V%c', sDir(i)));    
+end
+subplot(3,1,1);
+title('IMU Velocity');
+    
+    

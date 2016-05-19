@@ -11,14 +11,14 @@ InertialDelta_options.bMalaga = 0;
 InertialDelta_options.bDinuka = 1;%p4-15/nonoise:50-80(+50)
 
 %% Configure the conditions of the problem
-InertialDelta_options.nAllposes = 60;%50;%25;%240;%13;%4;%20;%5;%240;%60;% 350;%
+InertialDelta_options.nAllposes = 60;%60;%50;%25;%240;%13;%4;%20;%5;%240;%60;% 350;%
 InertialDelta_options.bPreInt = 1;%1;% Use pre-integration method?
     
 InertialDelta_options.bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
 InertialDelta_options.bIMUodo = 1;% Use IMU data to initilize x?
 InertialDelta_options.bGNopt = 1;% Use Gauss-Newton method?
-InertialDelta_options.bShowFnP = 0;% Show poses and features?
-InertialDelta_options.bShowUncertainty = 0;% Show uncertainty of the result?
+InertialDelta_options.bShowFnP = 1;% Show poses and features?
+InertialDelta_options.bShowUncertainty = 1;% Show uncertainty of the result?
 InertialDelta_options.bAddInitialNoise = 0;% x0 + noise or not
 InertialDelta_options.bPerfectIMUdlt = 0;
 InertialDelta_options.bVarBias = 0;
