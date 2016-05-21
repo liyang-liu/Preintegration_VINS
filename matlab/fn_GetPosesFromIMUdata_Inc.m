@@ -2,7 +2,7 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetP
                 nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
                 K, Feature3D, RptFidSet, RptFeatureObs, SLAM_Params)
             
-    global InertialDelta_options
+    global PreIntegration_options
     
 
     Timu = zeros(3,nPoses);

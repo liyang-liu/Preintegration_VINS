@@ -1,6 +1,6 @@
 function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dphi, Jd, Rd ] = LoadData( nPts, nAllposes, kfids, SLAM_Params )
 
-    global InertialDelta_options Data_config
+    global PreIntegration_options Data_config
 
     %%%%%%%%%%%%%%
     % camera observations  
@@ -42,11 +42,11 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
     ImuTimestamps = zeros(nAllposes, 1);    
     dtIMU = [];
     
-    if(InertialDelta_options.bUVonly == 0)
+    if(PreIntegration_options.bUVonly == 0)
         % IMU observations
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             load([Data_config.imgdir 'KeyframeTimestamps.mat']);
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             fname = [Data_config.imgdir 'image_time_stamp.mat'];
             load(fname);
             KeyframeTimestamps = vis_time(kfids);
@@ -54,7 +54,7 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
 
         load(Data_config.imufulldir);
         
-        if(InertialDelta_options.bDinuka == 1)
+        if(PreIntegration_options.bDinuka == 1)
             nt = size(imudata,1);
             imufulldata = imudata;% ts, wb,fb
             rng('default');
@@ -80,14 +80,14 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
             uid1 = ImuTimestamps(pid)-1;
 
             dtIMU(pid) = imufulldata(ImuTimestamps(pid)) - imufulldata(ImuTimestamps(pid-1));
-            if(InertialDelta_options.bMalaga == 1)
+            if(PreIntegration_options.bMalaga == 1)
                 dataIMU{pid} = [IMUparking6L(uid0:uid1, 1), IMUparking6L(uid0:uid1, 7), IMUparking6L(uid0:uid1, 6),...
                     IMUparking6L(uid0:uid1, 5), IMUparking6L(uid0:uid1, 2:4)];
-            elseif(InertialDelta_options.bDinuka == 1)
+            elseif(PreIntegration_options.bDinuka == 1)
                 dataIMU{pid} = imufulldata(uid0:uid1, :);                
             end
         end 
-        if(InertialDelta_options.bUVonly == 0)
+        if(PreIntegration_options.bUVonly == 0)
             % Generate pre-integration observations based on IMU raw data.         
             
             %%%%%%%%%%%%%%

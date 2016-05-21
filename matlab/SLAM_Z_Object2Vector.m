@@ -1,4 +1,6 @@
 function [Z_vec] = SLAM_Z_Object2Vector( Z_obj )
+
+    global PreIntegration_options
     
     Z_vec = [];
     
@@ -7,6 +9,7 @@ function [Z_vec] = SLAM_Z_Object2Vector( Z_obj )
     % Z_Def = struct( ...
     %    'fObs',         repmat( UV_Def, nPts * nPoseNew, 1 ), ... % maybe redundant, will be cleaned
     %    'intlDelta',    repmat( IntlDelta_Def, nPoseNew-1, 1 ), ...
+    %    'g',            Gravity_Def
     %    'Au2c',         Angle_Def, ...
     %    'Tu2c',         Trans_Def, ...
     %    'Bf',           Bf_Def, ...
@@ -32,6 +35,10 @@ function [Z_vec] = SLAM_Z_Object2Vector( Z_obj )
         Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaP.val(:)];
         Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaV.val(:)];
         Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaPhi.val(:)];
+    end
+    
+    if ( PreIntegration_options.bAddZg == 1 )
+        Z_vec = [Z_vec; Z_obj.g.val(:) ];
     end
     
     %% Au2c, Tu2c, Bf, Bw

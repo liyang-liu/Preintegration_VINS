@@ -1,14 +1,14 @@
 function [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
                 fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
     
-    global InertialDelta_options Data_config
+    global PreIntegration_options Data_config
     
     
 	nReason = 0;
     if 0 % YouBing
         [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps);
 
-        if(InertialDelta_options.bUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
+        if(PreIntegration_options.bUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
             idx_au2c = (nPoses-1)*6+nPts*3;
             uidRow = [1,2,3,1,2,3,1,2,3, ... %Au2c
                       4,5,6,4,5,6,4,5,6, ... %Tu2c
@@ -24,7 +24,7 @@ function [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, 
                      ]; 
             unJacs = 3*3*2+1; 
 
-        else%if(InertialDelta_options.bPreInt == 1)
+        else%if(PreIntegration_options.bPreInt == 1)
 
             [uidRow, uidCol, unJacs] = fnFndJacIDimu(ImuTimestamps, nIMUdata, nPoses, nPts);        
         end
@@ -74,7 +74,7 @@ function [X_obj, nReason] = fnGaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, 
         J_obj = fnJacobian_dUv_dX(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );
 
 
-		if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+		if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
 		
 		    %J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x );
             J_obj = fnJacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );

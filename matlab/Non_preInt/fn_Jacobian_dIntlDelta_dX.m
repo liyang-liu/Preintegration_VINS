@@ -1,6 +1,6 @@
 function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g, 
     %fnJacobian_dIntlDelta_dX(J, idRow, idCol, nJacs, nUV, dtIMU, Jd, nPoses, nPts, x )%g, 
-    global InertialDelta_options
+    global PreIntegration_options
     
     %% Find Jacobian for dp, dv and dphi
     %% dp = Ru1 * (Tu2-Tu1-v1*dt-0.5*g*dt*dt) - ddpdbf*dbf - ddpdbw*dbw;
@@ -15,7 +15,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
     %tidend = 0;
     tid = 0;
     
-    if(InertialDelta_options.bUVonly == 1)
+    if(PreIntegration_options.bUVonly == 1)
         
         idx_au2c = (nPoses-1)*6+nPts*3+1;
         %     idxr = nUV + 1;%size(J) - 6 + 1;
@@ -226,7 +226,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
 
         %idxr = nUV + (nPoses-1)*9 + 1;%2*nPts*nPoses
         
-        if(InertialDelta_options.bAddZg == 1)
+        if(PreIntegration_options.bAddZg == 1)
             %tidstart = tidend + 1; tidend = tidend + 3*3*1;
             tv = eye(3);
             row = Zobs.g.row;
@@ -240,7 +240,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
         end
     end
 
-    if(InertialDelta_options.bAddZau2c == 1)
+    if(PreIntegration_options.bAddZau2c == 1)
         %% dAu2c % 
         %tidstart = tidend + 1; tidend = tidend + 3*3*1;
         tv = eye(3);
@@ -252,7 +252,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
         J.dAu2c_dX.col = [col; col; col];
     end
     
-    if(InertialDelta_options.bAddZtu2c == 1)
+    if(PreIntegration_options.bAddZtu2c == 1)
         %% dTu2c % 
         %tidstart = tidend + 1; tidend = tidend + 3*3*1;
         tv = eye(3);
@@ -265,14 +265,14 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
         J.dTu2c_dX.col = [col; col; col];
     end
 
-    if(InertialDelta_options.bUVonly == 1)
+    if(PreIntegration_options.bUVonly == 1)
         %% dT2 % 
         tidstart = tidend + 1; tidend = tidend + 1;
         tmpv(tidstart:tidend) = 1;    
         
-    elseif(InertialDelta_options.bVarBias == 0)
+    elseif(PreIntegration_options.bVarBias == 0)
         
-        if(InertialDelta_options.bAddZbf == 1)            
+        if(PreIntegration_options.bAddZbf == 1)            
             %tidstart = tidend + 1; tidend = tidend + 3*3*1;
             tv = eye(3);
             %tmpv(tidstart:tidend) = (tv(:))';  
@@ -284,7 +284,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             J.dBf_dX.col = [col; col; col];
         end
         
-        if(InertialDelta_options.bAddZbw == 1)
+        if(PreIntegration_options.bAddZbw == 1)
             %tidstart = tidend + 1; tidend = tidend + 3*3*1;
             tv = eye(3);
             %tmpv(tidstart:tidend) = (tv(:))'; 

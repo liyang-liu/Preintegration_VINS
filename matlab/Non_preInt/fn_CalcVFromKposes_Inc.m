@@ -2,7 +2,7 @@ function [tv,xcol,tid] = fnCalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
     nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
     x, xcol, dtIMU, dp, dv, SLAM_Params, imufulldata)    
     
-    global InertialDelta_options
+    global PreIntegration_options
     
     %idend = 0;
     %tv = zeros(3*(nIMUdata+1), 1);
@@ -16,7 +16,7 @@ function [tv,xcol,tid] = fnCalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
                     1 ...
                 );
     
-    if(InertialDelta_options.bPreInt == 1)   
+    if(PreIntegration_options.bPreInt == 1)   
         if(nPoseOld == 1)
             % The velocity of the first pose.
             %idstart = idend + 1;

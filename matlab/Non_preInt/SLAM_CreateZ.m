@@ -1,5 +1,5 @@
 function Z_obj = InertialDelta_CreateZ( nPoseNew, nPts )
-    global InertialDelta_options
+    global PreIntegration_options
     
     UV_Def = struct( ...
         'uv',   zeros( 2, 1 ), ...
@@ -8,7 +8,7 @@ function Z_obj = InertialDelta_CreateZ( nPoseNew, nPts )
 
     
     % Firstly allocate a maximal space.
-    if(InertialDelta_options.bPreInt == 1)
+    if(PreIntegration_options.bPreInt == 1)
         %Zobs = zeros(2*nPts*nPoseNew+9*(nPoseNew-1), 1);            
         DeltaP_Def = struct( ...
             'val', zeros( 3, 1 ), ...

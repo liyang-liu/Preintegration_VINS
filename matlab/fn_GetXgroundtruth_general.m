@@ -3,10 +3,10 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, ...
                 dp, dv, gtVelfulldir, SLAM_Params)
 
-        global InertialDelta_options
+        global PreIntegration_options
             
         %% Poses
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             
             load([datadir 'PBAPose.mat']);    
             tv = (PBAPose(1:nPoseNew, :))';
@@ -29,7 +29,7 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
 
             xg(1:((nPoseNew-1)*6)) = tv(:);
             
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             
             tv = (gtIMUposes(selpids(1:(nPoseNew)), 2:7))';
             ABGimu = tv(1:3, :);
@@ -48,10 +48,10 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
        idend = 6*(nPoseNew-1); 
         idstart = idend + 1; 
         idend = idend + 3*nPts;    
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features
             Pf1u = SLAM_Params.Ru2c' * tv + repmat(SLAM_Params.Tu2c, 1, nPts);
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             load([datadir 'feature_pos.mat']);
             tv = feature_pos(RptFidSet, :)';
             abg10 = (gtIMUposes(selpids(1), 2:4))'; % Rotation of the IMU pose corresponding to the first key frame
@@ -70,7 +70,7 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
         
         %% Velocity
         
-        if(InertialDelta_options.bDinuka == 1)
+        if(PreIntegration_options.bDinuka == 1)
             load(gtVelfulldir);
             
             idstart = idend + 1;%(nPoseNew-1)*6+3*nPts
@@ -98,7 +98,7 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
         xg.Tu2c.val = SLAM_Params.Tu2c_true;
         
         %% bf, bw
-        if(InertialDelta_options.bVarBias == 0)
+        if(PreIntegration_options.bVarBias == 0)
             xg.Bf.val = SLAM_Params.bf_true;
             xg.Bw.val = SLAM_Params.bw_true;
         else

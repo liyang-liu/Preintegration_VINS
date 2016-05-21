@@ -1,16 +1,16 @@
 function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, ...
                                     dtIMU, J, nIMUrate, ImuTimestamps )%g, 
-    global InertialDelta_options
+    global PreIntegration_options
     
     %e = zeros(size(Zobs));
     e = Zobs;
-    if(InertialDelta_options.bUVonly == 0)
+    if(PreIntegration_options.bUVonly == 0)
         
         nIMUdata = ImuTimestamps(nPoses)-ImuTimestamps(1);
         
-        if(InertialDelta_options.bVarBias == 0)
+        if(PreIntegration_options.bVarBias == 0)
             
-            if(InertialDelta_options.bPreInt == 1)
+            if(PreIntegration_options.bPreInt == 1)
                idx = ((nPoses-1)*6+nPts*3+3*nPoses+10);
             else
                idx = (nIMUdata*6+nPts*3+3*(nIMUdata+1)+10); 
@@ -24,7 +24,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
             dbw = bw - bw0;
         end
         
-        if(InertialDelta_options.bPreInt == 1)
+        if(PreIntegration_options.bPreInt == 1)
             idx = (nPoses-1)*6+nPts*3+3*nPoses+1;
         else
             idx = (nIMUdata*6+nPts*3+3*(nIMUdata+1)+1);
@@ -40,12 +40,12 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
     
     % Reprojection at each pose
     
-    if(InertialDelta_options.bUVonly == 0)
-        if(InertialDelta_options.bPreInt == 1)
+    if(PreIntegration_options.bUVonly == 0)
+        if(PreIntegration_options.bPreInt == 1)
             
             for pid=2:nPoses 
                 
-                if(InertialDelta_options.bVarBias == 1)                    
+                if(PreIntegration_options.bVarBias == 1)                    
                     idx = ((nPoses-1)*6+nPts*3+3*nPoses+10+(pid-2)*6);
                     bf = x(idx:(idx+2),1);
                     dbf = bf - bf0;
@@ -81,7 +81,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
             
             for pid=1:nIMUdata%((nPoses-1)*nIMUrate)
                 
-                if(InertialDelta_options.bVarBias == 1)
+                if(PreIntegration_options.bVarBias == 1)
                     
                     if(pid >= (ImuTimestamps(cid+1)-ImuTimestamps(1)+1)) 
                         cid = cid + 1;                    
@@ -132,7 +132,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         end % else, not pre-integration
 
         %% After IMU observations
-        if((InertialDelta_options.bPreInt == 1))% && ((InertialDelta_options.bAddZg == 1) || (InertialDelta_options.bAddZtu2c == 1)  || (InertialDelta_options.bAddZau2c == 1)|| (InertialDelta_options.bAddZantu2c == 1) || (InertialDelta_options.bAddZbf == 1)))
+        if((PreIntegration_options.bPreInt == 1))% && ((PreIntegration_options.bAddZg == 1) || (PreIntegration_options.bAddZtu2c == 1)  || (PreIntegration_options.bAddZau2c == 1)|| (PreIntegration_options.bAddZantu2c == 1) || (PreIntegration_options.bAddZbf == 1)))
             id1x = (nPoses-1)*9+1;
             tid = (nPoses-1)*6+nPts*3+3*nPoses+1;
         else
@@ -147,8 +147,8 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         
     end
     
-    if(InertialDelta_options.bUVonly == 0)
-        if(InertialDelta_options.bAddZg == 1)
+    if(PreIntegration_options.bUVonly == 0)
+        if(PreIntegration_options.bAddZg == 1)
             %% g
             %idx_g = tid;
             %g = x(idx_g:(idx_g+2));
@@ -158,7 +158,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         end
     end
     
-    if(InertialDelta_options.bAddZau2c == 1)
+    if(PreIntegration_options.bAddZau2c == 1)
         %% Au2c
         %idx_Au2c = tid+3;
         %Au2c = x(idx_Au2c:(idx_Au2c+2));
@@ -167,7 +167,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         e.Au2c.val = x.Au2c.val - Zobs.Au2c.val;
     end
         
-    if(InertialDelta_options.bAddZtu2c == 1)
+    if(PreIntegration_options.bAddZtu2c == 1)
         %% Tu2c
         %idx_Tu2c = tid+6;
         %Tu2c = x(idx_Tu2c:(idx_Tu2c+2));
@@ -176,15 +176,15 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
         e.Tu2c.val = x.Tu2c.val - Zobs.Tu2c.val;
     end  
         
-     if(InertialDelta_options.bUVonly == 1)
+     if(PreIntegration_options.bUVonly == 1)
         %% A2, T2
             idx_T2 = 6;%4;%for Malaga 1;%
             T2 = x(idx_T2);%:(idx_T2+5));
             e(id1x) = T2 - Zobs(id1x);%:(id1x+5):(id1x+5));
     
-     elseif(InertialDelta_options.bVarBias == 0)
+     elseif(PreIntegration_options.bVarBias == 0)
          
-        if(InertialDelta_options.bAddZbf == 1)
+        if(PreIntegration_options.bAddZbf == 1)
         %% bf
             %idx_bf = tid+9;
             %bf = x(idx_bf:(idx_bf+2));
@@ -193,7 +193,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
             e.Bf.val = x.Bf.val - Zobs.Bf.val;
         end
         
-        if(InertialDelta_options.bAddZbw == 1)
+        if(PreIntegration_options.bAddZbw == 1)
         %% bw
             %idx_bw = tid+12;
             %bw = x(idx_bw:(idx_bw+2));

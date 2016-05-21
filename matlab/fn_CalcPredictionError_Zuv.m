@@ -1,6 +1,6 @@
 function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
 
-    global InertialDelta_options
+    global PreIntegration_options
 
     %nObsId_FeatureObs = 2;
     fx = K(1,1); cx0 = K(1,3); fy = K(2,2); cy0 = K(2,3);

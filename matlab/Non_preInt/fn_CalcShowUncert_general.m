@@ -1,7 +1,7 @@
 function [] = fnCalcShowUncert_general(nUV, RptFeatureObs, ImuTimestamps, ...
     dtIMU, ef, K, x, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata )
     
-global InertialDelta_options
+global PreIntegration_options
 
 % J = fnJduvd_CnU_dbg(K, x, nPoses, nPts, nIMUrate, bPreInt);
 % if(bPreInt == 1)

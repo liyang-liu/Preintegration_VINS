@@ -1,7 +1,7 @@
 function [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...
     CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
 
-    global InertialDelta_options
+    global PreIntegration_options
     
     %nMaxIter, fLowerbound_ferr, fLowerbound_dx, 
     %% Initialize related parameters.
@@ -19,7 +19,7 @@ function [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, 
     %% Calculate indices for Jacobians
     [idRow, idCol, nJacs] = fnFndJacobianID(nIMUdata, nPoses, RptFeatureObs, ImuTimestamps);
     
-    if(InertialDelta_optionsbUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
+    if(PreIntegration_optionsbUVonly == 1)% UVonly, add Au2c,Tu2c and Z2
         idx_au2c = (nPoses-1)*6+nPts*3;
         uidRow = [1,2,3,1,2,3,1,2,3, ... %Au2c
                   4,5,6,4,5,6,4,5,6, ... %Tu2c
@@ -35,7 +35,7 @@ function [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, 
                  ]; 
         unJacs = 3*3*2+1; 
         
-    else%if(InertialDelta_optionsbPreInt == 1)
+    else%if(PreIntegration_optionsbPreInt == 1)
         
         [uidRow, uidCol, unJacs] = fnFndJacIDimu(ImuTimestamps, nIMUdata, nPoses, nPts );        
         
@@ -57,7 +57,7 @@ function [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, 
     [J] = fnJduvd_CnU_gq(nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ImuTimestamps, ...
                             RptFeatureObs, nUV, );
     % IMU part
-    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+    if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
         J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x);
     else
         J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata, nPoses);    
@@ -113,7 +113,7 @@ function [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, 
                                         RptFeatureObs, nUV );
                                     
                     % IMU part
-                    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+                    if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
                         J((nUV+1):end,:) = fnJddpvphi_IMU_gq(uidRow, uidCol, unJacs, nUV, dtIMU, Jd, nPoses, nPts, x);
                     else
                         J((nUV+1):end,:) = fnJdaw0_IMU_gq(uidRow, uidCol, unJacs, nUV, nPts, x, nIMUrate, nIMUdata);    

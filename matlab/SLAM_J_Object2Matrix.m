@@ -1,6 +1,6 @@
 function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
 
-    global InertialDelta_options
+    global PreIntegration_options
 
     %display('JObject2Matrix');
     
@@ -126,6 +126,12 @@ function [J_mat] = JObject2Matrix( J_obj, Zobs, X_obj )
         J_row = [ J_row; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.row(:) ];
         J_col = [ J_col; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.col(:) ];
         J_vec = [ J_vec; J_obj.dIntlDelta_dX(i).dDphi_dX.dDphi_dBw.val(:) ];
+    end
+    
+    if ( PreIntegration_options.bAddZg == 1 )
+        J_row = [ J_row; J_obj.dG_dG.row(:) ];
+        J_col = [ J_col; J_obj.dG_dG.col(:) ];
+        J_vec = [ J_vec; J_obj.dG_dG.val(:) ];            
     end
     
     %% dAu2c_dX

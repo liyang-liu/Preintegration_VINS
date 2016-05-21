@@ -2,7 +2,7 @@ function [] = fnShowFeaturesnPoses(x, nPoses, nPts, nIMUdata, stitle)
 %% Show the postions of features and poses according to the state vector x.
 %% Input: 
 % x: composed of nPoses poses, nPts 3D features and others. 
-global InertialDelta_options
+global PreIntegration_options
 
 R_cell = [];
 T_cell = [];
@@ -18,7 +18,7 @@ title(stitle); hold on;
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(1,1), R_cell{pid}(1,2), R_cell{pid}(1,3), ratio);
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(2,1), R_cell{pid}(2,2), R_cell{pid}(2,3), ratio);
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(3,1), R_cell{pid}(3,2), R_cell{pid}(3,3), ratio);
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     nMax = nPoses;
 else
     nMax = nIMUdata;%(nPoses-1)*
@@ -37,7 +37,7 @@ for pid=2:nMax
     pause(0.1);
 end
 
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     id0 = (nPoses-1)*6;
 else
     id0 = nIMUdata*6;%(nPoses-1)*

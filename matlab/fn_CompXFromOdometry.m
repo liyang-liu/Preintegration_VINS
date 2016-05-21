@@ -4,7 +4,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
                     RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
                     fscaleGT, kfids, nIMUrate, X, SLAM_Params, imufulldata )
    
-    global InertialDelta_options
+    global PreIntegration_options
     
     xcol = 0;
 
@@ -44,7 +44,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
     end    
     
     % Intial values of poses and IMU states
-     if(InertialDelta_options.bIMUodo == 1)
+     if(PreIntegration_options.bIMUodo == 1)
          
         %% Obtain initial poses from IMU data
         [Rcam, ~, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetPosesFromIMUdata_Inc(nPoseOld, ...
@@ -148,7 +148,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
     X.Tu2c.col = (1:3) + xcol ;    xcol = xcol + 3;
     
     %% bf, bw
-    if(InertialDelta_options.bVarBias == 0)
+    if(PreIntegration_options.bVarBias == 0)
         X.Bf.val = SLAM_Params.bf0;
         X.Bf.col = (1:3) + xcol ;    xcol = xcol + 3;
 

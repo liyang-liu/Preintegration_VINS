@@ -1,11 +1,11 @@
 function e = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
 
-    global InertialDelta_options
+    global PreIntegration_options
 
     %nObsId_FeatureObs = 2;
     fx = K(1,1); cx0 = K(1,3); fy = K(2,2); cy0 = K(2,3);
 
-    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+    if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
         idx = (nPoses-1)*6;
     else
         nIMUdata = ImuTimestamps(nPoses)-ImuTimestamps(1);
@@ -17,10 +17,10 @@ function e = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, 
     e = Zobs;
     
     % index of Au2c, Tu2c
-    if(InertialDelta_options.bUVonly == 1)
+    if(PreIntegration_options.bUVonly == 1)
         idx = (nPoses-1)*6+nPts*3;
     else
-        if(InertialDelta_options.bPreInt == 1)
+        if(PreIntegration_options.bPreInt == 1)
             idx = ((nPoses-1)*6+nPts*3+3*nPoses+3);%(nPoses-1)*6+nPts*3+3*nPoses + 9
         else
             idx = (nIMUdata)*6+3*nPts+3*(nIMUdata+1)+3;%(nPoses-1)*nIMUrate ((nPoses-1)*nIMUrate+1)
@@ -47,7 +47,7 @@ function e = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, 
                 break;
             elseif(pid > 1)
                 
-                if((InertialDelta_options.bUVonly == 1) ||(InertialDelta_options.bPreInt == 1))
+                if((PreIntegration_options.bUVonly == 1) ||(PreIntegration_options.bPreInt == 1))
                     idx = (pid-2)*6;
                 else
                     idx = (ImuTimestamps(pid)-ImuTimestamps(1)-1)*6;%  (pid-1)*nIMUrate -6???

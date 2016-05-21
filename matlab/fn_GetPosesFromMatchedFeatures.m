@@ -1,7 +1,7 @@
 function [Rp, Ap, Tp, Feature3D] = fnGetPosesFromMatchedFeatures(nPoses, nPts, ...
     K, fscaleGT, RptFeatureObs, kfids)%, bAddInitialNoise, sigmauov)
 
-    global InertialDelta_options
+    global PreIntegration_options
     
     R = eye(3);
     Ap = zeros(3, nPoses);

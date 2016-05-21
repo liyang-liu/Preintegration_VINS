@@ -4,7 +4,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
                     RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
                     fscaleGT, kfids, nIMUrate, X, SLAM_Params, imufulldata )
    
-    global InertialDelta_options
+    global PreIntegration_options
     
     xcol = 0;
 
@@ -19,7 +19,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
         R0imu(:,:,1) = eye(3);
         T0imu = zeros(3,nPoseOld);
         v0imu = zeros(3,nPoseOld);             
-        if(InertialDelta_options.bPreInt == 1)               
+        if(PreIntegration_options.bPreInt == 1)               
 
             pids = (1:nPoseOld)';
             idx_v = 6*(nPoseOld-1)+3*nPts_old + 3*(pids-1);
@@ -38,7 +38,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
                 R0imu(:, :, id) = fnRFromABG(A0imu(1), A0imu(2), A0imu(3));
                 T0imu(:, id) = x_old.pose(pid-1).trans.val; 
             end
-            if(InertialDelta_options.bUVonly == 0)
+            if(PreIntegration_options.bUVonly == 0)
                 %v0imu(:, id) = x_old((idx_v(id)+1):(idx_v(id)+3)); 
                 v0imu(:, id) = x_old.velocity(id).xyz; 
             end
@@ -49,7 +49,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
     end    
     
     % Intial values of poses and IMU states
-     if(InertialDelta_options.bIMUodo == 1)
+     if(PreIntegration_options.bIMUodo == 1)
         %% Obtain initial poses from IMU data
         [Rcam, ~, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fnGetPosesFromIMUdata_Inc(nPoseOld, ...
             nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
@@ -72,7 +72,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
 
     %% Combine old and new poses into X        
     idend = 0;
-    if(InertialDelta_options.bPreInt == 1)
+    if(PreIntegration_options.bPreInt == 1)
         if(nPoseOld > 1)
             %idstart = idend + 1;                
             %idend = idend + 6*(nPoseOld-1); 
@@ -134,7 +134,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
     
     if(nPoseOld > 1)
         [~, idrptf, idrptf_old] = intersect(RptFidSet, RptFidSet_old);
-        %if(InertialDelta_options.bPreInt == 1)
+        %if(PreIntegration_options.bPreInt == 1)
         %    idstart_old = 6*(nPoseOld-1)+1;
         %else                        
         %    idstart_old = 6*nIMUdata_old+1;
@@ -152,10 +152,10 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
     end
 
     %% Initial values of velocity
-    if(InertialDelta_options.bUVonly == 0)
+    if(PreIntegration_options.bUVonly == 0)
         
         if(nPoseOld > 1)
-            if(InertialDelta_options.bPreInt == 1)
+            if(PreIntegration_options.bPreInt == 1)
                 %idstart = idend + 1;
                 %idend = idend + 3*nPoseOld;
                 %idend_old = 6*(nPoseOld-1) + 3*size(RptFidSet_old,1);
@@ -181,7 +181,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
                         nPoses, nPts, nIMUdata, ImuTimestamps, nIMUrate, ...
                         X, xcol, dtIMU, dp, dv, SLAM_Params,imufulldata );
                     
-        if(InertialDelta_options.bPreInt == 1)
+        if(PreIntegration_options.bPreInt == 1)
             %idstart = idend + 1;
             %idend = idend + 3*nPoses;
             %if(nPoseOld == 1)
@@ -221,9 +221,9 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fnCompXFromOdometry( ...
     
     X.Tu2c.val = SLAM_Params.Tu2c;
     X.Tu2c.col = (1:3) + xcol ;    xcol = xcol + 3;
-    if(InertialDelta_options.bUVonly == 0)
+    if(PreIntegration_options.bUVonly == 0)
         %% bf, bw
-        if(InertialDelta_options.bVarBias == 0)
+        if(PreIntegration_options.bVarBias == 0)
             %idstart = idend + 1; idend = idend + 6;
             %X(idstart:idend) = [bf0;bw0];%zeros(6,1);  
             X.Bf.val = SLAM_Params.bf0;

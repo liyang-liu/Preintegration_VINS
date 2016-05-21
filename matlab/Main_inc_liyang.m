@@ -6,23 +6,23 @@ if 0
     clc;
 end
 
-run InertialDelta_config_script
-global InertialDelta_options
+run PreIntegration_config_script
+global PreIntegration_options
 
 run Data_config_script
 global Data_config
 
-assert( InertialDelta_options.bDinuka == 1, 'Malag not tested');
-assert( InertialDelta_options.bPreInt == 1, 'Non-preintegration not tested');
-assert( InertialDelta_options.bUVonly == 0, 'UV only not tested');
-assert( InertialDelta_options.bVarBias == 0, 'Variable Bias not tested');
+assert( PreIntegration_options.bDinuka == 1, 'Malag not tested');
+assert( PreIntegration_options.bPreInt == 1, 'Non-preintegration not tested');
+assert( PreIntegration_options.bUVonly == 0, 'UV only not tested');
+assert( PreIntegration_options.bVarBias == 0, 'Variable Bias not tested');
 
-nPoseOld = InertialDelta_options.nPoseOld
-nAddPoses = InertialDelta_options.nAddPoses
-nPoseNew = InertialDelta_options.nPoseNew
-kfids = 1:InertialDelta_options.kfspan:1200;
-nPts = InertialDelta_options.nPts
-nAllposes = InertialDelta_options.nAllposes
+nPoseOld = PreIntegration_options.nPoseOld
+nAddPoses = PreIntegration_options.nAddPoses
+nPoseNew = PreIntegration_options.nPoseNew
+kfids = 1:PreIntegration_options.kfspan:1200;
+nPts = PreIntegration_options.nPts
+nAllposes = PreIntegration_options.nAllposes
 
 uvd_cell = [];
 dp = zeros(3,nPoseNew);
@@ -31,7 +31,7 @@ dphi = dp;
 x_old = [];
 PBAFeature = [];
 
-if(InertialDelta_options.bSimData == 0)
+if(PreIntegration_options.bSimData == 0)
     nPts1 = 60000;
 else
     nPts1 = nPts;
@@ -43,7 +43,7 @@ gtIMUposes = [];
 selpids = [];
 
 
-if(InertialDelta_options.bDinuka == 1)
+if(PreIntegration_options.bDinuka == 1)
     dtIMU = zeros(nPoseNew, 1);
     nIMUrate = 2e2;    
     
@@ -88,26 +88,26 @@ Rd = [];
 
 
 %% The main switch
-    if(InertialDelta_options.bMalaga == 1)
+    if(PreIntegration_options.bMalaga == 1)
         K = [923.5295, 0, 507.2222; 0, 922.2418, 383.5822; 0, 0, 1];% Left
         % [911.3657, 0, 519.3951; 0, 909.3910, 409.0285; 0, 0, 1]; &Right
-    elseif(InertialDelta_options.bDinuka == 1)
+    elseif(PreIntegration_options.bDinuka == 1)
        load([Data_config.DATA_DIR 'cam.mat']); 
        K = cam.K;
     end   
     
    
-    if(InertialDelta_options.bMalaga == 1)
+    if(PreIntegration_options.bMalaga == 1)
         SLAM_Params.Au2c_true = [-87.23; -2.99; -88.43]*pi/180;%[0;0;0];%[-86.19;-3.53;-90.31]*pi/180;%
         SLAM_Params.Ru2c_true = fn_RFromABG(Au2c(1), Au2c(2), Au2c(3));
         SLAM_Params.Tu2c_true = [2.2-0.25;-0.427-0.029;0.025+(23-13.9)*1e-3];%[0;0;0];%
         %nIMUrate = 100; 
         dt = 1e-2;
     
-    elseif(InertialDelta_options.bDinuka == 1)
+    elseif(PreIntegration_options.bDinuka == 1)
         load([Data_config.DATA_DIR 'gtIMUposes.mat']);% ts, Aimu, Timu
         nt = size(gtIMUposes, 1); 
-        selpids = 9:(10*InertialDelta_options.kfspan):nt;
+        selpids = 9:(10*PreIntegration_options.kfspan):nt;
         SLAM_Params.Ru2c_true = ([0,1,0; 0,0,1; 1,0,0]); 
         SLAM_Params.Au2c_true = zeros(3,1);
         [SLAM_Params.Au2c_true(1), SLAM_Params.Au2c_ture(2), SLAM_Params.Au2c_true(3) ] = ...
@@ -142,7 +142,7 @@ Rd = [];
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs ); 
         end
         
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             load([ Data_config.DATA_DIR 'PBAFeature.mat']);
             %RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, nMinObsTimes));
             %RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
@@ -151,8 +151,8 @@ Rd = [];
             RptFidSet = RptFidSet(:);
             RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
             RptFeatureObs = FeatureObs(RptFidSet);
-        elseif(InertialDelta_options.bDinuka == 1)
-            RptFidSet = find( [FeatureObs(:).nObs] >= min(nPoseNew, InertialDelta_options.nMinObsTimes));
+        elseif(PreIntegration_options.bDinuka == 1)
+            RptFidSet = find( [FeatureObs(:).nObs] >= min(nPoseNew, PreIntegration_options.nMinObsTimes));
             RptFidSet = RptFidSet(:);
             RptFeatureObs = FeatureObs(RptFidSet);
         end
@@ -172,7 +172,7 @@ Rd = [];
             Data_config.gtVelfulldir, SLAM_Params );     
     
         %% Compose Initial value of X from odometry 
-        if(InertialDelta_options.bInitPnF5VoU == 1)
+        if(PreIntegration_options.bInitPnF5VoU == 1)
             [X_obj, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
                         nPoseOld, nPoseNew, nPoses, nPts, x_old, ...
                         ImuTimestamps, nIMUdata, nIMUdata_old, Feature3D, RptFidSet, ...
@@ -198,14 +198,14 @@ Rd = [];
         fprintf('%f ', Xg_obj.feature(1).xyz');
         fprintf('...]\n');  
         
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             z2= Xg_obj(4);% Timu(:,4) correspond to Tcam(:,6)==> x-z
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             %z2 = Xg_obj(6);
             z2 = Xg_obj.pose(2).trans.val(3);
         end         
         
-        if(InertialDelta_options.bInitPnF5VoU == 0)
+        if(PreIntegration_options.bInitPnF5VoU == 0)
             x = Xg_obj;
             if(bAddInitialNoise == 1)
                 x = x + 1e-2*(rand(size(x)) - 0.5);
@@ -228,7 +228,7 @@ Rd = [];
     end
     
     % Show Pose-feature graph
-    if((InertialDelta_options.bShowFnP == 1) && ((nPoseOld == 1) || (nPoseNew == nAllposes)))
+    if((PreIntegration_options.bShowFnP == 1) && ((nPoseOld == 1) || (nPoseNew == nAllposes)))
         fn_ShowFeaturesnPoses( Xg_obj, nPoseNew, nPts, nIMUdata, 'Ground Truth Values' );
         fn_ShowFeaturesnPoses( X_obj, nPoseNew, nPts, nIMUdata, 'Initial Values' );
     end
@@ -251,7 +251,7 @@ Rd = [];
 
 
     tic
-    if(InertialDelta_options.bGNopt == 1)
+    if(PreIntegration_options.bGNopt == 1)
     %% GN Iterations 
         [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
                         nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
@@ -294,10 +294,10 @@ Rd = [];
         
         load( Data_config.gtFile );        
         figure(); hold on;
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             % plot(GT_P0(:,4),GT_P0(:,6),'-+r');
             % plot(Tcam(1,:),Tcam(3,:),'-*b');
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             Tcam = Timu;
             GT_P0 = gtIMUposes(selpids(1:nPoseNew),2:7);
             GT_P0(:,4:6) = GT_P0(:,4:6) - repmat(GT_P0(1,4:6),nPoseNew,1);
@@ -328,12 +328,12 @@ Rd = [];
         
         %% Show pose-feature graph
         if( nPoseNew == nAllposes)
-            if ( InertialDelta_options.bShowFnP == 1 )
-                fn_ShowFeaturesnPoses_general(X_obj, nPoseNew, nPts, nIMUdata, 'Final Values');
+            if ( PreIntegration_options.bShowFnP == 1 )
+                fn_ShowFeaturesnPoses_general(X_obj, nIMUdata, 'Final Values');
             end
             
             %% Show uncertainty
-            if ( InertialDelta_options.bShowUncertainty == 1 )
+            if ( PreIntegration_options.bShowUncertainty == 1 )
                 fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
                     dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
             end

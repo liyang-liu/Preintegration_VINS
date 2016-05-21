@@ -3,10 +3,10 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, ...
                 dp, dv, gtVelfulldir, SLAM_Params)
 
-        global InertialDelta_options
+        global PreIntegration_options
             
         %% Poses
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             load([datadir 'PBAPose.mat']);    
             tv = (PBAPose(1:nPoseNew, :))';
             ABGcam = [tv(3, :);tv(2, :);tv(1, :)];%tv(1:3, :);%
@@ -26,7 +26,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
            [xg] = fnLinearInterpPoses(nPoseNew, ABGimu, Timu, ImuTimestamps, xg);
            
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             tv = (gtIMUposes(selpids(1:(nPoseNew)), 2:7))';
             ABGimu = tv(1:3, :);
             Timu = tv(4:6, :);
@@ -45,10 +45,10 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
         idend = 6*nIMUdata; 
         idstart = idend + 1; 
         idend = idend + 3*nPts;    
-        if(InertialDelta_options.bMalaga == 1)
+        if(PreIntegration_options.bMalaga == 1)
             tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features
             Pf1u = SLAM_Params.Ru2c' * tv + repmat(SLAM_Params.Tu2c, 1, nPts);
-        elseif(InertialDelta_options.bDinuka == 1)
+        elseif(PreIntegration_options.bDinuka == 1)
             load([datadir 'feature_pos.mat']);
             tv = feature_pos(RptFidSet, :)';
             abg10 = (gtIMUposes(selpids(1), 2:4))'; % Rotation of the IMU pose corresponding to the first key frame
@@ -66,8 +66,8 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
         xg.feature(numFeatures+1:end) = [];
         
         %% Velocity
-        if(InertialDelta_options.bUVonly == 0)
-            if(InertialDelta_options.bDinuka == 1)
+        if(PreIntegration_options.bUVonly == 0)
+            if(PreIntegration_options.bDinuka == 1)
                 load(gtVelfulldir);
                 idstart = idend + 1;%nIMUdata*6+3*nPts
                 idend = idend +3*(nIMUdata+1);% nIMUdata*6+3*nPts
@@ -83,7 +83,7 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
             end 
         end
         
-        if(InertialDelta_options.bUVonly == 0)
+        if(PreIntegration_options.bUVonly == 0)
             %% g
             %idstart = idend + 1; idend = idend + 3;
             %xg(idstart:idend) = g_true;
@@ -94,9 +94,9 @@ function [xg, fscaleGT] = fnGetXgroundtruth_general(xg, datadir, nPoseNew, ...
         %xg(idstart:idend) = [Au2c;Tu2c];
         xg.Au2c.val = SLAM_Params.Au2c_true;
         xg.Tu2c.val = SLAM_Params.Tu2c_true;
-        if(InertialDelta_options.bUVonly == 0)
+        if(PreIntegration_options.bUVonly == 0)
             %% bf, bw
-            if(InertialDelta_options.bVarBias == 0)
+            if(PreIntegration_options.bVarBias == 0)
                 %idstart = idend + 1; idend = idend + 6;
                 %xg(idstart:idend) = [bf_true;bw_true];
                 xg.Bf.val = SLAM_Params.bf_true;

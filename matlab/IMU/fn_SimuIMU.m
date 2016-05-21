@@ -47,7 +47,7 @@ B = w;
 for idx=1:nt    
     w(:,idx) = bw + Jac_ko(theta(:,idx)) * dthetadt(:,idx);         %Jac_RotInv_xyz angular velocity 
     % acceleration part
-    Ri2b = fnR5ABG(theta(1,idx), theta(2,idx), theta(3,idx)); % = (EulerAngle(theta(:,idx)))'
+    Ri2b = fn_RFromABG(theta(1,idx), theta(2,idx), theta(3,idx)); % = (EulerAngle(theta(:,idx)))'
     % Generate acceleration part
     B(:,idx) = bf + Ri2b * (dvdt(:,idx) - g);
 end

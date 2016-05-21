@@ -1,8 +1,8 @@
-function [] = fnShowFeaturesnPoses_general(X_obj, nPoses, nPts, nIMUdata, stitle)
+function [] = fnShowFeaturesnPoses_general(X_obj, nIMUdata, stitle)
 %% Show the postions of features and poses according to the state vector x.
 %% Input: 
 % x: composed of nPoses poses, nPts 3D features and others. 
-global InertialDelta_options
+global PreIntegration_options
 
 R_cell = [];
 T_cell = [];
@@ -13,15 +13,14 @@ T_cell{1} = zeros(3,1);
 pid = 1;
 ratio = 0.2;
 fh = figure; 
-set(gcf, 'Position', get(0, 'ScreenSize'));
+%set(gcf, 'Position', get(0, 'ScreenSize'));
 title(stitle); hold on;
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(1,1), R_cell{pid}(1,2), R_cell{pid}(1,3), ratio);
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(2,1), R_cell{pid}(2,2), R_cell{pid}(2,3), ratio);
 quiver3(T_cell{pid}(1), T_cell{1}(2), T_cell{1}(3), R_cell{pid}(3,1), R_cell{pid}(3,2), R_cell{pid}(3,3), ratio);
 
-nMax = length( X_obj.pose );
-    
-
+nMax = length( X_obj.pose )+1;   
+nPts = length( X_obj.feature );
 
 for pid=2:nMax
     R_cell{pid} = fn_RFromAngVec( X_obj.pose(pid-1).ang.val );
@@ -45,6 +44,7 @@ plot3(pc(1,:), pc(2,:), pc(3,:),'--o');%b
 if(nPts > 0)
     plot3(p(1,:), p(2,:), p(3,:),'p');%r
 end
+grid on;
 view(-45, 20);
 
 nfontsize = 25;%22;%18;

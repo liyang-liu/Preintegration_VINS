@@ -1,4 +1,4 @@
-function CovMatrixInv = fnCalcCovMatrixInv( SLAM_Params, Zobs, Rd )
+function CovMatrixInv = SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd )
 
     CovInv_obj = SLAM_CovInv_Init( SLAM_Params, Zobs, Rd );
     

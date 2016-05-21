@@ -1,5 +1,5 @@
 function [x,idend] = fnCalcVFromKposes(nIMUdata, ImuTimestamps, nIMUrate, x, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata)
-    global InertialDelta_options
+    global PreIntegration_options
 
 
     idstart = idend + 1;

@@ -1,5 +1,5 @@
 function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params )
-    global InertialDelta_options
+    global PreIntegration_options
     
     %% camera observations (u,v)
     %zidend = 0; 
@@ -22,9 +22,9 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
     %%%%%%%%%%%%%%%%%
     %utid = zidend;
     %idr = zidend;    
-    if(InertialDelta_options.bUVonly == 0)
+    if(PreIntegration_options.bUVonly == 0)
         %% Put IMU data into observation vector z: 
-        if(InertialDelta_options.bPreInt == 0) % Non-pre-integration: put raw data  
+        if(PreIntegration_options.bPreInt == 0) % Non-pre-integration: put raw data  
             for pid=2:nPoseNew
                 ndata = size(dataIMU{pid}, 1);
                 tv = [dataIMU{pid}(:,2:7), zeros(ndata,3)]';%wi,ai,0
@@ -34,7 +34,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
             utid = idr;% + (nPoses - 1)*nlenpp;
         else    
             % Add interated IMU observations
-            if(InertialDelta_options.bPerfectIMUdlt == 0)
+            if(PreIntegration_options.bPerfectIMUdlt == 0)
                 %Zobs((idr+1):(idr+9*(nPoseNew-1)),1) = reshape([dp(:,2:nPoseNew);dv(:,2:nPoseNew);dphi(:,2:nPoseNew)],[],1);
                 for p = 2 : nPoseNew
                     Zobs.intlDelta(p-1).deltaP.val = dp(:, p);
@@ -58,7 +58,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
         end 
 
      %% Continue filling in Zobs with psedu observations related to IMU
-        if(InertialDelta_options.bAddZg == 1)
+        if(PreIntegration_options.bAddZg == 1)
             % Add pseudo observation of g        
             %Zobs((utid+1):(utid+3)) = g0; 
             %utid = utid + 3;
@@ -68,7 +68,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
             
         end
     end
-    if(InertialDelta_options.bAddZau2c == 1)
+    if(PreIntegration_options.bAddZau2c == 1)
         % Add pseudo observation of Tu2c
         [alpha, beta, gamma] = fnABGFromR(SLAM_Params.Ru2c);
         %Zobs((utid+1):(utid+3)) = [alpha;beta;gamma];
@@ -77,7 +77,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
         Zobs.Au2c.row = (1:3) + zrow;
         zrow = zrow + 3;
     end
-    if(InertialDelta_options.bAddZtu2c == 1)
+    if(PreIntegration_options.bAddZtu2c == 1)
         % Add pseudo observation of Tu2c
         %Zobs((utid+1):(utid+3)) = Tu2c;
         %utid = utid + 3;
@@ -86,12 +86,12 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
         zrow = zrow + 3;
     end
 
-    if(InertialDelta_options.bUVonly == 1)% Add A2, T2 as additional observation
+    if(PreIntegration_options.bUVonly == 1)% Add A2, T2 as additional observation
         Zobs((utid+1)) = z2;%Zobs((utid+1):(utid+6)) = x(1:6);
         utid = utid + 1; %6       
     else
-        if(InertialDelta_options.bVarBias == 0)
-            if(InertialDelta_options.bAddZbf == 1)
+        if(PreIntegration_options.bVarBias == 0)
+            if(PreIntegration_options.bAddZbf == 1)
                 % Add pseudo observation of bf
                 %Zobs((utid+1):(utid+3)) = bf0; 
                 %utid = utid + 3;            
@@ -100,7 +100,7 @@ function Zobs = InertialDelta_InitZ( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv
                 zrow = zrow + 3;
             end
             
-            if(InertialDelta_options.bAddZbw == 1)
+            if(PreIntegration_options.bAddZbw == 1)
                 % Add pseudo observation of bf
                 %Zobs((utid+1):(utid+3)) = bw0; 
                 %utid = utid + 3;            

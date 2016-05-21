@@ -1,13 +1,13 @@
 function [] = fnShowEstmBnd_general(ef, Td, nPoses, nPts, nIMUdata )
 %%
 % Au,Tu,f,vu, 
-global InertialDelta_options
+global PreIntegration_options
 
 nfontsize = 25;%22;%18;
 sDir = 'xyz';%{'x', 'y', 'z'};
 %% Display poses
 % Au
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     nMax = 6*(nPoses - 1);
 else
     nMax = 6*nIMUdata;%(nPoses - 1)*nIMUrate;
@@ -54,7 +54,7 @@ title('IMU Translation: Final Error V.S. 3\sigma Bound');
 % set(get(gca,'YLabel'), 'FontSize', nfontsize);
 
 %% Display Features
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     nMin = 6*(nPoses - 1)+1;
     nMax = 6*(nPoses - 1)+3*nPts;
 else
@@ -85,11 +85,11 @@ title('Feature Position: Final Error V.S. 3\sigma Bound');
 % set(get(gca,'XLabel'), 'FontSize', nfontsize);
 % set(get(gca,'YLabel'), 'FontSize', nfontsize);
 
-if(InertialDelta_options.bUVonly == 1)
+if(PreIntegration_options.bUVonly == 1)
     return;
 end
 %% Display Velocities
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     nMin = 6*(nPoses - 1)+3*nPts+1;
     nMax = 6*(nPoses - 1)+3*nPts+3*nPoses;
 else
@@ -121,16 +121,16 @@ title('IMU Velocity: Final Error V.S. 3\sigma Bound');
 % set(get(gca,'YLabel'), 'FontSize', nfontsize);
 
 %% g, Au2c, Tu2c, bf, bw
-if(InertialDelta_options.bPreInt == 1)
+if(PreIntegration_options.bPreInt == 1)
     nMin = 6*(nPoses - 1)+3*nPts+3*nPoses+1;
-    if( InertialDelta_options.bVarBias == 0 )
+    if( PreIntegration_options.bVarBias == 0 )
         nMax = 6*(nPoses - 1)+3*nPts+3*nPoses+15;
     else
         nMax = 6*(nPoses - 1)+3*nPts+3*nPoses+3*3 + (nPoses-1)*6;
     end
 else
     nMin = 6*nIMUdata + 3*nPts + 3*(nIMUdata+1)+1;
-    if( InertialDelta_options.bVarBias == 0 )
+    if( PreIntegration_options.bVarBias == 0 )
         nMax = 6*nIMUdata + 3*nPts + 3*(nIMUdata+1)+15;
     else
         nMax = 6*nIMUdata + 3*nPts + 3*(nIMUdata+1)+3*3 + (nPoses-1)*6;

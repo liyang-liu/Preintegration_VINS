@@ -1,6 +1,6 @@
 function X_Def = InertialDelta_X_Define( nPts, nPoseNew, nIMUdata )
 
-    global InertialDelta_options
+    global PreIntegration_options %global PreIntegration_options
     
     Angle_Def = struct( ...
         'val', zeros(3, 1), ...
@@ -32,7 +32,7 @@ function X_Def = InertialDelta_X_Define( nPts, nPoseNew, nIMUdata )
         'col', [] ...
         );
 
-    if InertialDelta_options.bVarBias == 0
+    if PreIntegration_options.bVarBias == 0
         Bf_Def = struct( ...
             'val', zeros(3, 1), ...
             'col', [] ...
@@ -73,3 +73,9 @@ function X_Def = InertialDelta_X_Define( nPts, nPoseNew, nIMUdata )
         'Bw',       Bw_Def ...
         );
     
+    %% Compose initial value x:
+    %% if(bPreInt == 0)
+    %%    x = zeros((nPoses-1)*nIMUrate*6+nPts*3+3*((nPoses-1)*nIMUrate+1)+15+6,1);% one additional 6 for convenience
+    %% else
+    %%    x = zeros((nPoses-1)*6+nPts*3+3*nPoses+3+6+6, 1); 
+    %% end 

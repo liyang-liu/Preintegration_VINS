@@ -1,24 +1,26 @@
-function CovInv_obj = SLAM_Cov_Init( SLAM_Params, Zobs, Rd )
+function CovInv_obj = SLAM_Cov_Init( SLAM_Params, Zobs, Rd, nPoses )
 
-    global InertialDelta_options
+    global PreIntegration_options
     
     nUV = length(Zobs.fObs) * 2;
     CovInv_FObs_obj = struct( ...
         'val',  1 / (SLAM_Params.sigma_uov_cov * SLAM_Params.sigma_uov_cov ) * eye(nUV) ...            
         );        
 
-    nPoseNew = length( Zobs.intlDelta ) + 1;
+    nPoses = length( Zobs.intlDelta ) + 1;
     CovInv_IntlDelta_obj = struct( ...
-        'val', eye( (nPoseNew - 1) * 3 * 3 ) ...
+        'val', eye( (nPoses - 1) * 3 * 3 ) ...
         );
     
-    for pid = 2:nPoseNew
+    for pid = 2:nPoses
         %covInv = 1e0 * inv( Rd{pid}(1:9,1:9) ); %2e0 1e0-1 -2 -4  
         %CovMatrixInv( (nUV+9*(pid-2)+1):(nUV+9*(pid-1)), (nUV+9*(pid-2)+1):(nUV+9*(pid-1)) ) = covInv;
         CovInv_IntlDelta_obj.val( 9 * ( pid - 2) + 1: 9 * (pid - 1), 9 * ( pid - 2) + 1: 9 * (pid - 1) ) = ...
                                         1e0 * inv( Rd{pid}( 1:9, 1:9 ) );
     end
 
+    CovInv_g_obj = struct(  'val', 1e8*eye(3) );
+    
     CovInv_Au2c_obj = struct( ...
         'val', 1 / (SLAM_Params.sigma_au2c_cov * SLAM_Params.sigma_au2c_cov ) * eye( 3 ) ...
         );
@@ -27,7 +29,7 @@ function CovInv_obj = SLAM_Cov_Init( SLAM_Params, Zobs, Rd )
         'val', 1 / (SLAM_Params.sigma_tu2c_cov * SLAM_Params.sigma_tu2c_cov ) * eye( 3 ) ...
         );
 
-    if ( InertialDelta_options.bVarBias == 0 )
+    if ( PreIntegration_options.bVarBias == 0 )
 
         CovInv_Bf_obj = struct( ...
             'val', 1 / (SLAM_Params.sigma_bf_cov * SLAM_Params.sigma_bf_cov ) * eye( 3 ) ...
@@ -40,13 +42,13 @@ function CovInv_obj = SLAM_Cov_Init( SLAM_Params, Zobs, Rd )
     else
 
         CovInv_Bf_obj = struct( ...
-            'val', eye( (nPoseNew - 2) * 3 ) ...
+            'val', eye( (nPoses - 2) * 3 ) ...
             );
 
         CovInv_Bw_obj = struct( ...
-            'val', eye( (nPoseNew - 2) * 3 ) ...
+            'val', eye( (nPoses - 2) * 3 ) ...
             );            
-        for( pid= 2 : ( nPoseNew - 1 ) )
+        for( pid= 2 : ( nPoses - 1 ) )
             %tv = eye(6);
             %tv(1:3, 1:3) = (1/sigma_bf_cov)^2 * tv(1:3, 1:3);%(bfi-bfi1)
             %tv(4:6, 4:6) = (1/(dtIMU(pid)*sigma_bw_cov))^2 * tv(4:6, 4:6);
@@ -67,3 +69,7 @@ function CovInv_obj = SLAM_Cov_Init( SLAM_Params, Zobs, Rd )
         'Bw',           CovInv_Bw_obj ...
         );
 
+    if ( PreIntegration_options.bAddZg == 1 )
+        CovInv_obj.g = CovInv_g_obj;
+    end
+    

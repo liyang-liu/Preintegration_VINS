@@ -2,7 +2,7 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
     %[J] = fnJacobian_dUv_dX( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
              %                   ImuTimestamps, RptFeatureObs, nUV )
 
-    global InertialDelta_options
+    global PreIntegration_options
     
     %% Objective function elements: ei = (ui' - ui)^2, ei'= (vi' - vi)^2 (i=1...N)
     % Find R, T corresponding to 3D points pi and pi'.

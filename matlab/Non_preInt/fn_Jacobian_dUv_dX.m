@@ -2,7 +2,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
     %[J] = fnJacobian_dUv_dX( nJacs, idRow, idCol, K, x, nPoses, nPts, nIMUdata, ...
              %                   ImuTimestamps, RptFeatureObs, nUV )
 
-    global InertialDelta_options
+    global PreIntegration_options
     
     %% Objective function elements: ei = (ui' - ui)^2, ei'= (vi' - vi)^2 (i=1...N)
     % Find R, T corresponding to 3D points pi and pi'.
@@ -20,7 +20,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
     fx = K(1,1); cx0 = K(1,3); fy = K(2,2); cy0 = K(2,3);
 
     % Section for pose 1
-    if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+    if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
         idx = (nPoses-1)*6;    
     else
         idx = 6*nIMUdata;%nIMUrate*(nPoses-1);
@@ -40,10 +40,10 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
     %     J((3*(i-1)+1):(3*i), (6*(nPoses-1)+3*(i-1)+1):(6*(nPoses-1)+3*i)) = duvd((3*(i-1)+1):(3*i),:);
     % end
     
-    if(InertialDelta_options.bUVonly == 1)
+    if(PreIntegration_options.bUVonly == 1)
         idx = (nPoses-1)*6 + nPts*3 + 1;
     else
-        if(InertialDelta_options.bPreInt == 1)
+        if(PreIntegration_options.bPreInt == 1)
             idx = (nPoses-1)*6 + nPts*3 + nPoses*3 + 4;    
         else
             idx = 6*nIMUdata + nPts*3 + (nIMUdata+1)*3 + 4;
@@ -68,7 +68,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
     for(pid = 1:nPoses)        
         if(pid > 1)
             
-            if((InertialDelta_options.bUVonly == 1) || (InertialDelta_options.bPreInt == 1))
+            if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
                 idx = (pid-2)*6;    
             else
                 idx = (ImuTimestamps(pid)-ImuTimestamps(1)-1)*6;%6*nIMUrate*(pid-1)-6;
@@ -192,7 +192,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
     
     return;
     
-    if(InertialDelta_options.bUVonly == 1)
+    if(PreIntegration_options.bUVonly == 1)
         
         nJ8row = 3*2+1;
         nJcol = 3*nPts+6*(nPoses-1)+3*2;  
@@ -201,10 +201,10 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
         
     else
         
-        if(InertialDelta_options.bPreInt == 1)
+        if(PreIntegration_options.bPreInt == 1)
             
             nJ8row = 3*3*(nPoses-1); 
-            if(InertialDelta_options.bVarBias == 0)
+            if(PreIntegration_options.bVarBias == 0)
                 nJ8col = 2*3;
                 nJcol = 6*(nPoses-1) + 3*nPts + 3*nPoses + 5*3;
             else
@@ -215,7 +215,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
         else%nIMUrate*(nPoses-1) nIMUrate*(nPoses-1)
 
             nJ8row = 9*nIMUdata;
-            if(InertialDelta_options.bVarBias == 0)
+            if(PreIntegration_options.bVarBias == 0)
                 nJ8col = 2*3;
                 nJcol = 3*nPts+6*(nIMUdata)+3*(nIMUdata+1)+5*3;
             else
@@ -225,24 +225,24 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
             
         end
         
-        if(InertialDelta_options.bAddZg == 1)
+        if(PreIntegration_options.bAddZg == 1)
             nJ8row = nJ8row + 3;
         end
         
-        if(InertialDelta_options.bAddZau2c == 1)
+        if(PreIntegration_options.bAddZau2c == 1)
             nJ8row = nJ8row + 3;
         end 
         
-        if(InertialDelta_options.bAddZtu2c == 1)
+        if(PreIntegration_options.bAddZtu2c == 1)
             nJ8row = nJ8row + 3;
         end 
         
-        if(InertialDelta_options.bVarBias == 0)
-            if(InertialDelta_options.bAddZbf == 1)
+        if(PreIntegration_options.bVarBias == 0)
+            if(PreIntegration_options.bAddZbf == 1)
                 nJ8row = nJ8row + 3;
             end        
             
-            if(InertialDelta_options.bAddZbw == 1)
+            if(PreIntegration_options.bAddZbw == 1)
                 nJ8row = nJ8row + 3;
             end 
             

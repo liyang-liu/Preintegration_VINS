@@ -1,7 +1,7 @@
 function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
                 fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
     
-    global InertialDelta_options Data_config
+    global PreIntegration_options Data_config
         
 	nReason = 0;    
     
@@ -60,6 +60,8 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
 		%         condnum = condest(Info);
 		%         fprintf('Condnum = %f ',condnum);
         
+        %dx = Info\E;
+        %dx = pinv(Info)*E;
         dx = Info\E;
 
 		% R = chol(Info);
