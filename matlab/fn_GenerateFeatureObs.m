@@ -5,13 +5,11 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, SLAM_Params] = f
     %% Use previous observation data or not
     if(PreIntegration_options.bUsePriorZ == 0)   
     
-        SLAM_Params.bf0 = [1.0, 2.0, 3.0]'; % bias for acceleration
-        SLAM_Params.bw0 = [1.0, 2.0, 3.0]'; %[0, 0, 0]'; % bias for rotaion velocity    
         arPts = [0,0,0; 1,0.5,2;0.5,2,2.6;1.8,2.4,3.5];
         
         %     [imuData_cell, uvd_cell, Ru_cell, Tu_cell, Ru2c, Tu2c, vu] = ...
         %         fnSimIMUnCameraFeatures1Pts(arPts, nPts, Ru2c, Tu2c, g0, bf0, bw0, nIMUrate, bPreInt);%
-        [imuData_cell, uvd_cell, Ru_cell, Tu_cell, SLAM_Params, vu] = ...
+        [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
             fn_SimIMUnFeaturesAtNPoses_helix( nPoses, nPts, nIMUrate, SLAM_Params);% line   
 
 
@@ -82,7 +80,7 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, SLAM_Params] = f
                 imuData_cell{pid}.samples(:, 5:7) + gns;
         end      
         save( [ Data_config.TEMP_DIR, 'SimuData.mat'], 'imuData_cell', 'uvd_cell', 'Ru_cell', 'Tu_cell', ...
-            'SLAM_Params', 'SLAM_Params', 'vu');
+            'SLAM_Params', 'vu');
 
     else
 

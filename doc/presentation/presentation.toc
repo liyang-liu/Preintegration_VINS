@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{Preintegration as parameterization on Z}{3}{0}{2}
+\beamer@sectionintoc {3}{Covariance and Jacobain calculation of Preintegration}{3}{0}{3}
+\beamer@sectionintoc {4}{IMU Bias treatment}{3}{0}{4}
+\beamer@sectionintoc {5}{Experimental results}{3}{0}{5}

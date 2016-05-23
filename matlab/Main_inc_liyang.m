@@ -1,5 +1,5 @@
 %% The main function.
-if 0
+if 1
     close all;    
     clear all;
     clear class;

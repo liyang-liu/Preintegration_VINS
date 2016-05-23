@@ -5,7 +5,8 @@ if 1
     clc;
 end
 
-run PreIntegration_simuNPose_config_script
+%run PreIntegration_simuNPose_config_script
+run PreIntegration_config_script
 global PreIntegration_options
 
 run Data_config_script
@@ -61,6 +62,8 @@ if(PreIntegration_options.bSimData == 1)
     
     SLAM_Params.g0 = [0; 0; -9.8]; % g value in the first key frame
     SLAM_Params.g_true = [0; 0; -9.8];
+    SLAM_Params.bf0 = [1.0, 2.0, 3.0]'; % bias for acceleration
+    SLAM_Params.bw0 = [1.0, 2.0, 3.0]'; %[0, 0, 0]'; % bias for rotaion velocity    
     SLAM_Params.bf_true = [1.0; 2.0; 3.0]; % bias for acceleration
     SLAM_Params.bw_true = [1.0; 2.0; 3.0]; %[0, 0, 0]'; % bias for rotaion velocity 
     

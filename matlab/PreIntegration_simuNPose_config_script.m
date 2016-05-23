@@ -11,13 +11,13 @@ PreIntegration_options.bMalaga = 0;
 PreIntegration_options.bDinuka = 0;%p4-15/nonoise:50-80(+50)
 
 %% Configure the conditions of the problem
-PreIntegration_options.nPoses = 150;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
+PreIntegration_options.nPoses = 10;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
 PreIntegration_options.bPreInt = 1;%1;% Use pre-integration method?
     
 PreIntegration_options.bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
 PreIntegration_options.bIMUodo = 1;% Use IMU data to initilize x?
 PreIntegration_options.bGNopt = 1;% Use Gauss-Newton method?
-PreIntegration_options.bShowFnP = 1;% Show poses and features?
+PreIntegration_options.bShowFnP = 0;% Show poses and features?
 PreIntegration_options.bShowUncertainty = 0;% Show uncertainty of the result?
 PreIntegration_options.bAddInitialNoise = 0;% x0 + noise or not
 PreIntegration_options.bPerfectIMUdlt = 0;
