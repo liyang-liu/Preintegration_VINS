@@ -20,32 +20,94 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
     
     % Reprojection at each pose
     
-    for pid=2:nPoses 
+    if(PreIntegration_options.bPreInt == 1)
+        for pid=2:nPoses 
 
-        if(PreIntegration_options.bVarBias == 1)                    
-            idx = ((nPoses-1)*6+nPts*3+3*nPoses+10+(pid-2)*6);
-            bf = X_obj(idx:(idx+2),1);
-            dbf = bf - bf0;
-            bw = X_obj((idx+3):(idx+5),1);
-            dbw = bw - bw0;
-        end 
+            if(PreIntegration_options.bVarBias == 1)                    
+                idx = ((nPoses-1)*6+nPts*3+3*nPoses+10+(pid-2)*6);
+                bf = X_obj(idx:(idx+2),1);
+                dbf = bf - bf0;
+                bw = X_obj((idx+3):(idx+5),1);
+                dbw = bw - bw0;
+            end 
 
-        Au = X_obj.pose(pid-1).ang.val;
-        alpha = Au(1); beta = Au(2); gamma = Au(3);
-        Ru2 = fn_RFromABG(alpha, beta, gamma);
-        Tu2 = X_obj.pose(pid-1).trans.val;
-        v1 = X_obj.velocity(pid-1).xyz;
-        v2 = X_obj.velocity(pid).xyz;
-        dt = dtIMU(pid);
+            Au = X_obj.pose(pid-1).ang.val;
+            alpha = Au(1); beta = Au(2); gamma = Au(3);
+            Ru2 = fn_RFromABG(alpha, beta, gamma);
+            Tu2 = X_obj.pose(pid-1).trans.val;
+            v1 = X_obj.velocity(pid-1).xyz;
+            v2 = X_obj.velocity(pid).xyz;
+            dt = dtIMU(pid);
+
+            [dp,dv,dphi] = fn_PredictIntlDelta(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
+
+            e.intlDelta(pid-1).deltaP.val   = dp - Zobs.intlDelta(pid-1).deltaP.val;
+            e.intlDelta(pid-1).deltaV.val   = dv - Zobs.intlDelta(pid-1).deltaV.val;
+            e.intlDelta(pid-1).deltaPhi.val = dphi - Zobs.intlDelta(pid-1).deltaPhi.val;                            
+            Tu1 = Tu2; Ru1 = Ru2;
+        end % for pid
         
-        [dp,dv,dphi] = fn_PredictIntlDelta(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
-        
-        e.intlDelta(pid-1).deltaP.val   = dp - Zobs.intlDelta(pid-1).deltaP.val;
-        e.intlDelta(pid-1).deltaV.val   = dv - Zobs.intlDelta(pid-1).deltaV.val;
-        e.intlDelta(pid-1).deltaPhi.val = dphi - Zobs.intlDelta(pid-1).deltaPhi.val;                            
-        Tu1 = Tu2; Ru1 = Ru2;
-    end % for pid
-
+    else 
+        %% Non Preintegration
+        dt = 1.0/nIMUrate;
+        cid = 1;
+        for pid=1:nIMUdata%((nPoses-1)*nIMUrate)
+            if(PreIntegration_options.bVarBias == 1)
+                if(pid >= (ImuTimestamps(cid+1)-ImuTimestamps(1)+1)) 
+                    cid = cid + 1;                    
+                end         
+                if 1
+                else
+                    idx = nIMUdata*6+nPts*3+3*(nIMUdata+1)+10 + 6*(cid-1);
+                    bf = x(idx:(idx+2),1);
+                    %   dbf = bf - bf0;
+                    bw = x((idx+3):(idx+5),1);
+                    %	dbw = bw - bw0;
+                end
+            end            
+            %idx = (nIMUdata*6+3*nPts+(pid-1)*3); 
+            %vi = x((idx+1):(idx+3));
+            %vi1 = x((idx+4):(idx+6));
+            vi = X_obj.velocity( pid ).xyz;
+            vi1 = X_obj.velocity(pid + 1).xyz;
+            if(pid > 1)
+                %idx = ((pid-2)*6);%nIMUrate*
+                %alpha = x(idx+1); beta = x(idx+2); gamma = x(idx+3);
+                %Ti = x((idx+4):(idx+6));
+                angVec = X_obj.pose(pid-1).ang.val;
+                alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
+                Ti = X_obj.pose(pid-1).trans.val;
+            else
+                alpha = 0; beta = 0; gamma = 0;
+                %idx = -6;
+                Ti = zeros(3,1);
+            end  
+            phii = [alpha;beta;gamma];
+            Ri = fn_RFromABG( alpha, beta, gamma);
+            % ai
+            ai = Ri * ( (vi1 - vi ) / dt - g ) + bf;
+            % wi
+            Ei = Jac_ko(phii);
+            %idx = idx+6;
+            %alpha = x(idx+1); beta = x(idx+2); gamma = x(idx+3);
+            angVec = X_obj.pose(pid).ang.val;
+            alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
+            phii1 = [alpha; beta; gamma];
+            %Ti1 = x((idx+4):(idx+6));
+            Ti1 = X_obj.pose(pid).trans.val;
+            wi = Ei * (phii1 - phii) / dt + bw;
+            % 0 = Ti1-Ti-vi*dt;
+            bzero = Ti1 - Ti - vi*dt;
+            %idx = (pid-1)*9+1;
+            %if(idx > 20700)
+            %    tt = 1;
+            %end
+            %e(idx:(idx+8)) = [wi;ai;bzero] - Zobs(idx:(idx+8));
+            e.imu(pid).w.val = wi - Zobs.imu(pid).w.val;
+            e.imu(pid).acc.val = ai - Zobs.imu(pid).acc.val;
+            e.imu(pid).deltaT.val = bzero - Zobs.imu(pid).deltaT.val;
+        end
+    end
 
     %% After IMU observations
     

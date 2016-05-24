@@ -1,4 +1,4 @@
-function [CovMatrixInv] = fn_Generate_CovMatrixInv2( nPoses, nPts, nUV, Rd )
+function [CovMatrixInv] = fn_Generate_CovMatrixInv2( nPoses, nPts, nUV, nIMUrate, Rd, SLAM_Params )
     %% Covariance matrix
     % Original     
     %     CovMatrixInv = zeros((nPts*nPoses*3+(nPoses-1)*3*3));
@@ -23,7 +23,11 @@ function [CovMatrixInv] = fn_Generate_CovMatrixInv2( nPoses, nPts, nUV, Rd )
         end
         utid = idr+(nPoses-1)*3*3;
     else
-        q = inv(diag([sigma_w_cov*sigma_w_cov*ones(3,1); sigma_f_cov*sigma_f_cov*ones(3,1); sigma_tv*sigma_tv*ones(3,1)]));
+        q = inv( diag( ...
+                [ SLAM_Params.sigma_w_cov * SLAM_Params.sigma_w_cov * ones(3,1); ...
+                    SLAM_Params.sigma_f_cov * SLAM_Params.sigma_f_cov * ones(3,1); ...
+                    SLAM_Params.sigma_tv * SLAM_Params.sigma_tv * ones(3,1) ] ...
+             ));
         for pid = 1:((nPoses-1)*nIMUrate)
         %CovMatrixInv((idr+1):end,(idr+1):end) =
         % kron(eye((nPoses-1)*nIMUrate),q); % not suitalbe for large scale

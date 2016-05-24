@@ -1,4 +1,4 @@
-function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g, 
+function J = fn_Jacobian_dIntlDelta_dX( J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g, 
     %fnJacobian_dIntlDelta_dX(J, idRow, idCol, nJacs, nUV, dtIMU, Jd, nPoses, nPts, x )%g, 
     global PreIntegration_options
     

@@ -3,7 +3,7 @@
 % e = f(X) - Zobs
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function e = SLAM_CalcPredictionError( X )
+function e = SLAM_CalcPredictionError( X, nPoses, nPts )
 
     global PreIntegration_options Data_config
     
@@ -50,26 +50,30 @@ function e = SLAM_CalcPredictionError( X )
     %[e((nUV+1):end,1)] = fnIMUdltErr_general(X, Zobs, nPoseNew, nPts, bf0, ...
     %    bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
 
-    nPoses = length( X.pose ) + 1;
-    nPts = length( X.feature );
+    %nPoses = length( Zobs.fObs ) + 1;
+    %nPts = length( X.feature );
     
     % 1. UVD error:
     e  = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps );
 
     % 2. IMU dlt error:
     ePreInt = fn_CalcPredictionError_ZintlDelta(X, Zobs, nPoses, nPts, SLAM_Params.bf0, ...
-                            SLAM_Params.bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
+                        SLAM_Params.bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
-    e.intlDelta =  ePreInt.intlDelta;
-    
-    if ( PreIntegration_options.bAddZg == 1 )
-        e.g     =  ePreInt.g;
+    if ( PreIntegration_options.bPreInt == 1 )
+        e.intlDelta =  ePreInt.intlDelta;
+    else
+        e.imu       = ePreInt.imu;
     end
     
-    e.Au2c      =  ePreInt.Au2c;
-    e.Tu2c      =  ePreInt.Tu2c;
-    e.Bf        =  ePreInt.Bf;
-    e.Bw        =  ePreInt.Bw;
+    if ( PreIntegration_options.bAddZg == 1 )
+        e.g         =  ePreInt.g;
+    end
+    
+    e.Au2c          =  ePreInt.Au2c;
+    e.Tu2c          =  ePreInt.Tu2c;
+    e.Bf            =  ePreInt.Bf;
+    e.Bw            =  ePreInt.Bw;
     
     
 

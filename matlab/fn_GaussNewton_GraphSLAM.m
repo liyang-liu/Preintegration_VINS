@@ -12,7 +12,7 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
         
         fprintf('times=%d ',times);        
         
-		E_obj = SLAM_CalcPredictionError(X_obj);
+		E_obj = SLAM_CalcPredictionError( X_obj, nPoses, nPts );
         [e] = SLAM_Z_Object2Vector( E_obj );
         nUV = size( E_obj.fObs, 1 ) * 2;
 		chi2 = 2*e'*CovMatrixInv*e/nUV;
@@ -42,7 +42,11 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
 
         J_obj = SLAM_Jacobian_Define( );
         J_obj = fn_Jacobian_dUv_dX( J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );		
-        J_obj = fn_Jacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
+        if ( PreIntegration_options.bPreInt == 1 )
+            J_obj = fn_Jacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
+        else
+            J_obj = fn_Jacobian_dImu_dX( J_obj, dtIMU, Jd, nPoses, nPts, nIMUrate, nIMUdata, X_obj, Zobs );
+        end
 
 		% %% Test IMU
 		% J1 = J((nPts*nPoses*3+1):end, 1:end);

@@ -1,13 +1,15 @@
 function X_vec = SLAM_X_Object2Vector( X_obj )
     
+    global PreIntegration_options
+
     X_vec = [];
     
-    
-    % pose
     numPose = length( X_obj.pose ) + 1;
-    for i=1:numPose-1
+    for i=1 : numPose-1
         X_vec = [X_vec; X_obj.pose(i).ang.val; X_obj.pose(i).trans.val];
     end
+    
+    % pose
     
     % feature
     numFeature = length( X_obj.feature );

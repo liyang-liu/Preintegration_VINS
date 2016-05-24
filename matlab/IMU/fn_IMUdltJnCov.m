@@ -11,8 +11,8 @@ function [J1, R1] = fn_IMUdltJnCov(Q, J0, R0, omega0, phi0, dt, fb0, bf, bo)
 % P: 15x15, updated covariance matrix
 
 %
-alpha = fn_dRdphi(phi0, (fb0-bf));
-beta =  fn_dEdphi(phi0, (omega0 - bo));
+alpha = fn_dRdPhi(phi0, (fb0-bf));
+beta =  fn_dEdPhi(phi0, (omega0 - bo));
 Cb0n = (fn_RFromABG(phi0(1), phi0(2), phi0(3)))';% EulerAngle(phi0);
 % F
 F = zeros(15);

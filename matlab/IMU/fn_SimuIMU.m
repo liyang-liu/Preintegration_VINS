@@ -1,4 +1,4 @@
-function [data5IMU] = fn_SimuIMU(theta, dthetadt, dvdt, g, bf, bw)%angles, p, 
+function [data5IMU] = fn_SimuIMU( theta, dthetadt, dvdt, g, bf, bw )%angles, p, 
 
 %% Simuate a 1 second process, data rate = 200 Hz.
     %g = [0; 0; -9.8];
@@ -47,11 +47,11 @@ B = w;
 for idx=1:nt    
     w(:,idx) = bw + Jac_ko(theta(:,idx)) * dthetadt(:,idx);         %Jac_RotInv_xyz angular velocity 
     % acceleration part
-    Ri2b = fn_RFromABG(theta(1,idx), theta(2,idx), theta(3,idx)); % = (EulerAngle(theta(:,idx)))'
+    Ri2b = fn_RFromAngVec( theta(:, idx) ); % = (EulerAngle(theta(:,idx)))'
     % Generate acceleration part
-    B(:,idx) = bf + Ri2b * (dvdt(:,idx) - g);
+    B(:,idx) = bf + Ri2b * ( dvdt(:,idx) - g);
 end
 
 % x0=[zeros(6,1);initialvelocity];%initialtheta;initialposition;
 
-data5IMU=[w;B];% [t;w;B]';
+data5IMU=[ w; B ];% [t;w;B]';

@@ -5,7 +5,6 @@ if 1
     clc;
 end
 
-%run PreIntegration_simuNPose_config_script
 run PreIntegration_config_script
 global PreIntegration_options
 
@@ -13,7 +12,7 @@ run Data_config_script
 global Data_config
 
 assert( PreIntegration_options.bSimData == 1, 'Malag not tested');
-assert( PreIntegration_options.bPreInt == 1, 'Non-preintegration not tested');
+%assert( PreIntegration_options.bPreInt == 1, 'Non-preintegration not tested');
 assert( PreIntegration_options.bUVonly == 0, 'UV only not tested');
 assert( PreIntegration_options.bVarBias == 0, 'Variable Bias not tested');
 
@@ -118,15 +117,15 @@ if(PreIntegration_options.bSimData)
     %     SLAM_Params.g0 = [0; 0; -9.8]; % g value in the first key frame
             
     [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, ...
-                    dp, dv, dphi, Jd, Rd, SLAM_Params] = ...
+                    dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = ...
             fn_GenerateObs( SLAM_Params, nPoses, nPts, nIMUrate );
     RptFeatureObs = FeatureObs;
     save([ Data_config.TEMP_DIR 'RptFeatureObs.mat'], 'RptFeatureObs');
 
-    X_obj = SLAM_X_Define( nPts, nPoses, nIMUdata );
+    X_obj = SLAM_X_Define( nPts, nPoses, nIMUrate );
     Xg_obj = X_obj;    
     
-    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, SLAM_Params );
+    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, vu, SLAM_Params );
     
     if(PreIntegration_options.bShowFnP == 1)
         %% fnShowFeaturesnPoses(xg, nPoses, nPts, nIMUrate, bPreInt, 'Ground Truth Values');
@@ -148,7 +147,7 @@ if(PreIntegration_options.bSimData)
 
     %% Covariance matrix
     CovMatrixInv = ...%SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
-            fn_Generate_CovMatrixInv2( nPoses, nPts, length(Zobs.fObs)*2, Rd );
+            fn_Generate_CovMatrixInv2( nPoses, nPts, length(Zobs.fObs)*2, nIMUrate, Rd, SLAM_Params );
             %fn_Generate_CovMatrixInv( SLAM_Params, Zobs, Rd );
     save([ Data_config.TEMP_DIR 'CovMatrixInv.mat'],'CovMatrixInv', '-v7.3');
     

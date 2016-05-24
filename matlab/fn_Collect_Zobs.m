@@ -60,16 +60,18 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
 
     % Put IMU data into observation vector z: 
     if(PreIntegration_options.bPreInt == 0) % Non-pre-integration: put raw data  
+        idx_ImuObs = 0;
         for pid=2:nPoses
-            tv = [imuData_cell{pid}.samples(:, 2:7),zeros(nIMUrate,3)]';
+            tv = [imuData_cell{pid}.samples(:, 2:7), zeros(nIMUrate,3)]';
             %Zobs((idr+(pid-2)*nlenpp+1):(idr+(pid-1)*nlenpp)) = tv(:);
             for j=1:nIMUrate
-                Zobj.imu(pid-1).obs(j).acc.val = tv(j, 1:3); % linear accleartion observation
-                Zobs.imu(pid-1).obs(j).acc.row = (1:3) + zrow; zrow = zrow + 3;
-                Zobj.imu(pid-1).obs(j).ang.val = tv(j, 4:6); %angular rate observation
-                Zobs.imu(pid-1).obs(j).ang.row = (1:3) + zrow; zrow = zrow + 3;
-                Zobj.imu(pid-1).obs(j).dT.val = tv(j, 7:9); % a constraint enforcing 0 = T(i+1,j) - T(i,j) - v(i,j)*deltaT, set to zero before for-loop
-                Zobs.imu(pid-1).obs(j).dT.row = (1:3) + zrow; zrow = zrow + 3;
+                idx_ImuObs = idx_ImuObs + 1;
+                Zobj.imu(idx_ImuObs).w.val = tv(1:3, j); % linear accleartion observation
+                Zobs.imu(idx_ImuObs).w.row = (1:3) + zrow; zrow = zrow + 3;
+                Zobj.imu(idx_ImuObs).acc.val = tv(4:6, j); %angular rate observation
+                Zobs.imu(idx_ImuObs).acc.row = (1:3) + zrow; zrow = zrow + 3;
+                Zobj.imu(idx_ImuObs).deltaT.val = tv(7:9, j); % a constraint enforcing 0 = T(i+1,j) - T(i,j) - v(i,j)*deltaT, set to zero before for-loop
+                Zobs.imu(idx_ImuObs).deltaT.row = (1:3) + zrow; zrow = zrow + 3;
                 
             end
         end 

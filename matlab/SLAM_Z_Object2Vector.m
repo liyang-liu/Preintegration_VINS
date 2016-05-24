@@ -22,19 +22,28 @@ function [Z_vec] = SLAM_Z_Object2Vector( Z_obj )
         Z_vec = [Z_vec; Z_obj.fObs(i).uv(:)];
     end
     
-    %% inertial Detla
-    %
-    % IntlDelta_Def = struct ( ...
-    %    'deltaP',   DeltaP_Def, ...
-    %    'deltaV',   DeltaV_Def, ...
-    %    'deltaPhi', DeltaPhi_Def ...
-    %    );
-    
-    numIntlDelta = length( Z_obj.intlDelta );
-    for i=1:numIntlDelta
-        Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaP.val(:)];
-        Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaV.val(:)];
-        Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaPhi.val(:)];
+    if ( PreIntegration_options.bPreInt == 1 )
+        %% inertial Detla
+        %
+        % IntlDelta_Def = struct ( ...
+        %    'deltaP',   DeltaP_Def, ...
+        %    'deltaV',   DeltaV_Def, ...
+        %    'deltaPhi', DeltaPhi_Def ...
+        %    );
+
+        numIntlDelta = length( Z_obj.intlDelta );
+        for i=1:numIntlDelta
+            Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaP.val(:)];
+            Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaV.val(:)];
+            Z_vec = [Z_vec; Z_obj.intlDelta(i).deltaPhi.val(:)];
+        end
+    else
+        numImu = length( Z_obj.imu );
+        for i = 1:numImu
+            Z_vec = [Z_vec; Z_obj.imu(i).w.val(:)];
+            Z_vec = [Z_vec; Z_obj.imu(i).acc.val(:)];
+            Z_vec = [Z_vec; Z_obj.imu(i).deltaT.val(:)];
+        end
     end
     
     if ( PreIntegration_options.bAddZg == 1 )

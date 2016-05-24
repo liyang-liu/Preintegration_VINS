@@ -1,4 +1,4 @@
-function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, SLAM_Params] = fn_GenerateFeatureObs(  nPoses, nPts, nIMUrate, SLAM_Params )
+function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, vu, SLAM_Params] = fn_GenerateFeatureObs(  nPoses, nPts, nIMUrate, SLAM_Params )
 
     global PreIntegration_options Data_config
     
@@ -64,9 +64,9 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, SLAM_Params] = f
         
         % Add noise to imu data
         [gns] = fn_GenGaussNoise(3, 1, SLAM_Params.sigma_bf_real);
-        SLAM_Params.bf0 = SLAM_Params.bf0+gns;%fbiascef*sigmaf;
+        SLAM_Params.bf0 = SLAM_Params.bf0 + gns; %fbiascef*sigmaf;
         [gns] = fn_GenGaussNoise(3, 1, SLAM_Params.sigma_bw_real);
-        SLAM_Params.bw0 = SLAM_Params.bw0+gns;%fbiascef*sigmaw;
+        SLAM_Params.bw0 = SLAM_Params.bw0 + gns; %fbiascef*sigmaw;
         
         [nr,nc] = size(imuData_cell{2}.samples(:, 2:4));
         for pid=2:nPoses
@@ -90,9 +90,9 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, SLAM_Params] = f
         %   Zobs = Zobs1;
     end    
     
-    for pid=2:nPoses%1e-2,1e-3+3*sigmaf+3*sigmaw
+    for pid = 2 : nPoses %1e-2,1e-3+3*sigmaf+3*sigmaw
         [dp(:,pid), dv(:,pid), dphi(:,pid), Jd{pid}, Rd{pid}] = ...
-            fn_DeltObsAccu( SLAM_Params.bf0, SLAM_Params.bw0, ...
-            imuData_cell{pid}.samples, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov); 
+                        fn_DeltObsAccu( SLAM_Params.bf0, SLAM_Params.bw0, ...
+                            imuData_cell{pid}.samples, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov ); 
     end 
             
