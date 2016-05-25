@@ -1,9 +1,7 @@
 %% The main function.
-if 1
-    clear;
-    close all;
-    clc;
-end
+clear;
+close all;
+clc;
 
 global PreIntegration_options
 PreIntegration_options.bInc = 0;
@@ -72,8 +70,6 @@ if(PreIntegration_options.bSimData == 1)
     nUV = nPts * 2 * nPoses;
     nIMUdata = (nPoses-1) * nIMUrate;
     dtIMU = ones(nPoses, 1);
-    %RptFeatureObs = zeros(nPts, 50);%[fid, nObs, [pid, ui,vi]]
-    %fId_FeatureObs = 1; nObsId_FeatureObs = 2;
     dt = 1.0/nIMUrate;
 end
 
@@ -120,7 +116,7 @@ if(PreIntegration_options.bSimData)
             
     [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, ...
                     dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = ...
-            fn_GenerateObs( SLAM_Params, nPoses, nPts, nIMUrate );
+                            fn_GenerateObs( SLAM_Params, nPoses, nPts, nIMUrate );
     RptFeatureObs = FeatureObs;
     save([ Data_config.TEMP_DIR 'RptFeatureObs.mat'], 'RptFeatureObs');
 
@@ -141,7 +137,7 @@ if(PreIntegration_options.bSimData)
     %% Save data for nonlin method.
     X_init = X_obj;
     save([ Data_config.TEMP_DIR 'X_init.mat'],'X_init');
-    dt = ((imuData_cell{2}.samples(2, 1) - imuData_cell{2}.samples(1, 1)))*size(imuData_cell{2}.samples,1);
+    dt = ((imuData_cell{2}.samples(2, 1) - imuData_cell{2}.samples(1, 1))) * size(imuData_cell{2}.samples,1);
     nPoseNew = nPoses;
     save([ Data_config.TEMP_DIR 'consts.mat'],'nIMUrate','K','Zobs','nPoses','nPts', 'SLAM_Params', 'dt','Jd');
     save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs'); 
@@ -163,24 +159,14 @@ if(PreIntegration_options.bSimData)
 tic
     if(PreIntegration_options.bGNopt == 1)
         %% GN Iterations 
-        if 1
-            [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
-                            nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
-                            ImuTimestamps, dtIMU, RptFeatureObs );
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
+                        nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
+                        ImuTimestamps, dtIMU, RptFeatureObs );
         
-        else
-            [X_obj, nReason] = fnVI_BA_general(nUV, K, x, nPoses, nPts, Jd, CovMatrixInv, ...
-                nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
-                ImuTimestamps, dtIMU, RptFeatureObs, bUVonly, bPreInt, ...
-                bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
-        end
     else    
         [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...
-            CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-            bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);        
-        %         [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
-        %             fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-        %             bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
+                        CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
+                        bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
     end
 toc    
 
@@ -214,8 +200,6 @@ toc
     
     %% Show uncertainty
     if(PreIntegration_options.bShowUncertainty == 1)
-        %     fnCalnShowUncert(ef, K, x, nPoses, nPts, dt, Jd, CovMatrixInv, ...
-        %         nIMUrate, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw);
         fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
                         dtIMU, ef, K, X_obj, nPoses, nPts, Jd, ...
                         CovMatrixInv, nIMUrate, nIMUdata );    

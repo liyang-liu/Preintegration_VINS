@@ -13,13 +13,6 @@ function e = SLAM_CalcPredictionError( X, nPoses, nPts )
     %%%% Zobs is loaded
     %%%%
     
-    %load( [ Data_config.TEMP_DIR, 'bAddZg.mat' ]);% Use the latest value
-    %load( [ Data_config.TEMP_DIR, 'bAddZau2c.mat' ]);
-    %load( [ Data_config.TEMP_DIR, 'bAddZtu2c.mat' ]);
-    %load( [ Data_config.TEMP_DIR, 'bAddZbf.mat' ]);
-    %load( [ Data_config.TEMP_DIR, 'bAddZbw.mat' ]);
-    %load( [ Data_config.TEMP_DIR, 'bUVonly.mat' ]);
-    %load( [ Data_config.TEMP_DIR, 'bVarBias.mat' ]);
     
     load( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ] );%obsfeatures
     
@@ -31,14 +24,8 @@ function e = SLAM_CalcPredictionError( X, nPoses, nPts )
         dtIMU = [];
     end
 
-    %e = zeros(size(Zobs));
     e = Zobs;
 
-    % 1. UVD error:
-    %[e, nUV] = fnUVDErr_C1U_genral(RptFeatureObs, K, X, Zobs, nPoseNew, nPts, ImuTimestamps );
-    % 2. IMU dlt error:
-    %[e((nUV+1):end,1)] = fnIMUdltErr_general(X, Zobs((nUV+1):end,1), nPoseNew, nPts, bf0, ...
-    %    bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
     
     %ZobsPIDelta = struct ( ...
     %    'preInt',   Zobs.preInt, ...
@@ -47,8 +34,6 @@ function e = SLAM_CalcPredictionError( X, nPoses, nPts )
     %    'Bf',       Zobs.Bf, ...
     %    'Bw',       Zobs.Bw ...
     %    );
-    %[e((nUV+1):end,1)] = fnIMUdltErr_general(X, Zobs, nPoseNew, nPts, bf0, ...
-    %    bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
 
     %nPoses = length( Zobs.fObs ) + 1;
     %nPts = length( X.feature );

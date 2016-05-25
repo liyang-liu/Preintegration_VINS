@@ -64,7 +64,6 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
 		%         condnum = condest(Info);
 		%         fprintf('Condnum = %f ',condnum);
         
-        %dx = Info\E;
         %dx = pinv(Info)*E;
         dx = Info\E;
 
@@ -87,11 +86,6 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
             break;
         end
         
-		% %% C part        
-		% x(1:(tidx)) = x(1:(tidx)) + dx(1:(tidx));
-		% %% IMU part
-		% x = x + dx;
-        %x = x + dx;
         X_vec = X_vec + dx;
         X_obj = SLAM_X_Vector2Object( X_vec, X_obj );
         

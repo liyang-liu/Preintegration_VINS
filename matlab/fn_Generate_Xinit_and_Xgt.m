@@ -30,7 +30,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
      
         if(PreIntegration_options.bIMUodo == 1)
             %% Obtain initial poses from IMU data
-            [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata(nPoses, nPts, dtIMU, dp, dv, dphi, ...
+            [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nPoses, nPts, dtIMU, dp, dv, dphi, ...
                                                 K, RptFeatureObs, SLAM_Params );               
         else
             %% obtain relative poses from visual odometry
@@ -58,7 +58,6 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
             end        
         else            
             [X_obj, xcol] = fn_LinearInterpPoses( nPoses, ABGimu, Timu, ImuTimestamps, X_obj, xcol );
-            %	idx = (nPoses - 1)*nIMUrate*6;
         end
     end
 
@@ -67,7 +66,6 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         for pid=2:(nPoses-1)
             % Pick out R & T corresponding to the current pose       
             [alpha, beta, gamma] = fn_ABGFromR(Ru_cell{pid}{1});%Rc,Tc
-            %xg(((pid-2)*6+1):((pid-1)*6),1) = [alpha; beta; gamma; Tu_cell{pid}(:,1)];       
             Xg_obj.pose(pid-1).ang.val = [alpha; beta; gamma]; 
             Xg_obj.pose(pid-1).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
             Xg_obj.pose(pid-1).trans.val = Tu_cell{pid}(:,1); 
@@ -76,12 +74,10 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         end
         % The final pose
         [alpha, beta, gamma] = fn_ABGFromR( Ru_cell{nPoses} );%Rc,Tc
-        %xg(((nPoses-2)*6+1):((nPoses-1)*6),1) = [alpha; beta; gamma; Tu_cell{nPoses}];        
         Xg_obj.pose(nPoses-1).ang.val = [alpha; beta; gamma]; 
         Xg_obj.pose(pid-1).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
         Xg_obj.pose(nPoses-1).trans.val = Tu_cell{nPoses};
         Xg_obj.pose(pid-1).trans.cols = (1:3) + xgcol; xgcol = xgcol + 3;
-        %% idx = (nPoses - 1)*6;
     else
         for pid = 1:( nPoses - 1 )
             for k = 1 : nIMUrate
@@ -92,13 +88,11 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
                 Xg_obj.pose(p).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
                 Xg_obj.pose(p).trans.xyz = Tu_cell{pid}(:,k);
                 Xg_obj.pose(p).trans.cols = (1:3) + xgcol; xgcol = xgcol + 3;                
-                %xg(((pid-1)*nIMUrate*6+6*(k-1)+1):((pid-1)*nIMUrate*6+k*6),1) = [alpha; beta; gamma; Tu_cell{pid}(:,k)];       
             end
         end
         
         %% The final pose
         [alpha, beta, gamma] = fn_ABGFromR( Ru_cell{nPoses} );%Rc,Tc
-        %xg(((nPoses - 1)*nIMUrate*6+1):((nPoses - 1)*nIMUrate*6+6),1) = [alpha; beta; gamma; Tu_cell{nPoses}];
         p = (nPoses - 1) * nIMUrate + 1;
         Xg_obj.pose(p).ang.val = [ alpha; beta; gamma ];
         Xg_obj.pose(p).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
@@ -106,8 +100,6 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         Xg_obj.pose(p).trans.cols = (1:3) + xgcol; xgcol = xgcol + 3;                
         % remove the initial camera pose.
         Xg_obj.pose = Xg_obj.pose(2 : end);
-        %xg = xg(7:end); % remove the initial camera pose.
-        %idx = (nPoses - 1)*nIMUrate*6;
     end
 
     
@@ -133,13 +125,11 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         Xg_obj.feature(f).xyz = fp_u1(:, f);
         Xg_obj.feature(f).col = (1:3) + xgcol;	xgcol = xgcol + 3;
     end
-    %xg((idx+1):(idx+nPts*3)) = fp_u1(:);
 
     %% 3. Vi: Initial velocity for each pose
-    %idx = idx+nPts*3;
     if(PreIntegration_options.bInitPnF5VoU == 1)
        [X_obj, xcol] = fn_InitVelocity(nPoses, X_obj, xcol, dp, dv, ...
-           dtIMU, imuData_cell, nIMUdata, nIMUrate, dt, SLAM_Params ); 
+                                dtIMU, imuData_cell, nIMUdata, nIMUrate, dt, SLAM_Params ); 
     end
     
     if(PreIntegration_options.bPreInt == 1)
@@ -147,12 +137,9 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         Xg_obj.velocity(1).xyz = imuData_cell{2}.initstates(7:9);
         Xg_obj.velocity(1).col = (1:3) + xgcol;     xgcol = xgcol + 3;    
         for pid = 2:nPoses
-            %%idx = idx + 3;
-            %%xg((idx+1):(idx+3)) = imuData_cell{pid}.initstates(7:9);
             Xg_obj.velocity(pid).xyz = imuData_cell{pid}.initstates(7:9);
             Xg_obj.velocity(pid).col = (1:3) + xgcol; xgcol = xgcol + 3;    
         end
-        %%idx = idx + 3;
     else
         vu = vu';
         for p = 1 : (nPoses - 1) * nIMUrate + 1
@@ -166,10 +153,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     X_obj.g.col = (1:3) + xcol; xcol = xcol + 3;
     Xg_obj.g.val = SLAM_Params.g_true;
     Xg_obj.g.col = (1:3) + xgcol; xgcol = xgcol + 3;
-    %%x((idx+1):(idx+3)) = g0;
-    %%xg((idx+1):(idx+3)) = g_true;
     
-    %%idx = idx +3;
     %% 5. Ru2c, Tu2c:(nPoses-1)*6+nPts*3+3*nPoses+4:(nPoses-1)*6+nPts*3+3*nPoses + 9
     [alpha, beta, gamma] = fn_ABGFromR( SLAM_Params.Ru2c );
     X_obj.Au2c.val = [alpha; beta; gamma];
@@ -180,11 +164,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     Xg_obj.Au2c.col = (1:3) + xgcol; xgcol = xgcol + 3;
     Xg_obj.Tu2c.val = SLAM_Params.Tu2c;
     Xg_obj.Tu2c.col = (1:3) + xgcol; xgcol = xgcol + 3;
-    
-    %%x((idx+1):(idx+6)) = [alpha;beta;gamma;Tu2c];
-    %%xg((idx+1):(idx+6)) = [alpha;beta;gamma;Tu2c];
-    %%idx = idx + 6;
-    
+        
     %% 6. bf,bw %(nPoses-1)*6+nPts*3+3*nPoses+10
     X_obj.Bf.val = SLAM_Params.bf0;
     X_obj.Bf.col = (1:3) + xcol; xcol = xcol + 3;
@@ -195,11 +175,6 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     Xg_obj.Bw.val = SLAM_Params.bw_true;
     Xg_obj.Bw.col = (1:3) + xgcol; xgcol = xgcol + 3;
     
-    %%x((idx+1):(idx+6)) = [bf0;bw0]; 
-    %%xg((idx+1):(idx+6)) = [bf_true;bw_true];
-    %idx = idx + 6;
-    %xg = xg(1:idx);
-    %x = x(1:idx);
     %% Display Xgt
     fprintf('Ground Truth Value:\n\t Xg_obj=[\nAng: ');
     %fprintf('%f ', Xg_obj(1:20));
@@ -229,10 +204,8 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
             end
         end
         [gns] = fn_GenGaussNoise(nr, nc, fXnoisescale);
-        %%x((idst+1):(idst+nr)) = x((idst+1):(idst+nr)) + gns; % x = x + gns;[nr,nc] = size(x((idr+1):end));    
         [X_obj.pose(:).ang.val] = [X_obj.pose(:).ang.val] + {gns(1:3:end)};
         [X_obj.pose(:).trans.xyz] = [X_obj.pose(:).trans.xyz] + {gns(4:3:end)};
-        %%idst = idst + nr + 3*nPts; % Already added noises to feature positions    
         
         % 2. Add to IMU velocity
         if 1
@@ -245,14 +218,11 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
             end
         end
         [gns] = fn_GenGaussNoise(nr, nc, fXnoisescale);
-        %%x((idst+1):(idst+nr)) = x((idst+1):(idst+nr)) + gns;    
         [X_obj.velocity(:).xyz] = {gns};        
-        %%idst = idst + nr;
         
         % 3. Add to g, Au2c, Tu2c, bf, bw
         nr = 3*5;
         [gns] = fn_GenGaussNoise(nr, nc, fXnoisescale);
-        %%x((idst+1):(idst+nr)) = x((idst+1):(idst+nr)) + gns;  
         X_obj.g.val = X_obj.g.val + gns(1:3);        
         X_obj.Au2c.val = X_obj.Au2c.val + gns(4:6);        
         X_obj.Tu2c.val = X_obj.Tu2c.val + gns(7:9);        

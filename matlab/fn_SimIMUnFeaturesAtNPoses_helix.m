@@ -17,7 +17,7 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
     % SLAM_Params.g = [0; 0; -9.8];
 
     vu = [];
-    if(nPoses < 1)
+    if ( nPoses < 1 )
         imuData_cell = [];
         uvd_cell = {};
         Ru_cell = {};
@@ -37,9 +37,6 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
     radius = 10;%0.1;%0.5;%5e-2;%1;%3; % the dimension of the circles
     num_feat = num_feat_per_ccl * num_circle;
     fp_w = zeros(3, num_feat); % feature in world coord frame
-    % uvd1 = fp1;
-    % fp2 = fp1;
-    % uvd2 = fp1;
 
     % Parameters for the initial camera pose.
     %cx = 0; cy = 0; cz = 0; 
@@ -63,8 +60,8 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
         %uvd_cell{1}(3, fids) = zcirc;	
         fp_w(1, fids) = SLAM_Params.Tu2c(1) + radius * cos(fangle);% IMUx
         fp_w(3, fids) = SLAM_Params.Tu2c(3) + radius * sin(fangle);% IMUz
-    % 	uvd_cell{1}(1, fids) = f * fp1(1, fids) ./ fp1(3, fids) + cx0;
-    % 	uvd_cell{1}(2, fids) = f * fp1(2, fids) ./ fp1(3, fids) + cy0;
+        % 	uvd_cell{1}(1, fids) = f * fp1(1, fids) ./ fp1(3, fids) + cx0;
+        % 	uvd_cell{1}(2, fids) = f * fp1(2, fids) ./ fp1(3, fids) + cy0;
         zcirc = zcirc - radius;%fdcirc2camera;
         fangle = fangle + deltangle; % rotate an angle
     end
@@ -139,7 +136,7 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
         if(bConstV == 0)
             dlta = spn * dang + 0.1^pid;%* 2  * (pid-1);%;
             dltb = dang + 0.1^pid;%;0;%
-    %             dabg = dlta *[1,1,1]';
+            %	dabg = dlta *[1,1,1]';
             if(rem(pid,3) == 0)
                 dabg = [dlta; 0; dang];
             elseif(rem(pid,3) == 1)

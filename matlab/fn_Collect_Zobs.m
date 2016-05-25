@@ -24,18 +24,13 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
     Zobs = SLAM_Z_Define( nPoses, nPts, nIMUrate );
     
     % Order UVs according to fid
-    %%zidend = 0;     
     zid = 0;
     zrow = 0;
     
     for(fid=1:nPts)% local id
-        %%nObs = RptFeatureObs(fid, nObsId_FeatureObs);
         nObs = RptFeatureObs(fid).nObs;
         
         for(oid=1:nObs)
-            %%tv = (RptFeatureObs(fid, (oid*3+1):(oid*3+2)))';
-            %%zidstart = zidend + 1; zidend = zidend + 2;
-            %%Zobs(zidstart:zidend, 1) = tv;%(:);
             tv = RptFeatureObs(fid).obsv(oid).uv';
             zid = zid + 1;
             Zobs.fObs(zid).uv = tv(:);
@@ -63,7 +58,6 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
         idx_ImuObs = 0;
         for pid=2:nPoses
             tv = [imuData_cell{pid}.samples(:, 2:7), zeros(nIMUrate,3)]';
-            %Zobs((idr+(pid-2)*nlenpp+1):(idr+(pid-1)*nlenpp)) = tv(:);
             for j=1:nIMUrate
                 idx_ImuObs = idx_ImuObs + 1;
                 Zobs.imu(idx_ImuObs).w.val = tv(1:3, j); % linear accleartion observation
@@ -75,17 +69,10 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
                 
             end
         end 
-        %utid = idr + (nPoses - 1)*nlenpp;
     else  % Generate pre-integration observations based on IMU raw data.   
         % Add interated IMU observations
-        if(PreIntegration_options.bPerfectIMUdlt == 0)
-            %Zobs((idr+1):(idr+9*(nPoses-1)),1) = reshape([dp(:,2:end);dv(:,2:end);dphi(:,2:end)],[],1);
-            
-        else
-            %dt = 1;
-            %Zobs((idr+1):(idr+9*(nPoses-1)),1) = fnCalPerfectIMUdlt(x, nPoses, nPts, Jd, dt, bf0, bw0); 
-            [dp, dv, dphi] = fn_CalPerfectIMUdlt(X_obj, nPoses, nPts, Jd, SLAM_Params ); 
-            
+        if(PreIntegration_options.bPerfectIMUdlt == 1)
+            [dp, dv, dphi] = fn_CalPerfectIMUdlt(X_obj, nPoses, nPts, Jd, SLAM_Params );             
         end
         for p = 2 : nPoses
             Zobs.intlDelta(p-1).deltaP.val = dp(:, p);
@@ -101,24 +88,12 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
             zrow = zrow + 3;
         end
         
-        %utid = idr + (nPoses - 1)*9;
     end
 
     %% Continue filling in Zobs with psedu observations related to IMU
-    %     if(bPreInt == 1)
-    %         if(bPerfectIMUdlt == 1)
-    %            dt = 1;
-    %            Zobs((idr+1):(idr+9*(nPoses-1)),1) = fnCalPerfectIMUdlt(x, nPoses, nPts, Jd, dt, bf0, bw0); 
-    %         end
-    %         tid = idr + (nPoses - 1)*9;
-    %     else
-    %         tid = idr + (nPoses - 1)*nlenpp;
-    %     end
 
     if(PreIntegration_options.bAddZg == 1)
         % Add pseudo observation of g        
-        %Zobs((utid+1):(utid+3)) = g0; 
-        %utid = utid + 3;
         Zobs.g.val = SLAM_Params.g0;
         Zobs.g.row = (1:3) + zrow;
         zrow = zrow + 3;                    
@@ -126,9 +101,6 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
     
     if(PreIntegration_options.bAddZau2c == 1)
         % Add pseudo observation of Tu2c
-        %[alpha, beta, gamma] = fABGfrmR(Ru2c);
-        %Zobs((utid+1):(utid+3)) = [alpha;beta;gamma];
-        %utid = utid + 3;
         [alpha, beta, gamma] = fn_ABGFromR(SLAM_Params.Ru2c);
         Zobs.Au2c.val = [alpha; beta; gamma];
         Zobs.Au2c.row = (1:3) + zrow;
@@ -137,25 +109,14 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
     
     if(PreIntegration_options.bAddZtu2c == 1)
         % Add pseudo observation of Tu2c
-        %Zobs((utid+1):(utid+3)) = Tu2c;
-        %utid = utid + 3;
-        % Add pseudo observation of Tu2c
         Zobs.Tu2c.val = SLAM_Params.Tu2c;
         Zobs.Tu2c.row = (1:3) + zrow;
         zrow = zrow + 3;
         
     end
     
-    %     if(bAddZgantu2c == 1)%bAddZantu2c
-    %         % Add pseudo observation of g, Au2c,Tu2c
-    %         [alpha, beta, gamma] = fABGfrmR(Ru2c);
-    %         Zobs((tid+1):(tid+15)) = [g0;alpha;beta;gamma;Tu2c;bf0;bw0]; 
-    %         tid = tid + 3;
-    %     end
     if(PreIntegration_options.bAddZbf == 1)
         % Add pseudo observation of bf
-        %Zobs((utid+1):(utid+3)) = bf0; 
-        %utid = utid + 3;            
         Zobs.Bf.val = SLAM_Params.bf0;
         Zobs.Bf.row = (1:3) + zrow;
         zrow = zrow + 3;
@@ -163,13 +124,10 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
     end
     if(PreIntegration_options.bAddZbw == 1)
         % Add pseudo observation of bf
-        %Zobs((utid+1):(utid+3)) = bw0; 
-        %utid = utid + 3;            
         Zobs.Bw.val = SLAM_Params.bw0;
         Zobs.Bw.row = (1:3) + zrow;
         zrow = zrow + 3;
     end
-    %Zobs = [Zobs(1:utid)];%(idr+9*(nPoses-1))
 
     % %% Add noise to the uv part of Z    
     % if(bZnoise == 1)    

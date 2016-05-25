@@ -51,9 +51,9 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
         %% Non Preintegration
         dt = 1.0/nIMUrate;
         cid = 1;
-        for pid=1:nIMUdata%((nPoses-1)*nIMUrate)
-            if(PreIntegration_options.bVarBias == 1)
-                if(pid >= (ImuTimestamps(cid+1)-ImuTimestamps(1)+1)) 
+        for pid = 1 : nIMUdata %((nPoses-1)*nIMUrate)
+            if( PreIntegration_options.bVarBias == 1 )
+                if( pid >= ( ImuTimestamps(cid+1) - ImuTimestamps(1) + 1 ) ) 
                     cid = cid + 1;                    
                 end         
                 if 1
@@ -65,21 +65,14 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
                     %	dbw = bw - bw0;
                 end
             end            
-            %idx = (nIMUdata*6+3*nPts+(pid-1)*3); 
-            %vi = x((idx+1):(idx+3));
-            %vi1 = x((idx+4):(idx+6));
             vi = X_obj.velocity( pid ).xyz;
             vi1 = X_obj.velocity(pid + 1).xyz;
             if(pid > 1)
-                %idx = ((pid-2)*6);%nIMUrate*
-                %alpha = x(idx+1); beta = x(idx+2); gamma = x(idx+3);
-                %Ti = x((idx+4):(idx+6));
                 angVec = X_obj.pose(pid-1).ang.val;
                 alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
                 Ti = X_obj.pose(pid-1).trans.val;
             else
                 alpha = 0; beta = 0; gamma = 0;
-                %idx = -6;
                 Ti = zeros(3,1);
             end  
             phii = [alpha;beta;gamma];
@@ -89,20 +82,13 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
             % wi
             Ei = Jac_ko(phii);
             %idx = idx+6;
-            %alpha = x(idx+1); beta = x(idx+2); gamma = x(idx+3);
             angVec = X_obj.pose(pid).ang.val;
             alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
             phii1 = [alpha; beta; gamma];
-            %Ti1 = x((idx+4):(idx+6));
             Ti1 = X_obj.pose(pid).trans.val;
             wi = Ei * (phii1 - phii) / dt + bw;
             % 0 = Ti1-Ti-vi*dt;
             bzero = Ti1 - Ti - vi*dt;
-            %idx = (pid-1)*9+1;
-            %if(idx > 20700)
-            %    tt = 1;
-            %end
-            %e(idx:(idx+8)) = [wi;ai;bzero] - Zobs(idx:(idx+8));
             e.imu(pid).w.val = wi - Zobs.imu(pid).w.val;
             e.imu(pid).acc.val = ai - Zobs.imu(pid).acc.val;
             e.imu(pid).deltaT.val = bzero - Zobs.imu(pid).deltaT.val;
@@ -111,12 +97,12 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
 
     %% After IMU observations
     
-    if(PreIntegration_options.bAddZg == 1)
+    if( PreIntegration_options.bAddZg == 1 )
         %% g
         e.g.val = X_obj.g.val - Zobs.g.val;
     end
 
-    if(PreIntegration_options.bAddZau2c == 1)
+    if( PreIntegration_options.bAddZau2c == 1 )
         %% Au2c
         e.Au2c.val = X_obj.Au2c.val - Zobs.Au2c.val;
     end
