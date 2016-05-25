@@ -1,3 +1,5 @@
+global Data_config
+
 Data_config.BASE_DIR = pwd;
 
 if(PreIntegration_options.bSimData)

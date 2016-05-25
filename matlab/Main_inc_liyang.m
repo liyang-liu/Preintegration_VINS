@@ -6,11 +6,13 @@ if 1
     clc;
 end
 
-run PreIntegration_config_script
 global PreIntegration_options
+PreIntegration_options.bInc = 1;
+PreIntegration_options.bSimuNpose = 0;
+run PreIntegration_config_script
 
-run Data_config_script
 global Data_config
+run Data_config_script
 
 assert( PreIntegration_options.bDinuka == 1, 'Malag not tested');
 assert( PreIntegration_options.bPreInt == 1, 'Non-preintegration not tested');

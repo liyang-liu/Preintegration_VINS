@@ -2,9 +2,8 @@
 % Inertial Delta SLAM options
 % Modify options here to experiment with different test option
 %% 
+global PreIntegration_options
 
-PreIntegration_options.bInc = 0;
-PreIntegration_options.bSimuNpose = 1;
 
 if PreIntegration_options.bSimuNpose == 1
     %##########################################################
@@ -21,7 +20,7 @@ if PreIntegration_options.bSimuNpose == 1
 
     %% Configure the conditions of the problem
     PreIntegration_options.nPoses = 5;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
-    PreIntegration_options.bPreInt = 0;%1;% Use pre-integration method?
+    PreIntegration_options.bPreInt = 1;%1;% Use pre-integration method?
 
     PreIntegration_options.bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
     PreIntegration_options.bIMUodo = 1;% Use IMU data to initilize x?
