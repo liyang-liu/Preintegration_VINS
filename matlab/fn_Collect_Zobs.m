@@ -66,11 +66,11 @@ function [Zobs] = fn_CollectZobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIM
             %Zobs((idr+(pid-2)*nlenpp+1):(idr+(pid-1)*nlenpp)) = tv(:);
             for j=1:nIMUrate
                 idx_ImuObs = idx_ImuObs + 1;
-                Zobj.imu(idx_ImuObs).w.val = tv(1:3, j); % linear accleartion observation
+                Zobs.imu(idx_ImuObs).w.val = tv(1:3, j); % linear accleartion observation
                 Zobs.imu(idx_ImuObs).w.row = (1:3) + zrow; zrow = zrow + 3;
-                Zobj.imu(idx_ImuObs).acc.val = tv(4:6, j); %angular rate observation
+                Zobs.imu(idx_ImuObs).acc.val = tv(4:6, j); %angular rate observation
                 Zobs.imu(idx_ImuObs).acc.row = (1:3) + zrow; zrow = zrow + 3;
-                Zobj.imu(idx_ImuObs).deltaT.val = tv(7:9, j); % a constraint enforcing 0 = T(i+1,j) - T(i,j) - v(i,j)*deltaT, set to zero before for-loop
+                Zobs.imu(idx_ImuObs).deltaT.val = tv(7:9, j); % a constraint enforcing 0 = T(i+1,j) - T(i,j) - v(i,j)*deltaT, set to zero before for-loop
                 Zobs.imu(idx_ImuObs).deltaT.row = (1:3) + zrow; zrow = zrow + 3;
                 
             end

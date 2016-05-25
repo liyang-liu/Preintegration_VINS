@@ -33,24 +33,27 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
     Rc_cat = zeros(3,3,nPoses);
     Tc_cat = zeros(3,nPoses);
     
-    for(pid = 1:nPoses)        
-        if(pid > 1)
-                        
-            Au_cat = X.pose(pid-1).ang.val;
-            a_cat(pid) = Au_cat(1); b_cat(pid) = Au_cat(2);  g_cat(pid) = Au_cat(3);
-            Ru_cat(:,:,pid) = fn_RFromABG(a_cat(pid), b_cat(pid), g_cat(pid));%fRx(alpha) * fRy (beta) * fRz(gamma);
+    for(frm_id = 1:nPoses)        
+        if(frm_id > 1)
+            if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
+                pid = frm_id - 1;
+            else
+                pid = ImuTimestamps(frm_id) - ImuTimestamps(1);
+            end
+            Au_cat = X.pose(pid).ang.val;
+            a_cat(frm_id) = Au_cat(1); b_cat(frm_id) = Au_cat(2);  g_cat(frm_id) = Au_cat(3);
+            Ru_cat(:,:,frm_id) = fn_RFromABG(a_cat(frm_id), b_cat(frm_id), g_cat(frm_id));%fRx(alpha) * fRy (beta) * fRz(gamma);            
+            Tu_cat(:,frm_id) = X.pose(pid).trans.val;
             
-            Tu_cat(:,pid) = X.pose(pid-1).trans.val;
-            
-        else % pid ==1, Ru2c,Tu2c
+        else % frm_id ==1, Ru2c,Tu2c
             
             a = 0; b = 0; g = 0;
-            Ru_cat(:,:,pid) = eye(3); 
+            Ru_cat(:,:,frm_id) = eye(3); 
             
         end
         
-        Rc_cat(:,:,pid) = Ru2c * Ru_cat(:,:,pid);
-        Tc_cat(:,pid) = (Ru_cat(:,:,pid))' * Tu2c + Tu_cat(:,pid);        
+        Rc_cat(:,:,frm_id) = Ru2c * Ru_cat(:,:,frm_id);
+        Tc_cat(:,frm_id) = (Ru_cat(:,:,frm_id))' * Tu2c + Tu_cat(:,frm_id);        
     end
     
     %%%%%%%%%
@@ -61,14 +64,14 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
         
         for(oid=1:nObs)
             
-            pid = RptFeatureObs(fid).obsv(oid).pid; 
-            if(pid > nPoses)
+            frm_id = RptFeatureObs(fid).obsv(oid).pid; 
+            if(frm_id > nPoses)
                 break;
             end
             
-            a = a_cat(pid); b = b_cat(pid); g = g_cat(pid);
-            Ru = Ru_cat(:,:,pid); Tu = Tu_cat(:,pid);
-            Rc = Rc_cat(:,:,pid); Tc = Tc_cat(:,pid);
+            a = a_cat(frm_id); b = b_cat(frm_id); g = g_cat(frm_id);
+            Ru = Ru_cat(:,:,frm_id); Tu = Tu_cat(:,frm_id);
+            Rc = Rc_cat(:,:,frm_id); Tc = Tc_cat(:,frm_id);
 
             p3d1 = Rc * (X.feature(fid).xyz - Tc);    
             
@@ -86,7 +89,7 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
             duvdxyz_u2c = duvd(1:2,:) * dxyz_u2c;                    
 
             %% d(uv)/d(abgxyz)c, 2x6
-            if(pid == 1)  %dxf,dyf,dzf, (da,db,dg,dx,dy,dz)u2c
+            if(frm_id == 1)  %dxf,dyf,dzf, (da,db,dg,dx,dy,dz)u2c
                 
                 zid = zid + 1;
                 row = Zobs.fObs(zid).row;
@@ -106,14 +109,19 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
                 
                 J.dUv_dX(zid).dAbgxyz_1 = []; %delete
                 
-            else % pid > 1    
+            else % frm_id > 1    
                 
                 zid = zid + 1;
                 row = Zobs.fObs(zid).row;
                 
                 duvddabgxyz = duvd(1:2,:) * dxyz;                
                 
-                col = [(X.pose(pid-1).ang.col(:))', (X.pose(pid-1).trans.col(:))'];
+                if((PreIntegration_options.bUVonly == 1) || (PreIntegration_options.bPreInt == 1))
+                    pid = frm_id - 1;
+                else
+                    pid = ImuTimestamps(frm_id) - ImuTimestamps(1);
+                end
+                col = [(X.pose(pid).ang.col(:))', (X.pose(pid).trans.col(:))'];
                 J.dUv_dX(zid).dAbgxyz_1.val = (duvddabgxyz(:))';
                 J.dUv_dX(zid).dAbgxyz_1.row = [ row(1) * ones(1,6); row(2) * ones(1,6) ];
                 J.dUv_dX(zid).dAbgxyz_1.col = [ col; col ];

@@ -25,17 +25,22 @@ function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts,
         
         for(oid=1:nObs)            
             
-            pid = RptFeatureObs(fid).obsv(oid).pid; 
+            frm_id = RptFeatureObs(fid).obsv(oid).pid; 
             
-            if(pid > nPoses)
+            if(frm_id > nPoses)
                 
                 break;
                 
-            elseif(pid > 1)                                
-                
-                Au = X.pose(pid-1).ang.val;
+            elseif(frm_id > 1)
+                if((PreIntegration_options.bUVonly == 1) ||(PreIntegration_options.bPreInt == 1))
+                    pid = frm_id - 1;
+                else
+                    pid = ImuTimestamps(frm_id)-ImuTimestamps(1);
+                end
+                Au = X.pose(pid).ang.val;
+                Tu = X.pose(pid).trans.val;
+
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
-                Tu = X.pose(pid-1).trans.val;
                 Ru = fn_RFromABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
                 
             else % Pose 1 is special                
