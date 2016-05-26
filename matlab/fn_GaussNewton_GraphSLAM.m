@@ -31,7 +31,7 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
         if ( times == 0 )
             chi2_impv = 1.0; % a ratio of current chi2 to previous chi2, 1 means no improvement
         else
-            chi2_impv = 1 - chi2 / prev_chi2  ;
+            chi2_impv = abs( 1 - chi2 / prev_chi2 ) ;
         end
         
 		[me, id] = max(abs(e));
