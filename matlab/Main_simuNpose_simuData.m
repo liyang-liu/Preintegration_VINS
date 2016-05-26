@@ -30,47 +30,55 @@ dp = zeros(3,nPoses);
 dv = dp; 
 dphi = dp;
 dtIMU = [];
+Jd =[];
+Rd = [];
 
 
 %% Configure paramters according to the chosen dataset
 if(PreIntegration_options.bSimData == 1)
     % Add noise to the observation vector z
     %bZnoise = 1;%fZnoisescale = 1;%6;%1e2;%12; % bXnoise = 1;
-    fXnoisescale = 0;%1e-6;%1e-2;%1e0;%5e-2;%3e-2        
-    nIMUrate = 5e2;% IMU data rate
-    SLAM_Params.sigma_w_real = 0;%0.03; 
-    SLAM_Params.sigma_f_real = 0;%0.2;%    
-    SLAM_Params.sigma_w_cov = 1;%2*sigma_w_real;%1e-3; 
-    SLAM_Params.sigma_f_cov = 1;%2*sigma_f_real;%1e-3;%0.0775; % Siga for the noises to be added to the IMU raw data (wi,ai)
-    SLAM_Params.sigma_uov_real = 0;%1e-2;%1;% 
-    SLAM_Params.sigma_uov_cov = 1;%2*sigma_uov_real;%
-    SLAM_Params.sigma_d_real = 0;%
-    SLAM_Params.sigma_d_cov = 0.1;
-    SLAM_Params.sigma_bf_real = 0;% 1e-3;
-    SLAM_Params.sigma_bw_real = 0;% 1e-3;
-    SLAM_Params.sigma_g_cov = 1e-4;
-    SLAM_Params.sigma_au2c_cov = 1e-4;
-    SLAM_Params.sigma_tu2c_cov = 1e-4;
-    SLAM_Params.sigma_bf_cov = 1e-4;
-    SLAM_Params.sigma_bw_cov = 1e-4;
-    SLAM_Params.sigma_tv = 1e-4/(nIMUrate);
+    fXnoisescale                = 0;%1e-6;%1e-2;%1e0;%5e-2;%3e-2        
+    nIMUrate                    = 5e2;% IMU data rate
+    SLAM_Params.sigma_w_real    = 0;%0.03; 
+    SLAM_Params.sigma_f_real    = 0;%0.2;%    
+    SLAM_Params.sigma_w_cov     = 1;%2*sigma_w_real;%1e-3; 
+    SLAM_Params.sigma_f_cov     = 1;%2*sigma_f_real;%1e-3;%0.0775; % Siga for the noises to be added to the IMU raw data (wi,ai)
+    SLAM_Params.sigma_uov_real  = 0;%1e-2;%1;% 
+    SLAM_Params.sigma_uov_cov   = 1;%2*sigma_uov_real;%
+    SLAM_Params.sigma_d_real    = 0;%
+    SLAM_Params.sigma_d_cov     = 0.1;
+    SLAM_Params.sigma_bf_real   = 0;% 1e-3;
+    SLAM_Params.sigma_bw_real   = 0;% 1e-3;
+    SLAM_Params.sigma_g_cov     = 1e-4;
+    SLAM_Params.sigma_au2c_cov  = 1e-4;
+    SLAM_Params.sigma_tu2c_cov  = 1e-4;
+    SLAM_Params.sigma_bf_cov    = 1e-4;
+    SLAM_Params.sigma_bw_cov    = 1e-4;
+    SLAM_Params.sigma_tv        = 1e-4/(nIMUrate);
     
     nPts = 100;% Number of points to be simulated. %1e3;%10;%50;%4;%1;%2;%20;% 
     
     % Configure pseudo observations    
     
-    SLAM_Params.g0 = [0; 0; -9.8]; % g value in the first key frame
-    SLAM_Params.g_true = [0; 0; -9.8];
-    SLAM_Params.bf0 = [1.0, 2.0, 3.0]'; % bias for acceleration
-    SLAM_Params.bw0 = [1.0, 2.0, 3.0]'; %[0, 0, 0]'; % bias for rotaion velocity    
-    SLAM_Params.bf_true = [1.0; 2.0; 3.0]; % bias for acceleration
-    SLAM_Params.bw_true = [1.0; 2.0; 3.0]; %[0, 0, 0]'; % bias for rotaion velocity 
+    SLAM_Params.g0              = [ 0; 0; -9.8 ]; % g value in the first key frame
+    SLAM_Params.g_true          = [ 0; 0; -9.8 ];
+    SLAM_Params.bf0             = [ 1.0, 2.0, 3.0 ]'; % bias for acceleration
+    SLAM_Params.bw0             = [ 1.0, 2.0, 3.0 ]'; %[0, 0, 0]'; % bias for rotaion velocity    
+    SLAM_Params.bf_true         = [ 1.0; 2.0; 3.0 ]; % bias for acceleration
+    SLAM_Params.bw_true         = [ 1.0; 2.0; 3.0 ]; %[0, 0, 0]'; % bias for rotaion velocity 
     
-    ImuTimestamps = 1:(nIMUrate):((nPoses-1)*nIMUrate+1);
-    nUV = nPts * 2 * nPoses;
-    nIMUdata = (nPoses-1) * nIMUrate;
-    dtIMU = ones(nPoses, 1);
-    dt = 1.0/nIMUrate;
+    ImuTimestamps               = 1 : (nIMUrate) : ( ( nPoses - 1 ) * nIMUrate + 1 );
+    nUV                         = nPts * 2 * nPoses;
+    nIMUdata                    = ( nPoses - 1 ) * nIMUrate;
+    dtIMU                       = ones( nPoses, 1 );
+    dt                          = 1.0 / nIMUrate;
+    
+    % Iteration times and bounds for Gauss-Newton
+    SLAM_Params.nMaxIter                = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
+    SLAM_Params.fLowerbound_e           = 1e-10;%1e-6;%1e-5;%1e-1;
+    SLAM_Params.fLowerbound_dx          = 1e-10;%1e-6;%
+    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
 end
 
 
@@ -78,24 +86,6 @@ addpath(genpath('IMU'));
 addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
-%save([ Data_config.TEMP_DIR 'bVarBias.mat]','bVarBias');
-
-% Iteration times and bounds for Gauss-Newton
-nMaxIter = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
-fLowerbound_e = 1e-10;%1e-6;%1e-5;%1e-1;
-fLowerbound_dx = 1e-10;%1e-6;%
-
-%dtIMU = [];
-Jd =[];
-Rd = [];
-
-% save the configured data
-%save([ Data_config.TEMP_DIR 'bAddZg.mat'],'bAddZg');    
-%save([ Data_config.TEMP_DIR 'bAddZau2c.mat'],'bAddZau2c');
-%save([ Data_config.TEMP_DIR 'bAddZtu2c.mat'],'bAddZtu2c');
-%save([ Data_config.TEMP_DIR 'bAddZbf.mat'],'bAddZbf');
-%save([ Data_config.TEMP_DIR 'bAddZbw.mat'],'bAddZbw');
-%save([ Data_config.TEMP_DIR 'bUVonly.mat'], 'bUVonly');    
 
 %% The main switch
 if(PreIntegration_options.bSimData)
@@ -160,8 +150,7 @@ tic
     if(PreIntegration_options.bGNopt == 1)
         %% GN Iterations 
         [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
-                        nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
-                        ImuTimestamps, dtIMU, RptFeatureObs );
+                        nIMUrate, nIMUdata,  ImuTimestamps, dtIMU, RptFeatureObs, SLAM_Params );
         
     else    
         [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...

@@ -1,5 +1,5 @@
-function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
-                fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs )
+function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
+                nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, SLAM_Params )
     
     global PreIntegration_options Data_config
         
@@ -7,25 +7,39 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
     
     load( [ Data_config.TEMP_DIR 'Zobs.mat' ] );
     
-    times = 0;    
-    while(times < nMaxIter)
+    times = 0;
+    chi2_impv = 1;   % a ratio of in change in chi2 to chi2, 1 means significantly improved, 0 no improvement
+    while(times < SLAM_Params.nMaxIter)
         
         fprintf('times=%d ',times);        
         
+        if ( times > 0 )
+            prev_chi2 = chi2;
+        end
+        
+        %% calculate error and chi2
 		E_obj = SLAM_CalcPredictionError( X_obj, nPoses, nPts );
         [e] = SLAM_Z_Object2Vector( E_obj );
         nUV = size( E_obj.fObs, 1 ) * 2;
-		chi2 = 2*e'*CovMatrixInv*e/nUV;
+		chi2 = 2 * e' * CovMatrixInv * e / nUV;
         
 		if(isnan(chi2) || isinf(chi2))
     		nReason = -1;
 		    break;
         end
+
+        if ( times == 0 )
+            chi2_impv = 1.0; % a ratio of current chi2 to previous chi2, 1 means no improvement
+        else
+            chi2_impv = 1 - chi2 / prev_chi2  ;
+        end
         
 		[me, id] = max(abs(e));
     	%%
-	    fprintf('chi2=%0.8f, maxE = %f, id=%d ', chi2, me, id);
-        if(max(abs(e)) < fLowerbound_e)
+	    fprintf('chi2=%0.6f, chi2_impv=%0.4f, maxE = %f, id=%d ', chi2, chi2_impv, me, id);
+        
+        %%if(max(abs(e)) < SLAM_Params.fLowerbound_e)
+        if( chi2_impv < SLAM_Params.fLowerbound_chi2Cmpr )
             break;
         end
         
@@ -56,15 +70,15 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
 		%         spy(J);
 		%         pause;
 
-        J = SLAM_J_Object2Matrix( J_obj, Zobs, X_obj );
-        Info =  J'*CovMatrixInv*J;
-        E =     -J'*CovMatrixInv*e;
+        J    = SLAM_J_Object2Matrix( J_obj, Zobs, X_obj );
+        Info =  J' * CovMatrixInv * J;
+        E    = -J' * CovMatrixInv * e;
         
 		%         spy(Info)
 		%         condnum = condest(Info);
 		%         fprintf('Condnum = %f ',condnum);
         
-        %dx = pinv(Info)*E;
+        % dx = pinv(Info)*E;
         dx = Info\E;
 
 		% R = chol(Info);
@@ -73,15 +87,15 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
 		% tv = R \ y;
 		% dx = tv*E;
         
-		mdx = max(abs(dx));
+		mdx = max( abs( dx ) );
         
 		fprintf('maxDx = %f\n', mdx); 
         
         %dx = - (J' * J) \ J' * e;    
         
-        if(mdx < fLowerbound_dx)
+        if( mdx < SLAM_Params.fLowerbound_dx )
             break;            
-        elseif(isnan(mdx) || isinf(mdx))            
+        elseif( isnan( mdx ) || isinf( mdx ))            
             nReason = -2;
             break;
         end
@@ -93,11 +107,11 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
         
     end		% while end    
     
-    fprintf('Iteration Times:\t N = %d\n', times);
+    fprintf( 'Iteration Times:\t N = %d\n', times );
     
-    if(times == nMaxIter)
+    if( times == SLAM_Params.nMaxIter )
         nReason = -3;
-        fprintf(' ***REACH MAXIMUM TIMES***\n');
+        fprintf( ' ***REACH MAXIMUM TIMES***\n' );
     end
     
     
