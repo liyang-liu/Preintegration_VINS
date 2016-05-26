@@ -17,7 +17,7 @@ function [tv,xcol,tid] = fn_CalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
     if(nPoseOld == 1)
         % The velocity of the first pose.
         tid = tid + 1;
-        tv(tid).xyz = (x.pose(1).trans.val - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0 - dp(:,2)) / (dtIMU(2));
+        tv(tid).xyz = (x.pose(1).trans.xyz - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0 - dp(:,2)) / (dtIMU(2));
 
         tv(tid).col = (1:3) + xcol;   
         xcol = xcol + 3;
@@ -30,7 +30,7 @@ function [tv,xcol,tid] = fn_CalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
       Au = x.pose(pid-1).ang.val;
       Ri = fn_RFromABG( Au(1), Au(2), Au(3) );
 
-      tv(tid).xyz = ( x.pose(pid).trans.val - x.pose(pid-1).trans.val - 0.5 * dtIMU(pid+1) ...
+      tv(tid).xyz = ( x.pose(pid).trans.xyz - x.pose(pid-1).trans.xyz - 0.5 * dtIMU(pid+1) ...
           * dtIMU(pid+1) * SLAM_Params.g0 - Ri' * dp(:, (pid+1))) / dtIMU(pid+1);
       tv(tid).col = (1:3) + xcol;   
       xcol = xcol + 3;

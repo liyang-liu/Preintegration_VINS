@@ -23,7 +23,7 @@ function [tv,xcol,tid] = fnCalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
             %idend = idend + 3;
             %tv(idstart:idend, 1) = (x(4:6,1)-0.5*dtIMU(2)*dtIMU(2)*g0-dp(:,2))/(dtIMU(2)); 
             tid = tid + 1;
-            tv(tid).xyz = (x.pose(1).trans.val - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0 - dp(:,2)) / (dtIMU(2));
+            tv(tid).xyz = (x.pose(1).trans.xyz - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0 - dp(:,2)) / (dtIMU(2));
             
             tv(tid).col = (1:3) + xcol;   
             xcol = xcol + 3;
@@ -41,7 +41,7 @@ function [tv,xcol,tid] = fnCalcVFromKposes_Inc(nPoseNew, nPoseOld, ...
           %tv(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dtIMU(pid+1)...
           %    *dtIMU(pid+1)*g0-Ri'*dp(:,(pid+1)))/(dtIMU(pid+1));%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
           
-          tv(tid).xyz = ( x.pose(pid).trans.val - x.pose(pid-1).trans.val - 0.5 * dtIMU(pid+1) ...
+          tv(tid).xyz = ( x.pose(pid).trans.xyz - x.pose(pid-1).trans.xyz - 0.5 * dtIMU(pid+1) ...
               * dtIMU(pid+1) * SLAM_Params.g0 - Ri' * dp(:, (pid+1))) / dtIMU(pid+1);
           tv(tid).col = (1:3) + xcol;   
           xcol = xcol + 3;

@@ -8,7 +8,7 @@ function X_diff = SLAM_X_Object2Vector( X_obj1, X_obj2 )
     % pose
     for i=1:numPose-1
         X_diff.pose(i).ang.val = X_obj1.pose(i).ang.val - X_obj2.pose(i).ang.val;
-        X_diff.pose(i).trans.val = X_obj1.pose(i).trans.val - X_obj2.pose(i).trans.val;
+        X_diff.pose(i).trans.xyz = X_obj1.pose(i).trans.xyz - X_obj2.pose(i).trans.xyz;
     end
     
     % feature
@@ -18,7 +18,7 @@ function X_diff = SLAM_X_Object2Vector( X_obj1, X_obj2 )
     
     % velocity
     for i=1:numPose
-        X_diff.velocity(i).xyz = X_obj1.velocity(i).xyz - X_obj2.velocity(i).xyz;
+        X_diff.velocity(i).xyz = X_obj1.velocity(i).xyz(:) - X_obj2.velocity(i).xyz(:);
     end
     
     X_diff.g.val = X_obj1.g.val - X_obj2.g.val;

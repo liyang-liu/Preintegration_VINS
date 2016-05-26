@@ -7,7 +7,7 @@ function X_obj = SLAM_X_Vector2Object( X_vec, X_obj )
     for i=1:numPose-1
         %X_vec = [X_vec; X_obj.pose(i).ang; X_obj.pose(i).trans];
         X_obj.pose(i).ang.val = X_vec( (i-1)*6 + 1 : (i-1)*6 + 3);
-        X_obj.pose(i).trans.val = X_vec( (i-1)*6 + 4 : (i-1)*6 + 6);
+        X_obj.pose(i).trans.xyz = X_vec( (i-1)*6 + 4 : (i-1)*6 + 6);
     end
     X_vec(1: (numPose-1)*6 ) = []; % delete
     

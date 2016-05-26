@@ -49,7 +49,7 @@ function J = fnJacobian_dIntlDelta_dX(J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
             a2 = Au2(1); b2 = Au2(2); g2 = Au2(3);
             R2 = fnRFromABG(a2,b2,g2);
             %T2 = x((idx_a2+3):(idx_a2+5),1);
-            T2 = X.pose(pid-1).trans.val;
+            T2 = X.pose(pid-1).trans.xyz;
             
             %idx_v2 = (nPoses-1)*6 + nPts*3 + (pid-1)*3 + 1;
             %v2 = x(idx_v2:(idx_v2+2));

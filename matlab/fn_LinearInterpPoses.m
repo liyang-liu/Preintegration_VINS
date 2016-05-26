@@ -39,11 +39,11 @@ function [X_obj, xcol] = fn_LinearInterpPoses( nPoses, ABGimu, Timu, ImuTimestam
         trans_vec = Tit(:);
         
         %[ X_obj.pose( end_pose + 1 : end_pose + nImu ).ang.val ] =  { ang_vec };
-        %[ X_obj.pose( end_pose + 1 : end_pose + nImu ).trans.val ] = { trans_vec };
+        %[ X_obj.pose( end_pose + 1 : end_pose + nImu ).trans.xyz ] = { trans_vec };
         for i = 1 : nImu 
           X_obj.pose( end_pose + i ).ang.val = ang_vec( (i-1)*3 + 1 : (i-1)*3 + 3 );  
           X_obj.pose( end_pose + i ).ang.col = (1:3) + xcol;   xcol = xcol + 3;
-          X_obj.pose( end_pose + i ).trans.val = trans_vec( (i-1)*3 + 1 : (i-1)*3 + 3 );  
+          X_obj.pose( end_pose + i ).trans.xyz = trans_vec( (i-1)*3 + 1 : (i-1)*3 + 3 );  
           X_obj.pose( end_pose + i ).trans.col = (1:3) + xcol;   xcol = xcol + 3;
         end
     

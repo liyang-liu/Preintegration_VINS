@@ -195,7 +195,7 @@ Rd = [];
         %fprintf('%f ', Xg_obj(1:20));
         fprintf('%f ', [Xg_obj.pose(1).ang.val; Xg_obj.pose(2).ang.val; Xg_obj.pose(3).ang.val]);
         fprintf('\nTrans: ');
-        fprintf('%f ', [Xg_obj.pose(1).trans.val; Xg_obj.pose(2).trans.val; Xg_obj.pose(3).trans.val]);
+        fprintf('%f ', [Xg_obj.pose(1).trans.xyz; Xg_obj.pose(2).trans.xyz; Xg_obj.pose(3).trans.xyz]);
         fprintf('\nFeature_1: ');
         fprintf('%f ', Xg_obj.feature(1).xyz');
         fprintf('...]\n');  
@@ -204,7 +204,7 @@ Rd = [];
             z2= Xg_obj(4);% Timu(:,4) correspond to Tcam(:,6)==> x-z
         elseif(PreIntegration_options.bDinuka == 1)
             %z2 = Xg_obj(6);
-            z2 = Xg_obj.pose(2).trans.val(3);
+            z2 = Xg_obj.pose(2).trans.xyz(3);
         end         
         
         if(PreIntegration_options.bInitPnF5VoU == 0)
@@ -218,7 +218,7 @@ Rd = [];
         %fprintf('%f ', x(1:20));
         fprintf('%f ', [X_obj.pose(1).ang.val; X_obj.pose(2).ang.val; X_obj.pose(3).ang.val]);
         fprintf('\nTrans: ');
-        fprintf('%f ', [X_obj.pose(1).trans.val; X_obj.pose(2).trans.val; X_obj.pose(3).trans.val]);
+        fprintf('%f ', [X_obj.pose(1).trans.xyz; X_obj.pose(2).trans.xyz; X_obj.pose(3).trans.xyz]);
         fprintf('\nFeature_1: ');
         fprintf('%f ', X_obj.feature(1).xyz');
         fprintf('...]\n');    
@@ -290,7 +290,7 @@ Rd = [];
         for(pid = 2:nPoseNew)
             Aimu = X_obj.pose(pid-1).ang.val;
             Rimu = fn_RFromABG( Aimu(1), Aimu(2), Aimu(3));
-            Timu(:, pid) = X_obj.pose(pid-1).trans.val;
+            Timu(:, pid) = X_obj.pose(pid-1).trans.xyz;
             Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
         end
         

@@ -27,7 +27,7 @@ for pid=2:nPoses
     %Tu2 = x((id1x+3):(id1x+5));
     [alpha, beta, gamma] = X_obj.pose(pid-1).ang.val;
     Ru2 = fn_RFromABG(alpha, beta, gamma);
-    Tu2 = X_obj.pose(pid-1).trans.val;
+    Tu2 = X_obj.pose(pid-1).trans.xyz;
     
     %id1x = ((nPoses-1)*6+nPts*3+(pid-2)*3+1);
     %v1 = x(id1x:(id1x+2)); v2 = x((id1x+3):(id1x+5));

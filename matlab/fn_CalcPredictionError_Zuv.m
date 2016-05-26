@@ -38,7 +38,7 @@ function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts,
                     pid = ImuTimestamps(frm_id)-ImuTimestamps(1);
                 end
                 Au = X.pose(pid).ang.val;
-                Tu = X.pose(pid).trans.val;
+                Tu = X.pose(pid).trans.xyz;
 
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
                 Ru = fn_RFromABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);

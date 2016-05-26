@@ -6,7 +6,7 @@ function X_vec = SLAM_X_Object2Vector( X_obj )
     
     numPose = length( X_obj.pose ) + 1;
     for i=1 : numPose-1
-        X_vec = [X_vec; X_obj.pose(i).ang.val; X_obj.pose(i).trans.val];
+        X_vec = [X_vec; X_obj.pose(i).ang.val; X_obj.pose(i).trans.xyz];
     end
     
     % pose

@@ -59,7 +59,7 @@ function e = fnCalcPredictionError_ZintlDelta(x, Zobs, nPoses, nPts, bf0, bw0, .
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
                 Ru2 = fnRFromABG(alpha, beta, gamma);
                 %Tu2 = x((idx+3):(idx+5));
-                Tu2 = x.pose(pid-1).trans.val;
+                Tu2 = x.pose(pid-1).trans.xyz;
                 %idx = ((nPoses-1)*6+nPts*3+(pid-2)*3+1);
                 %v1 = x(idx:(idx+2)); v2 = x((idx+3):(idx+5));
                 v1 = x.velocity(pid-1).xyz;

@@ -26,7 +26,7 @@ function J = fn_Jacobian_dImu_dX(J, dtIMU, Jd, nPoses, nPts, nIMUrate, nIMUdata,
         if ( pid > 1 )
             angVec = X.pose(pid - 1).ang.val;
             alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
-            Ti = X.pose(pid - 1).trans.val;
+            Ti = X.pose(pid - 1).trans.xyz;
         else
             alpha = 0; beta = 0; gamma = 0;
             Ti = zeros(3,1);
@@ -127,7 +127,7 @@ function J = fn_Jacobian_dImu_dX(J, dtIMU, Jd, nPoses, nPts, nIMUrate, nIMUdata,
             
         
         %% 3. bzero = Ti1-Ti-vi*dt;
-        Ti1 = X.pose(pid).trans.val;
+        Ti1 = X.pose(pid).trans.xyz;
         
         dbzdti1 = eye(3);
         dbzdti = -eye(3);

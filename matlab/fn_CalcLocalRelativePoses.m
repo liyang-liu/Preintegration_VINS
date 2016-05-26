@@ -14,6 +14,6 @@ function [xg] = fn_CalcLocalRelativePoses(xg, nPoses, tv)
         %idstart = idend + 1; idend = idend + 6;
         %xg(idstart:idend) = [Ai1;Bi1;Gi1;Ti1];
         xg.pose(pid-1).ans.val = [Ai1; Bi1; Gi1];
-        xg.pose(pid-1).trans.val = Ti1;
+        xg.pose(pid-1).trans.xyz = Ti1;
     end
     

@@ -80,7 +80,7 @@ function J = fnJacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimesta
             Ru_cat(:,:,pid) = fnRFromABG(a_cat(pid), b_cat(pid), g_cat(pid));%fRx(alpha) * fRy (beta) * fRz(gamma);
             
             %Tu_cat(:,pid) = x((4+idx):(idx+6), 1);            
-            Tu_cat(:,pid) = X.pose(pid-1).trans.val;
+            Tu_cat(:,pid) = X.pose(pid-1).trans.xyz;
             
         else % pid ==1, Ru2c,Tu2c
             

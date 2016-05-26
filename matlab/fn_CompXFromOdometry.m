@@ -32,7 +32,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
                 idx = 6*(pid-2);
                 A0imu = x_old.pose(pid-1).ang.val;
                 R0imu(:, :, id) = fn_RFromABG(A0imu(1), A0imu(2), A0imu(3));
-                T0imu(:, id) = x_old.pose(pid-1).trans.val; 
+                T0imu(:, id) = x_old.pose(pid-1).trans.xyz; 
             end
             
             v0imu(:, id) = x_old.velocity(id).xyz; 
@@ -76,7 +76,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
             X.pose(p).ang.val = x_old.pose(p).ang.val;
             X.pose(p).ang.col = (1:3) + xcol; xcol = xcol + 3;
 
-            X.pose(p).trans.val = x_old.pose(p).trans.val;
+            X.pose(p).trans.xyz = x_old.pose(p).trans.xyz;
             X.pose(p).trans.col = (1:3) + xcol; xcol = xcol + 3;
         end
     end
@@ -84,7 +84,7 @@ function [X, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
         X.pose(p).ang.val = ABGimu(:,p+1);
         X.pose(p).ang.col = (1:3) + xcol; xcol = xcol + 3;
 
-        X.pose(p).trans.val = Timu(:,p+1);
+        X.pose(p).trans.xyz = Timu(:,p+1);
         X.pose(p).trans.col = (1:3) + xcol; xcol = xcol + 3;
     end
 

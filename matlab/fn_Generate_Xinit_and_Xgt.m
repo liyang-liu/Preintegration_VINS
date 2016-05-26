@@ -53,7 +53,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
                 X_obj.pose(p).ang.val = ABGimu(:,p+1);
                 X_obj.pose(p).ang.col = (1:3) + xcol; xcol = xcol + 3;
 
-                X_obj.pose(p).trans.val = Timu(:,p+1);
+                X_obj.pose(p).trans.xyz = Timu(:,p+1);
                 X_obj.pose(p).trans.col = (1:3) + xcol; xcol = xcol + 3;
             end        
         else            
@@ -68,7 +68,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
             [alpha, beta, gamma] = fn_ABGFromR(Ru_cell{pid}{1});%Rc,Tc
             Xg_obj.pose(pid-1).ang.val = [alpha; beta; gamma]; 
             Xg_obj.pose(pid-1).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
-            Xg_obj.pose(pid-1).trans.val = Tu_cell{pid}(:,1); 
+            Xg_obj.pose(pid-1).trans.xyz = Tu_cell{pid}(:,1); 
             Xg_obj.pose(pid-1).trans.cols = (1:3) + xgcol; xgcol = xgcol + 3;
             
         end
@@ -76,7 +76,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         [alpha, beta, gamma] = fn_ABGFromR( Ru_cell{nPoses} );%Rc,Tc
         Xg_obj.pose(nPoses-1).ang.val = [alpha; beta; gamma]; 
         Xg_obj.pose(pid-1).ang.cols = (1:3) + xgcol; xgcol = xgcol + 3;
-        Xg_obj.pose(nPoses-1).trans.val = Tu_cell{nPoses};
+        Xg_obj.pose(nPoses-1).trans.xyz = Tu_cell{nPoses};
         Xg_obj.pose(pid-1).trans.cols = (1:3) + xgcol; xgcol = xgcol + 3;
     else
         for pid = 1:( nPoses - 1 )
@@ -180,7 +180,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     %fprintf('%f ', Xg_obj(1:20));
     fprintf('%f ', [Xg_obj.pose(1).ang.val; Xg_obj.pose(2).ang.val; Xg_obj.pose(3).ang.val]);
     fprintf('\nTrans: ');
-    fprintf('%f ', [Xg_obj.pose(1).trans.val; Xg_obj.pose(2).trans.val; Xg_obj.pose(3).trans.val]);
+    fprintf('%f ', [Xg_obj.pose(1).trans.xyz; Xg_obj.pose(2).trans.xyz; Xg_obj.pose(3).trans.xyz]);
     fprintf('\nFeature_1: ');
     fprintf('%f ', Xg_obj.feature(1).xyz');
     fprintf('...]\n');  
@@ -236,7 +236,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     %fprintf('%f ', x(1:20));
     fprintf('%f ', [X_obj.pose(1).ang.val; X_obj.pose(2).ang.val; X_obj.pose(3).ang.val]);
     fprintf('\nTrans: ');
-    fprintf('%f ', [X_obj.pose(1).trans.val; X_obj.pose(2).trans.val; X_obj.pose(3).trans.val]);
+    fprintf('%f ', [X_obj.pose(1).trans.xyz; X_obj.pose(2).trans.xyz; X_obj.pose(3).trans.xyz]);
     fprintf('\nFeature_1: ');
     fprintf('%f ', X_obj.feature(1).xyz');
     fprintf('...]\n');    

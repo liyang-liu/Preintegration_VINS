@@ -24,7 +24,7 @@ nMax = nPoses;
 
 for pid=2:nMax
     R_cell{pid} = fn_RFromAngVec( X_obj.pose(pid-1).ang.val );
-    T_cell{pid} = X_obj.pose(pid-1).trans.val;
+    T_cell{pid} = X_obj.pose(pid-1).trans.xyz;
     pc(:, pid) = T_cell{pid};
     figure(fh);
     quiver3( T_cell{pid}(1), T_cell{pid}(2), T_cell{pid}(3), R_cell{pid}(1,1), R_cell{pid}(1,2), R_cell{pid}(1,3), ratio);

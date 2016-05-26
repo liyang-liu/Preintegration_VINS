@@ -32,7 +32,7 @@ function J = fn_Jacobian_dIntlDelta_dX( J, dtIMU, Jd, nPoses, nPts, X, Zobs )%g,
         Au2 = X.pose(pid-1).ang.val;
         a2 = Au2(1); b2 = Au2(2); g2 = Au2(3);
         R2 = fn_RFromABG(a2,b2,g2);
-        T2 = X.pose(pid-1).trans.val;
+        T2 = X.pose(pid-1).trans.xyz;
 
         v2 = X.velocity(pid).xyz;
 

@@ -43,7 +43,7 @@ function J = fn_Jacobian_dUv_dX(J, K, X, Zobs, nPoses, nPts, nIMUdata, ImuTimest
             Au_cat = X.pose(pid).ang.val;
             a_cat(frm_id) = Au_cat(1); b_cat(frm_id) = Au_cat(2);  g_cat(frm_id) = Au_cat(3);
             Ru_cat(:,:,frm_id) = fn_RFromABG(a_cat(frm_id), b_cat(frm_id), g_cat(frm_id));%fRx(alpha) * fRy (beta) * fRz(gamma);            
-            Tu_cat(:,frm_id) = X.pose(pid).trans.val;
+            Tu_cat(:,frm_id) = X.pose(pid).trans.xyz;
             
         else % frm_id ==1, Ru2c,Tu2c
             

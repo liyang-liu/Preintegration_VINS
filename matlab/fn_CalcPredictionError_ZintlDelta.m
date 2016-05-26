@@ -34,7 +34,7 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
             Au = X_obj.pose(pid-1).ang.val;
             alpha = Au(1); beta = Au(2); gamma = Au(3);
             Ru2 = fn_RFromABG(alpha, beta, gamma);
-            Tu2 = X_obj.pose(pid-1).trans.val;
+            Tu2 = X_obj.pose(pid-1).trans.xyz;
             v1 = X_obj.velocity(pid-1).xyz;
             v2 = X_obj.velocity(pid).xyz;
             dt = dtIMU(pid);
@@ -70,7 +70,7 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
             if(pid > 1)
                 angVec = X_obj.pose(pid-1).ang.val;
                 alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
-                Ti = X_obj.pose(pid-1).trans.val;
+                Ti = X_obj.pose(pid-1).trans.xyz;
             else
                 alpha = 0; beta = 0; gamma = 0;
                 Ti = zeros(3,1);
@@ -85,7 +85,7 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
             angVec = X_obj.pose(pid).ang.val;
             alpha = angVec(1); beta = angVec(2); gamma = angVec(3);
             phii1 = [alpha; beta; gamma];
-            Ti1 = X_obj.pose(pid).trans.val;
+            Ti1 = X_obj.pose(pid).trans.xyz;
             wi = Ei * (phii1 - phii) / dt + bw;
             % 0 = Ti1-Ti-vi*dt;
             bzero = Ti1 - Ti - vi*dt;

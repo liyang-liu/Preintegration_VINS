@@ -57,7 +57,7 @@ function e = fnCalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, 
                 %Tu = X((4+idx):(idx+6), 1);
                 Au = X.pose(pid-1).ang.val;
                 alpha = Au(1); beta = Au(2); gamma = Au(3);
-                Tu = X.pose(pid-1).trans.val;
+                Tu = X.pose(pid-1).trans.xyz;
                 Ru = fnRFromABG(alpha, beta, gamma);%Rx(alpha) * fRy (beta) * fRz(gamma);
                 
             else % Pose 1 is special                
