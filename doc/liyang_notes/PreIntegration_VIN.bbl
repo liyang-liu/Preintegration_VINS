@@ -1,0 +1,24 @@
+\begin{thebibliography}{2}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Lupton and Sukkarieh(2012)]{Lupton2012}
+Todd Lupton and Salah Sukkarieh.
+\newblock {Visual-inertial-aided navigation for high-dynamic motion in built
+  environments without initial conditions}.
+\newblock \emph{IEEE Transactions on Robotics}, 28\penalty0 (1):\penalty0
+  61--76, 2012.
+\newblock ISSN 15523098.
+\newblock \doi{10.1109/TRO.2011.2170332}.
+
+\bibitem[Forster and et~al.(2015)]{Manifold2015}
+Christian Forster and et~al.
+\newblock {IMU Preintegration on Manifold for Efficient Visual-Inertial
+  Maximum-a-Posteriori Estimation}.
+\newblock \emph{Robotics: Science and Systems}, 11\penalty0 (6), 2015.
+\newblock \doi{10.15607/rss.2015.xi.006}.
+
+\end{thebibliography}

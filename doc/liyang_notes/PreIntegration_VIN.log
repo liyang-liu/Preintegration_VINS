@@ -1,0 +1,531 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  30 MAY 2016 21:28
+entering extended mode
+**PreIntegration_VIN.tex
+
+(F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
+on_VIN.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
+(C:\bin\MiKTeX_2.9\tex\latex\base\article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(C:\bin\MiKTeX_2.9\tex\latex\base\size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(C:\bin\MiKTeX_2.9\tex\latex\amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(C:\bin\MiKTeX_2.9\tex\latex\amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks14
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(C:\bin\MiKTeX_2.9\tex\latex\base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+(C:\bin\MiKTeX_2.9\tex\latex\amscls\amsthm.sty
+Package: amsthm 2004/08/06 v2.20
+\thm@style=\toks15
+\thm@bodyfont=\toks16
+\thm@headfont=\toks17
+\thm@notefont=\toks18
+\thm@headpunct=\toks19
+\thm@preskip=\skip43
+\thm@postskip=\skip44
+\thm@headsep=\skip45
+\dth@everypar=\toks20
+)
+(C:\bin\MiKTeX_2.9\tex\latex\tools\enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks21
+)
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks22
+)
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(C:\bin\MiKTeX_2.9\tex\latex\00miktex\graphics.cfg
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(C:\bin\MiKTeX_2.9\tex\latex\pdftex-def\pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(C:\bin\MiKTeX_2.9\tex\generic\oberdiek\infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(C:\bin\MiKTeX_2.9\tex\generic\oberdiek\ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+(C:\bin\MiKTeX_2.9\tex\latex\graphics\color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(C:\bin\MiKTeX_2.9\tex\latex\00miktex\color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(C:\bin\MiKTeX_2.9\tex\latex\float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count88
+\float@exts=\toks23
+\float@box=\box26
+\@float@everytoks=\toks24
+\@floatcapt=\box27
+)
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\subfig\subfig.sty"
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty"
+Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
+
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2016/02/04 v1.7-139 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 67.
+\captionmargin=\dimen107
+\captionmargin@=\dimen108
+\captionwidth=\dimen109
+\caption@tempdima=\dimen110
+\caption@indent=\dimen111
+\caption@parindent=\dimen112
+\caption@hangindent=\dimen113
+)
+\c@ContinuedFloat=\count89
+Package caption Info: float package is loaded.
+)
+\c@KVtest=\count90
+\sf@farskip=\skip46
+\sf@captopadj=\dimen114
+\sf@capskip=\skip47
+\sf@nearskip=\skip48
+\c@subfigure=\count91
+\c@subfigure@save=\count92
+\c@lofdepth=\count93
+\c@subtable=\count94
+\c@subtable@save=\count95
+\c@lotdepth=\count96
+\sf@top=\skip49
+\sf@bottom=\skip50
+) (C:\bin\MiKTeX_2.9\tex\latex\amsmath\amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip51
+
+For additional information on amsmath, use the `?' option.
+(C:\bin\MiKTeX_2.9\tex\latex\amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(C:\bin\MiKTeX_2.9\tex\latex\amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks25
+\ex@=\dimen115
+))
+(C:\bin\MiKTeX_2.9\tex\latex\amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen116
+)
+(C:\bin\MiKTeX_2.9\tex\latex\amsmath\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count97
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count98
+\leftroot@=\count99
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count100
+\DOTSCASE@=\count101
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen117
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count102
+\c@MaxMatrixCols=\count103
+\dotsspace@=\muskip10
+\c@parentequation=\count104
+\dspbrk@lvl=\count105
+\tag@help=\toks26
+\row@=\count106
+\column@=\count107
+\maxfields@=\count108
+\andhelp@=\toks27
+\eqnshift@=\dimen118
+\alignsep@=\dimen119
+\tagshift@=\dimen120
+\tagwidth@=\dimen121
+\totwidth@=\dimen122
+\lineht@=\dimen123
+\@envbody=\toks28
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks29
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(C:\bin\MiKTeX_2.9\tex\latex\base\makeidx.sty
+Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
+)
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyhdr\fancyhdr.sty"
+\fancy@headwidth=\skip54
+\f@ncyO@elh=\skip55
+\f@ncyO@erh=\skip56
+\f@ncyO@olh=\skip57
+\f@ncyO@orh=\skip58
+\f@ncyO@elf=\skip59
+\f@ncyO@erf=\skip60
+\f@ncyO@olf=\skip61
+\f@ncyO@orf=\skip62
+) ("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\lastpage\lastpage.sty
+"
+
+LaTeX Warning: You have requested release `2014/05/01' of LaTeX,
+               but only release `2011/06/27' is available.
+
+Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
+) ("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\algorithms\algorithm.st
+y"
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+ (C:\bin\MiKTeX_2.9\tex\latex\base\ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks30
+\c@algorithm=\count109
+)
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\algorithms\algorithmic.
+sty"
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count110
+\c@ALC@line=\count111
+\c@ALC@rem=\count112
+\c@ALC@depth=\count113
+\ALC@tlm=\skip63
+\algorithmicindent=\skip64
+)
+("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\algorithm2e\algorithm2e
+.sty"
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count114
+ (C:\bin\MiKTeX_2.9\tex\latex\tools\xspace.sty
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+)
+(C:\bin\MiKTeX_2.9\tex\latex\ltxmisc\relsize.sty
+Package: relsize 2003/07/04 ver 3.1
+)
+********************************************************
+Package `algorithm2e' Release 5.0 -- january 06 2013 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (cfiorio@um2.fr)
+********************************************************
+\skiptotal=\skip65
+\skiplinenumber=\skip66
+\skiprule=\skip67
+\skiphlne=\skip68
+\skiptext=\skip69
+\skiplength=\skip70
+\algomargin=\skip71
+\skipalgocfslide=\skip72
+\algowidth=\dimen124
+\inoutsize=\dimen125
+\inoutindent=\dimen126
+\interspacetitleruled=\dimen127
+\interspacealgoruled=\dimen128
+\interspacetitleboxruled=\dimen129
+\algocf@inoutbox=\box30
+\algocf@inputbox=\box31
+\AlCapSkip=\skip73
+\AlCapHSkip=\skip74
+\algoskipindent=\skip75
+\algocf@nlbox=\box32
+\algocf@hangingbox=\box33
+\algocf@untilbox=\box34
+\algocf@skipuntil=\skip76
+\algocf@capbox=\box35
+\algoheightruledefault=\skip77
+\algoheightrule=\skip78
+\algotitleheightruledefault=\skip79
+\algotitleheightrule=\skip80
+\c@algocfline=\count115
+\c@algocfproc=\count116
+\c@algocf=\count117
+\algocf@algoframe=\box36
+\algocf@algobox=\box37
+) ("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\latex\appendix\appendix.sty
+"
+Package: appendix 2009/09/02 v1.2b extra appendix facilities
+\c@@pps=\count118
+\c@@ppsavesec=\count119
+\c@@ppsaveapp=\count120
+) (C:\bin\MiKTeX_2.9\tex\latex\tools\bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup7
+\symboldletters=\mathgroup8
+\symboldsymbols=\mathgroup9
+\symboldlasy=\mathgroup10
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
+LaTeX Info: Redefining \bm on input line 204.
+)
+LaTeX Font Info:    Redeclaring symbol font `AMSb' on input line 41.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `normal'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 41.
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
+(Font)                  U/msb/m/n --> U/msb/m/n on input line 41.
+\c@case=\count121
+\c@subcase=\count122
+\c@sub2case=\count123
+
+(F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
+on_VIN.aux
+
+LaTeX Warning: Label `fig:VIN sensor information' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 102.
+LaTeX Font Info:    ... okay on input line 102.
+ ("C:\Users\Li Yang\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count124
+\scratchdimen=\dimen130
+\scratchbox=\box38
+\nofMPsegments=\count125
+\nofMParguments=\count126
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count127
+\MPscratchDim=\dimen131
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
+\everyMPtoPDFconversion=\toks32
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 102.
+LaTeX Font Info:    Try loading font information for U+msa on input line 109.
+ (C:\bin\MiKTeX_2.9\tex\latex\amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 109.
+
+(C:\bin\MiKTeX_2.9\tex\latex\amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 109.
+
+(C:\bin\MiKTeX_2.9\tex\latex\base\ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <7> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 109.
+ [1
+
+{C:/Users/Li Yang/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+(F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
+on_VIN.toc
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 11.
+LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 11.
+)
+\tf@toc=\write3
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 14.49998pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2] <figures/VIN_block-diagram.png, id=13, 1262.46657pt x 382.42876pt>
+File: figures/VIN_block-diagram.png Graphic file (type png)
+
+<use figures/VIN_block-diagram.png>
+Package pdftex.def Info: figures/VIN_block-diagram.png used on input line 127.
+(pdftex.def)             Requested size: 469.62886pt x 142.26378pt.
+
+Overfull \hbox (49.53401pt too wide) in paragraph at lines 159--159
+[] 
+ []
+
+[3 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/V
+IN_block-diagram.png>]
+<figures/IMU-sample_Image-frames_3D_illustration.png, id=23, 541.27219pt x 260.
+47313pt>
+File: figures/IMU-sample_Image-frames_3D_illustration.png Graphic file (type pn
+g)
+ <use figures/IMU-sample_Image-frames_3D_illustration.png>
+Package pdftex.def Info: figures/IMU-sample_Image-frames_3D_illustration.png us
+ed on input line 178.
+(pdftex.def)             Requested size: 195.11386pt x 93.89418pt.
+
+<Figures/Preintegrated-IMU_image_3D_illustration.png, id=25, 559.33969pt x 310.
+15875pt>
+File: Figures/Preintegrated-IMU_image_3D_illustration.png Graphic file (type pn
+g)
+ <use Figures/Preintegrated-IMU_image_3D_illustration.png>
+Package pdftex.def Info: Figures/Preintegrated-IMU_image_3D_illustration.png us
+ed on input line 179.
+(pdftex.def)             Requested size: 169.32239pt x 93.89418pt.
+
+Underfull \hbox (badness 4001) in paragraph at lines 182--182
+[]\OT1/cmr/m/n/12 Figure 2: |\OT1/cmr/m/it/12 a\OT1/cmr/m/n/12 ) Sam-ples: Cam-
+era+IMU \OT1/cmr/m/it/12 b\OT1/cmr/m/n/12 ) Inertial-delta: prein-te-grated in-
+for-ma-tion
+ []
+
+[4 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/I
+MU-sample_Image-frames_3D_illustration.png> <F:/work/UTS/SLAM/InertialSLAM/Iner
+tialDelta_SLAM/doc/liyang_notes/Figures/Preintegrated-IMU_image_3D_illustration
+.png>] <figures/Pre-integration_block-flow.png, id=34, 710.655pt x 277.035pt>
+File: figures/Pre-integration_block-flow.png Graphic file (type png)
+
+<use figures/Pre-integration_block-flow.png>
+Package pdftex.def Info: figures/Pre-integration_block-flow.png used on input l
+ine 227.
+(pdftex.def)             Requested size: 510.91214pt x 199.16928pt.
+
+Overfull \hbox (21.52483pt too wide) in paragraph at lines 227--228
+[][] 
+ []
+
+[5] [6 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figur
+es/Pre-integration_block-flow.png>] [7] [8]
+
+Package caption Warning: \label without proper reference on input line 372.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:simuNpose' on page 9 undefined on input line 370.
+
+
+<figures/SimuNpose_simData.jpg, id=52, 527.72156pt x 396.7322pt>
+File: figures/SimuNpose_simData.jpg Graphic file (type jpg)
+
+<use figures/SimuNpose_simData.jpg>
+Package pdftex.def Info: figures/SimuNpose_simData.jpg used on input line 373.
+(pdftex.def)             Requested size: 389.83144pt x 293.06346pt.
+
+<figures/simuNpose_error.png, id=53, 526.96875pt x 395.22656pt>
+File: figures/simuNpose_error.png Graphic file (type png)
+
+<use figures/simuNpose_error.png>
+Package pdftex.def Info: figures/simuNpose_error.png used on input line 383.
+(pdftex.def)             Requested size: 303.49516pt x 227.62204pt.
+
+<Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=54, 1927.2pt x 943.525pt>
+File: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg Graphic file (type jpg)
+
+<use Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>
+Package pdftex.def Info: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg used on i
+nput line 384.
+(pdftex.def)             Requested size: 464.9194pt x 227.62204pt.
+ [9] [10 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/fig
+ures/SimuNpose_simData.jpg>]
+[11 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/
+simuNpose_error.png (PNG copy)> <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SL
+AM/doc/liyang_notes/Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>] [12]
+[13] [14]
+(F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
+on_VIN.bbl) 
+AED: lastpage setting LastPage
+[15]
+(F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
+on_VIN.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5580 strings out of 493921
+ 79511 string characters out of 3151286
+ 175790 words of memory out of 3000000
+ 8771 multiletter control sequences out of 15000+200000
+ 19228 words of font info for 76 fonts, out of 3000000 for 9000
+ 841 hyphenation exceptions out of 8191
+ 44i,17n,43p,788b,567s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/bin/MiKTeX_2
+.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/bin/MiKTeX_2.9/fonts/type1/pub
+lic/amsfonts/cm/cmbx8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cme
+x10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/bin/Mi
+KTeX_2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/bin/MiKTeX_2.9/fonts/type
+1/public/amsfonts/cm/cmmi8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/c
+m/cmmib10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/b
+in/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/bin/MiKTeX_2.9/fonts
+/type1/public/amsfonts/cm/cmr17.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfo
+nts/cm/cmr6.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
+bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/bin/MiKTeX_2.9/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/ams
+fonts/cm/cmti12.pfb>
+Output written on PreIntegration_VIN.pdf (15 pages, 551402 bytes).
+PDF statistics:
+ 127 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+
