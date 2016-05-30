@@ -6,19 +6,24 @@
 \contentsline {paragraph}{State Vector}{4}
 \contentsline {paragraph}{Observation Vector}{4}
 \contentsline {section}{\numberline {3}The Preintegration algorithm}{4}
-\contentsline {paragraph}{State Vector}{5}
+\contentsline {paragraph}{State Vector}{4}
 \contentsline {paragraph}{Observation vector}{5}
 \contentsline {subsection}{\numberline {3.1}Bias-correction}{5}
-\contentsline {subsection}{\numberline {3.2}Inertial delta $\Sigma $ and Jacobian for Bias}{6}
-\contentsline {subsection}{\numberline {3.3}Feature observation model}{6}
-\contentsline {subsection}{\numberline {3.4}Jacobian of Inertial Delta to rest of X}{6}
-\contentsline {section}{\numberline {4}Experimental results}{9}
-\contentsline {subsection}{\numberline {4.1}Comparison of Naive VIN vs Pre-Integration}{9}
-\contentsline {subsection}{\numberline {4.2}Incremental implementation of Pre-Integration}{9}
-\contentsline {section}{\numberline {A}Rotation representation -- Euler angles}{10}
-\contentsline {subsection}{\numberline {A.1}Rotation matrix}{10}
-\contentsline {subsection}{\numberline {A.2}Rotation Rate Matrix}{10}
-\contentsline {subsection}{\numberline {A.3}Camera frame to Global transform}{11}
-\contentsline {section}{\numberline {B}Naive VIN}{12}
-\contentsline {subsubsection}{\numberline {B.0.1}Jacobian Matrix}{12}
-\contentsline {section}{\numberline {5}Bibliography}{15}
+\contentsline {subsection}{\numberline {3.2}Modified process model for Inertial-delta + Bias}{6}
+\contentsline {subsection}{\numberline {3.3}Inertial delta $\Sigma $ and Jacobian for Bias}{6}
+\contentsline {subsection}{\numberline {3.4}Pre-Integration observation model}{8}
+\contentsline {subsubsection}{\numberline {3.4.1}Feature observation model}{8}
+\contentsline {subsubsection}{\numberline {3.4.2}Complete observation model}{9}
+\contentsline {subsection}{\numberline {3.5}Jacobian of Inertial Delta to X}{9}
+\contentsline {subsubsection}{\numberline {3.5.1}Bias Jacobian}{10}
+\contentsline {section}{\numberline {4}Experimental results}{11}
+\contentsline {subsection}{\numberline {4.1}Comparison of Naive VIN vs Pre-Integration}{11}
+\contentsline {subsection}{\numberline {4.2}Incremental implementation of Pre-Integration}{12}
+\contentsline {subsection}{\numberline {4.3}Future improvements}{12}
+\contentsline {section}{\numberline {A}Rotation representation -- Euler angles}{13}
+\contentsline {subsection}{\numberline {A.1}Rotation matrix}{13}
+\contentsline {subsection}{\numberline {A.2}Rotation Rate Matrix}{13}
+\contentsline {subsection}{\numberline {A.3}Camera frame to Global transform}{13}
+\contentsline {section}{\numberline {B}Naive VIN}{13}
+\contentsline {subsubsection}{\numberline {B.0.1}Jacobian Matrix}{14}
+\contentsline {section}{\numberline {5}Bibliography}{17}

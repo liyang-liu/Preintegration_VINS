@@ -109,12 +109,13 @@ if(PreIntegration_options.bSimData)
     Xg_obj = X_obj;        
     [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, vu, SLAM_Params );
     
-    %--------------------------------------------------
-    % Hack: force X_obj to have same pose as GT
-    %--------------------------------------------------
-    X_obj = Xg_obj;
-    %--------------------------------------------------
-    
+    if PreIntegration_options.bTestIntegrity == 1
+        %--------------------------------------------------
+        % Hack: force X_obj to have same pose as GT
+        %--------------------------------------------------    
+        X_obj = Xg_obj;
+        %--------------------------------------------------
+    end
 
     X_init = X_obj;    
     save([ Data_config.TEMP_DIR 'X_init.mat'],'X_init');

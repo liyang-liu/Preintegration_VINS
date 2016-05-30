@@ -1,3 +1,10 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: PreIntegration_VIN.aux
 The style file: unsrtnat.bst
 Database file #1: vins.bib
+I was expecting a `,' or a `}'---line 37 of file vins.bib
+ : 
+ : journal = {International Journal of Robotics Research}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--empty journal in Parallax2015
+(There was 1 error message)

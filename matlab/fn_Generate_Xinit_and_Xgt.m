@@ -15,7 +15,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     if ( PreIntegration_options.bPreInt == 1 )
         nFrames = length( X_obj.pose ) + 1;
     else
-        nFrames = round( nIMUdata / nIMUrate );
+        nFrames = round( nIMUdata / nIMUrate ) + 1;
     end
     
     

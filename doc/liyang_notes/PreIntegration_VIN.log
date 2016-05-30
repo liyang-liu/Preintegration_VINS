@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  30 MAY 2016 21:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  31 MAY 2016 00:22
 entering extended mode
 **PreIntegration_VIN.tex
 
@@ -406,20 +406,20 @@ File: figures/VIN_block-diagram.png Graphic file (type png)
 <use figures/VIN_block-diagram.png>
 Package pdftex.def Info: figures/VIN_block-diagram.png used on input line 127.
 (pdftex.def)             Requested size: 469.62886pt x 142.26378pt.
-
-Overfull \hbox (49.53401pt too wide) in paragraph at lines 159--159
+ [3 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/
+VIN_block-diagram.png>]
+Overfull \hbox (49.53401pt too wide) in paragraph at lines 160--160
 [] 
  []
 
-[3 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/V
-IN_block-diagram.png>]
+
 <figures/IMU-sample_Image-frames_3D_illustration.png, id=23, 541.27219pt x 260.
 47313pt>
 File: figures/IMU-sample_Image-frames_3D_illustration.png Graphic file (type pn
 g)
  <use figures/IMU-sample_Image-frames_3D_illustration.png>
 Package pdftex.def Info: figures/IMU-sample_Image-frames_3D_illustration.png us
-ed on input line 178.
+ed on input line 179.
 (pdftex.def)             Requested size: 195.11386pt x 93.89418pt.
 
 <Figures/Preintegrated-IMU_image_3D_illustration.png, id=25, 559.33969pt x 310.
@@ -428,71 +428,108 @@ File: Figures/Preintegrated-IMU_image_3D_illustration.png Graphic file (type pn
 g)
  <use Figures/Preintegrated-IMU_image_3D_illustration.png>
 Package pdftex.def Info: Figures/Preintegrated-IMU_image_3D_illustration.png us
-ed on input line 179.
+ed on input line 180.
 (pdftex.def)             Requested size: 169.32239pt x 93.89418pt.
 
-Underfull \hbox (badness 4001) in paragraph at lines 182--182
+Underfull \hbox (badness 4001) in paragraph at lines 183--183
 []\OT1/cmr/m/n/12 Figure 2: |\OT1/cmr/m/it/12 a\OT1/cmr/m/n/12 ) Sam-ples: Cam-
 era+IMU \OT1/cmr/m/it/12 b\OT1/cmr/m/n/12 ) Inertial-delta: prein-te-grated in-
 for-ma-tion
  []
 
-[4 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/I
-MU-sample_Image-frames_3D_illustration.png> <F:/work/UTS/SLAM/InertialSLAM/Iner
-tialDelta_SLAM/doc/liyang_notes/Figures/Preintegrated-IMU_image_3D_illustration
-.png>] <figures/Pre-integration_block-flow.png, id=34, 710.655pt x 277.035pt>
+[4] [5 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figur
+es/IMU-sample_Image-frames_3D_illustration.png> <F:/work/UTS/SLAM/InertialSLAM/
+InertialDelta_SLAM/doc/liyang_notes/Figures/Preintegrated-IMU_image_3D_illustra
+tion.png>]
+<figures/Pre-integration_block-flow.png, id=37, 710.655pt x 277.035pt>
 File: figures/Pre-integration_block-flow.png Graphic file (type png)
 
 <use figures/Pre-integration_block-flow.png>
 Package pdftex.def Info: figures/Pre-integration_block-flow.png used on input l
-ine 227.
-(pdftex.def)             Requested size: 510.91214pt x 199.16928pt.
+ine 267.
+(pdftex.def)             Requested size: 437.92314pt x 170.71652pt.
 
-Overfull \hbox (21.52483pt too wide) in paragraph at lines 227--228
-[][] 
- []
 
-[5] [6 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figur
-es/Pre-integration_block-flow.png>] [7] [8]
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package caption Warning: \label without proper reference on input line 372.
+
+Package caption Warning: \label without proper reference on input line 275.
 See the caption package documentation for explanation.
 
 
-LaTeX Warning: Reference `fig:simuNpose' on page 9 undefined on input line 370.
+LaTeX Warning: Reference `fig:preintUncertainty' on page 6 undefined on input l
+ine 273.
 
 
-<figures/SimuNpose_simData.jpg, id=52, 527.72156pt x 396.7322pt>
+<figures/Inertial-delta_covariance_evolution.png, id=38, 323.70938pt x 203.2593
+7pt>
+File: figures/Inertial-delta_covariance_evolution.png Graphic file (type png)
+ <use figures/Inertial-delta_covariance_evolution.png>
+Package pdftex.def Info: figures/Inertial-delta_covariance_evolution.png used o
+n input line 276.
+(pdftex.def)             Requested size: 317.20833pt x 199.16928pt.
+ [6]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[7 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/P
+re-integration_block-flow.png> <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLA
+M/doc/liyang_notes/figures/Inertial-delta_covariance_evolution.png>] [8]
+[9]
+
+LaTeX Warning: Reference `tab:idJ' on page 10 undefined on input line 423.
+
+[10]
+
+Package caption Warning: \label without proper reference on input line 449.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `fig:simuNpose' on page 11 undefined on input line 447
+.
+
+<figures/SimuNpose_simData.jpg, id=61, 527.72156pt x 396.7322pt>
 File: figures/SimuNpose_simData.jpg Graphic file (type jpg)
 
 <use figures/SimuNpose_simData.jpg>
-Package pdftex.def Info: figures/SimuNpose_simData.jpg used on input line 373.
+Package pdftex.def Info: figures/SimuNpose_simData.jpg used on input line 450.
 (pdftex.def)             Requested size: 389.83144pt x 293.06346pt.
-
-<figures/simuNpose_error.png, id=53, 526.96875pt x 395.22656pt>
+ [11 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures
+/SimuNpose_simData.jpg>]
+<figures/simuNpose_error.png, id=65, 526.96875pt x 395.22656pt>
 File: figures/simuNpose_error.png Graphic file (type png)
 
 <use figures/simuNpose_error.png>
-Package pdftex.def Info: figures/simuNpose_error.png used on input line 383.
-(pdftex.def)             Requested size: 303.49516pt x 227.62204pt.
+Package pdftex.def Info: figures/simuNpose_error.png used on input line 460.
+(pdftex.def)             Requested size: 189.68448pt x 142.26378pt.
 
-<Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=54, 1927.2pt x 943.525pt>
+<Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=66, 1927.2pt x 943.525pt>
 File: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg Graphic file (type jpg)
 
 <use Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>
 Package pdftex.def Info: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg used on i
-nput line 384.
-(pdftex.def)             Requested size: 464.9194pt x 227.62204pt.
- [9] [10 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/fig
-ures/SimuNpose_simData.jpg>]
-[11 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures/
-simuNpose_error.png (PNG copy)> <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SL
-AM/doc/liyang_notes/Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>] [12]
-[13] [14]
+nput line 461.
+(pdftex.def)             Requested size: 290.56728pt x 142.26378pt.
+
+Overfull \hbox (14.86444pt too wide) in paragraph at lines 459--462
+ [] 
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 469.
+
+(C:\bin\MiKTeX_2.9\tex\latex\base\omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 469.
+ [12 <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_SLAM/doc/liyang_notes/figures
+/simuNpose_error.png (PNG copy)> <F:/work/UTS/SLAM/InertialSLAM/InertialDelta_S
+LAM/doc/liyang_notes/Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>] [13] [14] [
+15] [16]
 (F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
 on_VIN.bbl) 
 AED: lastpage setting LastPage
-[15]
+[17]
 (F:\work\UTS\SLAM\InertialSLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegrati
 on_VIN.aux)
 
@@ -503,29 +540,30 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5580 strings out of 493921
- 79511 string characters out of 3151286
- 175790 words of memory out of 3000000
- 8771 multiletter control sequences out of 15000+200000
+ 5608 strings out of 493921
+ 80122 string characters out of 3151286
+ 168905 words of memory out of 3000000
+ 8795 multiletter control sequences out of 15000+200000
  19228 words of font info for 76 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,17n,43p,788b,567s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,17n,43p,798b,571s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/bin/MiKTeX_2
 .9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/bin/MiKTeX_2.9/fonts/type1/pub
 lic/amsfonts/cm/cmbx8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cme
 x10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/bin/Mi
 KTeX_2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/bin/MiKTeX_2.9/fonts/type
 1/public/amsfonts/cm/cmmi8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/c
-m/cmmib10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/b
-in/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/bin/MiKTeX_2.9/fonts
-/type1/public/amsfonts/cm/cmr17.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfo
-nts/cm/cmr6.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
-bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/bin/MiKTeX_2.9/fon
-ts/type1/public/amsfonts/cm/cmsy8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/ams
-fonts/cm/cmti12.pfb>
-Output written on PreIntegration_VIN.pdf (15 pages, 551402 bytes).
+m/cmmib10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb
+><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/bin/MiKTeX_2.9
+/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public
+/amsfonts/cm/cmr17.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr6.p
+fb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/bin/MiKTeX_2.
+9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/bin/MiKTeX_2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy8.pfb><C:/bin/MiKTeX_2.9/fonts/type1/public/amsfonts/cm/cmti
+12.pfb>
+Output written on PreIntegration_VIN.pdf (17 pages, 600520 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
+ 139 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
