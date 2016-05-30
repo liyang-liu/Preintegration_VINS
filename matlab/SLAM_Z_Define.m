@@ -1,12 +1,12 @@
-function Z_Def = SLAM_Z_Define( nPoses, nPts, nIMUrate )
+function Z_Def = SLAM_Z_Define( nFrames, nPts, nIMUrate )
     %global PreIntegration_options
     global PreIntegration_options
 
     if 0
             if(PreIntegration_options.bPreInt == 0) %    two key frames: (wi,ai,dTi)
-            Zobs = zeros(idr+(nPoses-1)*nlenpp, 1);
+            Zobs = zeros(idr+(nFrames-1)*nlenpp, 1);
         else
-            Zobs = zeros(idr+(nPoses-1)*9, 1); % Number of observations for pre-integration: (ui,vi) + (dpi,dvi,dphii) 
+            Zobs = zeros(idr+(nFrames-1)*9, 1); % Number of observations for pre-integration: (ui,vi) + (dpi,dvi,dphii) 
         end
     end
     
@@ -91,37 +91,37 @@ function Z_Def = SLAM_Z_Define( nPoses, nPts, nIMUrate )
             );
     else
         Bf_1_Def = struct( ...
-            'val', zeros(3*(nPoses-2), 1), ... %bfi-bfi1 = 0
+            'val', zeros(3*(nFrames-2), 1), ... %bfi-bfi1 = 0
             'row', [] ...
             );
 
         Bw_1_Def = struct( ...
-            'val', zeros(3*(nPoses-2), 1), ... %bwi-bwi1 = 0
+            'val', zeros(3*(nFrames-2), 1), ... %bwi-bwi1 = 0
             'row', [] ...
             );
         
         Bf_Def = struct( ...
-            'iter', repmat(Bf1_Def, (nPoses-2), 1) ... %bfi-bfi1 = 0
+            'iter', repmat(Bf1_Def, (nFrames-2), 1) ... %bfi-bfi1 = 0
             );
 
         Bw_Def = struct( ...
-            'iter', repmat(Bw1_Def, (nPoses-2), 1) ... %bwi-bwi1 = 0
+            'iter', repmat(Bw1_Def, (nFrames-2), 1) ... %bwi-bwi1 = 0
             );
     end
     
     if(PreIntegration_options.bPreInt == 1) 
         Z_Def = struct( ...
-            'fObs',         repmat( UV_Def, nPts * nPoses, 1 ), ... % maybe redundant, will be cleaned
-            'intlDelta',    repmat( IntlDelta_Def, nPoses-1, 1 ), ...
+            'fObs',         repmat( UV_Def, nPts * nFrames, 1 ), ... % maybe redundant, will be cleaned
+            'intlDelta',    repmat( IntlDelta_Def, nFrames-1, 1 ), ...
             'Au2c',         Angle_Def, ...
             'Tu2c',         Trans_Def, ...
             'Bf',           Bf_Def, ...
             'Bw',           Bw_Def ...
             );
     else
-        nImuObs = (nPoses - 1) * nIMUrate;
+        nImuObs = (nFrames - 1) * nIMUrate;
         Z_Def = struct( ...
-            'fObs',         repmat( UV_Def, nPts * nPoses, 1 ), ... % maybe redundant, will be cleaned
+            'fObs',         repmat( UV_Def, nPts * nFrames, 1 ), ... % maybe redundant, will be cleaned
             'imu',          repmat( ImuObs_Def, nImuObs, 1 ), ...
             'Au2c',         Angle_Def, ...
             'Tu2c',         Trans_Def, ...

@@ -39,7 +39,7 @@ function e = SLAM_CalcPredictionError( X, nPoses, nPts )
     %nPts = length( X.feature );
     
     % 1. UVD error:
-    e  = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps );
+    e  = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, nIMUrate, ImuTimestamps );
 
     % 2. IMU dlt error:
     ePreInt = fn_CalcPredictionError_ZintlDelta(X, Zobs, nPoses, nPts, SLAM_Params.bf0, ...

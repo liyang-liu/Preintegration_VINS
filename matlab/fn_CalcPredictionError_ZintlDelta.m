@@ -2,7 +2,7 @@ function e = fnCalcPredictionError_ZintlDelta(X_obj, Zobs, nPoses, nPts, bf0, bw
                                     dtIMU, J, nIMUrate, ImuTimestamps )%g, 
     global PreIntegration_options
     
-    e = Zobs;    
+    e = SLAM_Z_Define( nPoses, nPts, nIMUrate );
         
     nIMUdata = ImuTimestamps(nPoses)-ImuTimestamps(1);
 

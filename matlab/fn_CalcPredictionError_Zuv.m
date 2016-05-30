@@ -1,4 +1,4 @@
-function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, ImuTimestamps)
+function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts, nIMUrate, ImuTimestamps)
 
     global PreIntegration_options
 
@@ -9,7 +9,7 @@ function e = fn_CalcPredictionError_Zuv(RptFeatureObs, K, X, Zobs, nPoses, nPts,
     p3d0 = X.feature;
     
     % initilize e data structure using Zobs
-    e = Zobs;
+    e = SLAM_Z_Define( nPoses, nPts, nIMUrate );
     
     % Au2c, Tu2c    
     alpha = X.Au2c.val(1); beta = X.Au2c.val(2); gamma = X.Au2c.val(3);

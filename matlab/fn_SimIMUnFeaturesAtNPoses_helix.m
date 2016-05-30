@@ -77,8 +77,8 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
     % dx = dstep * cos(dtang / 2);
     % dy = dstep * sin(dtang / 2);
 
-    spn = 1;
-    beta = 0;% pi/6;
+    spn   = 1;
+    beta  = 0;% pi/6;
     alpha = 0;% 
     gamma = 0;
 
@@ -127,22 +127,22 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
 
         %% Proceed to the next pose
         % Translation
-        dy = 2 * fdcirc2camera * ( cos( gamma ) - cos( gamma + dang ) );%6;%10;%5;%2;%1;%0.2;%dstep;
+        dy = 2 * fdcirc2camera * (  cos( gamma ) - cos( gamma + dang ) );%6;%10;%5;%2;%1;%0.2;%dstep;
         dx = 2 * fdcirc2camera * ( -sin( gamma ) + sin( gamma + dang ) );% 
         dz = spn * 5e-3 + (5e-3 ^ pid);%(1e1 ^ pid);%spn*2e-1 ^ (pid-1);%2e-1 ^ (pid-1);%0.0;%-0.1;%
         tT = [dx, dy, dz]';
         % Rotation
 
         if(bConstV == 0)
-            dlta = spn * dang + 0.1^pid;%* 2  * (pid-1);%;
-            dltb = dang + 0.1^pid;%;0;%
-            %	dabg = dlta *[1,1,1]';
+            dlta = spn * dang + 0.1^pid; %* 2  * (pid-1);%;
+            dltb =       dang + 0.1^pid; %;0;%
+            %	dabg = dlta * [1,1,1]';
             if(rem(pid,3) == 0)
-                dabg = [dlta; 0; dang];
+                dabg = [ dlta;  0;      dang ];
             elseif(rem(pid,3) == 1)
-                dabg = [0; 0; dang];%dlta
+                dabg = [ 0;     0;      dang ];%dlta
             else%if(rem(pid,3) == 2)
-                dabg = [0; dltb; dang];%dlta  
+                dabg = [ 0;     dltb;   dang ];%dlta  
             end
         else
             dabg = zeros(3,1);
@@ -150,10 +150,10 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
 
 
         %% Generate IMU data based on the motion process
-        if(pid < nPoses) 
-            theta{pid} = [ repmat(alpha, 1, nIMUrate) + dabg(1) * 0.5 * (1 - cos(pi * t)); ...
-                             repmat(beta, 1, nIMUrate) + dabg(2) * 0.5 * (1 - cos(pi * t)); ...
-                             repmat(gamma, 1, nIMUrate) + dabg(3) * 0.5 * (1 - cos(pi * t));];
+        if( pid < nPoses ) 
+            theta{pid} = [   repmat( alpha, 1, nIMUrate ) + dabg(1) * 0.5 * (1 - cos(pi * t)); ...
+                             repmat( beta,  1, nIMUrate ) + dabg(2) * 0.5 * (1 - cos(pi * t)); ...
+                             repmat( gamma, 1, nIMUrate ) + dabg(3) * 0.5 * (1 - cos(pi * t)) ];
                  
             dthetadt = 0.5 * pi * dabg * sin(pi * t);%[0.5*pi*dalpha*sin(pi*t); 0.5*pi*dbeta*sin(pi*t); 0.5*pi*dgamma*sin(pi*t)];
             
@@ -161,7 +161,7 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
                         repmat( Tu_cell{pid}(2), 1, nIMUrate ) + tT(2) * 0.5 * (1 - cos(pi * t)); ...
                         repmat( Tu_cell{pid}(3), 1, nIMUrate ) + tT(3) * 0.5 * (1 - cos(pi * t)); ];
                     
-            vu = [ vu; (tT * 0.5 * pi * sin(pi*t) )' ];
+            vu = [ vu; ( tT * 0.5 * pi * sin(pi*t) )' ];
             
             dvdt = 0.5 * pi * pi * tT * cos(pi*t);         
             
@@ -170,15 +170,15 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
             x0(1:3, 1) = [alpha; beta; gamma];
             x0(4:6, 1) =  Tu_cell{pid};
             x0(7:9, 1) =  zeros(3,1); 
-            imuData_cell{ pid + 1 }.samples = [ t; dataIMU ]';
-            imuData_cell{ pid + 1 }.initstates = x0;         
+            imuData_cell{ pid + 1 }.samples = [ t; dataIMU ]';  % time,
+            imuData_cell{ pid + 1 }.initstates = x0;         % angle, translation, zeros
         end
 
-        alpha = alpha + dabg(1);
-        beta = beta + dabg(2);
-        gamma = gamma + dabg(3);
+        alpha   = alpha +  dabg(1);
+        beta    = beta  +  dabg(2);
+        gamma   = gamma +  dabg(3);
 
-        spn = -spn;
+        spn = - spn;
 
 
     end
@@ -198,6 +198,11 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, vu] = ...
         end 
         Tu_cell{ nPoses } = endT;
         Ru_cell{ nPoses } = endR;
-        vu = [ vu; zeros(1,3) ];
+        x0(1:3, 1) = [alpha; beta; gamma];
+        x0(4:6, 1) =  Tu_cell{ nPoses };
+        x0(7:9, 1) =  zeros(3,1); 
+        imuData_cell{ nPoses + 1 }.initstates = x0;
+        %vu = [ vu; zeros(1,3) ];    % You-Bing mistake
+        vu = [ vu; vu(end-2:end) ]; % repeat last velocity, instead of zero
     % end
 

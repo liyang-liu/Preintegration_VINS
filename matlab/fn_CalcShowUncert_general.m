@@ -9,7 +9,11 @@ function [] = fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
 
     J_obj = SLAM_Jacobian_Define( );
     J_obj = fn_Jacobian_dUv_dX(J_obj, K, X_obj, Zobs, nPoses, nPts, nIMUdata, ImuTimestamps, RptFeatureObs );		
-    J_obj = fn_Jacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
+    if ( PreIntegration_options.bPreInt == 1 )
+        J_obj = fn_Jacobian_dIntlDelta_dX( J_obj, dtIMU, Jd, nPoses, nPts, X_obj, Zobs );
+    else
+        J_obj = fn_Jacobian_dImu_dX( J_obj, dtIMU, Jd, nPoses, nPts, nIMUrate, nIMUdata, X_obj, Zobs  );
+    end
     
     J = SLAM_J_Object2Matrix( J_obj, Zobs, X_obj );
     

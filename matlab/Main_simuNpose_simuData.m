@@ -18,20 +18,8 @@ assert( PreIntegration_options.bVarBias == 0, 'Variable Bias not tested');
 
 %% Configure the conditions of the problem
 nPoses = PreIntegration_options.nPoses
-    
 kfids = 1:PreIntegration_options.kfspan:1200;
 nMinObsTimes = 2;%3;%5;%4;%6;%
-
-
-SLAM_Params.bf0 = zeros(3,1);%[-0.55;0.6;0.61];
-SLAM_Params.bw0 = zeros(3,1);
-uvd_cell = [];
-dp = zeros(3,nPoses);
-dv = dp; 
-dphi = dp;
-dtIMU = [];
-Jd =[];
-Rd = [];
 
 
 %% Configure paramters according to the chosen dataset
@@ -86,6 +74,13 @@ addpath(genpath('IMU'));
 addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
+uvd_cell    = [];
+dp          = zeros(3, nPoses);
+dv          = zeros(3, nPoses);
+dphi        = zeros(3, nPoses);
+Jd          = [];
+Rd          = [];
+
 
 %% The main switch
 if(PreIntegration_options.bSimData)
@@ -93,8 +88,7 @@ if(PreIntegration_options.bSimData)
     fbiascef = 3;
     
     idr = nPoses*nPts*2;% total number of camera observations: (ui,vi) 
-        
-   
+           
     %% Other parameters for the simulated scenario
 	cx0 = 240; cy0 = 320; f = 575; % camera intrinsic parameters
 	K = [f 0 cx0; 0 f cy0; 0 0 1]; 
@@ -104,20 +98,28 @@ if(PreIntegration_options.bSimData)
     %     SLAM_Params.bw0 = [0, 0, 0]'; % bias for rotaion velocity
     %     SLAM_Params.g0 = [0; 0; -9.8]; % g value in the first key frame
             
-    [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, ...
+    [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, FeatureObs, ...
                     dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = ...
-                            fn_GenerateObs( SLAM_Params, nPoses, nPts, nIMUrate );
+                            fn_ObtainSimuData( SLAM_Params, nPoses, nPts, nIMUrate );
+                        
     RptFeatureObs = FeatureObs;
     save([ Data_config.TEMP_DIR 'RptFeatureObs.mat'], 'RptFeatureObs');
 
     X_obj = SLAM_X_Define( nPts, nPoses, nIMUrate );
-    Xg_obj = X_obj;    
+    Xg_obj = X_obj;        
+    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, vu, SLAM_Params );
     
-    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, vu, SLAM_Params );
+    %--------------------------------------------------
+    % Hack: force X_obj to have same pose as GT
+    %--------------------------------------------------
+    X_obj = Xg_obj;
+    %--------------------------------------------------
+    
+
+    X_init = X_obj;    
+    save([ Data_config.TEMP_DIR 'X_init.mat'],'X_init');
     
     if(PreIntegration_options.bShowFnP == 1)
-        %% fnShowFeaturesnPoses(xg, nPoses, nPts, nIMUrate, bPreInt, 'Ground Truth Values');
-        %% fnShowFeaturesnPoses(x, nPoses, nPts, nIMUrate, bPreInt, 'Initial Values');
         fn_ShowFeaturesnPoses( Xg_obj, nPoses, nPts, nIMUdata, 'Ground Truth Values' );
         fn_ShowFeaturesnPoses( X_obj, nPoses, nPts, nIMUdata, 'Initial Values' );
     end    
@@ -125,8 +127,6 @@ if(PreIntegration_options.bSimData)
     Zobs = fn_Collect_Zobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIMUrate, dp, dv, dphi, SLAM_Params )
     
     %% Save data for nonlin method.
-    X_init = X_obj;
-    save([ Data_config.TEMP_DIR 'X_init.mat'],'X_init');
     dt = ((imuData_cell{2}.samples(2, 1) - imuData_cell{2}.samples(1, 1))) * size(imuData_cell{2}.samples,1);
     nPoseNew = nPoses;
     save([ Data_config.TEMP_DIR 'consts.mat'],'nIMUrate','K','Zobs','nPoses','nPts', 'SLAM_Params', 'dt','Jd');
@@ -137,12 +137,7 @@ if(PreIntegration_options.bSimData)
     CovMatrixInv = ...%SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
             fn_Generate_CovMatrixInv2( nPoses, nPts, length(Zobs.fObs)*2, nIMUrate, Rd, SLAM_Params );
             %fn_Generate_CovMatrixInv( SLAM_Params, Zobs, Rd );
-    save([ Data_config.TEMP_DIR 'CovMatrixInv.mat'],'CovMatrixInv', '-v7.3');
-    
-    % %% GN Iterations    
-    %     [x] = fnVI_BA(K, x, nPoses, nPts, dt, Jd, CovMatrixInv, nMaxIter, ...
-    %         fLowerbound_e, fLowerbound_dx, nIMUrate, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw);
-
+    save([ Data_config.TEMP_DIR 'CovMatrixInv.mat'],'CovMatrixInv', '-v7.3');   
     save([ Data_config.TEMP_DIR 'ImuTimestamps.mat'], 'ImuTimestamps');
     save([ Data_config.TEMP_DIR 'dtIMU.mat'], 'dtIMU');    
     
@@ -184,8 +179,8 @@ toc
     %% Show pose-feature graph
     if(PreIntegration_options.bShowFnP == 1)
         fn_ShowFeaturesnPoses_general(X_final, nIMUrate, 'Final Values');
-        fn_ShowFeaturesnPoses_superimpose(Xg_obj, X_init, X_final);
     end
+    fn_ShowFeaturesnPoses_superimpose(Xg_obj, X_init, X_final);
     
     %% Show uncertainty
     if(PreIntegration_options.bShowUncertainty == 1)

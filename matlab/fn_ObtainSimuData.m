@@ -1,4 +1,4 @@
-function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = fn_GenerateObs(  SLAM_Params, nPoses, nPts, nIMUrate )
+function [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, FeatureObs, dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = fn_ObtainSimuData(  SLAM_Params, nPoses, nPts, nIMUrate )
 
     global PreIntegration_options Data_config
 
@@ -9,10 +9,10 @@ function [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, dp, dv, dphi, Jd
         SLAM_Params.bw0 = [1.0, 2.0, 3.0]'; %[0, 0, 0]'; % bias for rotaion velocity    
         arPts = [0,0,0; 1,0.5,2;0.5,2,2.6;1.8,2.4,3.5];
         
-        [imuData_cell, uvd_cell, Ru_cell, Tu_cell, FeatureObs, vu, SLAM_Params] = ...
-                                    fn_GenerateFeatureObs( nPoses, nPts, nIMUrate, SLAM_Params );
+        [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, FeatureObs, vu, SLAM_Params] = ...
+                                    fn_GeneratePoseFeatData( nPoses, nPts, nIMUrate, SLAM_Params );
 
-        save( [ Data_config.DATA_DIR, 'SimuData.mat' ], 'imuData_cell', 'uvd_cell', 'Ru_cell', 'Tu_cell', 'FeatureObs', 'vu', 'SLAM_Params' );
+        save( [ Data_config.DATA_DIR, 'SimuData.mat' ], 'imuData_cell', 'uvd_cell', 'noisefree_imuData_cell', 'noisefree_uvd_cell', 'Ru_cell', 'Tu_cell', 'FeatureObs', 'vu', 'SLAM_Params' );
         
     else
         
