@@ -125,9 +125,9 @@ This document is a report on Visual Inertial SLAM using an efficient method of I
 \vspace{1cm}
 In this work, we firstly simulate a navigation system equipped with an IMU and an RGB camera. 
 \begin{figure}[ht]
-	\label{fig:vin}
 	\includegraphics[height=5cm]{figures/VIN_block-diagram.png}
 	\caption{VIN SLAM}
+	\label{fig:vin}
 \end{figure}
 
 \paragraph{States}
@@ -155,7 +155,7 @@ For a system composed of an IMU and a RGB-D camera navigating with $N$ camera po
 \paragraph{State Vector}
 the state vector $\textbf{X}$ is defined as:
 \begin{align*}
-\textbf{x} = &(\overbrace{\textbf{A}_{10}, \textbf{T}_{10}, \textbf{A}_{20}, \textbf{T}_{20},... ,\textbf{A}_{K-1,0}, \textbf{T}_{K-1,0},\textbf{A}_{0,1}, \textbf{T}_{0,1},...,\textbf{A}_{K-1,1}, \textbf{T}_{K-1,1},... \textbf{A}_{K-1,N-1}, \textbf{T}_{K-1,N-1},\textbf{A}_{0N}, \textbf{T}_{0N}}^{K(N - 1) \times 6},\\
+\textbf{x} = &(\overbrace{\textbf{A}_{10}, \textbf{p}_{10}, \textbf{A}_{20}, \textbf{p}_{20},... ,\textbf{p}_{K-1,0}, \textbf{p}_{K-1,0},\textbf{A}_{0,1}, \textbf{p}_{0,1},...,\textbf{A}_{K-1,1}, \textbf{p}_{K-1,1},... \textbf{A}_{K-1,N-1}, \textbf{p}_{K-1,N-1},\textbf{A}_{0N}, \textbf{p}_{0N}}^{K(N - 1) \times 6},\\
 	 &\overbrace{\textbf{F}_{1},\textbf{F}_{2}, ..., \textbf{F}_{M}}^{M \times 3},\\
 	 &\overbrace{\textbf{v}_{00},\textbf{v}_{10} ...,\textbf{v}_{K-1,0}, ...,\textbf{v}_{0,N-1},...,\textbf{v}_{K-1,N-1}, \textbf{v}_{0N}}^{(K(N-1)+1) \times 3},\\
 	 &\textbf{g}, \textbf{A}_{u2c}, \textbf{T}_{u2c}, \textbf{b}_f, \textbf{b}_w )' 
@@ -167,7 +167,7 @@ The Observation vector $\textbf{Z}$ is defined as:
 \begin{align}
 \textbf{z}_{raw} &= (\textbf{z}_{camera}, \textbf{z}_{IMUraw}, \textbf{z}_{Tv})' \nonumber \\
 =& (\overbrace{\textbf{uv}_{11}, \textbf{uv}_{21}, ... , \textbf{uv}_{M1}, ..., \textbf{uv}_{1N}, \textbf{uv}_{2N}, ... , \textbf{uv}_{MN}}^{M \times N \times 2}, \nonumber \\ 
-& \overbrace{\omega\textbf{a}_{01}, \omega\textbf{a}_{11}, ... , \omega\textbf{a}_{(K-1)1}, ..., \omega\textbf{a}_{0(N-1)}, \omega\textbf{a}_{1(N-1)}, ... , \omega\textbf{a}_{(K-1)(N-1)}}^{K \times (N-1) \times 6}, \\
+& \overbrace{\omega\textbf{f}_{01}, \omega\textbf{f}_{11}, ... , \omega\textbf{f}_{(K-1)1}, ..., \omega\textbf{f}_{0(N-1)}, \omega\textbf{f}_{1(N-1)}, ... , \omega\textbf{f}_{(K-1)(N-1)}}^{K \times (N-1) \times 6}, \\
 & \overbrace{\textbf{0}, \textbf{0}, ... , \textbf{0}}^{K \times (N-1) \times 3})' 
 \end{align}
 
@@ -193,19 +193,19 @@ Todd Lupton proposed the Preintegration method in 2012 \cite{Lupton2012}: integr
 	\STATE Inertial-delta observation $ \triangle \bm{\mathrm{I}} = \begin{bmatrix} \triangle \textbf{p}_{t}^+ \\ \triangle \textbf{v}_{t} \\ \triangle \textbf{A} _{t} \end{bmatrix}$, initially set to $\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$
 		\FOR{$t_1 < t < t_2$}
 		\STATE $\triangle t =  t_{t+1} - t_t$ 
-		\STATE $\textbf{f}_t^{bt1} = R_{bt}^{bt1} (\textbf{f}_t^b - \textbf{b}_f)$ 
-		\STATE $\triangle \textbf{v}_{t+1} = \triangle \textbf{v}_{t} + \textbf{f}_t^{bt1} \triangle t$ 
+		\STATE $\textbf{f}_t^{\mathrm{bt1}} = R_{\mathrm{bt}}^{\mathrm{bt1}} (\textbf{f}_t^{\mathrm{b}} - \textbf{b}_f)$ 
+		\STATE $\triangle \textbf{v}_{t+1} = \triangle \textbf{v}_{t} + \textbf{f}_t^{\mathrm{bt1}} \triangle t$ 
 		\STATE $\triangle \textbf{p}_{t+1}^+ = \triangle \textbf{p}_{t}^+ + \triangle \textbf{v}_t \triangle t$ 
-		\STATE $\triangle \textbf{A} _{t+1} = \triangle \textbf{A} _{t} + E_{bt}^{bt1} (\omega _t^b - \textbf{b}_\omega) \triangle t$ 
+		\STATE $\triangle \textbf{A} _{t+1} = \triangle \textbf{A} _{t} + E_{\mathrm{bt}}^{\mathrm{bt1}} (\omega _t^{\mathrm{b}} - \textbf{b}_\omega) \triangle t$ 
 		\ENDFOR
 	\end{algorithmic}
 \end{algorithm}
 
 \paragraph{State Vector} $\textbf{X}$ is defined as:
-$$\textbf{x} = (\overbrace{\textbf{A}^u_2, \textbf{T}^u_{2}, ... , \textbf{A}^u_{N}, \textbf{T}^u_{N}}^{(N - 1) \times 6}, \overbrace{\textbf{F}_{1}, ..., \textbf{F}_{M}}^{M \times 3}, \overbrace{\textbf{v}_1, ..., \textbf{v}_{N}}^{N \times 3},  \textbf{g}^{\mathrm{n}}, \textbf{A}_{u2c}, \textbf{T}_{u2c}, \textbf{b}_f, \textbf{b}_w)' $$
+$$\textbf{x} = (\overbrace{\textbf{A}^u_2, \textbf{p}^u_{2}, ... , \textbf{A}^u_{N}, \textbf{p}^u_{N}}^{(N - 1) \times 6}, \overbrace{\textbf{F}_{1}, ..., \textbf{F}_{M}}^{M \times 3}, \overbrace{\textbf{v}_1, ..., \textbf{v}_{N}}^{N \times 3},  \textbf{g}^{\mathrm{n}}, \textbf{A}_{u2c}, \textbf{T}_{u2c}, \textbf{b}_f, \textbf{b}_w)' $$
 where
 $\textbf{A}^u_i = (\alpha^u_i, \beta^u_i, \gamma^u_i)$,
-$\textbf{T}^u_i = (x^u_i, y^u_i, z^u_i) $,
+$\textbf{p}^u_i = (x^u_i, y^u_i, z^u_i) $,
 $\textbf{F}_{i} = (x_{i}, y_{i}, z_{i}) $,
 $d\textbf{P}_{i} = (dx_{i}, dy_{i}, dz_{i}) $,
 $d\textbf{v}_{i} = (dvx_{i}, dvy_{i}, dvz_{i}) $, and
@@ -219,7 +219,6 @@ where $\textbf{uvd}_{ij} = (u_{ij}, v_{ij}, d_{ij})$ represents the image of the
 \paragraph{Motion from Inertial Delta}
 Relationship between robot motion state to inertial delta can be found in figure \ref{fig:motionModel_idt}
 \begin{figure}[h!]
-	\label{fig:preint}
 	\includegraphics[height=3.5cm]{figures/motion_model_with_preint.png}
 	\caption{Motion model using inertial delta}
 	\label{fig:motionModel_idt}
@@ -278,17 +277,17 @@ Now, it should be easy to compute inertial delta's uncertainty and Jacobian recu
 \end{equation}
 
 \begin{figure}[h!]
-	\label{fig:preintBlock}
 	\includegraphics[height=6cm]{figures/Pre-integration_block-flow.png}
 	\caption{Pre-Integration}
+	\label{fig:preintBlock}
 \end{figure}
 
 The algorithm \ref{algm:preint} is modified to include $\bm{b}$ as part of process vector, as shown in Algorithm \ref{algm:preintBias}. The integration process is recursive, therefore the inertial delta's uncertainty $\Sigma$ and Jacobian $J$ (now against both inertial delta and Bias terms ) are computed recursively, starting from zero uncertainty and unity gain at the beginning. This process is listed in algorithm \ref{algm:preint_cov}. \\
 In each discrete summation step, state covariance $\Sigma_t$ is related to the uncertainty $\Sigma_t$ at time $t-1$ (Fig \ref{fig:preintUncertainty})and current measurement noise by $F_t$ and $G_t$, where $F_t$ and $G_t$ are the Jacobians of the state transition function w.r.t the state vector inertial delta and the noise input $\mathrm{\bm{\eta}_k}$ respectively.
 \begin{figure}[h!]
-	\label{fig:preintUncertainty}
 	\includegraphics[height=7cm]{figures/Inertial-delta_covariance_evolution.png}
 	\caption{Evolution of uncertainty during Pre-Integration}
+	\label{fig:preintUncertainty}
 \end{figure}
 
 The modified process's Jacobian $J_{t}$ is a chain product of previous process's Jacobian $J_{t-1}$ and state transition Jacobian $F_{t-1}$. The Jacobian's structure is shown in Equation \ref{eq:IJB}.
@@ -301,10 +300,15 @@ The modified process's Jacobian $J_{t}$ is a chain product of previous process's
 		\STATE ${\Sigma}_t = \textbf{I}_{15}$ 
 		\FOR{$t_1 < t < t_2$}
 		\STATE $\triangle t =  t_{t+1} - t_t$ 
-		\STATE $\alpha = \frac{d R^{bt1}_{bt} (\textbf{f}_t - \textbf{b}_f)}{d \textbf{A}_t}$
-		\STATE $\beta = \frac{d E^{bt1}_{bt} (\omega_t - \textbf{b}_\omega)}{d \textbf{A}_t}$
-		\STATE $F_t = \begin{bmatrix} \textbf{I}_3 & \textbf{I}_3 \triangle t & \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 \\ \textbf{0}_3 & \textbf{I}_3  & \alpha \triangle t & -R^{bt1}_{bt} \triangle t & \textbf{0}_3 \\ \textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3 + \beta \triangle t & \textbf{0}_3 & -E^{bt1}_{bt} \triangle t \\ \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3 & \textbf{0}_3 \\ \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3\end{bmatrix}$
-		\STATE $G_t = \begin{bmatrix} \textbf{0}_3 & \textbf{0}_3 \\ R^{bt1}_{bt} \triangle t & \textbf{0}_3 \\ \textbf{0}_3 & E^{bt1}_{bt} \triangle t \\ \textbf{0}_3 & \textbf{0}_3 \\ \textbf{0}_3 & \textbf{0}_3 \end{bmatrix}$
+		\STATE $\alpha = \frac{d R^{\mathrm{bt1}}_{\mathrm{bt}} (\textbf{f}_t - \textbf{b}_f)}{d \textbf{A}_t}$
+		\STATE $\beta = \frac{d E^{\mathrm{bt1}}_{\mathrm{bt}} (\omega_t - \textbf{b}_\omega)}{d \textbf{A}_t}$
+		\STATE $F_t = \begin{bmatrix} \textbf{I}_3 & \textbf{I}_3 \triangle t & \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 \\ 
+		\textbf{0}_3 & \textbf{I}_3  & \alpha \triangle t & -R^{\mathrm{bt1}}_{\mathrm{bt}} \triangle t & \textbf{0}_3 \\ 
+		\textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3 + \beta \triangle t & \textbf{0}_3 & -E^{\mathrm{bt1}}_{\mathrm{bt}} \triangle t \\
+		\textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3 & \textbf{0}_3 \\
+		\textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{0}_3 & \textbf{I}_3
+		\end{bmatrix}$
+		\STATE $G_t = \begin{bmatrix} \textbf{0}_3 & \textbf{0}_3 \\ R^{\mathrm{bt1}}_{\mathrm{bt}} \triangle t & \textbf{0}_3 \\ \textbf{0}_3 & E^{\mathrm{bt1}}_{\mathrm{bt}} \triangle t \\ \textbf{0}_3 & \textbf{0}_3 \\ \textbf{0}_3 & \textbf{0}_3 \end{bmatrix}$
 		\STATE $J_{t+1} = F_{t} J_t$ 
 		\STATE ${\Sigma}_{t+1} = F_{t} {\Sigma}_t F'_{t} + G_t Q_t G'_t$ 
 		\ENDFOR
@@ -313,8 +317,7 @@ The modified process's Jacobian $J_{t}$ is a chain product of previous process's
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{equation}[h!]
-\label{eq:IJB}
+\begin{equation}
 J=\begin{bmatrix}
 \frac{\partial { \triangle \bm{p}^+_{t2}}}{\partial \bm{p}^{t1}_{t1}}		&	
 \frac{\partial { \triangle \bm{p}^+_{t2}}}{\partial \bm{v}^{t1}_{t1}}		& 
@@ -343,6 +346,7 @@ J=\begin{bmatrix}
 \frac{\partial { \bm{b}^{obs}_{\omega}}}{\partial \bm{b}_{\omega}}		&
 
 \end{bmatrix}
+\label{eq:IJB}
 \end{equation}
 
 \subsection{Pre-Integration observation model}
@@ -350,19 +354,19 @@ Now the expanded Pre-Integration observation model (from Eq 3~5 )is:
 
 \begin{align}
 % dp = Ru1 * (pu2-pu1-v1*dt-0.5*g*dt*dt)- ddpdbf*dbf - ddpdbw*dbw;
-d\textbf{p}_i &= R_i (\textbf{T}_{i+1} - \textbf{T}_i - \textbf{v}_i \triangle t - \frac{1}{2} \textbf{g} {(\triangle t)}^2) - \frac{\partial \triangle \textbf{p}^+_t}{\partial \textbf{b}_f} (\textbf{b}_f - \textbf{b}_{f0}) -  \frac{\partial \triangle \textbf{p}^+_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})\\
-d\textbf{v}_i &= R_i (\textbf{v}_{i+1} - \textbf{v}_i - \textbf{g} \triangle t) - \frac{\partial \triangle \textbf{v}_t}{\partial \textbf{b}_f} (\textbf{b}_f - \textbf{b}_{f0}) -  \frac{\partial \triangle \textbf{v}_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})\\
+\triangle \textbf{p}^+_i &= R_i (\textbf{p}_{i+1} - \textbf{p}_i - \textbf{v}_i \triangle t - \frac{1}{2} \textbf{g} {(\triangle t)}^2) - \frac{\partial \triangle \textbf{p}^+_t}{\partial \textbf{b}_f} (\textbf{b}_f - \textbf{b}_{f0}) -  \frac{\partial \triangle \textbf{p}^+_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})\\
+\triangle  \textbf{v}_i &= R_i (\textbf{v}_{i+1} - \textbf{v}_i - \textbf{g} \triangle t) - \frac{\partial \triangle \textbf{v}_t}{\partial \textbf{b}_f} (\textbf{b}_f - \textbf{b}_{f0}) -  \frac{\partial \triangle \textbf{v}_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})\\
 % [a,b,g] = fnABG5R(Ru2*(Ru1)'); dphi = [a;b;g] - ddphidbw*dbw;
-d\textbf{A}_i &= fn\_ABGFromR(R_{i+1}*R'_{i}) - \frac{\partial \triangle \textbf{A}_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})
+\triangle \textbf{A}_i &= fn\_ABGFromR(R_{i+1}*R'_{i}) - \frac{\partial \triangle \textbf{A}_t}{\partial \textbf{b}_\omega} (\textbf{b}_\omega - \textbf{b}_{\omega0})
 \end{align}
 
-where $i = 2,..., N$, $fn\_ABGFromR$ is a function that can obtain Euler angles from a corresponding rotation matrix, and $R_i, E_i$ correspond to the rotation matrix and rotation rate matrix for the IMU at the time step $i$. respectively.
+where $[\textbf{b}_\omega, \textbf{b}_f]'$ is aforementioned $\textbf{b}^{obs}$, and $[\textbf{b}_{\omega0}, \textbf{b}_{f0}]'$ is aforementioned $\textbf{b}^{est}$. $i = 2,..., N$, $fn\_ABGFromR$ is a function that can obtain Euler angles from a corresponding rotation matrix, and $R_i, E_i$ correspond to the rotation matrix and rotation rate matrix for the IMU at the time step $i$. respectively.
 
 \subsubsection{Feature observation model}
 From feature to its observation by the camera, \cite{multipleViewGeometry} tell us the following relationship holds:
 
 \begin{align}
-\textbf{F}_{ij} &= (x_{ij}, y_{ij}, z_{ij}) = R_{cj} (\textbf{F}_{fi} - \textbf{T}_{c0j}) \label{formu:pij} \\
+\textbf{F}_{ij} &= (x_{ij}, y_{ij}, z_{ij}) = R_{cj} (\textbf{F}_{fi} - \textbf{p}_{c0j}) \label{formu:pij} \\
 u_{ij} &= f * x_{ij} / z_{ij} + cx_0 \label{formu:uij} \\
 v_{ij} &= f * y_{ij} / z_{ij} + cy_0 \label{formu:vij} \\
 d_{ij} &= z_{ij} \label{formu:dij}
@@ -391,9 +395,9 @@ For camera observations of $(u_{ij}, v_{ij}, d_{ij})$ which represent the observ
 \frac{\partial u_{ij}}{\partial \textbf{F}_{ij}} &= [f/z_{ij}, 0, -fx_{ij}/z^2_{ij}] \\
 \frac{\partial v_{ij}}{\partial \textbf{F}_{ij}} &= [0, f/z_{ij}, -fy_{ij}/z^2_{ij}] \\
 \frac{\partial d_{ij}}{\partial \textbf{F}_{ij}} &= [0, 0, 1] \\
-\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{j}} &= R_{u2c} \frac{\partial R_{j}}{\partial \textbf{A}_{j}} (\textbf{F}_{i1} - \textbf{T}_{j}) \\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{j}} &= R_{u2c} \frac{\partial R_{j}}{\partial \textbf{A}_{j}} (\textbf{F}_{i1} - \textbf{p}_{j}) \\
 \frac{\partial \textbf{F}_{ij}}{\partial \textbf{T}_{j}} &= -R_{u2c} R_{j} \\
-\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{u2c}} &= \frac{\partial R_{u2c}}{\partial \textbf{A}_{u2c}} R_{j}(\textbf{F}_{i1} - R'_{j} \textbf{T}_{u2c} - \textbf{T}_{j}) \\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{u2c}} &= \frac{\partial R_{u2c}}{\partial \textbf{A}_{u2c}} R_{j}(\textbf{F}_{i1} - R'_{j} \textbf{T}_{u2c} - \textbf{p}_{j}) \\
 \frac{\partial \textbf{F}_{ij}}{\partial \textbf{T}_{u2c}} &= -R_{u2c}\\
 \frac{\partial \textbf{F}_{ij}}{\partial \textbf{F}_{i1}} &= R_{u2c} R_{j} 
 \end{align}
@@ -403,9 +407,9 @@ For $d\text{p}^+_{i}$,
 \begin{align}
 %%%%%%%
 % dp = R1 * (T2-T1-v1*dt-0.5*g*dt*dt) - ddpdbf*dbf - ddpdbw*dbw;
-\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{A}_{i}} &= \frac{\partial R_i}{\partial \textbf{A}_i} (\textbf{T}_{i+1} - \textbf{T}_i - \textbf{v}_i \triangle t - \frac{1}{2} \textbf{g} {(\triangle t)}^2) \\
-\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{T}_{i}} &= -R_i \\
-\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{T}_{i+1}} &= R_i \\
+\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{A}_{i}} &= \frac{\partial R_i}{\partial \textbf{A}_i} (\textbf{p}_{i+1} - \textbf{p}_i - \textbf{v}_i \triangle t - \frac{1}{2} \textbf{g} {(\triangle t)}^2) \\
+\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{p}_{i}} &= -R_i \\
+\frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{p}_{i+1}} &= R_i \\
 \frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{v}_{i}} &= -R_i \triangle t \\
 \frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{g}} &= -\frac{1}{2} R_i {\triangle t}^2 \\
 \frac{\partial d\textbf{p}^+_{i}}{\partial \textbf{b}_f} &= - \frac{\partial \triangle \textbf{p}^+_t}{\partial \textbf{b}_f}\\
@@ -434,15 +438,15 @@ For $d\textbf{A}_{i}$,
 \end{align}
 
 \subsubsection{Bias Jacobian}
-Table \ref{tab:idJ} shows the contents of inertial delta Jacobian. We will borrow the parts related to Bias, i.e. last 6 columns of $J_{t1}^{t2}$ for inclusion in the pre-integration observation model.
+Equation \ref{eq:IJB} shows the contents of inertial delta Jacobian. We will borrow the parts related to Bias, i.e. last 6 columns of $J_{t1}^{t2}$ for inclusion in the pre-integration observation model.
 
 \section{Experimental results}
 \subsection{Comparison of Naive VIN vs Pre-Integration}
 
 \begin{figure}[ht!]
-	\label{fig:simuNpose}
 	\includegraphics[height=10.3cm]{figures/SimuNpose_simData.jpg}
 	\caption{SimuNpose Naive vs Preintegration VIN}
+	\label{fig:simuNpose}
 \end{figure}
 
 A matlab routine $Main\_simuNpose.m$ was prepared to simulate VIN system and evaluate the performance of VIN with and without Pre-Integration.
@@ -450,7 +454,6 @@ Table \ref{tab:table1} shows performance results of Naive VIN vs Pre-integration
 \begin{table}[h!]
 	\centering
 	\caption{Caption for the table.}
-	\label{tab:table1}
 	\begin{tabular}{cc|c|c}
 		Num image frames &  & Naive VIN & Pre-Integration\\
 		\hline
@@ -463,6 +466,7 @@ Table \ref{tab:table1} shows performance results of Naive VIN vs Pre-integration
 		100 & Total time & NIL & 44.5 [sec]\\
 		{} & $\delta X$ & NIL & 12\\		
 	\end{tabular}
+	\label{tab:table1}
 \end{table}
 
 
@@ -532,7 +536,7 @@ And at the following poses, given IMU's states ($\textbf{R}^u_i$ and $\textbf{T}
 
 \begin{align*}
 \textbf{R}^c_i &= \textbf{R}_{u2c} \textbf{R}^u_i \\
-\textbf{T}^c_i &= \textbf{T}^u_i + {\textbf{R}^u_i}'  \textbf{T}_{u2c}  
+\textbf{p}^c_i &= \textbf{p}^u_i + {\textbf{R}^u_i}'  \textbf{T}_{u2c}  
 \end{align*} 
 	
 
@@ -542,8 +546,8 @@ The measurements model $H(\textbf{x})$ in Naive VIN can be broken into the follo
 \begin{align}
 %E_{ij} &= \begin{pmatrix} 1 & 0 & -sin(\beta) \\ 0 & cos(\alpha) & cos(\beta)sin(\alpha) \\ 0 & -sin(\alpha) & cos(\beta)cos(\alpha) \end{pmatrix} \\
 \omega_{ij} &= E_{ij} (\textbf{A}_{(i+1)j} - \textbf{A}_{ij})/\triangle t + \textbf{b}_w \\
-\textbf{a}_{ij} &= R_{ij} ((\textbf{v}_{(i+1)j} - \textbf{v}_{ij}) / \triangle t - \textbf{g}) + \textbf{b}_f \\
-\textbf{bZeros} &= \textbf{T}_{(i+1)j} - \textbf{T}_{ij} - \textbf{v}_{ij} \triangle t
+\textbf{f}_{ij} &= R_{ij} ((\textbf{v}_{(i+1)j} - \textbf{v}_{ij}) / \triangle t - \textbf{g}) + \textbf{b}_f \\
+\textbf{bZeros} &= \textbf{p}_{(i+1)j} - \textbf{p}_{ij} - \textbf{v}_{ij} \triangle t
 \end{align}
 
 where $i = 0,..., K-1$, and $R_{ij}, E_{ij} ( = \begin{pmatrix} 1 & 0 & -\sin(\beta_{ij}) \\ 0 & \cos(\alpha_{ij}) & \cos(\beta_{ij})\sin(\alpha_{ij}) \\ 0 & -\sin(\alpha_{ij}) & \cos(\beta_{ij})\cos(\alpha_{ij}) \end{pmatrix}) $ correspond to the rotation matrix and rotation rate matrix for the IMU at the time step $i$ since the $j$th key camera frame respectively.
@@ -553,11 +557,11 @@ Putting all items together, $H(\textbf{x})$ can be written as:
 \begin{align} % R_{01} * ((\textbf{v}_{11} - \textbf{v}_{01}) / \triangle t - \textbf{g}) + \textbf{b}_f, E_i*(	extbf{A}_{0N} - \textbf{A}_{(K-1)(N-1)})/\triangle t + \textbf{b}_w, 
 H(\textbf{x}) &= (H_{camera}(\textbf{x}), H_{IMUraw}(\textbf{x}), H_{Tv}(\textbf{x})) \nonumber \\
 =& (\overbrace{{u}_{11}, {v}_{11}, ... , {u}_{M1}, {v}_{M1}, ..., {u}_{1N}, {v}_{1N}, ... , {u}_{MN}, {v}_{MN}}^{M \times N \times 2}, \nonumber \\ 
-& \overbrace{\omega\textbf{a}_{01}, \omega\textbf{a}_{11}, ... , \omega\textbf{a}_{(K-1)1}, ..., \omega\textbf{a}_{0(N-1)}, \omega\textbf{a}_{1(N-1)}, ... , \omega\textbf{a}_{(K-1)(N-1)}}^{K \times (N-1) \times 6}, \nonumber \\
-& \overbrace{\textbf{T}_2 - \textbf{T}_{1} - \textbf{v}_{1} \triangle t, \textbf{T}_{3} - \textbf{T}_{2} - \textbf{v}_{2} \triangle t, ... , \textbf{T}_{(N-1)K+1} - \textbf{T}_{(N-1)K} - \textbf{v}_{(N-1)K} \triangle t}^{K \times (N-1) \times 3}) \nonumber \\
+& \overbrace{\omega\textbf{f}_{01}, \omega\textbf{f}_{11}, ... , \omega\textbf{f}_{(K-1)1}, ..., \omega\textbf{f}_{0(N-1)}, \omega\textbf{f}_{1(N-1)}, ... , \omega\textbf{f}_{(K-1)(N-1)}}^{K \times (N-1) \times 6}, \nonumber \\
+& \overbrace{\textbf{p}_2 - \textbf{p}_{1} - \textbf{v}_{1} \triangle t, \textbf{p}_{3} - \textbf{p}_{2} - \textbf{v}_{2} \triangle t, ... , \textbf{p}_{(N-1)K+1} - \textbf{p}_{(N-1)K} - \textbf{v}_{(N-1)K} \triangle t}^{K \times (N-1) \times 3}) \nonumber \\
 =& (\overbrace{f * x_{11} / z_{11} + cx_0, f * y_{11} / z_{11} + cy_0, ... , f * x_{MN} / z_{MN} + cx_0, f * y_{MN} / z_{MN} + cy_0, }^{M \times N \times 2}, \nonumber \\ 
 & \overbrace{E_i*(\textbf{A}_{11} - \textbf{A}_{01})/\triangle t + \textbf{b}_w, ..., R_{(K-1)(N-1)} * ((\textbf{v}_{0N} - \textbf{v}_{(K-1)(N-1)}) / \triangle t - \textbf{g}) + \textbf{b}_f}^{K \times (N-1) \times 6}, \nonumber \\
-& \overbrace{\textbf{T}_2 - \textbf{T}_{1} - \textbf{v}_{1} \triangle t, \textbf{T}_{3} - \textbf{T}_{2} - \textbf{v}_{2} \triangle t, ... , \textbf{T}_{(N-1)K+1} - \textbf{T}_{(N-1)K} - \textbf{v}_{(N-1)K} \triangle t}^{K \times (N-1) \times 3}) 
+& \overbrace{\textbf{p}_2 - \textbf{p}_{1} - \textbf{v}_{1} \triangle t, \textbf{p}_{3} - \textbf{p}_{2} - \textbf{v}_{2} \triangle t, ... , \textbf{p}_{(N-1)K+1} - \textbf{p}_{(N-1)K} - \textbf{v}_{(N-1)K} \triangle t}^{K \times (N-1) \times 3}) 
 \end{align}
 
 \subsubsection{Jacobian Matrix}
@@ -567,16 +571,16 @@ Based on the composition of $H(\textbf{x})$, the corresponding Jacobian matrix c
 For camera observations of $(u_{ij}, v_{ij}, d_{ij})$ which represent the observation of the $i$th feature at the $j$th camera pose, 
 \begin{align}
 % bZeros: \textbf{bZeros} &= \textbf{T}_{i+1} - \textbf{T}_{i} - \textbf{v}_{i} \triangle t 
-\frac{\partial u_{ij}}{\partial \textbf{P}_{ij}} &= [f/z_{ij}, 0, -fx_{ij}/z^2_{ij}] \\
-\frac{\partial v_{ij}}{\partial \textbf{P}_{ij}} &= [0, f/z_{ij}, -fy_{ij}/z^2_{ij}] \\
-\frac{\partial d_{ij}}{\partial \textbf{P}_{ij}} &= [0, 0, 1] \\
+\frac{\partial u_{ij}}{\partial \textbf{F}_{ij}} &= [f/z_{ij}, 0, -fx_{ij}/z^2_{ij}] \\
+\frac{\partial v_{ij}}{\partial \textbf{F}_{ij}} &= [0, f/z_{ij}, -fy_{ij}/z^2_{ij}] \\
+\frac{\partial d_{ij}}{\partial \textbf{F}_{ij}} &= [0, 0, 1] \\
 %% X = Ru2c * Ru * (X0 - Ru'* Tu2c - Tu)
 %%   = Ru2c * Ru * (X0 - Tu)- Ru2c * Tu2c
-\frac{\partial \textbf{P}_{ij}}{\partial \textbf{A}_{0j}} &= R_{u2c} \frac{\partial R_{0j}}{\partial \textbf{A}_{0j}} (\textbf{P}_{i1} - \textbf{T}_{0j}) \\
-\frac{\partial \textbf{P}_{ij}}{\partial \textbf{T}_{0j}} &= -R_{u2c} R_{0j} \\
-\frac{\partial \textbf{P}_{ij}}{\partial \textbf{A}_{u2c}} &= \frac{\partial R_{u2c}}{\partial \textbf{A}_{u2c}} R_{0j}(\textbf{P}_{i1} - R'_{0j} \textbf{T}_{u2c} - \textbf{T}_{0j}) \\
-\frac{\partial \textbf{P}_{ij}}{\partial \textbf{T}_{u2c}} &= -R_{u2c}\\
-\frac{\partial \textbf{P}_{ij}}{\partial \textbf{P}_{fi}} &= R_{u2c} R_{0j} 
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{0j}} &= R_{u2c} \frac{\partial R_{0j}}{\partial \textbf{A}_{0j}} (\textbf{F}_{i1} - \textbf{p}_{0j}) \\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{p}_{0j}} &= -R_{u2c} R_{0j} \\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{A}_{u2c}} &= \frac{\partial R_{u2c}}{\partial \textbf{A}_{u2c}} R_{0j}(\textbf{F}_{i1} - R'_{0j} \textbf{T}_{u2c} - \textbf{p}_{0j}) \\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{T}_{u2c}} &= -R_{u2c}\\
+\frac{\partial \textbf{F}_{ij}}{\partial \textbf{F}_{fi}} &= R_{u2c} R_{0j} 
 \end{align}
 
 For $\omega_{ij}$,
@@ -599,23 +603,23 @@ For $\omega_{ij}$,
 \end{align}
 %%%%%
 
-For $\textbf{a}_{ij}$,
+For $\textbf{f}_{ij}$,
 
 \begin{align}
 % a_i \textbf{a}_i &= R_i ((\textbf{v}_{i+1} - \textbf{v}_i) / \triangle t - \textbf{g}) + \textbf{b}_f 
-\frac{\partial \textbf{a}_{ij}}{\partial \textbf{A}_{ij}} &= \frac{\partial R_{ij}} {\textbf{A}_{ij}} ((\textbf{v}_{i+1} - \textbf{v}_i) / \triangle t - \textbf{g}) \\
+\frac{\partial \textbf{f}_{ij}}{\partial \textbf{A}_{ij}} &= \frac{\partial R_{ij}} {\textbf{A}_{ij}} ((\textbf{v}_{i+1} - \textbf{v}_i) / \triangle t - \textbf{g}) \\
 \frac{\partial R_{ij}}{\partial \textbf{A}_{ij}} &= [\frac{\partial R_{ij}}{\partial \alpha_{ij}}, \frac{\partial R_{ij}}{\partial \beta_{ij}}, \frac{\partial R_{ij}}{\partial \gamma_{ij}}] \\
-\frac{\partial \textbf{a}_{ij}}{\partial \textbf{v}_{(i+1)j}} &= R_{ij} / \triangle t \\
-\frac{\partial \textbf{a}_{ij}}{\partial \textbf{v}_{ij}} &= - R_{ij} / \triangle t \\
-\frac{\partial \textbf{a}_{ij}}{\partial \textbf{g}} &= - R_{ij}\\
-\frac{\partial \textbf{a}_{ij}}{\partial b_{f}} &= I_{3\times 3} 
+\frac{\partial \textbf{f}_{ij}}{\partial \textbf{v}_{(i+1)j}} &= R_{ij} / \triangle t \\
+\frac{\partial \textbf{f}_{ij}}{\partial \textbf{v}_{ij}} &= - R_{ij} / \triangle t \\
+\frac{\partial \textbf{f}_{ij}}{\partial \textbf{g}} &= - R_{ij}\\
+\frac{\partial \textbf{f}_{ij}}{\partial b_{f}} &= I_{3\times 3} 
 \end{align}
 
 For $\textbf{bZeros}_{ij}$,
 \begin{align}
 % bZeros: \textbf{bZeros} &= \textbf{T}_{i+1} - \textbf{T}_{i} - \textbf{v}_{i} \triangle t 
-\frac{\partial \textbf{bZeros}_{ij}}{\partial \textbf{T}_{(i+1)j}} &= I_{3\times 3} \\
-\frac{\partial \textbf{bZeros}_{ij}}{\partial \textbf{T}_{ij}} &= - I_{3\times 3} \\
+\frac{\partial \textbf{bZeros}_{ij}}{\partial \textbf{p}_{(i+1)j}} &= I_{3\times 3} \\
+\frac{\partial \textbf{bZeros}_{ij}}{\partial \textbf{p}_{ij}} &= - I_{3\times 3} \\
 \frac{\partial \textbf{bZeros}_{ij}}{\partial \textbf{v}_{ij}} &= - I_{3\times 3} \triangle t  
 \end{align}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  31 MAY 2016 12:57
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  31 MAY 2016 16:17
 entering extended mode
 **PreIntegration_VIN.tex
 
@@ -699,11 +699,11 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 File: figures/VIN_block-diagram.png Graphic file (type png)
 
 <use figures/VIN_block-diagram.png>
-Package pdftex.def Info: figures/VIN_block-diagram.png used on input line 129.
+Package pdftex.def Info: figures/VIN_block-diagram.png used on input line 128.
 (pdftex.def)             Requested size: 469.63889pt x 142.26378pt.
  [3 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/VIN
 _block-diagram.png>]
-Overfull \hbox (49.53033pt too wide) in paragraph at lines 162--162
+Overfull \hbox (33.6133pt too wide) in paragraph at lines 162--162
 [] 
  []
 
@@ -737,44 +737,27 @@ File: figures/motion_model_with_preint.png Graphic file (type png)
 
 <use figures/motion_model_with_preint.png>
 Package pdftex.def Info: figures/motion_model_with_preint.png used on input lin
-e 223.
+e 222.
 (pdftex.def)             Requested size: 301.47186pt x 99.58464pt.
  [5 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/IMU
 -sample_Image-frames_3D_illustration.png> <D:/work/SLAM/Inertial_SLAM/InertialD
 elta_SLAM/doc/liyang_notes/Figures/Preintegrated-IMU_image_3D_illustration.png>
  <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/motion
-_model_with_preint.png>]
-
-Package caption Warning: \label without proper reference on input line 281.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `fig:preintBlock' on page 6 undefined on input line 27
-5.
-
-[6] <figures/Pre-integration_block-flow.png, id=43, 456.7464pt x 185.0112pt>
+_model_with_preint.png>] [6]
+<figures/Pre-integration_block-flow.png, id=43, 455.301pt x 186.4566pt>
 File: figures/Pre-integration_block-flow.png Graphic file (type png)
 
 <use figures/Pre-integration_block-flow.png>
 Package pdftex.def Info: figures/Pre-integration_block-flow.png used on input l
-ine 282.
-(pdftex.def)             Requested size: 421.48021pt x 170.71652pt.
-
-
-Package caption Warning: \label without proper reference on input line 289.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `fig:preintUncertainty' on page 7 undefined on input l
-ine 287.
-
+ine 280.
+(pdftex.def)             Requested size: 416.86728pt x 170.71652pt.
 
 <figures/Inertial-delta_covariance_evolution.png, id=44, 323.70938pt x 203.2593
 7pt>
 File: figures/Inertial-delta_covariance_evolution.png Graphic file (type png)
  <use figures/Inertial-delta_covariance_evolution.png>
 Package pdftex.def Info: figures/Inertial-delta_covariance_evolution.png used o
-n input line 290.
+n input line 288.
 (pdftex.def)             Requested size: 317.20833pt x 199.16928pt.
 
 
@@ -785,37 +768,26 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/Pre-
 integration_block-flow.png>]
-Overfull \vbox (39.09666pt too high) has occurred while \output is active []
+Overfull \vbox (38.9633pt too high) has occurred while \output is active []
 
 
 [8 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/Iner
 tial-delta_covariance_evolution.png>] [9] [10]
-
-LaTeX Warning: Reference `tab:idJ' on page 11 undefined on input line 437.
-
 <figures/SimuNpose_simData.jpg, id=69, 527.72156pt x 396.7322pt>
 File: figures/SimuNpose_simData.jpg Graphic file (type jpg)
 
 <use figures/SimuNpose_simData.jpg>
-Package pdftex.def Info: figures/SimuNpose_simData.jpg used on input line 444.
+Package pdftex.def Info: figures/SimuNpose_simData.jpg used on input line 447.
 (pdftex.def)             Requested size: 389.83144pt x 293.06346pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Package caption Warning: \label without proper reference on input line 443.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `fig:simuNpose' on page 11 undefined on input line 469
-.
-
 <figures/simuNpose_error.png, id=70, 526.96875pt x 395.22656pt>
 File: figures/simuNpose_error.png Graphic file (type png)
 
 <use figures/simuNpose_error.png>
-Package pdftex.def Info: figures/simuNpose_error.png used on input line 477.
+Package pdftex.def Info: figures/simuNpose_error.png used on input line 481.
 (pdftex.def)             Requested size: 189.68448pt x 142.26378pt.
 
 <Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=71, 1927.2pt x 943.525pt>
@@ -823,23 +795,23 @@ File: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg Graphic file (type jpg)
 
 <use Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>
 Package pdftex.def Info: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg used on i
-nput line 478.
+nput line 482.
 (pdftex.def)             Requested size: 290.56728pt x 142.26378pt.
 
-Overfull \hbox (14.86444pt too wide) in paragraph at lines 476--479
+Overfull \hbox (14.86444pt too wide) in paragraph at lines 480--483
  [] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 486.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 490.
 
 (D:\bin\MikTex2.9\tex\latex\lm\omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 486.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 490.
  [11] [12 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figur
 es/SimuNpose_simData.jpg>] [13 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/d
 oc/liyang_notes/figures/simuNpose_error.png (PNG copy)> <D:/work/SLAM/Inertial_
@@ -850,38 +822,34 @@ VIN.bbl)
 AED: lastpage setting LastPage
 [17]
 (D:\work\SLAM\Inertial_SLAM\InertialDelta_SLAM\doc\liyang_notes\PreIntegration_
-VIN.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+VIN.aux) ) 
 Here is how much of TeX's memory you used:
- 6176 strings out of 493921
- 85615 string characters out of 3151690
- 174746 words of memory out of 3000000
- 9301 multiletter control sequences out of 15000+200000
+ 6174 strings out of 493921
+ 85594 string characters out of 3151690
+ 174562 words of memory out of 3000000
+ 9299 multiletter control sequences out of 15000+200000
  89532 words of font info for 97 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,17n,43p,798b,579s stack positions out of 5000i,500n,10000p,200000b,50000s
-{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm-ec.enc}{D:/bin/MikTex2.9/fonts/enc/dv
-ips/lm/lm-mathit.enc}{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm-rm.enc}{D:/bin/Mik
-Tex2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm
--mathex.enc}<D:/bin/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><D:/bi
-n/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/bin/MikTex2.9/fonts/t
-ype1/public/amsfonts/cm/cmmib10.pfb><D:/bin/MikTex2.9/fonts/type1/public/amsfon
-ts/cmextra/cmmib8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbsy10.pfb><D:/b
-in/MikTex2.9/fonts/type1/public/lm/lmbx10.pfb><D:/bin/MikTex2.9/fonts/type1/pub
-lic/lm/lmbx12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbx8.pfb><D:/bin/Mik
-Tex2.9/fonts/type1/public/lm/lmex10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
-/lmmi12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmi6.pfb><D:/bin/MikTex2.9
-/fonts/type1/public/lm/lmmi8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmib1
-0.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr10.pfb><D:/bin/MikTex2.9/fonts
-/type1/public/lm/lmr12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr17.pfb><D
-:/bin/MikTex2.9/fonts/type1/public/lm/lmr6.pfb><D:/bin/MikTex2.9/fonts/type1/pu
-blic/lm/lmr8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmri12.pfb><D:/bin/Mik
-Tex2.9/fonts/type1/public/lm/lmsy10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
-/lmsy8.pfb>
-Output written on PreIntegration_VIN.pdf (17 pages, 725249 bytes).
+{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm-ec.enc}{D:/bin/MikTex2.9/font
+s/enc/dvips/lm/lm-mathit.enc}{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm-rm.enc}{D:
+/bin/MikTex2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/bin/MikTex2.9/fonts/enc/dvi
+ps/lm/lm-mathex.enc}<D:/bin/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pf
+b><D:/bin/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/bin/MikTex2.9
+/fonts/type1/public/amsfonts/cm/cmmib10.pfb><D:/bin/MikTex2.9/fonts/type1/publi
+c/amsfonts/cmextra/cmmib8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbsy10.p
+fb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbx10.pfb><D:/bin/MikTex2.9/fonts/t
+ype1/public/lm/lmbx12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbx8.pfb><D:
+/bin/MikTex2.9/fonts/type1/public/lm/lmex10.pfb><D:/bin/MikTex2.9/fonts/type1/p
+ublic/lm/lmmi12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmi6.pfb><D:/bin/M
+ikTex2.9/fonts/type1/public/lm/lmmi8.pfb><D:/bin/MikTex2.9/fonts/type1/public/l
+m/lmmib10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr10.pfb><D:/bin/MikTex2
+.9/fonts/type1/public/lm/lmr12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr1
+7.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr6.pfb><D:/bin/MikTex2.9/fonts/
+type1/public/lm/lmr8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmri12.pfb><D:
+/bin/MikTex2.9/fonts/type1/public/lm/lmsy10.pfb><D:/bin/MikTex2.9/fonts/type1/p
+ublic/lm/lmsy8.pfb>
+Output written on PreIntegration_VIN.pdf (17 pages, 733217 bytes).
 PDF statistics:
  167 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
