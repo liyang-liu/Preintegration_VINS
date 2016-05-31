@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  31 MAY 2016 12:37
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  31 MAY 2016 12:57
 entering extended mode
 **PreIntegration_VIN.tex
 
@@ -695,12 +695,12 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2] <figures/VIN_block-diagram.png, id=14, 1262.46657pt x 382.42876pt>
+[2] <figures/VIN_block-diagram.png, id=14, 807.9786pt x 244.7544pt>
 File: figures/VIN_block-diagram.png Graphic file (type png)
 
 <use figures/VIN_block-diagram.png>
 Package pdftex.def Info: figures/VIN_block-diagram.png used on input line 129.
-(pdftex.def)             Requested size: 469.62886pt x 142.26378pt.
+(pdftex.def)             Requested size: 469.63889pt x 142.26378pt.
  [3 <D:/work/SLAM/Inertial_SLAM/InertialDelta_SLAM/doc/liyang_notes/figures/VIN
 _block-diagram.png>]
 Overfull \hbox (49.53033pt too wide) in paragraph at lines 162--162
@@ -881,7 +881,7 @@ Tex2.9/fonts/type1/public/lm/lmex10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
 blic/lm/lmr8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmri12.pfb><D:/bin/Mik
 Tex2.9/fonts/type1/public/lm/lmsy10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
 /lmsy8.pfb>
-Output written on PreIntegration_VIN.pdf (17 pages, 725225 bytes).
+Output written on PreIntegration_VIN.pdf (17 pages, 725249 bytes).
 PDF statistics:
  167 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
