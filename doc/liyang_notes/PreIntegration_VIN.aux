@@ -1,7 +1,7 @@
 \relax 
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{3}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:vin}{{\caption@xref {fig:vin}{ on input line 126}}{3}}
+\newlabel{fig:vin}{{\caption@xref {fig:vin}{ on input line 128}}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces VIN SLAM\relax }}{3}}
 \@writefile{toc}{\contentsline {paragraph}{States}{3}}
 \@writefile{toc}{\contentsline {paragraph}{Sensor data}{3}}
@@ -19,46 +19,49 @@
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces The Pre-integration Method Based on Inertial Raw Data\relax }}{5}}
 \newlabel{algm:preint}{{1}{5}}
 \@writefile{toc}{\contentsline {paragraph}{Observation vector}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Bias-correction}{5}}
+\@writefile{toc}{\contentsline {paragraph}{Motion from Inertial Delta}{5}}
+\newlabel{fig:preint}{{\caption@xref {fig:preint}{ on input line 222}}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Motion model using inertial delta\relax }}{5}}
+\newlabel{fig:motionModel_idt}{{3}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Bias-correction}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Modified process model for Inertial-delta + Bias}{6}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces The Pre-integration Method Based on Inertial Raw Data\relax }}{6}}
 \newlabel{algm:preintBias}{{2}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Inertial delta $\Sigma $ and Jacobian for Bias}{6}}
-\newlabel{fig:preint}{{\caption@xref {fig:preint}{ on input line 266}}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Pre-Integration\relax }}{7}}
-\newlabel{fig:preintBlock}{{3}{7}}
-\newlabel{fig:preintUncertainty}{{\caption@xref {fig:preintUncertainty}{ on input line 275}}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Evolution of uncertainty during Pre-Integration\relax }}{7}}
-\newlabel{eq:IJB}{{7}{7}}
-\citation{multipleViewGeometry}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Inertial delta $\Sigma $ and Jacobian for Bias}{7}}
+\newlabel{fig:preintBlock}{{\caption@xref {fig:preintBlock}{ on input line 281}}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pre-Integration\relax }}{7}}
+\newlabel{eq:IJB}{{8}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Pre-Integration observation model}{7}}
+\newlabel{fig:preintUncertainty}{{\caption@xref {fig:preintUncertainty}{ on input line 289}}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Evolution of uncertainty during Pre-Integration\relax }}{8}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces The Covariance Matrix for the Pre-integration Method\relax }}{8}}
 \newlabel{algm:preint_cov}{{3}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Pre-Integration observation model}{8}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Feature observation model}{8}}
-\newlabel{formu:pij}{{11}{9}}
-\newlabel{formu:uij}{{12}{9}}
-\newlabel{formu:vij}{{13}{9}}
-\newlabel{formu:dij}{{14}{9}}
+\citation{multipleViewGeometry}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}Feature observation model}{9}}
+\newlabel{formu:pij}{{12}{9}}
+\newlabel{formu:uij}{{13}{9}}
+\newlabel{formu:vij}{{14}{9}}
+\newlabel{formu:dij}{{15}{9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.2}Complete observation model}{9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Jacobian of Inertial Delta to X}{9}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Bias Jacobian}{10}}
+\citation{Manifold2015}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Bias Jacobian}{11}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Experimental results}{11}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Comparison of Naive VIN vs Pre-Integration}{11}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Caption for the table.\relax }}{11}}
-\newlabel{tab:table1}{{1}{11}}
-\newlabel{fig:simuNpose}{{\caption@xref {fig:simuNpose}{ on input line 449}}{11}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces SimuNpose Naive vs Preintegration VIN\relax }}{11}}
-\citation{Manifold2015}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Incremental implementation of Pre-Integration}{11}}
 \citation{Parallax2015}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Incremental implementation of Pre-Integration}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \emph  {a}) One off initialization , \emph  {b}) Incremental initialization \relax }}{12}}
-\newlabel{fig:VIN sensor information}{{6}{12}}
+\newlabel{fig:simuNpose}{{\caption@xref {fig:simuNpose}{ on input line 443}}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces SimuNpose Naive vs Preintegration VIN\relax }}{12}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Caption for the table.\relax }}{12}}
+\newlabel{tab:table1}{{1}{12}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Future improvements}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \emph  {a}) One off initialization , \emph  {b}) Incremental initialization \relax }}{13}}
+\newlabel{fig:preint_init}{{7}{13}}
 \@writefile{toc}{\contentsline {section}{\numberline {A}Rotation representation -- Euler angles}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Rotation matrix}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Rotation Rate Matrix}{13}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Camera frame to Global transform}{13}}
-\@writefile{toc}{\contentsline {section}{\numberline {B}Naive VIN}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Naive VIN}{14}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {B.0.1}Jacobian Matrix}{14}}
 \bibstyle{unsrtnat}
 \bibdata{vins}

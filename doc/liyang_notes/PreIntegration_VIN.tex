@@ -30,7 +30,9 @@
 \usepackage[algo2e]{algorithm2e}
 \usepackage{appendix}
 \usepackage{bm}
-
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % load a font with all the characters
 %------------------------- Customized Header --------------------------------------------------------
 \fancyhead{}
 \fancyfoot{}			
@@ -188,7 +190,7 @@ Todd Lupton proposed the Preintegration method in 2012 \cite{Lupton2012}: integr
 	\caption{The Pre-integration Method Based on Inertial Raw Data}
 	\label{algm:preint}		
 	\begin{algorithmic}
-	\STATE Inertial-delta observation = $\begin{bmatrix} \triangle \textbf{p}_{t}^+ \\ \triangle \textbf{v}_{t} \\ \triangle \textbf{A} _{t} \end{bmatrix}$, initially set to $\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$
+	\STATE Inertial-delta observation $ \triangle \bm{\mathrm{I}} = \begin{bmatrix} \triangle \textbf{p}_{t}^+ \\ \triangle \textbf{v}_{t} \\ \triangle \textbf{A} _{t} \end{bmatrix}$, initially set to $\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$
 		\FOR{$t_1 < t < t_2$}
 		\STATE $\triangle t =  t_{t+1} - t_t$ 
 		\STATE $\textbf{f}_t^{bt1} = R_{bt}^{bt1} (\textbf{f}_t^b - \textbf{b}_f)$ 
@@ -214,8 +216,17 @@ $d\textbf{A}_{i} = (d\alpha_{i}, d\beta_{i}, d\gamma_{i}) $.
 $$\textbf{z} = (\overbrace{\textbf{uvd}_{1}, ... , \textbf{uvd}_{N}, ..., \textbf{uvd}_{1N}, ... , \textbf{uvd}_{MN}}^{M \times N \times 3}, \overbrace{d\textbf{p}_2, d\textbf{v}_2, d\textbf{A}_2, ..., d\textbf{p}_N, d\textbf{v}_N, d\textbf{A}_N}^{(N - 1) \times 9})' $$
 where $\textbf{uvd}_{ij} = (u_{ij}, v_{ij}, d_{ij})$ represents the image of the $i$th feature point  at the $j$th camera pose.
 
+\paragraph{Motion from Inertial Delta}
+Relationship between robot motion state to inertial delta can be found in figure \ref{fig:motionModel_idt}
+\begin{figure}[h!]
+	\label{fig:preint}
+	\includegraphics[height=3.5cm]{figures/motion_model_with_preint.png}
+	\caption{Motion model using inertial delta}
+	\label{fig:motionModel_idt}
+\end{figure}
+
 \subsection{Bias-correction}
-Algorithm \ref{algm:preint} gives the pre-integration process model, it is therefore possible to compute is uncertainty from that of IMU measurements. Also, the IMU readings contain biase values, so do not reflect the true motion's angular rate and acceleration. This is tackled in two steps. We first assume $\bm{b}$ is known. Now let the difference between true bias and observed bias be $\delta \bm{b} = \bm{b}^{obs} - \bm{b}^{est}$, use first order expansion to get inertial delta's modified observation function.
+Algorithm \ref{algm:preint} gives the pre-integration process model, it is therefore possible to compute is uncertainty from that of IMU measurements. Also, the IMU readings contain biase values, so do not reflect the true motion's angular rate and acceleration. This is tackled in two steps. We first assume $\bm{b}$ is known. Now let the difference between true bias and observed bias be $\delta \bm{b} = \bm{b}^{est} - \bm{b}^{obs}$, use first order expansion to get inertial delta's modified observation function.
 \begin{align}
 \triangle \bm{p}^+(\bm{b}^{obs}) &=& \triangle \bm{p}^+(\bm{b}^{est})& &- & &\frac{\partial {\triangle \bm{p}^+(\bm{b}^{obs})}}{\partial \bm{b}}  *&\delta \bm{b} \\
 \triangle \bm{v}(\bm{b}^{obs}) &=& \triangle \bm{v}(\bm{b}^{est})& &- & & \frac{\partial {\triangle \bm{v}(\bm{b}^{obs})}}{\partial \bm{b}}*& \delta \bm{b} \\
@@ -230,7 +241,7 @@ To analyze the unknown bias term, a new process model is formed using Algorithm 
 	\caption{The Pre-integration Method Based on Inertial Raw Data}
 	\label{algm:preintBias}		
 	\begin{algorithmic}
-		\STATE Inertial-delta observation = $\begin{bmatrix} 
+		\STATE Inertial-delta observation $ \triangle \bm{\mathrm{I}} = \begin{bmatrix} 
 		\triangle \textbf{p}_{t}^+ \\
 		\triangle \textbf{v}_{t} \\
 		\triangle \textbf{A} _{t} \\
@@ -261,16 +272,19 @@ We will need Jacobian of this modified process to its process vector to account 
 
 
 \subsection{Inertial delta $\Sigma$ and Jacobian for Bias}
-Now, it should be easy to compute inertial delta's uncertainty and Jacobian recursively based on definition of discrete integration process, see Figure \ref{fig:preintBlock}.
+Now, it should be easy to compute inertial delta's uncertainty and Jacobian recursively based on definition of discrete integration process, see Figure \ref{fig:preintBlock}. 
+\begin{equation}
+\triangle {\bm{I}}_k = \bm{f}( \bm{\triangle I_{k-1}}) + \bm{w}_k
+\end{equation}
+
 \begin{figure}[h!]
-	\label{fig:preint}
+	\label{fig:preintBlock}
 	\includegraphics[height=6cm]{figures/Pre-integration_block-flow.png}
 	\caption{Pre-Integration}
-	\label{fig:preintBlock}
 \end{figure}
 
 The algorithm \ref{algm:preint} is modified to include $\bm{b}$ as part of process vector, as shown in Algorithm \ref{algm:preintBias}. The integration process is recursive, therefore the inertial delta's uncertainty $\Sigma$ and Jacobian $J$ (now against both inertial delta and Bias terms ) are computed recursively, starting from zero uncertainty and unity gain at the beginning. This process is listed in algorithm \ref{algm:preint_cov}. \\
-In each discrete summation step, state covariance $\Sigma_t$ is related to the uncertainty at $t-1$ $\Sigma_t$ (Fig \ref{fig:preintUncertainty})and current measurement noise by $F_t$ and $G_t$, where $F_t$ and $G_t$ are the Jacobians of the state transition function w.r.t the state vector inertial delta and the noise input $\mathrm{\bm{\eta}_k}$ respectively.
+In each discrete summation step, state covariance $\Sigma_t$ is related to the uncertainty $\Sigma_t$ at time $t-1$ (Fig \ref{fig:preintUncertainty})and current measurement noise by $F_t$ and $G_t$, where $F_t$ and $G_t$ are the Jacobians of the state transition function w.r.t the state vector inertial delta and the noise input $\mathrm{\bm{\eta}_k}$ respectively.
 \begin{figure}[h!]
 	\label{fig:preintUncertainty}
 	\includegraphics[height=7cm]{figures/Inertial-delta_covariance_evolution.png}
@@ -424,6 +438,13 @@ Table \ref{tab:idJ} shows the contents of inertial delta Jacobian. We will borro
 
 \section{Experimental results}
 \subsection{Comparison of Naive VIN vs Pre-Integration}
+
+\begin{figure}[ht!]
+	\label{fig:simuNpose}
+	\includegraphics[height=10.3cm]{figures/SimuNpose_simData.jpg}
+	\caption{SimuNpose Naive vs Preintegration VIN}
+\end{figure}
+
 A matlab routine $Main\_simuNpose.m$ was prepared to simulate VIN system and evaluate the performance of VIN with and without Pre-Integration.
 Table \ref{tab:table1} shows performance results of Naive VIN vs Pre-integration. The later is much more efficient.
 \begin{table}[h!]
@@ -444,16 +465,12 @@ Table \ref{tab:table1} shows performance results of Naive VIN vs Pre-integration
 	\end{tabular}
 \end{table}
 
-A simulation run of Pre-integration is shown in Figure \ref{fig:simuNpose}. \\
-\begin{figure}[ht]
-	\label{fig:simuNpose}
-	\includegraphics[height=10.3cm]{figures/SimuNpose_simData.jpg}
-	\caption{SimuNpose Naive vs Preintegration VIN}
-\end{figure}
+
+A simulation run of Pre-integration is shown in Figure \ref{fig:simuNpose}. 
 
 
 \subsection{Incremental implementation of Pre-Integration}
-Direct initialization may lead to errors for long tests. This problem is solved by incremental introduction of new camera poses. Starting with limited number of frames, obtain optimized robot poses and features. Now introduce new observation, using previously obtained values as initial guess in new optimization, expand state vectors if necessary. Repeat process until all observations are covered. A matlab routine $Main\_inc.m$ was developed to simulate the process, see Fig \ref{fig:VIN sensor information} for illustration. Note: this is in effect similar to iSam2.
+Direct initialization may lead to errors for long tests. This is probably due to non-linearity in transforming from pre-integrated inertial back to global frame, see figure \ref{fig:motionModel_idt}. The problem is solved by incremental introduction of new camera poses. Starting with limited number of frames, obtain optimized robot poses and features. Now introduce new observation, using previously obtained values as initial guess in new optimization, expand state vectors if necessary. Repeat process until all observations are covered. A matlab routine $Main\_inc.m$ was developed to simulate the process, see Fig \ref{fig:preint_init} for illustration. Note: this is in effect similar to iSam2.
 
 	\begin{figure}[h!]
 		\begin{center}\begin{tabular}{cc}
@@ -461,7 +478,7 @@ Direct initialization may lead to errors for long tests. This problem is solved 
 				\includegraphics[height=5cm]{Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg}\\				
 			\end{tabular}\end{center}
 			\caption{\emph{a}) One off initialization , \emph{b}) Incremental initialization } 
-			\label{fig:VIN sensor information}
+			\label{fig:preint_init}
 	\end{figure} 
 
 \subsection{Future improvements}
