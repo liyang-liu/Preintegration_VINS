@@ -39,7 +39,7 @@ function [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru
         for frm = 1:nFrames
             %	[gns] = fn_GenGaussNoise(1, nc, [1;1;0.01]);
             %   uvd_cell{frm} = uvd_cell{frm} + gns;  
-            if PreIntegration_options.bUseNoisyData == 1
+            if PreIntegration_options.bUseNoisySensor == 1
                 [gns] = fn_GenGaussNoise(2, nc, SLAM_Params.sigma_uov_real);
                 uvd_cell{frm}(1:2,:) = uvd_cell{frm}(1:2,:) + gns;
             end
@@ -51,13 +51,13 @@ function [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru
                 FeatureObs(f).obsv(nObs).uv = (uvd_cell{frm}(1:2, f))';
             end
             % this is to do with RGB-D cameras, depth value doesn't bother us
-            if PreIntegration_options.bUseNoisyData == 1
+            if PreIntegration_options.bUseNoisySensor == 1
                 [gns] = fn_GenGaussNoise(1, nc, SLAM_Params.sigma_d_real);
                 uvd_cell{frm}(3,:) = uvd_cell{frm}(3,:) + gns;            
             end
         end
         
-        if PreIntegration_options.bUseNoisyData == 1        
+        if PreIntegration_options.bUseNoisySensor == 1        
             % Add noise to imu data        
             [gns] = fn_GenGaussNoise(3, 1, SLAM_Params.sigma_bf_real);
             SLAM_Params.bf0 = SLAM_Params.bf0 + gns; %fbiascef*sigmaf;
@@ -68,7 +68,7 @@ function [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru
         imuData_cell = noisefree_imuData_cell;
         [nr,nc] = size(imuData_cell{2}.samples(:, 2:4));
         for frm=2:nFrames
-            if PreIntegration_options.bUseNoisyData == 1
+            if PreIntegration_options.bUseNoisySensor == 1
                 [gns] = fn_GenGaussNoise(nr, nc, SLAM_Params.sigma_w_real);
                 imuData_cell{frm}.samples(:, 2:4) = ...
                     imuData_cell{frm}.samples(:, 2:4) + gns;

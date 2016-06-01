@@ -27,7 +27,7 @@ if(PreIntegration_options.bSimData == 1)
     % Add noise to the observation vector z
     %bZnoise = 1;%fZnoisescale = 1;%6;%1e2;%12; % bXnoise = 1;
     fXnoisescale                = 0;%1e-6;%1e-2;%1e0;%5e-2;%3e-2        
-    nIMUrate                    = 5e2;% IMU data rate
+    nIMUrate                    = 1e2;% IMU data rate
     SLAM_Params.sigma_w_real    = 0;%0.03; 
     SLAM_Params.sigma_f_real    = 0;%0.2;%    
     SLAM_Params.sigma_w_cov     = 1;%2*sigma_w_real;%1e-3; 
@@ -67,6 +67,8 @@ if(PreIntegration_options.bSimData == 1)
     SLAM_Params.fLowerbound_e           = 1e-10;%1e-6;%1e-5;%1e-1;
     SLAM_Params.fLowerbound_dx          = 1e-10;%1e-6;%
     SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
+    
+    SLAM_Params.fXnoisescale            = 0;
 end
 
 

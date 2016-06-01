@@ -203,7 +203,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
                 nr = 6*nIMUrate*(nFrames - 1);
             end
         end
-        [gns] = fn_GenGaussNoise(nr, nc, fXnoisescale);
+        [gns] = fn_GenGaussNoise(nr, nc, SLAM_Params.fXnoisescale);
         [X_obj.pose(:).ang.val] = [X_obj.pose(:).ang.val] + {gns(1:3:end)};
         [X_obj.pose(:).trans.xyz] = [X_obj.pose(:).trans.xyz] + {gns(4:3:end)};
         

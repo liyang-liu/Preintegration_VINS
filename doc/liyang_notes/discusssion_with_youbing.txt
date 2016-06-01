@@ -1,0 +1,14 @@
+Preintegration 
+何时好用，何时不好用
+
+不好用时
+匀速运动时不好，就区分不出是noise 还是运动
+baise 和noise 分不清
+
+在simulate 情况下，用fixed biase 生成数据， 优化时用variable 和 in-variable biase 影响不大，说明算法正确
+
+用variable biase 生成数据, biase 高斯分布。 优化时用variable biase 结果还行，说明算法正确
+注意，需用大的variance高斯分布，即biase跳动幅度较大，看看simulation 结果。
+
+
+
