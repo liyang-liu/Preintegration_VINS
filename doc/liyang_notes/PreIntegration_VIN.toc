@@ -28,5 +28,5 @@
 \contentsline {section}{\numberline {B}Preintegration VIN Jacobian}{12}
 \contentsline {subsection}{\numberline {B.1}Jacobian of Inertial Delta to X}{12}
 \contentsline {section}{\numberline {C}Naive VIN}{14}
-\contentsline {subsubsection}{\numberline {C.0.1}Jacobian Matrix}{15}
+\contentsline {subsection}{\numberline {C.1}Jacobian Matrix}{15}
 \contentsline {section}{\numberline {5}Bibliography}{17}

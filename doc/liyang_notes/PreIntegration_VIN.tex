@@ -111,7 +111,7 @@
 \maketitle
 
 \begin{abstract}
-This document is a report on Visual Inertial SLAM using an efficient method of IMU pre-integration. The pre-integration method combines many IMU data as a single observation before fusion with camera images, resulting in a much reduced state and observation graph structure. An accurate map and robot path is hence obtainable in real-time. We present the pre-integration theory, including formulation of state, observation, covariance, observation model and Jacobians. We provide an implementation, obtained results of VIN SLAM with and without pre-integration. We also include a discussion of various methods of initialization along with their impact on linearization of the original problem. Based on our experimental results, we propose future research plans.
+This document is a report on Visual Inertial SLAM using an efficient method of IMU pre-integration. The pre-integration method combines many IMU data as a single observation before fusion with camera images, resulting in a much reduced state and observation graph structure. An accurate map and robot path is hence obtainable in real-time. We present the pre-integration theory, including formulation of motion state, observation, uncertainty, observation model and the Jacobians. We provide an implementation, obtained results of VIN SLAM with and without pre-integration. We also include a discussion of various initialization setups along with their impact on linearization of the original problem. Based on our experimental results, we propose future research plans.
 \end{abstract}
 
 \newpage
@@ -166,9 +166,9 @@ The Observation vector $\textbf{Z}$ is defined as:
 
 \begin{align}
 \textbf{z}_{raw} &= (\textbf{z}_{camera}, \textbf{z}_{IMUraw}, \textbf{z}_{Tv})' \nonumber \\
-=& (\overbrace{\textbf{uv}_{11}, \textbf{uv}_{21}, ... , \textbf{uv}_{M1}, ..., \textbf{uv}_{1N}, \textbf{uv}_{2N}, ... , \textbf{uv}_{MN}}^{M \times N \times 2}, \nonumber \\ 
-& \overbrace{\omega\textbf{f}_{01}, \omega\textbf{f}_{11}, ... , \omega\textbf{f}_{(K-1)1}, ..., \omega\textbf{f}_{0(N-1)}, \omega\textbf{f}_{1(N-1)}, ... , \omega\textbf{f}_{(K-1)(N-1)}}^{K \times (N-1) \times 6}, \\
-& \overbrace{\textbf{0}, \textbf{0}, ... , \textbf{0}}^{K \times (N-1) \times 3})' 
+=& (\overbrace{\textbf{uv}_{11}, \textbf{uv}_{21}, ... , \textbf{uv}_{M1}, ..., \textbf{uv}_{1N}, \textbf{uv}_{2N}, ... , \textbf{uv}_{MN}}^{M \times N \ {\mathrm{pixels}}}, \nonumber \\ 
+& \overbrace{\omega\textbf{f}_{01}, \omega\textbf{f}_{11}, ... , \omega\textbf{f}_{(K-1)1}, ..., \omega\textbf{f}_{0(N-1)}, \omega\textbf{f}_{1(N-1)}, ... , \omega\textbf{f}_{(K-1)(N-1)}}^{K \times (N-1) \ {\mathrm{IMU \ readings}}}, \\
+& \overbrace{\textbf{0}, \textbf{0}, ... , \textbf{0}}^{K \times (N-1)  \ {\mathrm{ zero \ contraints}}})' 
 \end{align}
 
 See Appendix \ref{apn:naiveVin} for details on Naive VIN motion model and optimization details.
@@ -204,7 +204,7 @@ The navigation frame within the Preintegration framework is defined as the body 
 \end{algorithm}
 
 \paragraph{State Vector} $\textbf{X}_{prn}$ is defined as:
-$$\textbf{X}_{prn} = (\overbrace{\textbf{A}^u_2, \textbf{p}^u_{2}, ... , \textbf{A}^u_{N}, \textbf{p}^u_{N}}^{(N - 1) \ {\mathrm{ poses}}}, \overbrace{\textbf{F}_{1}, ..., \textbf{F}_{M}}^{M  \ {\mathrm{ features}}}, \overbrace{\textbf{v}_1, ..., \textbf{v}_{N}}^{N  \ {\mathrm{ velocities}}},  \textbf{g}^{\mathrm{n}}, \textbf{A}_{u2c}, \textbf{T}_{u2c}, \textbf{b}_f, \textbf{b}_w)' $$
+$$\textbf{X}_{prn} = (\overbrace{\textbf{A}^u_2, \textbf{p}^u_{2}, ... , \textbf{A}^u_{N}, \textbf{p}^u_{N}}^{N - 1 \ {\mathrm{ poses}}}, \overbrace{\textbf{F}_{1}, ..., \textbf{F}_{M}}^{M  \ {\mathrm{features}}}, \overbrace{\textbf{v}_1, ..., \textbf{v}_{N}}^{N \ {\mathrm{velocities}}},  \textbf{g}^{\mathrm{n}}, \textbf{A}_{u2c}, \textbf{T}_{u2c}, \textbf{b}_f, \textbf{b}_w)' $$
 where
 $\textbf{A}^u_i = (\alpha^u_i, \beta^u_i, \gamma^u_i)$,
 $\textbf{p}^u_i = (x^u_i, y^u_i, z^u_i) $,
@@ -215,18 +215,18 @@ $d\textbf{A}_{i} = (d\alpha_{i}, d\beta_{i}, d\gamma_{i}) $.
 
 \paragraph{Observation vector} becomes:
 
-$$\textbf{Z}_{prn} = (\overbrace{\textbf{uv}_{1}, ... , \textbf{uv}_{N}, ..., \textbf{uv}_{1N}, ... , \textbf{uv}_{MN}}^{M \times N \times 3}, \overbrace{d\textbf{p}_2, d\textbf{v}_2, d\textbf{A}_2, ..., d\textbf{p}_N, d\textbf{v}_N, d\textbf{A}_N}^{(N - 1) \times 9})' $$
+$$\textbf{Z}_{prn} = (\overbrace{\textbf{uv}_{1}, ... , \textbf{uv}_{N}, ..., \textbf{uv}_{1N}, ... , \textbf{uv}_{MN}}^{M \times N  \ {\mathrm{pixels}}}, \overbrace{\triangle \textbf{p}^+_2, \triangle  \textbf{v}_2, \triangle \textbf{A}_2, ..., \triangle  \textbf{p}^+_N, \triangle \textbf{v}_N, \triangle  \textbf{A}_N}^{N - 1 \ {\mathrm{inertialDeltas}}})' $$
 where $\textbf{uv}_{ij} = (u_{ij}, v_{ij})$ represents the image of the $i$th feature point  at the $j$th camera pose.
 
 \paragraph{Motion from Inertial Delta}
-Relationship between robot motion state to inertial delta is shown in Equations \ref{eq:Idt2X_orig_1} - \ref{eq:Idt2X_orig_3}
+Relationship between robot motion state to inertial delta is shown in Equations (\ref{eq:Idt2X_orig_1} - \ref{eq:Idt2X_orig_3})
 \begin{align}
-\bm{p}^{\mathrm{n}}_{t2} =& \bm{p}^{\mathrm{n}}_{t1} + (t2 - t1) \bm{v}^{\mathrm{n}}_{t1} + 
+\bm{p}^{\mathrm{n}}_{t2} = & \bm{p}^{\mathrm{n}}_{t1} + (t2 - t1) \bm{v}^{\mathrm{n}}_{t1} + 
 \frac{1}{2} (t2 - t1 )^2 \bm{g}^{\mathrm{n}} + R^{\mathrm{n}}_{bt1} \triangle {\bm{p}^{t1}_{t2}}^+ 
 \label{eq:Idt2X_orig_1}\\
-\bm{v}^{\mathrm{n}}_{t2} =& \bm{v}^{\mathrm{n}}_{t1} + (t2 - t1 ) \bm{g}^{\mathrm{n}} + R^{\mathrm{n}}_{bt1} \triangle \bm{v}^{t1}_{t2} 
+\bm{v}^{\mathrm{n}}_{t2} = & \bm{v}^{\mathrm{n}}_{t1} + (t2 - t1 ) \bm{g}^{\mathrm{n}} + R^{\mathrm{n}}_{bt1} \triangle \bm{v}^{t1}_{t2} 
 \label{eq:Idt2X_orig_2}\\
-\bm{A}^{\mathrm{n}}_{t2} =& EulerFromDCM( R^{\mathrm{n}}_{bt1} \triangle R^{\mathrm{bt1}}_{bt2} )
+\bm{A}^{\mathrm{n}}_{t2} = & EulerFromDCM( R^{\mathrm{n}}_{bt1} \triangle R^{\mathrm{bt1}}_{bt2} )
 \label{eq:Idt2X_orig_3}
 \end{align}
 
@@ -239,12 +239,12 @@ To analyze the effect of the unknown bias term on Inertial Delta, we come up wit
 	\caption{The Pre-integration Method Based on Inertial Raw Data}
 	\label{algm:preintBias}		
 	\begin{algorithmic}
-		\STATE Inertial-delta observation $ \triangle \bm{\mathrm{I}} = \begin{bmatrix} 
+		\STATE Extended Inertial-delta observation $ \triangle \bm{\mathrm{I}}^+ = \begin{bmatrix} 
 		\triangle \textbf{p}_{t}^+ \\
 		\triangle \textbf{v}_{t} \\
 		\triangle \textbf{A} _{t} \\
-		\textbf{b}_a^{obs} \\
-		\textbf{b}_{\omega}^{obs}
+		\textbf{b}_f \\
+		\textbf{b}_{\omega}
 		\end{bmatrix}$, initially set to $\begin{bmatrix} 
 		0 \\ 
 		0 \\ 
@@ -257,12 +257,12 @@ To analyze the effect of the unknown bias term on Inertial Delta, we come up wit
 		%\end{flalign*}
 		\FOR{$t_1 < t < t_2$}
 		\STATE $\triangle t =  t_{t+1} - t_t$ 
-		\STATE $\textbf{f}_t^{bt1} = R_{bt}^{bt1} (\textbf{f}_t^b - \textbf{b}_f^{obs}) = R_{bt}^{bt1} (\textbf{f}_t^b - \textbf{b}_f^{est} + \delta \bm{b}_f)$ 
-		\STATE $\triangle \textbf{v}_{t+1} = \triangle \textbf{v}_{t} + \textbf{f}_t^{bt1} \triangle t$ 
+		\STATE $\textbf{f}_t^{\mathrm{bt1}} = R_{\mathrm{bt}}^{\mathrm{bt1}} (\textbf{f}_t^{\mathrm{b}} - \textbf{b}_f)$ 
+		\STATE $\triangle \textbf{v}_{t+1} = \triangle \textbf{v}_{t} + \textbf{f}_t^{\mathrm{bt1}} \triangle t$ 
 		\STATE $\triangle \textbf{p}_{t+1}^+ = \triangle \textbf{p}_{t}^+ + \triangle \textbf{v}_t \triangle t$ 
-		\STATE $\triangle \textbf{A} _{t+1} = \triangle \textbf{A} _{t} + E_{bt}^{bt1} (\omega _t^b - \textbf{b}_\omega^{obs} ) \triangle t= \triangle \textbf{A} _{t} + E_{bt}^{bt1} (\omega _t^b - \textbf{b}_\omega^{est} +  \delta \bm{b}_{\omega}) \triangle t$ 
-		\STATE $\textbf{b}_f^{obs} = \textbf{b}_a^{est} - \delta \bm{b}_f$
-		\STATE $\textbf{b}_{\omega}^{obs} = \textbf{b}_{\omega}^{est} -  \delta \bm{b}_{\omega}$
+		\STATE $\triangle \textbf{A} _{t+1} = \triangle \textbf{A} _{t} + E_{\mathrm{bt}}^{\mathrm{bt1}} (\omega _t^{\mathrm{b}} - \textbf{b}_\omega ) \triangle t$ 
+		\STATE $\textbf{b}_f = \textbf{b}_f$
+		\STATE $\textbf{b}_{\omega} = \textbf{b}_{\omega}$
 		\ENDFOR
 	\end{algorithmic}
 \end{algorithm}
@@ -280,7 +280,7 @@ The algorithm \ref{algm:preint} is modified to include $\bm{b}$ as part of proce
 
 The integration process is recursive, therefore the inertial delta's uncertainty $\Sigma$ and Jacobian $J$ (now against both inertial delta and Bias terms ) are computed recursively, starting from zero uncertainty and unity gain at the beginning, as shown in equation below.
 \begin{equation}
-\triangle {\bm{I}}_k = \bm{f}( \bm{\triangle I_{k-1}}, \bm{f}^{\mathrm{b}}_{k}, \bm{\omega}^{\mathrm{b}}_{k})
+\triangle {\bm{I}}^+_k = \bm{f}( \bm{\triangle I^+_{k-1}}, \bm{f}^{\mathrm{b}}_{k}, \bm{\omega}^{\mathrm{b}}_{k})
 \end{equation}
 
 In each discrete summation step, state covariance $\Sigma_t$ is related to the uncertainty $\Sigma_t$ at time $t-1$ (Fig \ref{fig:preintUncertainty})and current measurement noise by $F_t$ and $G_t$, where $F_t$ and $G_t$ are the Jacobians of the state transition function w.r.t the state vector inertial delta and the noise input $\mathrm{\bm{\eta}_k}$ respectively.
@@ -573,7 +573,7 @@ H(\textbf{x}) &= (H_{camera}(\textbf{x}), H_{IMUraw}(\textbf{x}), H_{Tv}(\textbf
 & \overbrace{\textbf{p}_2 - \textbf{p}_{1} - \textbf{v}_{1} \triangle t, \textbf{p}_{3} - \textbf{p}_{2} - \textbf{v}_{2} \triangle t, ... , \textbf{p}_{(N-1)K+1} - \textbf{p}_{(N-1)K} - \textbf{v}_{(N-1)K} \triangle t}^{K \times (N-1) \times 3}) 
 \end{align}
 
-\subsubsection{Jacobian Matrix}
+\subsection{Jacobian Matrix}
 
 Based on the composition of $H(\textbf{x})$, the corresponding Jacobian matrix can be calculated. 
 

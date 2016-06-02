@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  1 JUN 2016 16:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.1.21)  2 JUN 2016 17:07
 entering extended mode
 **PreIntegration_VIN.tex
 
@@ -765,7 +765,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 365--368
 
  []
 
-[8] <figures/SimuNpose_simData.jpg, id=62, 527.72156pt x 396.7322pt>
+[8] <figures/SimuNpose_simData.jpg, id=63, 527.72156pt x 396.7322pt>
 File: figures/SimuNpose_simData.jpg Graphic file (type jpg)
 
 <use figures/SimuNpose_simData.jpg>
@@ -779,14 +779,14 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 LaTeX Warning: Reference `fig:motionModel_idt' on page 9 undefined on input lin
 e 434.
 
-[9] <figures/simuNpose_error.png, id=66, 526.96875pt x 395.22656pt>
+[9] <figures/simuNpose_error.png, id=67, 526.96875pt x 395.22656pt>
 File: figures/simuNpose_error.png Graphic file (type png)
 
 <use figures/simuNpose_error.png>
 Package pdftex.def Info: figures/simuNpose_error.png used on input line 438.
 (pdftex.def)             Requested size: 189.68448pt x 142.26378pt.
 
-<Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=67, 1927.2pt x 943.525pt>
+<Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg, id=68, 1927.2pt x 943.525pt>
 File: Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg Graphic file (type jpg)
 
 <use Figures/Final_pose-feature_3D_GT-vs-SLAM.jpg>
@@ -836,22 +836,22 @@ ips/lm/lm-mathit.enc}{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm-rm.enc}{D:/bin/Mik
 Tex2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{D:/bin/MikTex2.9/fonts/enc/dvips/lm/lm
 -mathex.enc}<D:/bin/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><D:/bi
 n/MikTex2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/bin/MikTex2.9/fonts/t
-ype1/public/amsfonts/cm/cmmib10.pfb><D:/bin/MikTex2.9/fonts/type1/public/amsfon
-ts/cmextra/cmmib8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbsy10.pfb><D:/b
-in/MikTex2.9/fonts/type1/public/lm/lmbx10.pfb><D:/bin/MikTex2.9/fonts/type1/pub
-lic/lm/lmbx12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbx8.pfb><D:/bin/Mik
-Tex2.9/fonts/type1/public/lm/lmex10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
-/lmmi12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmi6.pfb><D:/bin/MikTex2.9
-/fonts/type1/public/lm/lmmi8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmib1
-0.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr10.pfb><D:/bin/MikTex2.9/fonts
-/type1/public/lm/lmr12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr17.pfb><D
-:/bin/MikTex2.9/fonts/type1/public/lm/lmr6.pfb><D:/bin/MikTex2.9/fonts/type1/pu
-blic/lm/lmr8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmri12.pfb><D:/bin/Mik
-Tex2.9/fonts/type1/public/lm/lmsy10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm
-/lmsy8.pfb>
-Output written on PreIntegration_VIN.pdf (17 pages, 720744 bytes).
+ype1/public/amsfonts/cm/cmbx8.pfb><D:/bin/MikTex2.9/fonts/type1/public/amsfonts
+/cm/cmmib10.pfb><D:/bin/MikTex2.9/fonts/type1/public/amsfonts/cmextra/cmmib8.pf
+b><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbsy10.pfb><D:/bin/MikTex2.9/fonts/t
+ype1/public/lm/lmbx10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmbx12.pfb><D
+:/bin/MikTex2.9/fonts/type1/public/lm/lmbx8.pfb><D:/bin/MikTex2.9/fonts/type1/p
+ublic/lm/lmex10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmi12.pfb><D:/bin/
+MikTex2.9/fonts/type1/public/lm/lmmi6.pfb><D:/bin/MikTex2.9/fonts/type1/public/
+lm/lmmi8.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmmib10.pfb><D:/bin/MikTex
+2.9/fonts/type1/public/lm/lmr10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr
+12.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr17.pfb><D:/bin/MikTex2.9/font
+s/type1/public/lm/lmr6.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmr8.pfb><D:
+/bin/MikTex2.9/fonts/type1/public/lm/lmri12.pfb><D:/bin/MikTex2.9/fonts/type1/p
+ublic/lm/lmsy10.pfb><D:/bin/MikTex2.9/fonts/type1/public/lm/lmsy8.pfb>
+Output written on PreIntegration_VIN.pdf (17 pages, 729861 bytes).
 PDF statistics:
- 166 PDF objects out of 1000 (max. 8388607)
+ 170 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
