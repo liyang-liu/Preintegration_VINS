@@ -26,10 +26,10 @@ R.~Hartley and A.~Zisserman.
 \newblock \emph{Multiple View Geometry in Computer Vision}.
 \newblock Cambridge University Press, 2004.
 
-\bibitem[Zhao and Huang(2015)]{Parallax2015}
+\bibitem[Zhao and Huang(2015)]{ParallaxBA2015}
 Liang Zhao and Shoudong Huang.
-\newblock Parallaxba: bundle adjustment using parallax angle feature
-  parametrization.
-\newblock 2015.
+\newblock {ParallaxBA: bundle adjustment using parallax angle feature
+  parametrization}.
+\newblock \emph{International Journal of Robotics Research}, 2015.
 
 \end{thebibliography}
