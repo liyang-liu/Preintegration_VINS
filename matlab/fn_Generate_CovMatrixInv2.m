@@ -5,17 +5,17 @@ function [CovMatrixInv] = fn_Generate_CovMatrixInv2( nPoses, nPts, nUV, nIMUrate
     
     global PreIntegration_options Data_config
 
-  idr = nUV;
-    
-   if(PreIntegration_options.bPreInt == 1)
+    idr = nUV;
+
+    if(PreIntegration_options.bPreInt == 1)
         utid = idr+(nPoses-1)*3*3+15;% initialized with possible maximum size.
-   else
+    else
         nlenpp = nIMUrate * 3 * 3;
         utid = idr + (nPoses - 1)*nlenpp + 15;
-   end
+    end
 
-   CovMatrixInv = speye(utid);
-   
+    CovMatrixInv = speye(utid);
+
     if(PreIntegration_options.bPreInt == 1)
         for pid = 2:nPoses
             covInv = 1e0*inv(Rd{pid}(1:9,1:9));    
@@ -57,8 +57,7 @@ function [CovMatrixInv] = fn_Generate_CovMatrixInv2( nPoses, nPts, nUV, nIMUrate
         CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = 1e8*eye(3);
         utid = utid + 3;
     end
-    
+
     CovMatrixInv = CovMatrixInv(1:utid,1:utid);
     save( [Data_config.TEMP_DIR, 'CovMatrixInv.mat'],'CovMatrixInv', '-v7.3');
 
-    

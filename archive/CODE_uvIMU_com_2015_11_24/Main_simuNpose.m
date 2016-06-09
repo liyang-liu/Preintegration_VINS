@@ -15,14 +15,14 @@ if(bSimData + bDinuka + bMalaga > 1)
 end
 
 %% Configure the conditions of the problem
-nPoses = 50;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
+nPoses = 10;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
 bPreInt = 1;%1;% Use pre-integration method?
     
 bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
 bIMUodo = 1;% Use IMU data to initilize x?
 bGNopt = 1;% Use Gauss-Newton method?
-bShowFnP = 1;% Show poses and features?
-bShowUncertainty = 1;% Show uncertainty of the result?
+bShowFnP = 0;% Show poses and features?
+bShowUncertainty = 0;% Show uncertainty of the result?
 bAddInitialNoise = 1;% x0 + noise or not
 kfspan = 10;%20;%1;%5;%15;%50;%30;%2;% Choose keyframes
 kfids = 1:kfspan:1200;

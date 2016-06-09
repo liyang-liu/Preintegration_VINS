@@ -28,7 +28,10 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
 
             xg(1:((nPoseNew-1)*6)) = tv(:);
-            
+            for i = 1 : nPoseNew - 1
+                xg.pose.ang.val = tv( (i-1)*6 + 1 : (i-1)*6 + 3 );
+                xg.pose.trans.xyz = tv( (i-1)*6 + 4 : (i-1)*6 + 6 );
+            end
         elseif(PreIntegration_options.bDinuka == 1)
             
             tv = (gtIMUposes(selpids(1:(nPoseNew)), 2:7))';

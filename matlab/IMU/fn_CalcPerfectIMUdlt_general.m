@@ -1,4 +1,4 @@
-function [dp, dv, dphi] = fnCalPerfectIMUdlt_general(X_obj, nPoses, nPts, J, dtIMU, SLAM_Params)
+function [dp, dv, dphi] = fnCalPerfectIMUdlt_general( X_obj, nPoses, nPts, J, dtIMU, SLAM_Params)
 
 dt = 1;
 %dlt = 9*(nPoses - 1);
@@ -35,13 +35,14 @@ for pid=2:nPoses
     v1 = X_obj.velocity(pid-1).xyz;
     v2 = X_obj.velocity(pid).xyz;
     
-    [dp_i,dv_i,dphi_i] = fnPredictIMUdlt(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
+    %[dp_i,dv_i,dphi_i] = fnPredictIMUdlt(Tu1,Tu2,Ru1,Ru2,v1,v2,g,dbf,dbw,dt,J{pid});    
+    [dp_i,dv_i,dphi_i] = fn_PredictIMUdlt( Tu1, Tu2, Ru1, Ru2, v1, v2, g, dbf, dbw, dt, J{pid} );
     %id1x = (pid-2)*9+1;
     %dlt(id1x:(id1x+8)) = [dp;dv;dphi];% - Zobs(id1x:(id1x+8));
 
-    dp = [dp, dp_i];
-    dv = [dv, dv_i];
-    dphi = [dphi, dphi_i];
+    dp      = [ dp, dp_i ];
+    dv      = [ dv, dv_i ];
+    dphi    = [ dphi, dphi_i ];
     if 0
         intlDelta(end+1) = struct( ...
             'deltaP',   struct( 'val', dp,   'row', (1:3) + zrow ), ...

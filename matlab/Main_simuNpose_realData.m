@@ -4,43 +4,20 @@ close all;
 clc;
 
 %% Choose to use simulated data or or real data.
-bSimData = 0;% p15-30
-% Select one of the real datasets
-bMalaga = 0;
-bDinuka = 1;%p4-15
+global PreIntegration_options
+PreIntegration_options.bInc = 0;
+PreIntegration_options.bSimuNpose = 1;
+run PreIntegration_config_script
 
-if(bSimData + bDinuka + bMalaga > 1)
-    fprintf('Only one of [bSimData, bDinuka, bMalaga] could be 1, all of the rest 0s.');
-    return;
-end
+global Data_config
+run Data_config_script
 
 %% Configure the conditions of the problem
-nPoses = 25;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
-bPreInt = 1;%1;% Use pre-integration method?
-    
-bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
-bIMUodo = 1;% Use IMU data to initilize x?
-bGNopt = 1;% Use Gauss-Newton method?
-bShowFnP = 1;% Show poses and features?
-bShowUncertainty = 1;% Show uncertainty of the result?
-bAddInitialNoise = 0;% x0 + noise or not
-kfspan = 10;%20;%1;%5;%15;%50;%30;%2;% Choose keyframes
-kfids = 1:kfspan:1200;
-nMinObsTimes = 2;%3;%5;%4;%6;%
-fMaxDistance = 1e2;%50;%5e2;%80;%30;%20;%10;%84;%60;
+nPoses = PreIntegration_options.nPoses;
+kfids = 1:PreIntegration_options.kfspan:1200;
 nPts = 60000;%15000;%6640;%3243;%800;%14172;%1614;%58404;%
-bPerfectIMUdlt = 0;
-bVarBias = 0;
+fMaxDistance = 1e2;%50;%5e2;%80;%30;%20;%10;%84;%60;
 
-bUVonly = 0;% If 1, only UVs are used; otherwise, IMU and UVs are fused.
-
-bf0 = zeros(3,1);%[-0.55;0.6;0.61];
-bw0 = zeros(3,1);
-uvd_cell = [];
-dp = zeros(3,nPoses);
-dv = dp; 
-dphi = dp;
-dtIMU = [];
 
 % if(bPreInt == 1)
 %    bShowFnP = 1;
@@ -49,126 +26,110 @@ dtIMU = [];
 % end
 
 %% Configure paramters according to the chosen dataset
-if(bMalaga == 1)
-    nIMUrate = 1e2;
-    sigma_w_real = 1e1*(5e-2)*pi/180;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
-    sigma_f_real = 1e1*2e-3;    
-    sigma_w_cov = 2*sigma_w_real;%5e1*(5e-2)*pi/180;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
-    sigma_f_cov = 2*sigma_f_real;%5e1*2e-3;%1e-2;%1e-5;%1;%1e0;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%1e0;%2e-3;%
-    sigma_uov_real = 1e-3;%1;%1e-6;%1e-4;%
-    sigma_uov_cov = 2*sigma_uov_real;%1;%1e-3;%
-    sigma_g_cov = 1e-1;
-    sigma_au2c_cov = 1e-1;
-    sigma_tu2c_cov = 1e-1; 
-    sigma_bf_cov=1*2e-2;
-    sigma_bw_cov = 1*20*pi/(180*3600); 
-    sigma_tv = 1e-4/(nIMUrate);
+if(PreIntegration_options.bMalaga == 1)
+    dtIMU                       = [];
+    nIMUrate                    = 1e2;
+    SLAM_Params.sigma_w_real    = 1e1*(5e-2)*pi/180;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
+    SLAM_Params.sigma_f_real    = 1e1*2e-3;    
+    SLAM_Params.sigma_w_cov     = 2 * SLAM_Params.sigma_w_real;%5e1*(5e-2)*pi/180;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
+    SLAM_Params.sigma_f_cov     = 2 * SLAM_Params.sigma_f_real;%5e1*2e-3;%1e-2;%1e-5;%1;%1e0;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%1e0;%2e-3;%
+    SLAM_Params.sigma_uov_real  = 1e-3;%1;%1e-6;%1e-4;%
+    SLAM_Params.sigma_uov_cov   = 2 * SLAM_Params.sigma_uov_real;%1;%1e-3;%
+    SLAM_Params.sigma_g_cov     = 1e-1;
+    SLAM_Params.sigma_au2c_cov  = 1e-1;
+    SLAM_Params.sigma_tu2c_cov  = 1e-1; 
+    SLAM_Params.sigma_bf_cov    = 1 * 2e-2;
+    SLAM_Params.sigma_bw_cov    = 1 * 20 * pi / (180 * 3600); 
+    SLAM_Params.sigma_tv        = 1e-4 / (nIMUrate);
     % Configure pseudo observations
-    bAddZg = 1; % Add pseudo observation of g or not
-    bAddZau2c = 1; % Add pseudo observation of the relative rotation from IMU to camera or not
-    bAddZtu2c = 1; % Add pseudo observation of the relative translation from IMU to camera or not   
-    bAddZbf = 1; % Add pseudo observation of bias in acceleration or not
-    bAddZbw = 1; % Add pseudo observation of bias in rotation or not   
     
-    g0 = [0; 0; -9.8]; % g value in the first key frame
-    g_true = [0; 0; -9.8];
-    bf_true = [1.0; 2.0; 3.0]; % bias for acceleration
-    bw_true = [1.0; 2.0; 3.0]; %[0, 0, 0]'; % bias for rotaion velocity     
+    SLAM_Params.g0              = [0; 0; -9.8]; % g value in the first key frame
+    SLAM_Params.g_true          = [0; 0; -9.8];
+    SLAM_Params.bf0             = zeros(3, 1); %[-0.55;0.6;0.61];
+    SLAM_Params.bw0             = zeros(3, 1);
+    SLAM_Params.bf_true         = [1.0; 2.0; 3.0]; % bias for acceleration
+    SLAM_Params.bw_true         = [1.0; 2.0; 3.0]; %[0, 0, 0]'; % bias for rotaion velocity     
     % Directories
-    datadir = ['../InertialDelta_SLAM/Data' filesep 'Whole170R' filesep 'Result' filesep];
-    imgdir = ['../InertialDelta_SLAM/Data' filesep 'Whole170R' filesep];
-    imufulldir = ['../InertialDelta_SLAM/Data' filesep 'Malaga' filesep 'IMUrawData.mat'];
-    gtFile = ['../InertialDelta_SLAM/Data' filesep 'Whole170R' filesep 'GT_P0_PA.mat'];    
-elseif(bDinuka == 1)
-    dtIMU = zeros(nPoses, 1);
-    nIMUrate = 2e2;    
-    sigma_w_real = 0.0;%0.03;%0.01;%0.15;% 5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
-    sigma_f_real = 0;%0.2;%0.1;%1;%  
-    sigma_w_cov = 1;%2*sigma_w_real;%0.03;%0.1;% 0.01;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
-    sigma_f_cov = 1;%2*sigma_f_real;%0.2;%0.8;% 0.1;%1e-2;%1e-5;%1;%1e0;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%1e0;%2e-3;%
-    sigma_uov_real = 0;%1e-2;%2e-3;%1e-1;%1;%1e-6;%1e-3;%1e-4;%
-    sigma_uov_cov = 1;%2*sigma_uov_real;%1e-2;%
+elseif(PreIntegration_options.bDinuka == 1)
+    dtIMU                       = zeros( nPoses, 1 );
+    nIMUrate                    = 2e2;    
+    SLAM_Params.sigma_w_real    = 0.0;%0.03;%0.01;%0.15;% 5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
+    SLAM_Params.sigma_f_real    = 0;%0.2;%0.1;%1;%  
+    SLAM_Params.sigma_w_cov     = 1;%2*sigma_w_real;%0.03;%0.1;% 0.01;%5e-1;%1;%1e-2;%1;%1e-2;%5e-1;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%5e-1;%5e-2;%
+    SLAM_Params.sigma_f_cov     = 1;%2*sigma_f_real;%0.2;%0.8;% 0.1;%1e-2;%1e-5;%1;%1e0;%4.5e-3;%2.5e-1;%2e-1;%3.5e-1;%1e0;%2e-3;%
+    SLAM_Params.sigma_uov_real  = 0;%1e-2;%2e-3;%1e-1;%1;%1e-6;%1e-3;%1e-4;%
+    SLAM_Params.sigma_uov_cov   = 1;%2*sigma_uov_real;%1e-2;%
    
-    sigma_g_cov = 1e-4;
-    sigma_au2c_cov = 1e-4;
-    sigma_tu2c_cov = 1e-4;
-    sigma_bf_cov=1*2e-2;
-    sigma_bw_cov = 1*20*pi/(180*3600); 
-    sigma_tv = 1e-4/(nIMUrate);%1;%*nIMUrate*nIMUrate);
+    SLAM_Params.sigma_g_cov     = 1e-4;
+    SLAM_Params.sigma_au2c_cov  = 1e-4;
+    SLAM_Params.sigma_tu2c_cov  = 1e-4;
+    SLAM_Params.sigma_bf_cov    = 1 * 2e-2;
+    SLAM_Params.sigma_bw_cov    = 1 * 20 * pi / (180*3600); 
+    SLAM_Params.sigma_tv        = 1e-4 / (nIMUrate);%1;%*nIMUrate*nIMUrate);
     % Configure pseudo observations
-    bAddZg = 1; % Add pseudo observation of g or not
-    bAddZau2c = 1; % Add pseudo observation of the relative rotation from IMU to camera or not
-    bAddZtu2c = 1; % Add pseudo observation of the relative translation from IMU to camera or not   
-    bAddZbf = 0; % Add pseudo observation of bias in acceleration or not
-    bAddZbw = 0; % Add pseudo observation of bias in rotation or not    
     
-    g0 = [0; 0; 9.81]; % g value in the first key frame
-    g_true = [0; 0; 9.81];
-    bf_true = [0; 0; 0]; % bias for acceleration
-    bw_true = [0; 0; 0]; %[0, 0, 0]'; % bias for rotaion velocity     
+    SLAM_Params.g0              = [0; 0; 9.81]; % g value in the first key frame
+    SLAM_Params.g_true          = [0; 0; 9.81];
+    SLAM_Params.bf0             = zeros(3, 1); %[-0.55;0.6;0.61];
+    SLAM_Params.bw0             = zeros(3, 1);
+    SLAM_Params.bf_true         = [0; 0; 0]; % bias for acceleration
+    SLAM_Params.bw_true         = [0; 0; 0]; %[0, 0, 0]'; % bias for rotaion velocity     
     % Directories
-    datadir = ['../InertialDelta_SLAM/Data' filesep 'Dinuka' filesep 'dataset_19_10_15' filesep];%Dinuka/dataset_19_10_15
-    imgdir = datadir;
-    imufulldir = [datadir 'imudata_nonoise.mat'];% small imudata_nonoise['.' filesep 'Malaga' filesep 'IMUrawData.mat'];
-    gtVelfulldir = [datadir 'velocity_ground_truth.mat'];
-    gtFile = [datadir 'gtIMUposes.mat'];    
 end
-
-
-addpath(genpath('IMU'));
-addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
-addpath(genpath('Ransac'));
-
-save( [ Data_config.TEMP_DIR 'bVarBias.mat' ],'bVarBias');
-
 % Iteration times and bounds for Gauss-Newton
-nMaxIter = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
-fLowerbound_e = 1e-10;%1e-6;%1e-5;%1e-1;
-fLowerbound_dx = 1e-10;%1e-6;%
+SLAM_Params.nMaxIter = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
+SLAM_Params.fLowerbound_e = 1e-10;%1e-6;%1e-5;%1e-1;
+SLAM_Params.fLowerbound_dx = 1e-10;%1e-6;%
+SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
 
-%dtIMU = [];
-Jd =[];
-Rd = [];
 
-% save the configured data
-save( [ Data_config.TEMP_DIR, 'bAddZg.mat' ],'bAddZg');    
-save( [ Data_config.TEMP_DIR, 'bAddZau2c.mat' ],'bAddZau2c');
-save( [ Data_config.TEMP_DIR, 'bAddZtu2c.mat' ],'bAddZtu2c');
-save( [ Data_config.TEMP_DIR, 'bAddZbf.mat' ],'bAddZbf');
-save( [Data_config.TEMP_DIR, 'bAddZbw.mat' ],'bAddZbw');
-save( [Data_config.TEMP_DIR, 'bUVonly.mat' ], 'bUVonly');    
+addpath( genpath( 'IMU' ));
+addpath( genpath( 'MoSeg_2D' ));%addpath(genpath('ms3D'));
+addpath( genpath( 'Ransac' ));
+
+%save( [ Data_config.TEMP_DIR 'bVarBias.mat' ],'bVarBias');
+
+uvd_cell    = [];
+dp          = zeros(3, nPoses);
+dv          = zeros(3, nPoses);
+dphi        = zeros(3, nPoses);
+Jd          = [];
+Rd          = [];
+
 
 %% The main switch
-    if(bMalaga == 1)
+    if( PreIntegration_options.bMalaga == 1 )
         K = [923.5295, 0, 507.2222; 0, 922.2418, 383.5822; 0, 0, 1];% Left
-        % [911.3657, 0, 519.3951; 0, 909.3910, 409.0285; 0, 0, 1]; &Right
-    elseif(bDinuka == 1)
-       load([datadir 'cam.mat']); 
+          % [911.3657, 0, 519.3951; 0, 909.3910, 409.0285; 0, 0, 1]; &Right
+    elseif( PreIntegration_options.bDinuka == 1 )
+       load( [ Data_config.DATA_DIR 'cam.mat' ] ); 
        K = cam.K;
     end   
     
     
-    if(bMalaga == 1)
-        Au2c = [-87.23; -2.99; -88.43]*pi/180;%[0;0;0];%[-86.19;-3.53;-90.31]*pi/180;%
-        Ru2c = fnR5ABG(Au2c(1), Au2c(2), Au2c(3));
-        Tu2c = [2.2-0.25;-0.427-0.029;0.025+(23-13.9)*1e-3];%[0;0;0];%
-        %nIMUrate = 100; 
-        dt = 1e-2;
+    if(PreIntegration_options.bMalaga == 1)
+        SLAM_Params.Au2c    = [-87.23; -2.99; -88.43] * pi / 180;%[0;0;0];%[-86.19;-3.53;-90.31]*pi/180;%
+        SLAM_Params.Ru2c    = fn_RFromAngVec( SLAM_Params.Au2c );
+        SLAM_Params.Tu2c    = [ 2.2 - 0.25; -0.427 - 0.029; 0.025 + (23 - 13.9) * 1e-3 ];%[0;0;0];%
+        
+        dt      = 1e-2;
         %     bPerfectIMUdlt = 1;   
         %         bAddZg = 1; % Add pseudo observation of g or not
         %         bAddZau2c = 1; % Add pseudo observation of the relative rotation from IMU to camera or not
         %         bAddZtu2c = 1; % Add pseudo observation of the relative translation from IMU to camera or not   
         %         bAddZbf = 0; % Add pseudo observation of bias in acceleration or not
         %         bAddZbw = 0; % Add pseudo observation of bias in rotation or not    
-    
-    elseif(bDinuka == 1)
-        load([datadir 'gtIMUposes.mat']);% ts, Aimu, Timu
-        nt = size(gtIMUposes, 1); 
-        selpids = 9:(10*kfspan):nt;
-        Ru2c = ([0,1,0; 0,0,1; 1,0,0]); 
-        Au2c = zeros(3,1);
-        [Au2c(1), Au2c(2), Au2c(3)]= fnABG5R(Ru2c);
-        Tu2c = zeros(3,1);
+        gtIMUposes = [];
+        selpids = [];
+        
+    elseif(PreIntegration_options.bDinuka == 1)
+        load( [ Data_config.DATA_DIR 'gtIMUposes.mat' ] );% ts, Aimu, Timu
+        nt = size( gtIMUposes, 1 ); 
+        selpids = 9 : (10 * PreIntegration_options.kfspan) : nt;
+        SLAM_Params.Ru2c = ( [ 0, 1, 0; 0, 0, 1; 1, 0, 0 ] ); 
+        SLAM_Params.Au2c = zeros(3,1);
+        [ SLAM_Params.Au2c(1), SLAM_Params.Au2c(2), SLAM_Params.Au2c(3) ]= fn_ABGFromR(SLAM_Params.Ru2c);
+        SLAM_Params.Tu2c = zeros(3,1);
         %nIMUrate = 200; 
         dt = 1.0/nIMUrate;
         %     bPerfectIMUdlt = 1;
@@ -184,650 +145,89 @@ save( [Data_config.TEMP_DIR, 'bUVonly.mat' ], 'bUVonly');
     %%%%%%%%%%%%%%
     % camera observations  
 
-    FeatureObs = zeros(nPts, 500);%[fid, nObs, [pid, ui,vi]]
-    fId_FeatureObs = 1; nObsId_FeatureObs = 2;
-    FeatureObs(:, fId_FeatureObs) = 1:nPts;
-    for(pid=1:nPoses)
-        if(bMalaga == 1)
-            load(sprintf('%sImage%d.mat', imgdir, pid));
-            obsfeatures{pid} = Image(2:end, 1:3);
-            fidset = Image(2:end, 1);
-        elseif(bDinuka == 1)
-            imid = kfids(pid);%1+(pid-1)*kfspan);
-            load(sprintf('%simage_%d.mat', imgdir, imid));
-            obsfeatures{pid} = features;
-            fidset = features(:, 1);            
-        end
-
-        FeatureObs(fidset, nObsId_FeatureObs) = ...
-            FeatureObs(fidset, nObsId_FeatureObs) + 1;
-        for(fid=1:size(fidset,1))
-            nObs = FeatureObs(fidset(fid), nObsId_FeatureObs);
-            FeatureObs(fidset(fid), 3*nObs) = pid;
-            if(bMalaga == 1)
-                FeatureObs(fidset(fid), (3*nObs+1):(3*nObs+2)) = Image(fid+1, 2:3);
-            elseif(bDinuka == 1)
-                FeatureObs(fidset(fid), (3*nObs+1):(3*nObs+2)) = features(fid, 2:3) + ...
-                    fnGenGaussNoise(1, 2, sigma_uov_real);                
-            end
-        end
+    [ FeatureObs, Feature3D, imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
+                                            LoadData( nPts, nPoses, kfids, SLAM_Params );
+    for pid = 1 : nPoses
+        [FeatureObs] = fn_CollectfObsFromImgs( ...
+                            kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );
     end
 
-    if(bMalaga == 1)
-        load([datadir 'PBAFeature.mat']);
-        RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoses, nMinObsTimes));
-        RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
-    % RptFidSet(586) = [];    
-        RptFeatureObs = FeatureObs(RptFidSet, :);
-    elseif(bDinuka == 1)
-        %load([datadir 'feature_pos.mat']);
-        RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoses, nMinObsTimes));
-        %RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
-        RptFeatureObs = FeatureObs(RptFidSet, :);        
-    end
-    
+    [ RptFidSet, RptFeatureObs, PBAFeature ] = fn_GetUniqueFeatures( FeatureObs, nPoses, fMaxDistance );
+
     save( [ Data_config.TEMP_DIR, 'RptFeatureObs.mat' ], 'RptFeatureObs');
-    % Arrange feature observations according to feature ids
-    % newimgdir = '/media/New Volume/uDocs/IMU/dataset/Liang/ParallaxBA2Shoudong/DataPrepareBA/Whole170R_New/';%['.' filesep 'Whole170R_New' filesep];    
-    % if(~exist(newimgdir, 'dir'))
-    %     mkdir(newimgdir);    
-    % end
-    % fnBldRptFeatureListFiles(RptFidSet, nPoses, imgdir, newimgdir);
 
-    %     load([datadir 'PBAFeature.mat']);
-    %     tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features 
-    %     negids = find(tv(3,:) < 0);
-    %     idpt0(negids) = [];
-    %     bestmodel(negids) = [];    
-
-        nPts = size(RptFidSet, 1);
-    %     tfids = fidset{1}; % Re-identify the points
-    %     obsfeatures{1} = [(1:nPts)', ... % obsfeatures{1}(tfids(bestmodel),1)
-    %         obsfeatures{1}(tfids(bestmodel),2:3)];
-    %     tfids = fidset{2};
-    %     obsfeatures{2} = [(1:nPts)', ... % obsfeatures{1}(tfids(bestmodel),1)
-    %         obsfeatures{2}(tfids(bestmodel),2:3)];    
-    %%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    nIMUdata = 0;    
-    ImuTimestamps = zeros(nPoses, 1);    
-    if(bUVonly == 0)
-        % IMU observations
-        if(bMalaga == 1)
-            load([imgdir 'KeyframeTimestamps.mat']);
-        elseif(bDinuka == 1)
-            load([imgdir 'image_time_stamp.mat']);
-            KeyframeTimestamps = vis_time(kfids);
-        end
-        %         load('/home/youbwang/Documents/Malaga/IMUrawData.mat');    
-        load(imufulldir);
-        if(bMalaga == 1)
-            imufulldata = IMUparking6L;
-        elseif(bDinuka == 1)
-            nt = size(imudata,1);
-            imufulldata = imudata;% ts, wb,fb
-            imufulldata(:,2:4) = imufulldata(:,2:4) + fnGenGaussNoise(nt, 3, sigma_w_real);
-            imufulldata(:,5:7) = imufulldata(:,5:7) + fnGenGaussNoise(nt, 3, sigma_f_real);
-        end
-        utid = 1; %ctid = 1;
-        for(ctid = 1:nPoses)
-            while(imufulldata(utid,1) < KeyframeTimestamps(ctid))
-                utid = utid + 1;
-            end
-            if((imufulldata(utid,1) - KeyframeTimestamps(ctid)) >...
-                   (KeyframeTimestamps(ctid) - imufulldata(utid-1,1)))
-               ImuTimestamps(ctid) = utid - 1;
-            else
-               ImuTimestamps(ctid) = utid; 
-            end
-        end
-        nIMUdata = ImuTimestamps(nPoses) - ImuTimestamps(1);
-        dataIMU = {};     
-        for pid=2:nPoses
-            uid0 = ImuTimestamps(pid-1);
-            uid1 = ImuTimestamps(pid)-1;
-            %   nIMUdata = nIMUdata + ImuTimestamps(pid) - ImuTimestamps(pid-1);
-            dtIMU(pid) = imufulldata(ImuTimestamps(pid)) - imufulldata(ImuTimestamps(pid-1));
-            if(bMalaga == 1)
-                dataIMU{pid} = [IMUparking6L(uid0:uid1, 1), IMUparking6L(uid0:uid1, 7), IMUparking6L(uid0:uid1, 6),...
-                    IMUparking6L(uid0:uid1, 5), IMUparking6L(uid0:uid1, 2:4)];
-                %   dataIMU{pid} = [IMUparking6L(uid0:uid1, 1), IMUparking6L(uid0:uid1, 5:7), ...
-                %       IMUparking6L(uid0:uid1, 2:4)];
-            elseif(bDinuka == 1)
-                dataIMU{pid} = imufulldata(uid0:uid1, :);                
-            end
-        end 
-        if(bPreInt == 1)%bUVonly == 0)%
-            % Generate pre-integration observations based on IMU raw data.          
-            dp = zeros(3,nPoses);
-            dv = dp; 
-            dphi = dp;    
-            for pid=2:nPoses%1e-2,1e-3+3*sigmaf+3*sigmaw
-                [dp(:,pid), dv(:,pid), dphi(:,pid), Jd{pid}, Rd{pid}] = ...
-                    fnDeltObsAccu(bf0, bw0, dataIMU{pid}, sigma_w_cov, sigma_f_cov); 
-            end
-        end
-                
-        save( [ Data_config.TEMP_DIR, 'ImuTimestamps.mat' ], 'ImuTimestamps');
-        save( [ Data_config.TEMP_DIR, 'dtIMU.mat' ], 'dtIMU');
-    end
-    
+    nPts = size(RptFidSet, 1);
+        
     
     %% X---the state vector
-    if(bUVonly == 1)
-        x = zeros(6*(nPoses-1)+3*nPts+3*2,1);
-    else
-        if(bPreInt == 0)
-            x = zeros((nIMUdata)*6+nPts*3+3*(nIMUdata+1)+15+6,1);%???(nPoses-1)*nIMUrate (nPoses-1)*nIMUrate+1 one additional 6 for convenience
-        else
-            x = zeros((nPoses-1)*6+nPts*3+3*nPoses+3+6+6, 1); 
-        end  
-    end   
-    
-    xg = x;
-    
-    % Based on Liang's results, pack the state vector x.
-    %     if(isunix)
-    %         datadir = '/home/youbwang/Documents/Malaga/Liang/ParallaxBA2Shoudong/DataPrepareBA/Whole170R/Result/';
-    %     else
-    %         datadir = 'E:\uDocs\Research\IMU\Liang\ParallaxBA2Shoudong\DataPrepareBA\Whole170R\Result\';
-    %     end
-    % Intial values of poses and IMU states
-    if(bMalaga == 1)
-        load([datadir 'PBAPose.mat']);    
-        tv = (PBAPose(1:nPoses, :))';
+        X_obj = SLAM_X_Define( nPts, nPoses, nIMUrate );
+        Xg_obj = X_obj;        
+       [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( ...
+                                        X_obj, Xg_obj, RptFeatureObs, RptFidSet, Feature3D, gtIMUposes, selpids, PBAFeature, ...
+                                        nPoses, nPts, nIMUdata, nIMUrate, dtIMU, ...
+                                        ImuTimestamps, imufulldata, dp, dv, dphi, K, dt, SLAM_Params );
+       
+        if ( PreIntegration_options.bTestIntegrity == 1 )
+            %--------------------------------------------------
+            % Hack: force X_obj to have same pose as GT
+            %--------------------------------------------------    
+            X_obj = Xg_obj;
+            %--------------------------------------------------
+        end
+
+        X_init = X_obj;    
+        save([ Data_config.TEMP_DIR 'X_init.mat'],'X_init');
         
-        ABGcam = [tv(3, :);tv(2, :);tv(1, :)];%tv(1:3, :);%
-        Tcam = tv(4:6, :);           
-        clearvars PBAPoses tv
-        % Given Rcam/Tcam, Rimu/Timu can be calculated as follows:
-        % Rimu = Ru2c' * Rc1u; Timu = Tc1u - Rimu '* Tu2c;
-        % Rc1u = Rcam * Ru2c; Tc1u = Tu2c + Ru2c'*Tcam
-        for(pid=1:(nPoses))% correspond to pose 1...n
-            Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
-            Rimu = Ru2c'*Rcam*Ru2c;
-            [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-            Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
-        end   
-        tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
-        if(bPreInt == 1)
-           xg(1:((nPoses-1)*6)) = tv(:);
-        else
-           [xg] = fnLinearInterpPoses(nPoses, ABGimu, Timu, ImuTimestamps,xg);
-        end
-    elseif(bDinuka == 1)
-        tv = (gtIMUposes(selpids(1:(nPoses)), 2:7))';
-        ABGimu = tv(1:3, :);
-        Timu = tv(4:6, :);
-        Tcam = zeros(3, nPoses);
-        for(pid=1:nPoses)
-            % Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
-            Rimu = fnR5ABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
-            Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
-        end
-        if(bPreInt == 1)
-            [xg] = fnCal9RelativePoses(xg, nPoses, tv);
-        else
-            pall = (gtIMUposes(selpids(1):(nIMUdata+selpids(1)), 2:7))';
-            [xg] = fnCal9RelativePoses(xg, nIMUdata+1, pall);
-        end
-    end    
-    fscaleGT = zeros(nPoses, 1);
-    %     if(bDinuka == 1)
-    % %         t0 = tv(4:6, 1);
-    % %         for(pid=2:nPoses)        
-    % %            Timu = tv(4:6, pid) - tv(4:6, pid-1); 
-    % %            fscaleGT(pid) = norm(Timu);
-    % %         end
-    %     elseif(bMalaga == 1)
-    % %         tv = [zeros(6,1), tv];
-    % %         for(pid=1:(nPoses-1))        
-    % %            Timu = tv(4:6, pid) - tv(4:6, pid-1); 
-    % %            fscaleGT(pid) = norm(Timu);
-    % %         end        
-    %     end
-    for(pid=2:nPoses)        
-       Timu = Tcam(:, pid) - Tcam(:, pid-1); 
-       fscaleGT(pid) = norm(Timu);
+        % Show initial value X0
+        fprintf('\nInitial Value:\n\t X0=[\nAng: ');
+        %fprintf('%f ', x(1:20));
+        fprintf('%f ', [X_obj.pose(1).ang.val; X_obj.pose(2).ang.val; X_obj.pose(3).ang.val]);
+        fprintf('\nTrans: ');
+        fprintf('%f ', [X_obj.pose(1).trans.xyz; X_obj.pose(2).trans.xyz; X_obj.pose(3).trans.xyz]);
+        fprintf('\nFeature_1: ');
+        fprintf('%f ', X_obj.feature(1).xyz');
+        fprintf('...]\n');    
+        
+    if 0
+        ie = x-xg;
+        [me, id] = max(abs(ie))            
     end
     
-    if(bInitPnF5VoU == 1)
-        if(bIMUodo == 1)
-            %% Obtain initial poses from IMU data
-            [Rcam, Acam, Tcam, Feature3D] = fnGetPoses5IMUdata(dtIMU, g0, dp, dv, dphi,nPoses, nPts, ...
-                    K, bSimData, bMalaga, RptFeatureObs, Tu2c, Ru2c);               
-        else
-            %% obtain relative poses from visual odometry
-            [Rcam, Acam, Tcam, Feature3D] = fnGetPoses5MatchedFeatures(nPoses, nPts, ...
-                        K, fscaleGT, bSimData, RptFeatureObs, kfids);  
-        end
-        ABGimu = zeros(3, nPoses);
-        Timu = zeros(3, nPoses); % ABGimu = zeros(3, nPoses);            
-        for(pid=1:(nPoses))% correspond to pose 1...n
-            %	Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
-            Rimu = Ru2c'*Rcam(:,:,pid)*Ru2c;
-            [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-            Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
-        end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%        
-        %         tv = [ABGimu; Timu];
-        %         x(idstart:idend) = tv(:);
-        %     else
-        %     %     load('pbaPose10.mat');
-        %     %     tv = (Pose(2:nPoses, :))';
-        %         camposes = tv(:);
-        %         if(bDinuka == 1)
-        %             ABGimu = tv(1:3, 2:nPoses);%
-        %             Timu = tv(4:6, 2:nPoses) - repmat(tv(4:6,1),1,nPoses-1);
-        %             clearvars tv
-        %         elseif(bMalaga == 1)
-        % %             ABGcam = [tv(3, :);tv(2, :);tv(1, :)];%tv(1:3, :);%
-        % %             Tcam = tv(4:6, :);           
-        % %             clearvars PBAPoses tv
-        % %             % Given Rcam/Tcam, Rimu/Timu can be calculated as follows:
-        % %             % Rimu = Ru2c' * Rc1u; Timu = Tc1u - Rimu '* Tu2c;
-        % %             % Rc1u = Rcam * Ru2c; Tc1u = Tu2c + Ru2c'*Tcam
-        % %             for(pid=1:(nPoses-1))% correspond to pose 2...n
-        % %                 Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
-        % %                 Rimu = Ru2c'*Rcam*Ru2c;
-        % %                 [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-        % %                 Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;
-        % %             end
-        %         end
-    end
-    idstart = 1; 
-    if((bUVonly == 1) || (bPreInt == 1))
-        idend = 6*(nPoses-1);
-        if(bInitPnF5VoU == 1)
-            tv = [ABGimu(:, 2:end); Timu(:, 2:end)];% tv = [ABGimu; Timu];        
-            x(idstart:idend) = tv(:);
-        end
-    else% For non-pre-int method, we need interpolation.
-        idend = 6*nIMUdata;
-        if(bInitPnF5VoU == 1)
-            % Interpolation for the other poses, assuming uniform motion
-            [x] = fnLinearInterpPoses(nPoses, ABGimu, Timu, ImuTimestamps,x);
-        end
-    end
-
-    
-    % Intial values of features at the initial IMU pose
-    % Given Pf1c, Pf1u can be calculated as:
-    % Pf1u = Ru2c'*Pf1c + Tu2c
-    idstart = idend + 1; 
-    idend = idend + 3*nPts;
-    %     load([datadir 'PBAFeature.mat']);
-    if(bInitPnF5VoU == 1)
-        tv =  (Feature3D(RptFidSet, 5:7))';% select the first group      
-        Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);
-        x(idstart:idend) = Pf1u(:);
-    end
-    %   Fill in ground truth of features
-    if(bMalaga == 1)
-        tv = PBAFeature(RptFidSet, :)'; %% Global ids %only pickup repeated features
-        Pf1u = Ru2c'*tv + repmat(Tu2c, 1, nPts);
-    elseif(bDinuka == 1)
-        load([datadir 'feature_pos.mat']);
-        tv = feature_pos(RptFidSet, :)';
-        abg10 = (gtIMUposes(selpids(1), 2:4))'; % Rotation of the IMU pose corresponding to the first key frame
-        R10 = fnR5ABG(abg10(1, 1), abg10(2, 1), abg10(3, 1));
-        Pf1u = R10'*(tv - repmat((gtIMUposes(selpids(1),5:7))', 1,size(RptFidSet,1)));
-        clearvars gtIMUposes            
-    end        
-    xg(idstart:idend) = Pf1u(:);
-
-    %     x(idstart:idend) = Pf1u(:);
-    %% Initial values of velocity
-    %     clearvars PBAFeature tv
-    if(bUVonly == 0)
-        if(bInitPnF5VoU == 1)
-            [x,idend] = fnCalV5Kposes(nIMUdata, ImuTimestamps, nIMUrate, bDinuka, bPreInt, x, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata);   
-        elseif(bPreInt == 1)
-           idend = idend + 3*nPoses;
-        else
-           idend = idend + 3*(nIMUdata+1); 
-        end
-        %         if(bPreInt == 1)            
-        %             idstart = idend + 1;
-        %             idend = idend + 3; 
-        %             % The velocity of the first pose.
-        %             x(idstart:idend, 1) = (x(4:6,1)-0.5*dtIMU(2)*dtIMU(2)*g0-dp(:,2))/(dtIMU(2));               
-        %             pidloopmax = nPoses - 1;
-        %             for(pid=2:pidloopmax)
-        %               idstart = idend + 1;
-        %               idend = idend + 3;
-        %               Ri = fnR5ABG(x(6*(pid-2)+1),x(6*(pid-2)+2),x(6*(pid-2)+3));
-        %               x(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dtIMU(pid+1)...
-        %                   *dtIMU(pid+1)*g0-Ri'*dp(:,(pid+1)))/(dtIMU(pid+1));%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
-        %             end
-        %             % The velocity of the last pose.
-        %             idstart = idend + 1;
-        %             idend = idend + 3;
-        %             Ri = fnR5ABG(x(6*(nPoses-2)+1),x(6*(nPoses-2)+2),x(6*(nPoses-2)+3));
-        %             x(idstart:idend) = x((idstart-3):(idend-3), 1)+dtIMU(nPoses)*g0+Ri'*dv(:,nPoses);             
-        % %             idp1s = (nPoses-1)*6+nPts*3+1;
-        % %             x((idp1s):(idp1s+2)) = x((idp1s+3):(idp1s+2+3));            
-        %         else
-        %             %idend = idend + 3*nIMUdata;%(nPoses-1)*nIMUrate
-        %             idstart = idend + 1;
-        %             idend = idend + 3; 
-        %             % The velocity of the first pose.IMUparking6L
-        %             if(bDinuka == 1)
-        %                 imufulldata = [imufulldata(:,1), imufulldata(:,5:7), imufulldata(:,2:4)];% ts, fb, wb
-        %             end
-        %             x(idstart:idend, 1) = (x(4:6,1)-0.5*dt*dt*g0-0.5*dt*dt*((imufulldata(ImuTimestamps(1), 2:4))'-bf0))/dt; 
-        %             pidloopmax = nIMUdata;
-        %             for(pid=2:pidloopmax)
-        %               idstart = idend + 1;
-        %               idend = idend + 3;
-        %               Ri = fnR5ABG(x(6*(pid-2)+1),x(6*(pid-2)+2),x(6*(pid-2)+3));
-        %               x(idstart:idend, 1) = (x((6*(pid-1)+4):(6*(pid-1)+6), 1) - x((6*(pid-2)+4):(6*(pid-2)+6), 1)-0.5*dt...
-        %                   *dt*g0-Ri'*0.5*dt*dt*((imufulldata(ImuTimestamps(1)+pid-1, 2:4))'-bf0))/dt;%(x(((pid-1)+4):((pid-1)+6)) - x(((pid-2)+4):((pid-2)+6)))/dtIMU(pid);              
-        %             end
-        %             % The velocity of the last pose.
-        %             idstart = idend + 1;
-        %             idend = idend + 3;
-        %             Ri = fnR5ABG(x(6*(nPoses-2)+1),x(6*(nPoses-2)+2),x(6*(nPoses-2)+3));
-        %             x(idstart:idend) = x((idstart-3):(idend-3), 1)+dt*g0+Ri'*dt*((imufulldata(ImuTimestamps(1)+nIMUdata, 2:4))'-bf0);            
-        %         end        
-        %         x(idstart:idend) = 0; % A better way is to calculate an average speed based on two consecutive keyframes
-        %% Intial values of g 
-        idstart = idend + 1; idend = idend + 3;
-        if(bInitPnF5VoU == 1)
-            x(idstart:idend) = g0;%[0,0,-9.8]';
-        end
-        xg(idstart:idend) = g_true;
-    end
-    %% Au2c, Tu2c
-    idstart = idend + 1; idend = idend + 6;
-    if(bInitPnF5VoU == 1)
-        x(idstart:idend) = [Au2c;Tu2c];
-    end
-    xg(idstart:idend) = [Au2c;Tu2c];
-    if(bUVonly == 0)
-        %% bf, bw
-        if(bVarBias == 0)
-            idstart = idend + 1; idend = idend + 6;
-            if(bInitPnF5VoU == 1)
-                x(idstart:idend) = [bf0;bw0];%zeros(6,1);  
-            end
-            xg(idstart:idend) = [bf_true;bw_true];
-        else
-            idstart = idend + 1; idend = idend + 6*(nPoses-1);
-            if(bInitPnF5VoU == 1)
-                x(idstart:idend) = repmat([bf0;bw0],nPoses-1, 1);%zeros(6,1); 
-            end
-            xg(idstart:idend) = repmat([bf_true;bw_true],nPoses-1, 1);
-        end
-    end         
-    
-    xg = xg(1:idend);
-    if(bUVonly == 0)
-        if(bDinuka == 1)
-            load(gtVelfulldir);
-            if(bPreInt == 1)
-                idstart = (nPoses-1)*6+3*nPts+1;
-                idend = (nPoses-1)*6+3*nPts+3*nPoses;
-                tv = (true_vel(ImuTimestamps, 2:end))';
-            else
-                idstart = nIMUdata*6+3*nPts+1;
-                idend = nIMUdata*6+3*nPts+3*(nIMUdata+1);
-                tv = (true_vel(ImuTimestamps(1):ImuTimestamps(nPoses), 2:end))';
-            end        
-            xg(idstart:idend) = tv(:);
-        else
-            if(bPreInt == 1)
-                idend = (nPoses-1)*6+3*nPts;
-            else
-                idend = nIMUdata*6+3*nPts;
-            end
-            %[xg] = fnCalV5Kposes(bPreInt, xg, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata);
-            [xg,idend] = fnCalV5Kposes(nIMUdata, ImuTimestamps, ...
-                nIMUrate, bDinuka, bPreInt, xg, nPoses, dtIMU, idend, ...
-                dp, dv, g0, bf0, imufulldata);
-        end 
-    end
-    
-    % Display Xgt
-    fprintf('Ground Truth Value:\n\t Xg=[');
-    fprintf('%f ', xg(1:20));
-    fprintf('...]\n'); 
-
-    if(bMalaga == 1)
-        z2= xg(4);% Timu(:,4) correspond to Tcam(:,6)==> x-z
-    elseif(bDinuka == 1)
-        z2 = xg(6);
-    end 
-    
-    if(bInitPnF5VoU == 0)
-        x = xg;
-        if(bAddInitialNoise == 1)
-            x = x + 1e-2*(rand(size(x)) - 0.5);
-        end
-    else
-        x = x(1:(size(xg,1)));
-    end
-    % Display X0
-    fprintf('\nInitial Value:\n\t X0=[');
-    fprintf('%f ', x(1:20));
-    fprintf('...]\n');    
-    ie = x-xg;
-    [me, id] = max(abs(ie))    
-
     % Show Pose-feature graph
-    if(bShowFnP == 1)
-        fnShowFeaturesnPoses(xg, nPoses, nPts, nIMUdata, bPreInt, 'Ground Truth Values');
-                
-        idstart = 1; 
-        if(bPreInt == 1)
-            idend = 6*(nPoses-1);
-        else
-            idend = 6*nIMUrate*(nPoses-1);
-        end
-        %	x(idstart:idend) = camposes;
-        fnShowFeaturesnPoses(x, nPoses, nPts, nIMUdata, bPreInt, 'Initial Values');
+    if ( PreIntegration_options.bShowFnP == 1 )
+        fn_ShowFeaturesnPoses( Xg_obj, nPoses, nPts, nIMUdata, 'Ground Truth Values');
+        %	x(1:6*(nPoses-1)) = camposes; % x(1:6*nIMUrate(nPoses-1)) = camposes;
+        fn_ShowFeaturesnPoses( X_obj, nPoses, nPts, nIMUdata, 'Initial Values');
     end
 
     
     %% Z---the observation vector
-    % Firstly allocate a maximal space.
-    if(bPreInt == 1)
-        Zobs = zeros(2*nPts*nPoses+9*(nPoses-1), 1);
-    else
-        Zobs = zeros(2*nPts*nPoses+9*(nPoses-1), 1);
-    end
-    
-    %% camera observations (u,v)
-    zidend = 0;     
-    for(fid=1:nPts)% local id
-        nObs = RptFeatureObs(fid, nObsId_FeatureObs);
-        for(oid=1:nObs)
-            tv = (RptFeatureObs(fid, (oid*3+1):(oid*3+2)))';
-            zidstart = zidend + 1; zidend = zidend + 2;%*size(tv, 2);
-            Zobs(zidstart:zidend, 1) = tv;%(:);
-        end
-    end
-    nUV = zidend;
-    
-    
-    
-    %%%%%%%%%%%%%%%%%
-    utid = zidend;
-    idr = zidend;    
-    if(bUVonly == 0)
-        %% Put IMU data into observation vector z: 
-        if(bPreInt == 0) % Non-pre-integration: put raw data  
-            for pid=2:nPoses
-                ndata = size(dataIMU{pid}, 1);
-                tv = [dataIMU{pid}(:,2:7), zeros(ndata,3)]';%wi,ai,0
-                Zobs((idr+1):(idr+ndata*9)) = tv(:);
-                idr = idr+ndata*9;
-            end 
-            utid = idr;% + (nPoses - 1)*nlenpp;
-        else    
-            % Add interated IMU observations
-            if(bPerfectIMUdlt == 0)
-                Zobs((idr+1):(idr+9*(nPoses-1)),1) = reshape([dp(:,2:end);dv(:,2:end);dphi(:,2:end)],[],1);
-            else
-                %dt = 1;
-                Zobs((idr+1):(idr+9*(nPoses-1)),1) = fnCalPerfectIMUdlt_general(x, nPoses, nPts, Jd, dtIMU, bf0, bw0); 
-            end
-            utid = idr + (nPoses - 1)*9;
-        end 
-
-        %% Continue filling in Zobs with psedu observations related to IMU
-        if(bAddZg == 1)
-            % Add pseudo observation of g        
-            Zobs((utid+1):(utid+3)) = g0; 
-            utid = utid + 3;
-        end
-    end
-    
-    if(bAddZau2c == 1)
-        % Add pseudo observation of Tu2c
-        [alpha, beta, gamma] = fnABG5R(Ru2c);
-        Zobs((utid+1):(utid+3)) = [alpha;beta;gamma];
-        utid = utid + 3;
-    end
-    if(bAddZtu2c == 1)
-        % Add pseudo observation of Tu2c
-        Zobs((utid+1):(utid+3)) = Tu2c;
-        utid = utid + 3;
-    end
-
-    if(bUVonly == 1)% Add A2, T2 as additional observation
-        %         %%%%%%%
-        %         pid = 2;
-        %         Rcam = fnR5ABG(ABGcam(1,pid), ABGcam(2,pid), ABGcam(3,pid));
-        %         Rimu = Ru2c'*Rcam*Ru2c;
-        %         [ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid)] = fnABG5R(Rimu);
-        %         Timu(:, pid) = Tu2c + Ru2c'*Tcam(:, pid) - Rimu'*Tu2c;                
-        Zobs((utid+1)) = z2;%Zobs((utid+1):(utid+6)) = x(1:6);
-        utid = utid + 1; %6       
-    else
-        if(bVarBias == 0)
-            if(bAddZbf == 1)
-                % Add pseudo observation of bf
-                Zobs((utid+1):(utid+3)) = bf0; 
-                utid = utid + 3;            
-            end
-            if(bAddZbw == 1)
-                % Add pseudo observation of bf
-                Zobs((utid+1):(utid+3)) = bw0; 
-                utid = utid + 3;            
-            end
-        else
-            for(pid=2:(nPoses-1))
-               Zobs((utid+1):(utid+3)) = 0; %bfi-bfi1 = 0
-               utid = utid + 3; 
-               Zobs((utid+1):(utid+3)) = 0; %bwi-bwi1 = 0
-               utid = utid + 3;               
-            end
-        end
-    end
-    Zobs = [Zobs(1:utid)];%(idr+9*(nPoses-1))    
+    Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses, nPts, nIMUrate, dp, dv, dphi, SLAM_Params );
     
     %% Covariance Matrix
-    %% Save data for nonlin method.
-    save( [ Data_config.TEMP_DIR, 'initX.mat' ] ,'x');
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
-    nPoseNew = nPoses;
-    save( [ Data_config.TEMP_DIR, 'consts.mat' ],'nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
+    save( [ Data_config.TEMP_DIR 'consts.mat' ], 'nIMUrate', 'K', 'Zobs', 'nPoses', 'nPts', 'SLAM_Params', 'dt', 'Jd' );
+    save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs' ); 
+    save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs' ); 
 
     %% Covariance matrix
-    % Original     
-    %     CovMatrixInv = zeros((nPts*nPoses*3+(nPoses-1)*3*3))
-    if(bUVonly == 1)
-        utid = zidend;
-        CovMatrixInv = speye(utid + 6 + 1);
-    else
-        if(bPreInt == 1)
-            utid = nUV+(nPoses-1)*3*3+15;% initialized with possible maximum size.
-        else
-            utid = nUV + nIMUdata*9 +15;%(nPoses - 1)*nlenpp
-        end
-        CovMatrixInv = speye(utid);        
-        % Initialize the part corresponding to IMU data
-        if(bPreInt == 1)
-            for pid = 2:nPoses
-                covInv = 1e0*inv(Rd{pid}(1:9,1:9)); %2e0 1e0-1 -2 -4  
-                CovMatrixInv((nUV+9*(pid-2)+1):(nUV+9*(pid-1)), (nUV+9*(pid-2)+1):(nUV+9*(pid-1))) = covInv;
-            end
-            utid = nUV+(nPoses-1)*3*3;
-        else
-            q = inv(diag([sigma_w_cov^2*ones(3,1); sigma_f_cov^2*ones(3,1); sigma_tv*sigma_tv*ones(3,1)]));%1e-6
-            for pid = 1:nIMUdata%((nPoses-1)*nIMUrate
-            %CovMatrixInv((idr+1):end,(idr+1):end) =
-            % kron(eye((nPoses-1)*nIMUrate),q); % not suitalbe for large scale
-            % computation
-                CovMatrixInv((nUV+9*(pid-1)+1):(nUV+9*(pid)), (nUV+9*(pid-1)+1):(nUV+9*(pid))) = q;
-            end
-            utid = nUV+nIMUdata*9;%(nPoses-1)*nlenpp;
-        end
-    % Initilized additional parts
-        if(bAddZg == 1)
-            CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = ...
-               1/(sigma_g_cov*sigma_g_cov)*eye(3);
-            utid = utid + 3;
-        end
-    end 
-    CovMatrixInv(1:nUV,1:nUV) = 1/(sigma_uov_cov*sigma_uov_cov)*CovMatrixInv(1:nUV,1:nUV);
-    if(bAddZau2c == 1)
-        CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = ...
-            1/(sigma_au2c_cov*sigma_au2c_cov)*eye(3);
-        utid = utid + 3;
-    end
-    if(bAddZtu2c == 1)
-        CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = ...
-            1/(sigma_tu2c_cov*sigma_tu2c_cov)*eye(3);
-        utid = utid + 3;
-    end
-    if(bUVonly == 1)% Add A2, T2 as additional observation
-        CovMatrixInv((utid+1), (utid+1)) = 1e8;
-        %CovMatrixInv((utid+1):(utid+6), (utid+1):(utid+6)) = 1e8*eye(6);
-        utid = utid + 1;%6;        
-    elseif(bVarBias == 0)
-        if(bAddZbf == 1)
-            CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = ...
-                1/(sigma_bf_cov*sigma_bf_cov)*eye(3);%1e8
-            utid = utid + 3;
-        end 
-        if(bAddZbw == 1)
-            CovMatrixInv((utid+1):(utid+3), (utid+1):(utid+3)) = ...
-                1/(sigma_bw_cov*sigma_bw_cov)*eye(3);
-            utid = utid + 3;
-        end
-    else
-        for(pid=2:(nPoses-1))
-            tv = eye(6);
-            tv(1:3, 1:3) = (1/sigma_bf_cov)^2 * tv(1:3, 1:3);%(bfi-bfi1)
-            tv(4:6, 4:6) = (1/(dtIMU(pid)*sigma_bw_cov))^2 * tv(4:6, 4:6);
-            CovMatrixInv((utid+1):(utid+6), (utid+1):(utid+6)) = tv;%1e8
-            utid = utid + 6; 
-        end
-    end
-    CovMatrixInv = CovMatrixInv(1:utid,1:utid);
-    save( [ Data_config.TEMP_DIR, 'CovMatrixInv.mat' ],'CovMatrixInv', '-v7.3');    
-    
+    CovMatrixInv = fn_Generate_CovMatrixInv_realdata( nPoses, nPts, length(Zobs.fObs)*2, nIMUdata, Rd, SLAM_Params );
+    save( [ Data_config.TEMP_DIR, 'CovMatrixInv.mat' ],'CovMatrixInv', '-v7.3');        
    
 tic
-    if(bGNopt == 1)
-    %% GN Iterations 
-        [x, nReason] = fnVI_BA_general(nUV, K, x, nPoses, nPts, Jd, CovMatrixInv, ...
-            nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
-            ImuTimestamps, dtIMU, RptFeatureObs, bUVonly, bPreInt, ...
-            bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
-        nReason
+    if ( PreIntegration_options.bGNopt == 1 )
+        %% GN Iterations 
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM( K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
+                        nIMUrate, nIMUdata,  ImuTimestamps, dtIMU, RptFeatureObs, SLAM_Params );
+
     else    
-        [x,nReason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
-            CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-            bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);        
-        %   [x,Reason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, CovMatrixInv, nMaxIter, ...
-        %   	fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-        %       bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
-    end        
+        [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM( nUV, K, x, nPoses, nPts, Jd, ...
+                        CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
+                        bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
+    end   
+    X_final = X_obj;
 toc
-    if(bPreInt == 0)
+    if(PreIntegration_options.bPreInt == 0)
         fprintf('\n###Poses[x(1-%d)], Features[x(%d-%d)], Velocity[x(%d-%d]###\n',...
             nIMUdata*6, nIMUdata*6+1, ...
             nIMUdata*6+nPts*3, nIMUdata*6+nPts*3+1, ...
@@ -842,7 +242,7 @@ toc
     %xf = x;
     %load('Xgt.mat');%xf
 
-    ef = x - xg;
+    ef = SLAM_X_Object2Vector( SLAM_X_ObjectDiff( X_final, Xg_obj ));
     [maxe, idx] = max(abs(ef));
     fprintf('Final Error: maxXef=%f, idx=%d\n', maxe, idx);
     
@@ -851,27 +251,39 @@ toc
     end
     Tcam = zeros(3, nPoses);
     Timu = Tcam;
-    if(bPreInt == 1)
+    if(PreIntegration_options.bPreInt == 1)
         for(pid = 2:nPoses)
             %Rcam = Ru2c*Rimu*Ru2c;
-            Rimu = fnR5ABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
-            Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
-            Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+            if 1
+                Rimu = fn_RFromAngVec( X_obj.pose(pid-1).ang.val );
+                Timu(:, pid) = X_obj.pose(pid-1).trans.xyz;
+                Tcam(:, pid) = SLAM_Params.Ru2c * ( Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
+            else
+                Rimu = fn_RFromABG(x(6*(pid-2)+1), x(6*(pid-2)+2), x(6*(pid-2)+3));
+                Timu(:, pid) = x((6*(pid-2)+4):(6*(pid-2)+6),1);
+                Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+            end
         end
     else
         for(pid = 2:nPoses)
-            cid = ImuTimestamps(pid)-ImuTimestamps(1);
-            Rimu = fnR5ABG(x(6*(cid-1)+1), x(6*(cid-1)+2), x(6*(cid-1)+3));
-            Timu(:, pid) = x((6*(cid-1)+4):(6*(cid-1)+6),1);
-            Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+            cid = ImuTimestamps(pid) - ImuTimestamps(1);
+            if 1
+                Rimu = fn_RFromAngVec( X_obj.pose(cid).ang.val );
+                Timu(:, pid) = X_obj.pose(cid).trans.xyz;
+                Tcam(:, pid) = SLAM_Params.Ru2c * ( Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c );
+            else
+                Rimu = fnR5ABG(x(6*(cid-1)+1), x(6*(cid-1)+2), x(6*(cid-1)+3));
+                Timu(:, pid) = x((6*(cid-1)+4):(6*(cid-1)+6),1);
+                Tcam(:, pid) = Ru2c*(Timu(:, pid) - Tu2c + Rimu'*Tu2c);
+            end
         end        
     end
-    load(gtFile);
+    load( Data_config.gtFile );
     figure(); hold on;
-    if(bMalaga == 1)
+    if(PreIntegration_options.bMalaga == 1)
         %	plot(GT_P0(:,4),GT_P0(:,6),'-+r');
         %   plot(Tcam(1,:),Tcam(3,:),'-*b');
-    elseif(bDinuka == 1)
+    elseif(PreIntegration_options.bDinuka == 1)
         Tcam = Timu;
         GT_P0 = gtIMUposes(selpids(1:nPoses),2:7);
         GT_P0(:,4:6) = GT_P0(:,4:6) - repmat(GT_P0(1,4:6),nPoses,1);
@@ -896,21 +308,24 @@ toc
     title('Pose Translational Error');
     %     stop;
     %%%%%%%%%%%%    
-    save( [ Data_config.TEMP_DIR, 'x_Jac.mat' ], 'x');
+    save( [ Data_config.TEMP_DIR, 'X_Jac.mat' ], 'X_final');
     %% Show pose-feature graph
-    if(bShowFnP == 1)
-        fnShowFeaturesnPoses_general(x, nPoses, nPts, nIMUdata, bPreInt, 'Final Values');
+    if ( PreIntegration_options.bShowFnP == 1 )
+        fnShowFeaturesnPoses_general(x, nPoses, nPts, nIMUdata, 'Final Values');
         %     fnShowFeaturesnPoses(xf, nPoses, nPts, nIMUrate, bPreInt, 'Final Values');
     end
     %% Show uncertainty
-    if(bShowUncertainty == 1)
-        fnCalnShowUncert_general(bUVonly, nUV, RptFeatureObs, ImuTimestamps, ...
-            dtIMU, ef, K, x, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata, bPreInt, ...
-            bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw, bVarBias);
+    if ( PreIntegration_options.bShowUncertainty == 1 )
+        fnCalnShowUncert_general( RptFeatureObs, ImuTimestamps, ...
+            dtIMU, ef, K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
     end
+    
+    fn_ShowFeaturesnPoses_superimpose( Xg_obj, X_init, X_final );
+
     %     fnCalnShowUncert(ef, K, x, nPoses, nPts, dt, Jd, CovMatrixInv, ...
     %         nIMUrate, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw);
-    return;    
+    return;   
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%    
 	cSift = 1;%0;% % 0--use sift provided by matlab; 1--use another sift realization
 	if(cSift == 1)%
@@ -976,11 +391,11 @@ toc
 	nSlevel = 4;%5;%6;%
 
 	if(isunix) 
-	   dataDir = [dataDir_root, 'data', filesep];% cluster %(HP)'/mnt/B0A18DDEEC101C79/uDocs/Research/MyPapers/acra2013/code/SegData/data10/'; %
-       nfiles = size(dir(dataDir),1)-3;%2;%5;%
+	   Data_config.DATA_DIR = [dataDir_root, 'data', filesep];% cluster %(HP)'/mnt/B0A18DDEEC101C79/uDocs/Research/MyPapers/acra2013/code/SegData/data10/'; %
+       nfiles = size(dir(Data_config.DATA_DIR),1)-3;%2;%5;%
 	   %saveDir = ['../datasetinfo/', datsetname, '/unix/'];%/home/yowang/Documents/segDataset/
 	else % my pc
-	   %dataDir = ['E:\uDocs\Research\MyPapers\acra2013\code\SegData\', datasetname, filesep]; 
+	   %Data_config.DATA_DIR = ['E:\uDocs\Research\MyPapers\acra2013\code\SegData\', datasetname, filesep]; 
 	   %saveDir = fullfile('..', 'datasetinfo', datasetname, filesep);
 	end
 	saveDir = fullfile(dataDir_root, 'datasetinfo', featurename, filesep);
@@ -993,9 +408,9 @@ toc
 
 	for nPose = 0:dltnp:nfiles
 		%sprintf('../segDataset/data%d/', ndg);
-        sfrgb1= sprintf('%s%010d.png', dataDir, nPose);
-        %	sfrgb1= sprintf('%srgb%04d.png', dataDir, nPose);%ni{ndg}()
-        % 	sfd1= sprintf('%sdepth%04d.png', dataDir, nPose);%ni{ndg}()
+        sfrgb1= sprintf('%s%010d.png', Data_config.DATA_DIR, nPose);
+        %	sfrgb1= sprintf('%srgb%04d.png', Data_config.DATA_DIR, nPose);%ni{ndg}()
+        % 	sfd1= sprintf('%sdepth%04d.png', Data_config.DATA_DIR, nPose);%ni{ndg}()
 		if(~exist(fullfile(saveDir, sprintf('%010d.mat', nPose))))            
 		    %sfrgb2= sprintf('%srgb%04d.png', dir, nPose+1);%ni{ndg}()
 		    %sfd2= sprintf('%sdepth%04d.png', dir, nPose+1);%ni{ndg}()

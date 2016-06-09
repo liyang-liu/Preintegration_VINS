@@ -195,13 +195,11 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     if(PreIntegration_options.bAddInitialNoise == 1) 
         nc = 1; idst = 0;    
         % 1. Add to IMU poses
-        if 1
-            nr = length( X_obj.pose );
-            if(PreIntegration_options.bPreInt == 1)
-                nr = 6*(nFrames - 1);
-            else
-                nr = 6*nIMUrate*(nFrames - 1);
-            end
+        nr = length( X_obj.pose );
+        if(PreIntegration_options.bPreInt == 1)
+            nr = 6*(nFrames - 1);
+        else
+            nr = 6*nIMUrate*(nFrames - 1);
         end
         [gns] = fn_GenGaussNoise(nr, nc, SLAM_Params.fXnoisescale);
         [X_obj.pose(:).ang.val] = [X_obj.pose(:).ang.val] + {gns(1:3:end)};

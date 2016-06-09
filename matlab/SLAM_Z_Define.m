@@ -1,7 +1,13 @@
-function Z_Def = SLAM_Z_Define( nFrames, nPts, nIMUrate )
+function Z_Def = SLAM_Z_Define( nFrames, nPts, nIMUrate, varargin )
     %global PreIntegration_options
     global PreIntegration_options
 
+    if ( length( varargin ) > 0 )
+        nUVs = varargin{1};
+    else
+        nUVs = nPts * nFrames;
+    end
+            
     if 0
             if(PreIntegration_options.bPreInt == 0) %    two key frames: (wi,ai,dTi)
             Zobs = zeros(idr+(nFrames-1)*nlenpp, 1);
@@ -111,7 +117,7 @@ function Z_Def = SLAM_Z_Define( nFrames, nPts, nIMUrate )
     
     if(PreIntegration_options.bPreInt == 1) 
         Z_Def = struct( ...
-            'fObs',         repmat( UV_Def, nPts * nFrames, 1 ), ... % maybe redundant, will be cleaned
+            'fObs',         repmat( UV_Def, nUVs, 1 ), ... % maybe redundant, will be cleaned
             'intlDelta',    repmat( IntlDelta_Def, nFrames-1, 1 ), ...
             'Au2c',         Angle_Def, ...
             'Tu2c',         Trans_Def, ...
@@ -121,7 +127,7 @@ function Z_Def = SLAM_Z_Define( nFrames, nPts, nIMUrate )
     else
         nImuObs = (nFrames - 1) * nIMUrate;
         Z_Def = struct( ...
-            'fObs',         repmat( UV_Def, nPts * nFrames, 1 ), ... % maybe redundant, will be cleaned
+            'fObs',         repmat( UV_Def, nUVs, 1 ), ... % maybe redundant, will be cleaned
             'imu',          repmat( ImuObs_Def, nImuObs, 1 ), ...
             'Au2c',         Angle_Def, ...
             'Tu2c',         Trans_Def, ...

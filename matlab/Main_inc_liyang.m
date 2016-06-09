@@ -123,7 +123,7 @@ Rd = [];
     SLAM_Params.Ru2c = SLAM_Params.Ru2c_true;
     SLAM_Params.Tu2c = SLAM_Params.Tu2c_true;
     
-    [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dphi, Jd, Rd ] = ...
+    [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
                                             LoadData( nPts, nAllposes, kfids, SLAM_Params );
     
 %% Incrementally construct x, z and cov, then solve them trhough iterations 
@@ -136,7 +136,7 @@ Rd = [];
         if(nPoseOld == 1)
             pid = 1;
             [FeatureObs] = fn_CollectfObsFromImgs( ...
-                                kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );                              
+                                kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );
         end 
         
         for(pid=(nPoseOld+1):nPoseNew)

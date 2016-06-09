@@ -89,7 +89,7 @@ if(PreIntegration_options.bSimData)
 
     fbiascef = 3;
     
-    idr = nPoses*nPts*2;% total number of camera observations: (ui,vi) 
+    idr = nPoses * nPts * 2;% total number of camera observations: (ui,vi) 
            
     %% Other parameters for the simulated scenario
 	cx0 = 240; cy0 = 320; f = 575; % camera intrinsic parameters
@@ -134,7 +134,6 @@ if(PreIntegration_options.bSimData)
     nPoseNew = nPoses;
     save([ Data_config.TEMP_DIR 'consts.mat'],'nIMUrate','K','Zobs','nPoses','nPts', 'SLAM_Params', 'dt','Jd');
     save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs'); 
-    save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs'); 
 
     %% Covariance matrix
     CovMatrixInv = ...%SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
@@ -181,9 +180,9 @@ toc
     save( [Data_config.TEMP_DIR 'x_Jac.mat'], 'X_obj');
     %% Show pose-feature graph
     if(PreIntegration_options.bShowFnP == 1)
-        fn_ShowFeaturesnPoses_general(X_final, nIMUrate, 'Final Values');
+        fn_ShowFeaturesnPoses_general( X_final, nIMUrate, 'Final Values' );
     end
-    fn_ShowFeaturesnPoses_superimpose(Xg_obj, X_init, X_final);
+    fn_ShowFeaturesnPoses_superimpose( Xg_obj, X_init, X_final );
     
     %% Show uncertainty
     if(PreIntegration_options.bShowUncertainty == 1)

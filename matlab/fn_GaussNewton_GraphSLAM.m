@@ -46,12 +46,15 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
         X_vec = SLAM_X_Object2Vector( X_obj );
         
   		%%%%%%%%%%%%  L M            
-		if((chi2 < 1e0) && (max(abs(X_vec)) > 1e3))%30)%- 3-15/30
-		    fprintf('\n');
-    		[x,nReason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...
-                        CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs );  
-    		break;
-		end
+        % Dont do Levenburg Madquardt %
+        if ( PreIntegration_options.bUseLevenburgMacquardt == 1 )
+            if((chi2 < 1e0) && (max(abs(X_vec)) > 1e3))%30)%- 3-15/30
+                fprintf('\n');
+                [x,nReason,Info] = fn_LeastSqrLM_GraphSLAM( nUV, K, X_obj, nPoses, nPts, Jd, ...
+                            CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs );  
+                break;
+            end
+        end
   		%%%%%%%%%%%%
 
         J_obj = SLAM_Jacobian_Define( );

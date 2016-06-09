@@ -271,7 +271,7 @@ function J_Def = SLAM_Define_Jacobain( )
             );
     end
     
-    if ( PreIntegration_options.bPreInt )
+    if ( PreIntegration_options.bPreInt == 1)
         J_Def = struct( ...
                 'dUv_dX',           repmat( dUv_dX_Def, 1, 1 ), ... % will expand
                 'dIntlDelta_dX',    repmat( dIntlDelta_dX_Def, 1, 1 ), ... % will expand

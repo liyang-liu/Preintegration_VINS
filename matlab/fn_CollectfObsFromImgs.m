@@ -15,14 +15,24 @@ function [FeatureObs] = fn_CollectfObsFromImgs( kfids, pid, imgdir, sigma_uov_re
                 
             end
 
-            temp = num2cell( [FeatureObs(fidset).nObs] + 1 );
-            [ FeatureObs(fidset).nObs ] = temp{:};
+            %temp = num2cell( [FeatureObs(fidset).nObs] + 1 );
+            %[ FeatureObs(fidset).nObs ] = temp{:};
             
-            for(fidx=1:size(fidset,1))                
+            for fidx = 1 : size(fidset,1)
                 
                 fid = fidset(fidx);
                                 
+                %fids = num2cell( 1:nPts );
+                %[FeatureObs(:).fid] = fids{:};        
+                FeatureObs(fid).fid = fid;
+                %fids = num2cell( 1:nPts );
+                %[Feature3D(:).fid] = fids{:};
+                Feature3D(fid).fid = fid;
+                %temp = num2cell( [FeatureObs(fidset).nObs] + 1 );
+                %[ FeatureObs(fidset).nObs ] = temp{:};
+                FeatureObs(fid).nObs = FeatureObs(fid).nObs + 1;
                 nObs = FeatureObs(fid).nObs;
+                
                 FeatureObs(fid).obsv(nObs).pid = pid;
                 
                 if(PreIntegration_options.bMalaga == 1)                    

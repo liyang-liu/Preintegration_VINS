@@ -13,6 +13,7 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetP
     vcam = zeros(3,nPoses);
     Acam = zeros(3,nPoses);
     Rcam = zeros(3,3,nPoses);
+   
     Timu = [T0imu, Timu];
     vimu = [v0imu, vimu];
     Rimu = cat(3, R0imu, Rimu);

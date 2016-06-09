@@ -1,4 +1,4 @@
-function [xg] = fn_CalcLocalRelativePoses(xg, nPoses, tv)
+function [ Xg_obj, xg_col ] = fn_CalcLocalRelativePoses(Xg_obj, xg_col, nPoses, tv)
 %% Calculate new relative pose to tv(:,1), which is composed of (A,B,G,T1)'
 %    tv: 6xn
 
@@ -12,8 +12,10 @@ function [xg] = fn_CalcLocalRelativePoses(xg, nPoses, tv)
         [Ai1, Bi1, Gi1] = fn_ABGFromR(Ri1);
         Ti1 = R10'*(Ti0 - T10);
         %idstart = idend + 1; idend = idend + 6;
-        %xg(idstart:idend) = [Ai1;Bi1;Gi1;Ti1];
-        xg.pose(pid-1).ans.val = [Ai1; Bi1; Gi1];
-        xg.pose(pid-1).trans.xyz = Ti1;
+        %Xg_obj(idstart:idend) = [Ai1;Bi1;Gi1;Ti1];
+        Xg_obj.pose(pid-1).ang.val = [Ai1; Bi1; Gi1];
+        Xg_obj.pose(pid-1).ang.col = (1:3) + xg_col;    xg_col = xg_col + 3;
+        Xg_obj.pose(pid-1).trans.xyz = Ti1;
+        Xg_obj.pose(pid-1).trans.col = (1:3) + xg_col;    xg_col = xg_col + 3;
     end
     

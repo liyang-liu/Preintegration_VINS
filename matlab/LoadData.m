@@ -1,11 +1,11 @@
-function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dphi, Jd, Rd ] = LoadData( nPts, nAllposes, kfids, SLAM_Params )
+function [  FeatureObs, Feature3D, imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
+                    LoadData( nPts, nAllposes, kfids, SLAM_Params )
 
     global PreIntegration_options Data_config
 
     %%%%%%%%%%%%%%
     % camera observations  
     %%%%%%%%%%%%%%
-    
     % Define data structure for camera observation
     Observation_Def = struct( ...
         'pid', [], ...
@@ -16,7 +16,7 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
         'nObs', 0, ...
         'obsv', Observation_Def ... % array of observations, size will grow
         );
-    FeatureObs = repmat( FeatureInfo_Def, nPts, 1);
+    FeatureObs = repmat( FeatureInfo_Def, nPts, 1); % will expand
     
     %fids = mat2cell( 1:nPts, 1, ones(1, nPts)); 
     fids = num2cell( 1:nPts );
@@ -33,34 +33,37 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
         'numTriangs', 0, ...
         'triangs', TriangulateInfo_Def ... % is array of triangulates, size will grow
         );
-    Feature3D = repmat( Feature3DInfo_Def, nPts, 1);
+    Feature3D = repmat( Feature3DInfo_Def, nPts, 1); % will expand
     fids = num2cell( 1:nPts );
     [Feature3D(:).fid] = fids{:};        
-
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     nIMUdata = 0;    
-    ImuTimestamps = zeros(nAllposes, 1);    
+    ImuTimestamps = zeros( nAllposes, 1 );    
     dtIMU = [];
     
     if(PreIntegration_options.bUVonly == 0)
         % IMU observations
         if(PreIntegration_options.bMalaga == 1)
-            load([Data_config.imgdir 'KeyframeTimestamps.mat']);
+            load( [ Data_config.imgdir 'KeyframeTimestamps.mat' ] );
         elseif(PreIntegration_options.bDinuka == 1)
-            fname = [Data_config.imgdir 'image_time_stamp.mat'];
-            load(fname);
+            fname = [ Data_config.imgdir 'image_time_stamp.mat' ];
+            load( fname );
             KeyframeTimestamps = vis_time(kfids);
         end
 
         load(Data_config.imufulldir);
         
-        if(PreIntegration_options.bDinuka == 1)
-            nt = size(imudata,1);
+        if(PreIntegration_options.bMalaga == 1)
+            imufulldata = IMUparking6L;
+        elseif(PreIntegration_options.bDinuka == 1)
+            nt = size( imudata, 1 );
             imufulldata = imudata;% ts, wb,fb
-            rng('default');
+            rng( 'default' );
             imufulldata(:,2:4) = imufulldata(:,2:4) + fn_GenGaussNoise(nt, 3, SLAM_Params.sigma_w_real);
             imufulldata(:,5:7) = imufulldata(:,5:7) + fn_GenGaussNoise(nt, 3, SLAM_Params.sigma_f_real);
         end
+        
         utid = 1; %ctid = 1;
         for(ctid = 1:nAllposes)
             while(imufulldata(utid,1) < KeyframeTimestamps(ctid))
@@ -73,7 +76,9 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
                ImuTimestamps(ctid) = utid; 
             end
         end
+        
         %save('ImuTimestamps.mat', 'ImuTimestamps');        
+        nIMUdata = ImuTimestamps(nAllposes) - ImuTimestamps(1);
         dataIMU = {};     
         for pid=2:nAllposes
             uid0 = ImuTimestamps(pid-1);
@@ -87,7 +92,7 @@ function [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, dp, dv, dph
                 dataIMU{pid} = imufulldata(uid0:uid1, :);                
             end
         end 
-        if(PreIntegration_options.bUVonly == 0)
+        if(PreIntegration_options.bUVonly == 0 )
             % Generate pre-integration observations based on IMU raw data.         
             
             %%%%%%%%%%%%%%

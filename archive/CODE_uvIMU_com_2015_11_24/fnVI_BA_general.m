@@ -42,13 +42,16 @@ function [x, nReason] = fnVI_BA_general(nUV, K, x, nPoses, nPts, Jd, CovMatrixIn
             break;
         end
   		%%%%%%%%%%%%  L M    
-		if((chi2 < 1e0) && (max(abs(x)) > 1e3))%30)%- 3-15/30
-		    fprintf('\n');
-    		[x,nReason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
-    	    CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
-    	    bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);  
-    		break;
-		end
+        % Dont do Levenbug Macquadt %
+        if 0    
+            if((chi2 < 1e0) && (max(abs(x)) > 1e3))%30)%- 3-15/30
+                fprintf('\n');
+                [x,nReason,Info] = fnleastsquaresLM(nUV, K, x, nPoses, nPts, Jd, ...
+                CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
+                bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);  
+                break;
+            end
+        end
   		%%%%%%%%%%%%
 
 		%         % Original        

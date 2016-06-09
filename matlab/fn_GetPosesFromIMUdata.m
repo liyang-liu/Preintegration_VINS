@@ -16,6 +16,7 @@ function [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nFrames, nPts, 
     Aimu = zeros(3, nFrames);
     Rimu = zeros(3, 3, nFrames);
     Rimu(:, :, 1) = eye(3);
+    
     Tcam = zeros(3, nFrames);
     vcam = zeros(3, nFrames);
     Acam = zeros(3, nFrames);
