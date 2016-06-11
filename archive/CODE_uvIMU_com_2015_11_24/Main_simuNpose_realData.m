@@ -119,7 +119,7 @@ addpath(genpath('IMU'));
 addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
-save( [ '../../temp/' 'bVarBias.mat' ],'bVarBias');
+save( [ '../temp/' 'bVarBias.mat' ],'bVarBias');
 
 % Iteration times and bounds for Gauss-Newton
 nMaxIter = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
@@ -133,12 +133,12 @@ Jd =[];
 Rd = [];
 
 % save the configured data
-save( [ '../../temp/', 'bAddZg.mat' ],'bAddZg');    
-save( [ '../../temp/', 'bAddZau2c.mat' ],'bAddZau2c');
-save( [ '../../temp/', 'bAddZtu2c.mat' ],'bAddZtu2c');
-save( [ '../../temp/', 'bAddZbf.mat' ],'bAddZbf');
-save( ['../../temp/', 'bAddZbw.mat' ],'bAddZbw');
-save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');    
+save( [ '../temp/', 'bAddZg.mat' ],'bAddZg');    
+save( [ '../temp/', 'bAddZau2c.mat' ],'bAddZau2c');
+save( [ '../temp/', 'bAddZtu2c.mat' ],'bAddZtu2c');
+save( [ '../temp/', 'bAddZbf.mat' ],'bAddZbf');
+save( ['../temp/', 'bAddZbw.mat' ],'bAddZbw');
+save( ['../temp/', 'bUVonly.mat' ], 'bUVonly');    
 
 %% The main switch
     if(bMalaga == 1)
@@ -183,8 +183,11 @@ save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');
     %     g0 = [0; 0; -9.8]; 
 
 
+    % reset random number generator seed
+    
     %%%%%%%%%%%%%%
     % camera observations  
+    rng( 'default' );
 
     FeatureObs = zeros(nPts, 500);%[fid, nObs, [pid, ui,vi]]
     fId_FeatureObs = 1; nObsId_FeatureObs = 2;
@@ -228,7 +231,7 @@ save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');
         RptFeatureObs = FeatureObs(RptFidSet, :);        
     end
     
-    save( [ '../../temp/', 'RptFeatureObs.mat' ], 'RptFeatureObs');
+    save( [ '../temp/', 'RptFeatureObs.mat' ], 'RptFeatureObs');
     % Arrange feature observations according to feature ids
     % newimgdir = '/media/New Volume/uDocs/IMU/dataset/Liang/ParallaxBA2Shoudong/DataPrepareBA/Whole170R_New/';%['.' filesep 'Whole170R_New' filesep];    
     % if(~exist(newimgdir, 'dir'))
@@ -313,8 +316,8 @@ save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');
             end
         end
                 
-        save( [ '../../temp/', 'ImuTimestamps.mat' ], 'ImuTimestamps');
-        save( [ '../../temp/', 'dtIMU.mat' ], 'dtIMU');
+        save( [ '../temp/', 'ImuTimestamps.mat' ], 'ImuTimestamps');
+        save( [ '../temp/', 'dtIMU.mat' ], 'dtIMU');
     end
     
     
@@ -734,10 +737,10 @@ save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');
     
     %% Covariance Matrix
     %% Save data for nonlin method.
-    save( [ '../../temp/', 'initX.mat' ] ,'x');
+    save( [ '../temp/', 'initX.mat' ] ,'x');
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
     nPoseNew = nPoses;
-    save( [ '../../temp/', 'consts.mat' ],'nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
+    save( [ '../temp/', 'consts.mat' ],'nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
 
     %% Covariance matrix
     % Original     
@@ -812,7 +815,7 @@ save( ['../../temp/', 'bUVonly.mat' ], 'bUVonly');
         end
     end
     CovMatrixInv = CovMatrixInv(1:utid,1:utid);
-    save( [ '../../temp/', 'CovMatrixInv.mat' ],'CovMatrixInv', '-v7.3');    
+    save( [ '../temp/', 'CovMatrixInv.mat' ],'CovMatrixInv', '-v7.3');    
     
    
 tic
@@ -901,7 +904,7 @@ toc
     title('Pose Translational Error');
     %     stop;
     %%%%%%%%%%%%    
-    save( [ '../../temp/', 'x_Jac.mat' ], 'x');
+    save( [ '../temp/', 'x_Jac.mat' ], 'x');
     %% Show pose-feature graph
     if(bShowFnP == 1)
         fnShowFeaturesnPoses_general(x, nPoses, nPts, nIMUdata, bPreInt, 'Final Values');

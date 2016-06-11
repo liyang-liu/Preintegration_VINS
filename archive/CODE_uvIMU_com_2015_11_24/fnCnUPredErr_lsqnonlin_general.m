@@ -1,18 +1,18 @@
 function [e] = fnCnUPredErr_lsqnonlin_general(x)
 
 addpath(genpath('IMU'));
-load('../../temp/consts.mat');
-load('../../temp/bAddZg.mat');% Use the latest value
-load('../../temp/bAddZau2c.mat');
-load('../../temp/bAddZtu2c.mat');
-load('../../temp/bAddZbf.mat');
-load('../../temp/bAddZbw.mat');
-load('../../temp/RptFeatureObs.mat');%obsfeatures
-load('../../temp/bUVonly.mat');
-load('../../temp/bVarBias.mat');
+load('../temp/consts.mat');
+load('../temp/bAddZg.mat');% Use the latest value
+load('../temp/bAddZau2c.mat');
+load('../temp/bAddZtu2c.mat');
+load('../temp/bAddZbf.mat');
+load('../temp/bAddZbw.mat');
+load('../temp/RptFeatureObs.mat');%obsfeatures
+load('../temp/bUVonly.mat');
+load('../temp/bVarBias.mat');
 if(bUVonly == 0)
-    load('../../temp/ImuTimestamps.mat');
-    load('../../temp/dtIMU.mat');
+    load('../temp/ImuTimestamps.mat');
+    load('../temp/dtIMU.mat');
 else
     ImuTimestamps = [];
     dtIMU = [];

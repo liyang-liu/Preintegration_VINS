@@ -72,6 +72,13 @@ if(PreIntegration_options.bDinuka == 1)
     SLAM_Params.bf_true = [0; 0; 0]; % bias for acceleration
     SLAM_Params.bw_true = [0; 0; 0]; %[0, 0, 0]'; % bias for rotaion velocity     
     % Directories
+
+    % Iteration times and bounds for Gauss-Newton
+    SLAM_Params.nMaxIter                = 30;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
+    SLAM_Params.fLowerbound_e           = 1e-10;%1e-6;%1e-5;%1e-1;
+    SLAM_Params.fLowerbound_dx          = 1e-10;%1e-6;%
+    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
+
 end
 
 
@@ -79,10 +86,6 @@ addpath(genpath('IMU'));
 addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
-% Iteration times and bounds for Gauss-Newton
-nMaxIter = 30;%1e3;%50;%100;%15;%5;%10;%50;%3;% 20;% 
-fLowerbound_e = 1e-10;%1e-6;%1e-5;%1e-1;
-fLowerbound_dx = 1e-10;%1e-6;%
 
 %dtIMU = [];
 Jd =[];
@@ -123,7 +126,8 @@ Rd = [];
     SLAM_Params.Ru2c = SLAM_Params.Ru2c_true;
     SLAM_Params.Tu2c = SLAM_Params.Tu2c_true;
     
-    [ FeatureObs, Feature3D, imufulldata, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
+    [ FeatureObs, Feature3D ] = Feature_Obs_Define( nPts );
+    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
                                             LoadData( nPts, nAllposes, kfids, SLAM_Params );
     
 %% Incrementally construct x, z and cov, then solve them trhough iterations 
@@ -255,9 +259,10 @@ Rd = [];
     tic
     if(PreIntegration_options.bGNopt == 1)
     %% GN Iterations 
-        [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, ...
-                        nMaxIter, fLowerbound_e, fLowerbound_dx, nIMUrate, nIMUdata, ...
-                        ImuTimestamps, dtIMU, RptFeatureObs );
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM( K, X_obj, nPoseNew, nPts, ...
+                                Jd, CovMatrixInv, ...
+                                nIMUrate, nIMUdata, ImuTimestamps, dtIMU, ...
+                                RptFeatureObs, SLAM_Params );
         nReason
     else    
         [X_obj,nReason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
@@ -339,7 +344,11 @@ Rd = [];
                 fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
                     dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
             end
+            
+            X_final = X_obj;
+            fn_ShowFeaturesnPoses_GTvsVINS( Xg_obj, X_final );
         end
+        
         
     end
     

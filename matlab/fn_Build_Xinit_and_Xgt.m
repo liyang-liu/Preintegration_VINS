@@ -282,9 +282,9 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( X_obj, Xg_obj, ..
                 X_obj.Bw.col = (1:3) + xcol;    xcol = xcol + 3;
             end
             %xg(idstart:idend) = [bf_true;bw_true];
-            Xg_obj.Bf.val = SLAM_Params.bf0;
+            Xg_obj.Bf.val = SLAM_Params.bf_true;
             Xg_obj.Bf.col = (1:3) + xg_col;    xg_col = xg_col + 3;
-            Xg_obj.Bw.val = SLAM_Params.bw0;
+            Xg_obj.Bw.val = SLAM_Params.bw_true;
             Xg_obj.Bw.col = (1:3) + xg_col;    xg_col = xg_col + 3;
             
         else

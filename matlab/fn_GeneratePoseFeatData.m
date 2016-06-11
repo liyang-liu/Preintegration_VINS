@@ -2,6 +2,9 @@ function [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru
 
     global PreIntegration_options Data_config
     
+    % reset random number generator seed
+    rng( 'default' );
+
     %% Use previous observation data or not
     if(PreIntegration_options.bUsePriorZ == 0)   
     

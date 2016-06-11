@@ -145,7 +145,8 @@ Rd          = [];
     %%%%%%%%%%%%%%
     % camera observations  
 
-    [ FeatureObs, Feature3D, imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
+    [ FeatureObs, Feature3D ] = Feature_Obs_Define( nPts );
+    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
                                             LoadData( nPts, nPoses, kfids, SLAM_Params );
     for pid = 1 : nPoses
         [FeatureObs] = fn_CollectfObsFromImgs( ...
@@ -196,7 +197,6 @@ Rd          = [];
     % Show Pose-feature graph
     if ( PreIntegration_options.bShowFnP == 1 )
         fn_ShowFeaturesnPoses( Xg_obj, nPoses, nPts, nIMUdata, 'Ground Truth Values');
-        %	x(1:6*(nPoses-1)) = camposes; % x(1:6*nIMUrate(nPoses-1)) = camposes;
         fn_ShowFeaturesnPoses( X_obj, nPoses, nPts, nIMUdata, 'Initial Values');
     end
 

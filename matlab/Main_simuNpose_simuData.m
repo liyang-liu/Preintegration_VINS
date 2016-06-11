@@ -11,7 +11,7 @@ run PreIntegration_config_script
 global Data_config
 run Data_config_script
 
-assert( PreIntegration_options.bSimData == 1, 'Malag not tested');
+%assert( PreIntegration_options.bSimData == 1, 'Malag not tested');
 %assert( PreIntegration_options.bPreInt == 1, 'Non-preintegration not tested');
 assert( PreIntegration_options.bUVonly == 0, 'UV only not tested');
 assert( PreIntegration_options.bVarBias == 0, 'Variable Bias not tested');

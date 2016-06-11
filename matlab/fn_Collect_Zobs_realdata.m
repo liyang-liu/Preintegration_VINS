@@ -50,23 +50,14 @@ function Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses
                     Zobs.imu(idx_ImuObs).deltaT.row = (1:3) + zrow; zrow = zrow + 3;
 
                 end
-                %Zobs((idr+1):(idr+ndata*9)) = tv(:);
-                %idr = idr+ndata*9;
             end
-            %utid = idr;% + (nPoses - 1)*nlenpp;
         else    
             % Add interated IMU observations
             if ( PreIntegration_options.bPerfectIMUdlt == 1 )
-                %Zobs((idr+1):(idr+9*(nPoses-1)),1) = reshape([dp(:,2:end);dv(:,2:end);dphi(:,2:end)],[],1);
                 [dp, dv, dphi] = ... %fn_CalPerfectIMUdlt(X_obj, nPoses, nPts, Jd, SLAM_Params );             
                                  fn_CalPerfectIMUdlt_general( X_obj, nPoses, nPts, Jd, dtIMU, SLAM_Params ); 
-                                 %fnCalPerfectIMUdlt_general(x, nPoses, nPts, Jd, dtIMU, bf0, bw0); 
-            else
-                %dt = 1;
-                %Zobs((idr+1):(idr+9*(nPoses-1)),1) = fnCalPerfectIMUdlt_general(x, nPoses, nPts, Jd, dtIMU, bf0, bw0); 
             end
 
-            %utid = idr + (nPoses - 1)*9;
 
             for p = 2 : nPoses
                 Zobs.intlDelta(p-1).deltaP.val = dp(:, p);

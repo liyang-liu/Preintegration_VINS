@@ -4,7 +4,8 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 dp, dv, gtVelfulldir, SLAM_Params)
 
         global PreIntegration_options
-            
+
+        xg_col = 0;
         %% Poses
         if(PreIntegration_options.bMalaga == 1)
             
@@ -27,10 +28,12 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
             end   
             tv = [ABGimu(:, 2:end); Timu(:, 2:end)];
 
-            xg(1:((nPoseNew-1)*6)) = tv(:);
+            %xg(1:((nPoseNew-1)*6)) = tv(:);
             for i = 1 : nPoseNew - 1
-                xg.pose.ang.val = tv( (i-1)*6 + 1 : (i-1)*6 + 3 );
-                xg.pose.trans.xyz = tv( (i-1)*6 + 4 : (i-1)*6 + 6 );
+                xg.pose.ang.val = tv( 1:3, i ); %tv( (i-1)*6 + 1 : (i-1)*6 + 3 );
+                xg.pose.ang.col = (1:3) + xg_col;   xg_col = xg_col + 3;
+                xg.pose.trans.xyz = tv( 4:6, i ); %tv( (i-1)*6 + 4 : (i-1)*6 + 6 );
+                xg.pose.trans.col = (1:3) + xg_col;   xg_col = xg_col + 3;
             end
         elseif(PreIntegration_options.bDinuka == 1)
             
@@ -43,7 +46,7 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
                 Rimu = fn_RFromABG(ABGimu(1,pid), ABGimu(2,pid), ABGimu(3,pid));
                 Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + Rimu' * SLAM_Params.Tu2c);
             end
-            [xg] = fn_CalcLocalRelativePoses(xg, nPoseNew, tv);
+            [xg, xg_col] = fn_CalcLocalRelativePoses(xg, xg_col, nPoseNew, tv);
             
         end  
         
@@ -68,6 +71,7 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
         numFeatures = size(Pf1u, 2);
         for  i = 1:numFeatures%size(xg.feature, 1)
             xg.feature(i).xyz = Pf1u(:, i);
+            xg.feature(i).col = (1:3) + xg_col; xg_col = xg_col + 3;
         end
         xg.feature(numFeatures+1:end) = [];
         
@@ -76,38 +80,46 @@ function [xg, fscaleGT] = fn_GetXgroundtruth_general(xg, datadir, nPoseNew, ...
         if(PreIntegration_options.bDinuka == 1)
             load(gtVelfulldir);
             
-            idstart = idend + 1;%(nPoseNew-1)*6+3*nPts
-            idend = idend + 3*nPoseNew;%(nPoseNew-1)*6+3*nPts
+            %idstart = idend + 1;%(nPoseNew-1)*6+3*nPts
+            %idend = idend + 3*nPoseNew;%(nPoseNew-1)*6+3*nPts
             tv = (true_vel(ImuTimestamps(1:nPoseNew), 2:end))';
             
             
             for i = 1:size(xg.velocity, 1)
                 xg.velocity(i).xyz = tv( (i-1)*3 + 1 : (i-1)*3 + 3)';
+                xg.velocity(i).col = (1:3) + xg_col;    xg_col = xg_col + 33;
             end
         else
-            [xg,idend] = fn_CalVFromKposes(nIMUdata, ImuTimestamps, ...
-                nIMUrate, xg, nPoseNew, dtIMU, idend, ...
-                dp, dv, g_true, bf_true, imufulldata);
+            [xg, xg_col] = fn_CalcVFromKposes( nIMUdata, ImuTimestamps, ...
+                nIMUrate, dtIMU, nPoses, ...
+                imufulldata, dp, dv, SLAM_Params,  xg, xg_col );
         end 
         
         
         %% g
         xg.g.val = SLAM_Params.g_true;
+        xg.g.col = (1:3) + xg_col;      xg_col = xg_col + 3;
         
          %% Au2c, Tu2c
         %idstart = idend + 1; idend = idend + 6;
         %xg(idstart:idend) = [Au2c;Tu2c];
         xg.Au2c.val = SLAM_Params.Au2c_true;
+        xg.Au2c.col = (1:3) + xg_col;      xg_col = xg_col + 3;
         xg.Tu2c.val = SLAM_Params.Tu2c_true;
+        xg.Tu2c.col = (1:3) + xg_col;      xg_col = xg_col + 3;
         
         %% bf, bw
         if(PreIntegration_options.bVarBias == 0)
             xg.Bf.val = SLAM_Params.bf_true;
+            xg.Bf.col = (1:3) + xg_col;      xg_col = xg_col + 3;
             xg.Bw.val = SLAM_Params.bw_true;
+            xg.Bw.col = (1:3) + xg_col;      xg_col = xg_col + 3;
         else
             for pid=2:nPoseNew
-                xg.Bf.iter(pid-1).val = SLAM_Params.bf_true;;
-                xg.Bw.iter(pid-1).val = SLAM_Params.bw_true;;
+                xg.Bf(pid-1).val = SLAM_Params.bf_true;;
+                xg.Bf(pid-1).col = (1:3) + xg_col;      xg_col = xg_col + 3;
+                xg.Bw(pid-1).val = SLAM_Params.bw_true;;
+                xg.Bw(pid-1).col = (1:3) + xg_col;      xg_col = xg_col + 3;
             end
         end
         
