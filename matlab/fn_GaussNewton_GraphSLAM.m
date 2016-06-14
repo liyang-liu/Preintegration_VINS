@@ -36,12 +36,18 @@ function [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd,
         
 		[me, id] = max(abs(e));
     	%%
-	    fprintf('chi2=%0.6f, chi2_impv=%0.4f, maxE = %f, id=%d ', chi2, chi2_impv, me, id);
+	    fprintf('chi2=%0.6f, chi2_impv=%0.7f, maxE = %f, id=%d ', chi2, chi2_impv, me, id);
         
-        %%if(max(abs(e)) < SLAM_Params.fLowerbound_e)
-        if( chi2_impv < SLAM_Params.fLowerbound_chi2Cmpr )
-            break;
-        end
+        %if ( PreIntegration_options.bInc == 0 )            
+            %%if(max(abs(e)) < SLAM_Params.fLowerbound_e)
+            if( chi2_impv < SLAM_Params.fLowerbound_chi2Cmpr )
+                break;
+            end
+        %else
+        %    if(max(abs(e)) < SLAM_Params.fLowerbound_e)
+        %        break;
+        %    end
+        %end
         
         X_vec = SLAM_X_Object2Vector( X_obj );
         

@@ -5,9 +5,11 @@ if 0
     clc;
 end
 
-run InertialData_config_script
-global InertialDelta_options
-
+%run InertialData_config_script
+%global InertialDelta_options
+nAllposes = 60;
+nPoseNew = 4;
+nPoseOld = 4;
 
 bf0 = zeros(3,1);%[-0.55;0.6;0.61];
 bw0 = zeros(3,1);

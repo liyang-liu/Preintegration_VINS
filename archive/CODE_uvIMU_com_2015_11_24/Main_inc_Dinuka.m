@@ -1,5 +1,5 @@
 %% The main function.
-if 0
+if 1
     clear;
     close all;
     clc;
@@ -13,7 +13,7 @@ bDinuka = 1;%p4-15/nonoise:50-80(+50)
 
 
 %% Configure the conditions of the problem
-nAllposes = 60;%50;%25;%240;%13;%4;%20;%5;%240;%60;% 350;%
+nAllposes = 12;%50;%25;%240;%13;%4;%20;%5;%240;%60;% 350;%
 nPoseOld = 1;
 nAddPoses = 1;%10;%2;%4;%5;%50;%30;%1;%
 nPoseNew = 4;%3;%50;%10;%10;%5;%15;%30;%80;%120;%30;%25;%20;%18;%13;%3;%5;%10;%4;%50;%9;%2;%170;%6;%120;%
@@ -94,7 +94,7 @@ if(bDinuka == 1)
     bf_true = [0; 0; 0]; % bias for acceleration
     bw_true = [0; 0; 0]; %[0, 0, 0]'; % bias for rotaion velocity     
     % Directories
-    datadir = ['..' filesep 'Dinuka' filesep 'dataset_19_10_15' filesep];%dataset_19_10_15
+    datadir = ['../../Data/Dinuka' filesep 'dataset_19_10_15' filesep];%dataset_19_10_15
     imgdir = datadir;
     imufulldir = [datadir 'imudata_nonoise.mat'];% small imudata_nonoise['.' filesep 'Malaga' filesep 'IMUrawData.mat'];
     gtVelfulldir = [datadir 'velocity_ground_truth.mat'];
@@ -106,7 +106,7 @@ addpath(genpath('IMU'));
 addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
-save('bVarBias.mat','bVarBias');
+save('../temp/bVarBias.mat','bVarBias');
 
 % Iteration times and bounds for Gauss-Newton
 nMaxIter = 30;%1e3;%50;%100;%15;%5;%10;%50;%3;% 20;% 
@@ -118,12 +118,12 @@ Jd =[];
 Rd = [];
 
 % save the configured data
-save('bAddZg.mat','bAddZg');    
-save('bAddZau2c.mat','bAddZau2c');
-save('bAddZtu2c.mat','bAddZtu2c');
-save('bAddZbf.mat','bAddZbf');
-save('bAddZbw.mat','bAddZbw');
-save('bUVonly.mat', 'bUVonly');    
+save('../temp/bAddZg.mat','bAddZg');    
+save('../temp/bAddZau2c.mat','bAddZau2c');
+save('../temp/bAddZtu2c.mat','bAddZtu2c');
+save('../temp/bAddZbf.mat','bAddZbf');
+save('../temp/bAddZbw.mat','bAddZbw');
+save('../temp/bUVonly.mat', 'bUVonly');    
 
 %% The main switch
     if(bMalaga == 1)
@@ -263,12 +263,16 @@ save('bUVonly.mat', 'bUVonly');
             end
         end
                 
-        save('ImuTimestamps.mat', 'ImuTimestamps');
-        save('dtIMU.mat', 'dtIMU');
+        save('../temp/ImuTimestamps.mat', 'ImuTimestamps');
+        save('../temp/dtIMU.mat', 'dtIMU');
     end
     
 %% Incrementally construct x, z and cov, then solve them trhough iterations 
     while(nPoseOld < nAllposes)
+        fprintf('\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n');
+        fprintf('n%%            PoseOld - %d, nPoseNew - %d                  %%\n', nPoseOld, nPoseNew);
+        fprintf('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n');
+        
         nPoses = nPoseNew - nPoseOld;
         if(nPoseOld == 1)
             pid = 1;
@@ -357,8 +361,16 @@ save('bUVonly.mat', 'bUVonly');
             nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, Au2c, ...
             Ru2c, Tu2c, gtVelfulldir, g_true, bf_true, bw_true);
         % Display Xgt
-        fprintf('Ground Truth Value:\n\t Xg=[');
-        fprintf('%f ', xg(1:20));
+        fprintf('Ground Truth Value:\n\t Xg=[\n');
+        fprintf('\tAngle=[');
+        fprintf('%f ', xg([1:3, 7:9, 13:15]));
+        fprintf('...]\n');  
+        fprintf('\nTrans=[');
+        fprintf('%f ', xg([4:6, 10:12, 16:18]));
+        fprintf('...]\n');  
+        fprintf('\nFeature_1=[');
+        fost = (nPoseNew-1)*6;
+        fprintf('%f ', xg([fost+1:fost+3]));
         fprintf('...]\n');  
         
         if(bMalaga == 1)
@@ -376,11 +388,20 @@ save('bUVonly.mat', 'bUVonly');
 %             x = x(1:(size(xg,1)));
         end
         % Display X0
-        fprintf('\nInitial Value:\n\t X0=[');
-        fprintf('%f ', x(1:20));
-        fprintf('...]\n');    
+        fprintf('\nInitial Value:X0=[\n');
+        fprintf('\tAngle=[');
+        fprintf('%f ', x([1:3, 7:9, 13:15]));
+        fprintf('...]\n');  
+        fprintf('\nTrans=[');
+        fprintf('%f ', x([4:6, 10:12, 16:18]));
+        fprintf('...]\n');  
+        fprintf('\nFeature_1=[');
+        fost = (nPoseNew-1)*6;
+        fprintf('%f ', x([fost+1:fost+3]));
+        fprintf('...]\n');  
+        
     ie = x-xg;
-    [me, id] = max(abs(ie))   
+    [me, id] = max(abs(ie));   
     if(nPoseNew == 25)
         aa = 1;
     end
@@ -497,10 +518,10 @@ save('bUVonly.mat', 'bUVonly');
 
         %% Covariance Matrix
     %% Save data for nonlin method.
-    save('initX.mat','x');
+    save('../temp/initX.mat','x');
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
-    save('consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
-    save('RptFeatureObs.mat', 'RptFeatureObs'); 
+    save('../temp/consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
+    save('../temp/RptFeatureObs.mat', 'RptFeatureObs'); 
     %% Covariance matrix
     % Original     
     %     CovMatrixInv = zeros((nPts*nPoses*3+(nPoses-1)*3*3))
@@ -574,7 +595,7 @@ save('bUVonly.mat', 'bUVonly');
             end
         end
         CovMatrixInv = CovMatrixInv(1:utid,1:utid);
-        save('CovMatrixInv.mat','CovMatrixInv', '-v7.3');    
+        save('../temp/CovMatrixInv.mat','CovMatrixInv', '-v7.3');    
 
 
     tic
@@ -669,7 +690,7 @@ save('bUVonly.mat', 'bUVonly');
         title('Pose Translational Error');
     %     stop;
     %%%%%%%%%%%%    
-        save('x_Jac.mat', 'x');
+        save('../temp/x_Jac.mat', 'x');
         %% Show pose-feature graph
         if((bShowFnP == 1) && (nPoseNew == nAllposes))
             fnShowFeaturesnPoses_general(x, nPoseNew, nPts, nIMUdata, bPreInt, 'Final Values');

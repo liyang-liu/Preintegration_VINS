@@ -1,4 +1,4 @@
-function [dp, dv, dphi] = fnCalPerfectIMUdlt_general( X_obj, nPoses, nPts, J, dtIMU, SLAM_Params)
+function inertialDelta = fnCalPerfectIMUdlt_general( X_obj, nPoses, nPts, J, dtIMU, SLAM_Params)
 
 dt = 1;
 %dlt = 9*(nPoses - 1);
@@ -17,9 +17,6 @@ Tu1 = zeros(3,1);
 
 % Reprojection at each pose
 %intlDelta = [];
-dp = [];
-dv = [];
-dphi = [];
 
 for pid=2:nPoses
     dt = dtIMU(pid);
@@ -40,15 +37,14 @@ for pid=2:nPoses
     %id1x = (pid-2)*9+1;
     %dlt(id1x:(id1x+8)) = [dp;dv;dphi];% - Zobs(id1x:(id1x+8));
 
-    dp      = [ dp, dp_i ];
-    dv      = [ dv, dv_i ];
-    dphi    = [ dphi, dphi_i ];
     if 0
-        intlDelta(end+1) = struct( ...
-            'deltaP',   struct( 'val', dp,   'row', (1:3) + zrow ), ...
-            'deltaV',   struct( 'val', dv,   'row', (4:6) + zrow ), ...
-            'deltaPhi', struct( 'val', dphi, 'row', (7:9) + zrow ) );
-        zrow = zrow + 9;
+        dp      = [ dp, dp_i ];
+        dv      = [ dv, dv_i ];
+        dphi    = [ dphi, dphi_i ];
+    else
+        inertialDelta.dp(:, end+1) = dp_i;
+        inertialDelta.dv(:, end+1) = dv_i;
+        inertialDelta.dphi(:, end+1) = dphi_i;
     end
     
     Tu1 = Tu2; Ru1 = Ru2;

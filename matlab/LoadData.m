@@ -1,5 +1,5 @@
-function [  imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
-                    LoadData( nPts, nAllposes, kfids, SLAM_Params )
+function [  imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, inertialDelta ] = ...
+                    LoadData( nPts, nAllposes, kfids, inertialDelta, SLAM_Params )
 
     global PreIntegration_options Data_config
     
@@ -66,13 +66,9 @@ function [  imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, 
             %%%%%%%%%%%%%%
             % Pre Integration
             %%%%%%%%%%%%%%
-            
-            dp = zeros(3,nAllposes);
-            dv = dp; 
-            dphi = dp;    
             for pid=2:nAllposes%1e-2,1e-3+3*sigmaf+3*sigmaw
-                [dp(:,pid), dv(:,pid), dphi(:,pid), Jd{pid}, Rd{pid}] = ...
-                    fn_DeltObsAccu(SLAM_Params.bf0, SLAM_Params.bw0, dataIMU{pid}, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov); 
+                [ inertialDelta.dp(:,pid), inertialDelta.dv(:,pid), inertialDelta.dphi(:,pid), inertialDelta.Jd{pid}, inertialDelta.Rd{pid} ] = ...
+                            fn_DeltObsAccu( SLAM_Params.bf0, SLAM_Params.bw0, dataIMU{pid}, SLAM_Params.sigma_w_cov, SLAM_Params.sigma_f_cov ); 
             end
         end
                 

@@ -1,5 +1,5 @@
 function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, ...
-                                                    nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, focal_len, dt, vu, SLAM_Params )
+                                                    nIMUdata, nIMUrate, ImuTimestamps, dtIMU, inertialDelta, K, cx0, cy0, focal_len, dt, vu, SLAM_Params )
 
     global PreIntegration_options
     
@@ -32,7 +32,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
         %% Get Camera's R, T for each frame
         if(PreIntegration_options.bIMUodo == 1)
             %% Obtain initial poses from IMU data
-            [ Rcam, Acam, Tcam, Feature3D ] = fn_GetPosesFromIMUdata( nFrames, nPts, dtIMU, dp, dv, dphi, ...
+            [ Rcam, Acam, Tcam, Feature3D ] = fn_GetPosesFromIMUdata( nFrames, nPts, dtIMU, inertialDelta, ...
                                                 K, RptFeatureObs, SLAM_Params );               
         else
             %% obtain relative poses from visual odometry,
@@ -129,7 +129,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj,
     
     %% 3. Vi: Initial velocity for each pose
     if(PreIntegration_options.bInitPnF5VoU == 1)
-       [X_obj, xcol] = fn_InitVelocity(nFrames, X_obj, xcol, dp, dv, ...
+       [X_obj, xcol] = fn_InitVelocity(nFrames, X_obj, xcol, inertialDelta, ...
                                 dtIMU, imuData_cell, nIMUdata, nIMUrate, dt, SLAM_Params ); 
     end
     

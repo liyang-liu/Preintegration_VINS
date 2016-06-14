@@ -1,7 +1,7 @@
 function [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( X_obj, Xg_obj, ...
                         RptFeatureObs, RptFidSet, Feature3D, gtIMUposes, selpids, PBAFeature, ...
                         nPoses, nPts, nIMUdata, nIMUrate, dtIMU, ...
-                        ImuTimestamps, imufulldata, dp, dv, dphi, K, dt, SLAM_Params )
+                        ImuTimestamps, imufulldata, inertialDelta, K, dt, SLAM_Params )
     global PreIntegration_options Data_config
     
 % Based on Liang's results, pack the state vector x.
@@ -84,7 +84,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( X_obj, Xg_obj, ..
     if(PreIntegration_options.bInitPnF5VoU == 1)
         if(PreIntegration_options.bIMUodo == 1)
             %% Obtain initial poses from IMU data
-            [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nPoses, nPts, dtIMU, dp, dv, dphi, ...
+            [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nPoses, nPts, dtIMU, inertialDelta, ...
                         K, RptFeatureObs, SLAM_Params );
         else
             %% obtain relative poses from visual odometry
@@ -193,7 +193,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( X_obj, Xg_obj, ..
     %     clearvars PBAFeature tv
     if( PreIntegration_options.bUVonly == 0 )
         if( PreIntegration_options.bInitPnF5VoU == 1 )
-            [ X_obj, xcol ] = fn_CalcVFromKposes( nIMUdata, ImuTimestamps, nIMUrate, dtIMU, nPoses, imufulldata, dp, dv, SLAM_Params, X_obj, xcol);   
+            [ X_obj, xcol ] = fn_CalcVFromKposes( nIMUdata, ImuTimestamps, nIMUrate, dtIMU, nPoses, imufulldata, inertialDelta, SLAM_Params, X_obj, xcol);   
         elseif( PreIntegration_options.bPreInt == 1 )
            %% idend = idend + 3*nPoses;
         else
@@ -335,7 +335,7 @@ function [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( X_obj, Xg_obj, ..
             %[xg] = fnCalV5Kposes(bPreInt, xg, nPoses, dtIMU, idend, dp, dv, g0, bf0, imufulldata);
             [ Xg_obj, xg_col ] = fn_CalcVFromKposes( ...
                                         nIMUdata, ImuTimestamps, nIMUrate, dtIMU, nPoses, ...
-                                        imufulldata, dp, dv, SLAM_Params, Xg_obj, xg_col );
+                                        imufulldata, inertialDelta, SLAM_Params, Xg_obj, xg_col );
         end 
     end
 

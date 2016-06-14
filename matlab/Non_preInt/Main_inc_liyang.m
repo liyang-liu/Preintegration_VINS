@@ -6,9 +6,12 @@ if 0
     clc;
 end
 
-run InertialDelta_config_script
 global PreIntegration_options
+PreIntegration_options.bInc = 1;
+PreIntegration_options.bSimuNpose = 0;
+run PreIntegration_config_script
 
+global Data_config
 run Data_config_script
 global Data_config
 

@@ -4,10 +4,10 @@ close all;
 clc;
 
 %% Choose to use simulated data or or real data.
-bSimData = 0;% p15-30
+bSimData = 1;% p15-30
 % Select one of the real datasets
 bMalaga = 0;
-bDinuka = 1;%p4-15
+bDinuka = 0;%p4-15
 
 if(bSimData + bDinuka + bMalaga > 1)
     fprintf('Only one of [bSimData, bDinuka, bMalaga] could be 1, all of the rest 0s.');
@@ -15,7 +15,7 @@ if(bSimData + bDinuka + bMalaga > 1)
 end
 
 %% Configure the conditions of the problem
-nPoses = 10;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
+nPoses = 100;%10;%5;%15;%2;%3;%9;%2;%170;%4;%6;%120;%50;%10;%20;%60;%80;%13;%12;%170;% 200;%350;%30;%14;%60;%5;%40;%1000;%350;%15;%1200;%30;%170;%120;%7;%50;%120;%30;%60;%170;%
 bPreInt = 1;%1;% Use pre-integration method?
     
 bInitPnF5VoU = 1;% Use visual odometry or IMU data to initialize x?
@@ -175,12 +175,12 @@ Jd =[];
 Rd = [];
 
 % save the configured data
-save('bAddZg.mat','bAddZg');    
-save('bAddZau2c.mat','bAddZau2c');
-save('bAddZtu2c.mat','bAddZtu2c');
-save('bAddZbf.mat','bAddZbf');
-save('bAddZbw.mat','bAddZbw');
-save('bUVonly.mat', 'bUVonly');    
+save('../temp/bAddZg.mat','bAddZg');    
+save('../temp/bAddZau2c.mat','bAddZau2c');
+save('../temp/bAddZtu2c.mat','bAddZtu2c');
+save('../temp/bAddZbf.mat','bAddZbf');
+save('../temp/bAddZbw.mat','bAddZbw');
+save('../temp/bUVonly.mat', 'bUVonly');    
 
 %% The main switch
 if(bSimData)
@@ -279,7 +279,7 @@ if(bUsePriorZ == 0)
                 imuData_cell{pid}.samples(:, 5:7) + gns;
         end      
 %     end  
-    save('SimuData.mat', 'imuData_cell', 'uvd_cell', 'Ru_cell', 'Tu_cell', ...
+    save('../temp/SimuData.mat', 'imuData_cell', 'uvd_cell', 'Ru_cell', 'Tu_cell', ...
         'Ru2c', 'Tu2c', 'vu', 'bf0', 'bw0', 'RptFeatureObs');
 else
 
@@ -507,7 +507,7 @@ end
 %             RptFeatureObs(fidset(fid), (3*nObs+1):(3*nObs+2)) = (uvd_cell{pid}(1:2, fid))';
 %         end
 %     end   
-    save('RptFeatureObs.mat', 'RptFeatureObs');
+    save('../temp/RptFeatureObs.mat', 'RptFeatureObs');
     % Order UVs according to fid
     zidend = 0;     
     for(fid=1:nPts)% local id
@@ -604,10 +604,10 @@ end
 % end
 
 %% Save data for nonlin method.
-save('initX.mat','x');
+save('../temp/initX.mat','x');
 dt = ((imuData_cell{2}.samples(2, 1) - imuData_cell{2}.samples(1, 1)))*size(imuData_cell{2}.samples,1);
 nPoseNew = nPoses;
-save('consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
+save('../temp/consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
 
 %% Covariance matrix
 % Original     
@@ -658,14 +658,14 @@ end
     end
     
     CovMatrixInv = CovMatrixInv(1:utid,1:utid);
-save('CovMatrixInv.mat','CovMatrixInv', '-v7.3');
+save('../temp/CovMatrixInv.mat','CovMatrixInv', '-v7.3');
     
 % %% GN Iterations    
 %     [x] = fnVI_BA(K, x, nPoses, nPts, dt, Jd, CovMatrixInv, nMaxIter, ...
 %         fLowerbound_e, fLowerbound_dx, nIMUrate, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf, bAddZbw);
 
-        save('ImuTimestamps.mat', 'ImuTimestamps');
-        save('dtIMU.mat', 'dtIMU');    
+        save('../temp/ImuTimestamps.mat', 'ImuTimestamps');
+        save('../temp/dtIMU.mat', 'dtIMU');    
 tic
     if(bGNopt == 1)
     %% GN Iterations 
@@ -704,7 +704,7 @@ toc
 %     fprintf('%f ', xf);
 %     fprintf(']\n');    
 %%%%%%%%%%%%    
-save('x_Jac.mat', 'xf');
+save('../temp/x_Jac.mat', 'xf');
 %% Show pose-feature graph
 if(bShowFnP == 1)
     fnShowFeaturesnPoses(xf, nPoses, nPts, nIMUrate, bPreInt, 'Final Values');
@@ -762,13 +762,6 @@ else
     end    
 %     g0 = [0; 0; -9.8]; 
 
-%     % save the configured data
-%     save('bAddZg.mat','bAddZg');    
-%     save('bAddZau2c.mat','bAddZau2c');
-%     save('bAddZtu2c.mat','bAddZtu2c');
-%     save('bAddZbf.mat','bAddZbf');
-%     save('bAddZbw.mat','bAddZbw');  
-%     save('bUVonly.mat', 'bUVonly');
     
     %%%%%%%%%%%%%%
     % camera observations  
@@ -815,7 +808,7 @@ else
         RptFeatureObs = FeatureObs(RptFidSet, :);        
     end
     
-    save('RptFeatureObs.mat', 'RptFeatureObs');
+    save('../temp/RptFeatureObs.mat', 'RptFeatureObs');
     % Arrange feature observations according to feature ids
 % newimgdir = '/media/New Volume/uDocs/IMU/dataset/Liang/ParallaxBA2Shoudong/DataPrepareBA/Whole170R_New/';%['.' filesep 'Whole170R_New' filesep];    
 % if(~exist(newimgdir, 'dir'))
@@ -898,8 +891,8 @@ else
             end
         end
                 
-        save('ImuTimestamps.mat', 'ImuTimestamps');
-        save('dtIMU.mat', 'dtIMU');
+        save('../temp/ImuTimestamps.mat', 'ImuTimestamps');
+        save('../temp/dtIMU.mat', 'dtIMU');
     end
     
     
@@ -1370,10 +1363,10 @@ ie = x-xg;
     
     %% Covariance Matrix
 %% Save data for nonlin method.
-save('initX.mat','x');
+save('../temp/initX.mat','x');
 %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
 nPoseNew = nPoses;
-save('consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
+save('../temp/consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0','dt','Jd');
 
 %% Covariance matrix
 % Original     
@@ -1448,7 +1441,7 @@ save('consts.mat','nIMUrate','bPreInt','K','Zobs','nPoseNew','nPts','bf0','bw0',
         end
     end
     CovMatrixInv = CovMatrixInv(1:utid,1:utid);
-    save('CovMatrixInv.mat','CovMatrixInv', '-v7.3');    
+    save('../temp/CovMatrixInv.mat','CovMatrixInv', '-v7.3');    
     
    
 tic
@@ -1541,7 +1534,7 @@ end
     title('Pose Translational Error');
 %     stop;
 %%%%%%%%%%%%    
-save('x_Jac.mat', 'x');
+save('../temp/x_Jac.mat', 'x');
 %% Show pose-feature graph
 if(bShowFnP == 1)
     fnShowFeaturesnPoses_general(x, nPoses, nPts, nIMUdata, bPreInt, 'Final Values');

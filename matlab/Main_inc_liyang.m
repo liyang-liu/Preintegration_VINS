@@ -9,6 +9,9 @@ end
 global PreIntegration_options
 PreIntegration_options.bInc = 1;
 PreIntegration_options.bSimuNpose = 0;
+PreIntegration_options.bSimData = 0; % p15-30
+PreIntegration_options.bMalaga = 0;
+PreIntegration_options.bDinuka = 1;%p4-15/nonoise:50-80(+50)
 run PreIntegration_config_script
 
 global Data_config
@@ -25,13 +28,7 @@ nPoseNew = PreIntegration_options.nPoseNew
 kfids = 1:PreIntegration_options.kfspan:1200;
 nPts = PreIntegration_options.nPts
 nAllposes = PreIntegration_options.nAllposes
-
-uvd_cell = [];
-dp = zeros(3,nPoseNew);
-dv = dp; 
-dphi = dp;
-x_old = [];
-PBAFeature = [];
+fMaxDistance = PreIntegration_options.fMaxDistance
 
 if(PreIntegration_options.bSimData == 0)
     nPts1 = 60000;
@@ -77,7 +74,7 @@ if(PreIntegration_options.bDinuka == 1)
     SLAM_Params.nMaxIter                = 30;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
     SLAM_Params.fLowerbound_e           = 1e-10;%1e-6;%1e-5;%1e-1;
     SLAM_Params.fLowerbound_dx          = 1e-10;%1e-6;%
-    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
+    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-5;
 
 end
 
@@ -88,8 +85,17 @@ addpath(genpath('Ransac'));
 
 
 %dtIMU = [];
-Jd =[];
-Rd = [];
+uvd_cell = [];
+inertialDelta = struct( ...
+    'dp',       zeros(3, nPoseNew), ...
+    'dv',       zeros(3, nPoseNew), ...
+    'dphi',     zeros(3, nPoseNew), ...
+    'Jd',       [], ...
+    'Rd',       [] ...
+    );
+
+PBAFeature = [];
+x_old = [];
 
 
 %% The main switch
@@ -127,8 +133,8 @@ Rd = [];
     SLAM_Params.Tu2c = SLAM_Params.Tu2c_true;
     
     [ FeatureObs, Feature3D ] = Feature_Obs_Define( nPts );
-    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
-                                            LoadData( nPts, nAllposes, kfids, SLAM_Params );
+    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, inertialDelta ] = ...
+                                            LoadData( nPts, nAllposes, kfids, inertialDelta, SLAM_Params );
     
 %% Incrementally construct x, z and cov, then solve them trhough iterations 
     while(nPoseOld < nAllposes)
@@ -148,20 +154,7 @@ Rd = [];
                                 kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs ); 
         end
         
-        if(PreIntegration_options.bMalaga == 1)
-            load([ Data_config.DATA_DIR 'PBAFeature.mat']);
-            %RptFidSet = find(FeatureObs(:, nObsId_FeatureObs) >= min(nPoseNew, nMinObsTimes));
-            %RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
-            %RptFeatureObs = FeatureObs(RptFidSet, :);
-            RptFidSet = find( [FeatureObs(:).nObs] > 1);
-            RptFidSet = RptFidSet(:);
-            RptFidSet = intersect(RptFidSet, find(abs(PBAFeature(:,3)) < fMaxDistance));
-            RptFeatureObs = FeatureObs(RptFidSet);
-        elseif(PreIntegration_options.bDinuka == 1)
-            RptFidSet = find( [FeatureObs(:).nObs] >= min(nPoseNew, PreIntegration_options.nMinObsTimes));
-            RptFidSet = RptFidSet(:);
-            RptFeatureObs = FeatureObs(RptFidSet);
-        end
+        [ RptFidSet, RptFeatureObs, PBAFeature ] = fn_GetUniqueFeatures( FeatureObs, nPoseNew, fMaxDistance );
         
         nPts = size(RptFidSet, 1);
                    
@@ -174,7 +167,7 @@ Rd = [];
         %% Compose the ground truth value 1
         [~, fscaleGT] = fn_GetXgroundtruth_general(Xg_obj, ...
             Data_config.DATA_DIR, nPoseNew, ImuTimestamps, gtIMUposes, selpids, ...
-            nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, ...
+            nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, inertialDelta, ...
             Data_config.gtVelfulldir, SLAM_Params );     
     
         %% Compose Initial value of X from odometry 
@@ -182,7 +175,7 @@ Rd = [];
             [X_obj, RptFidSet, RptFeatureObs, nPts] = fn_CompXFromOdometry( ...
                         nPoseOld, nPoseNew, nPoses, nPts, x_old, ...
                         ImuTimestamps, nIMUdata, nIMUdata_old, Feature3D, RptFidSet, ...
-                        RptFidSet_old, dtIMU, dp, dv, dphi, K, RptFeatureObs, ...
+                        RptFidSet_old, dtIMU, inertialDelta, K, RptFeatureObs, ...
                         fscaleGT, kfids, nIMUrate, X_obj, SLAM_Params, imufulldata);
             
         end
@@ -190,7 +183,7 @@ Rd = [];
         %% Compose the ground truth value 2
         [Xg_obj, fscaleGT] = fn_GetXgroundtruth_general(Xg_obj, ...
             Data_config.DATA_DIR, nPoseNew, ImuTimestamps, gtIMUposes, selpids, ...
-            nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, dp, dv, ...
+            nPts, PBAFeature, RptFidSet, dtIMU, nIMUrate, nIMUdata, imufulldata, inertialDelta, ...
             Data_config.gtVelfulldir, SLAM_Params);
         
             
@@ -228,7 +221,7 @@ Rd = [];
         fprintf('...]\n');    
     %ie = x-xg;
     ie = SLAM_X_Object2Vector( SLAM_X_ObjectDiff(X_obj, Xg_obj) );
-    [me, id] = max(abs(ie))   
+    [me, id] = max(abs(ie));
     if(nPoseNew == 25)
         aa = 1;
     end
@@ -242,17 +235,17 @@ Rd = [];
     %% Z---the observation vector
     Zobs = SLAM_Z_Define( nPoseNew, nPts );
     
-    Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params );
+    Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, inertialDelta, SLAM_Params );
 
     %% Save data for nonlin method.
     save( [ Data_config.TEMP_DIR 'initX.mat' ],'X_obj');
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
-    save( [ Data_config.TEMP_DIR 'consts.mat' ],'nIMUrate','K','Zobs','nPoseNew','nPts','SLAM_Params','dt','Jd');
+    save( [ Data_config.TEMP_DIR 'consts.mat' ], 'nIMUrate','K','Zobs','nPoseNew','nPts','SLAM_Params','dt','inertialDelta');
     save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs'); 
     save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs'); 
     
     %% Covariance matrix
-    CovMatrixInv = SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
+    CovMatrixInv = SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, inertialDelta.Rd );
     save( [ Data_config.TEMP_DIR 'CovMatrixInv.mat' ], 'CovMatrixInv', '-v7.3');    
 
 
@@ -260,12 +253,12 @@ Rd = [];
     if(PreIntegration_options.bGNopt == 1)
     %% GN Iterations 
         [X_obj, nReason] = fn_GaussNewton_GraphSLAM( K, X_obj, nPoseNew, nPts, ...
-                                Jd, CovMatrixInv, ...
+                                inertialDelta.Jd, CovMatrixInv, ...
                                 nIMUrate, nIMUdata, ImuTimestamps, dtIMU, ...
                                 RptFeatureObs, SLAM_Params );
         nReason
     else    
-        [X_obj,nReason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, Jd, ...
+        [X_obj,nReason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, X_obj, nPoseNew, nPts, inertialDelta.Jd, ...
             CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs);        
     end        
     
@@ -342,7 +335,7 @@ Rd = [];
             %% Show uncertainty
             if ( PreIntegration_options.bShowUncertainty == 1 )
                 fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
-                    dtIMU, ef, K, X_obj, nPoseNew, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
+                    dtIMU, ef, K, X_obj, nPoseNew, nPts, inertialDelta.Jd, CovMatrixInv, nIMUrate, nIMUdata );
             end
             
             X_final = X_obj;

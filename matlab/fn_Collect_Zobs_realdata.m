@@ -1,4 +1,4 @@
-function Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses, nPts, nIMUrate, dp, dv, dphi, SLAM_Params )
+function Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses, nPts, nIMUrate, inertialDelta, SLAM_Params )
 
     global PreIntegration_options
 
@@ -54,21 +54,21 @@ function Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses
         else    
             % Add interated IMU observations
             if ( PreIntegration_options.bPerfectIMUdlt == 1 )
-                [dp, dv, dphi] = ... %fn_CalPerfectIMUdlt(X_obj, nPoses, nPts, Jd, SLAM_Params );             
+                inertialDelta = ... %fn_CalPerfectIMUdlt(X_obj, nPoses, nPts, Jd, SLAM_Params );             
                                  fn_CalPerfectIMUdlt_general( X_obj, nPoses, nPts, Jd, dtIMU, SLAM_Params ); 
             end
 
 
             for p = 2 : nPoses
-                Zobs.intlDelta(p-1).deltaP.val = dp(:, p);
+                Zobs.intlDelta(p-1).deltaP.val = inertialDelta.dp(:, p);
                 Zobs.intlDelta(p-1).deltaP.row = (1:3) + zrow;
                 zrow = zrow + 3;
 
-                Zobs.intlDelta(p-1).deltaV.val = dv(:, p);
+                Zobs.intlDelta(p-1).deltaV.val = inertialDelta.dv(:, p);
                 Zobs.intlDelta(p-1).deltaV.row = (1:3) + zrow;
                 zrow = zrow + 3;
 
-                Zobs.intlDelta(p-1).deltaPhi.val = dphi(:, p);
+                Zobs.intlDelta(p-1).deltaPhi.val = inertialDelta.dphi(:, p);
                 Zobs.intlDelta(p-1).deltaPhi.row = (1:3) + zrow;
                 zrow = zrow + 3;
             end

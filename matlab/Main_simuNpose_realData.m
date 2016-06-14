@@ -7,6 +7,10 @@ clc;
 global PreIntegration_options
 PreIntegration_options.bInc = 0;
 PreIntegration_options.bSimuNpose = 1;
+PreIntegration_options.bSimData = 0; % p15-30
+PreIntegration_options.bMalaga = 0;
+PreIntegration_options.bDinuka = 1;%p4-15/nonoise:50-80(+50)
+
 run PreIntegration_config_script
 
 global Data_config
@@ -90,11 +94,13 @@ addpath( genpath( 'Ransac' ));
 %save( [ Data_config.TEMP_DIR 'bVarBias.mat' ],'bVarBias');
 
 uvd_cell    = [];
-dp          = zeros(3, nPoses);
-dv          = zeros(3, nPoses);
-dphi        = zeros(3, nPoses);
-Jd          = [];
-Rd          = [];
+inertialDelta = struct( ...
+    'dp',       zeros(3, nPoses), ...
+    'dv',       zeros(3, nPoses), ...
+    'dphi',     zeros(3, nPoses), ...
+    'Jd',       [], ...
+    'Rd',       [] ...
+    );
 
 
 %% The main switch
@@ -146,8 +152,8 @@ Rd          = [];
     % camera observations  
 
     [ FeatureObs, Feature3D ] = Feature_Obs_Define( nPts );
-    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, dp, dv, dphi, Jd, Rd ] = ...
-                                            LoadData( nPts, nPoses, kfids, SLAM_Params );
+    [ imufulldata, dataIMU, ImuTimestamps, dtIMU, nIMUdata, inertialDelta ] = ...
+                                            LoadData( nPts, nPoses, kfids, inertialDelta, SLAM_Params );
     for pid = 1 : nPoses
         [FeatureObs] = fn_CollectfObsFromImgs( ...
                             kfids, pid, Data_config.imgdir, SLAM_Params.sigma_uov_real, FeatureObs );
@@ -166,7 +172,7 @@ Rd          = [];
        [X_obj, Xg_obj, Feature3D ] = fn_Build_Xinit_and_Xgt( ...
                                         X_obj, Xg_obj, RptFeatureObs, RptFidSet, Feature3D, gtIMUposes, selpids, PBAFeature, ...
                                         nPoses, nPts, nIMUdata, nIMUrate, dtIMU, ...
-                                        ImuTimestamps, imufulldata, dp, dv, dphi, K, dt, SLAM_Params );
+                                        ImuTimestamps, imufulldata, inertialDelta, K, dt, SLAM_Params );
        
         if ( PreIntegration_options.bTestIntegrity == 1 )
             %--------------------------------------------------
@@ -202,26 +208,26 @@ Rd          = [];
 
     
     %% Z---the observation vector
-    Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses, nPts, nIMUrate, dp, dv, dphi, SLAM_Params );
+    Zobs = fn_Collect_Zobs_realdata( RptFeatureObs, Xg_obj, dataIMU, nPoses, nPts, nIMUrate, inertialDelta, SLAM_Params );
     
     %% Covariance Matrix
     %((dataIMU{2}(2, 1) - dataIMU{2}(1, 1)))*size(dataIMU{2},1);
-    save( [ Data_config.TEMP_DIR 'consts.mat' ], 'nIMUrate', 'K', 'Zobs', 'nPoses', 'nPts', 'SLAM_Params', 'dt', 'Jd' );
+    save( [ Data_config.TEMP_DIR 'consts.mat' ], 'nIMUrate', 'K', 'Zobs', 'nPoses', 'nPts', 'SLAM_Params', 'dt', 'inertialDelta' );
     save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs' ); 
     save( [ Data_config.TEMP_DIR 'RptFeatureObs.mat' ], 'RptFeatureObs' ); 
 
     %% Covariance matrix
-    CovMatrixInv = fn_Generate_CovMatrixInv_realdata( nPoses, nPts, length(Zobs.fObs)*2, nIMUdata, Rd, SLAM_Params );
+    CovMatrixInv = fn_Generate_CovMatrixInv_realdata( nPoses, nPts, length(Zobs.fObs)*2, nIMUdata, inertialDelta.Rd, SLAM_Params );
     save( [ Data_config.TEMP_DIR, 'CovMatrixInv.mat' ],'CovMatrixInv', '-v7.3');        
    
 tic
     if ( PreIntegration_options.bGNopt == 1 )
         %% GN Iterations 
-        [X_obj, nReason] = fn_GaussNewton_GraphSLAM( K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM( K, X_obj, nPoses, nPts, inertialDelta.Jd, CovMatrixInv, ...
                         nIMUrate, nIMUdata,  ImuTimestamps, dtIMU, RptFeatureObs, SLAM_Params );
 
     else    
-        [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM( nUV, K, x, nPoses, nPts, Jd, ...
+        [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM( nUV, K, x, nPoses, nPts, inertialDelta.Jd, ...
                         CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
                         bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
     end   
@@ -317,7 +323,7 @@ toc
     %% Show uncertainty
     if ( PreIntegration_options.bShowUncertainty == 1 )
         fnCalnShowUncert_general( RptFeatureObs, ImuTimestamps, ...
-            dtIMU, ef, K, X_obj, nPoses, nPts, Jd, CovMatrixInv, nIMUrate, nIMUdata );
+            dtIMU, ef, K, X_obj, nPoses, nPts, inertialDelta.Jd, CovMatrixInv, nIMUrate, nIMUdata );
     end
     
     fn_ShowFeaturesnPoses_superimpose( Xg_obj, X_init, X_final );
@@ -550,7 +556,7 @@ toc
     fprintf(']\n');
     
     %% 3. VINS-BA
-    [x] = fnVI_BA(K, x, nPoses, nPts, dt, Jd, CovMatrixInv, nMaxIter, fLowerbound_e, fLowerbound_dx);
+    [x] = fnVI_BA(K, x, nPoses, nPts, dt, inertialDelta.Jd, CovMatrixInv, nMaxIter, fLowerbound_e, fLowerbound_dx);
 
     fprintf('Final Value:\n\t Xf=[');
     fprintf('%f ', x);

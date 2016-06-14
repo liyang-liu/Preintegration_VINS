@@ -13,7 +13,7 @@ function [ RptFidSet, RptFeatureObs, PBAFeature ] = fn_GetUniqueFeatures( Featur
         RptFeatureObs = FeatureObs(RptFidSet);
         
     elseif(PreIntegration_options.bDinuka == 1)
-        
+        PBAFeature = [];
         RptFidSet = find( [FeatureObs(:).nObs] >= min(nPoses, PreIntegration_options.nMinObsTimes));
         RptFidSet = RptFidSet(:);
         RptFeatureObs = FeatureObs(RptFidSet);

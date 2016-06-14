@@ -6,6 +6,10 @@ clc;
 global PreIntegration_options
 PreIntegration_options.bInc = 0;
 PreIntegration_options.bSimuNpose = 1;
+PreIntegration_options.bSimData = 1; % p15-30
+PreIntegration_options.bMalaga = 0;
+PreIntegration_options.bDinuka = 0;%p4-15/nonoise:50-80(+50)
+
 run PreIntegration_config_script
 
 global Data_config
@@ -66,7 +70,7 @@ if(PreIntegration_options.bSimData == 1)
     SLAM_Params.nMaxIter                = 1e3;%50;%30;%100;%15;%5;%10;%50;%3;% 20;% 
     SLAM_Params.fLowerbound_e           = 1e-10;%1e-6;%1e-5;%1e-1;
     SLAM_Params.fLowerbound_dx          = 1e-10;%1e-6;%
-    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-4;
+    SLAM_Params.fLowerbound_chi2Cmpr    = 1e-6;
     
     SLAM_Params.fXnoisescale            = 0;
 end
@@ -77,11 +81,14 @@ addpath(genpath('MoSeg_2D'));%addpath(genpath('ms3D'));
 addpath(genpath('Ransac'));
 
 uvd_cell    = [];
-dp          = zeros(3, nPoses);
-dv          = zeros(3, nPoses);
-dphi        = zeros(3, nPoses);
-Jd          = [];
-Rd          = [];
+
+inertialDelta = struct( ...
+    'dp',       zeros(3, nPoses), ...
+    'dv',       zeros(3, nPoses), ...
+    'dphi',     zeros(3, nPoses), ...
+    'Jd',       [], ...
+    'Rd',       [] ...
+    );
 
 
 %% The main switch
@@ -101,17 +108,17 @@ if(PreIntegration_options.bSimData)
     %     SLAM_Params.g0 = [0; 0; -9.8]; % g value in the first key frame
             
     [imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, FeatureObs, ...
-                    dp, dv, dphi, Jd, Rd, vu, SLAM_Params] = ...
-                            fn_ObtainSimuData( SLAM_Params, nPoses, nPts, nIMUrate );
+                    inertialDelta, vu, SLAM_Params] = ...
+                            fn_ObtainSimuData( SLAM_Params, nPoses, nPts, nIMUrate, inertialDelta );
                         
     RptFeatureObs = FeatureObs;
     save([ Data_config.TEMP_DIR 'RptFeatureObs.mat'], 'RptFeatureObs');
 
     X_obj = SLAM_X_Define( nPts, nPoses, nIMUrate );
     Xg_obj = X_obj;        
-    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, dp, dv, dphi, K, cx0, cy0, f, dt, vu, SLAM_Params );
+    [X_obj, Xg_obj, Feature3D ] = fn_Generate_Xinit_and_Xgt( X_obj, Xg_obj, RptFeatureObs, imuData_cell, uvd_cell, noisefree_imuData_cell, noisefree_uvd_cell, Ru_cell, Tu_cell, nIMUdata, nIMUrate, ImuTimestamps, dtIMU, inertialDelta, K, cx0, cy0, f, dt, vu, SLAM_Params );
     
-    if PreIntegration_options.bTestIntegrity == 1
+    if PreIntegration_options.bTestIntegrity == 0
         %--------------------------------------------------
         % Hack: force X_obj to have same pose as GT
         %--------------------------------------------------    
@@ -127,17 +134,17 @@ if(PreIntegration_options.bSimData)
         fn_ShowFeaturesnPoses( X_obj, nPoses, nPts, nIMUdata, 'Initial Values' );
     end    
     
-    Zobs = fn_Collect_Zobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIMUrate, dp, dv, dphi, SLAM_Params )
+    [Zobs, inertialDelta] = fn_Collect_Zobs( RptFeatureObs, imuData_cell, nPoses, nPts, nIMUrate, inertialDelta, SLAM_Params )
     
     %% Save data for nonlin method.
     dt = ((imuData_cell{2}.samples(2, 1) - imuData_cell{2}.samples(1, 1))) * size(imuData_cell{2}.samples,1);
     nPoseNew = nPoses;
-    save([ Data_config.TEMP_DIR 'consts.mat'],'nIMUrate','K','Zobs','nPoses','nPts', 'SLAM_Params', 'dt','Jd');
+    save([ Data_config.TEMP_DIR 'consts.mat'],'nIMUrate','K','Zobs','nPoses','nPts', 'SLAM_Params', 'dt','inertialDelta');
     save( [ Data_config.TEMP_DIR 'Zobs.mat' ], 'Zobs'); 
 
     %% Covariance matrix
     CovMatrixInv = ...%SLAM_CalcCovMatrixInv( SLAM_Params, Zobs, Rd );
-            fn_Generate_CovMatrixInv2( nPoses, nPts, length(Zobs.fObs)*2, nIMUrate, Rd, SLAM_Params );
+            fn_Generate_CovMatrixInv2( nPoses, nPts, length(Zobs.fObs)*2, nIMUrate, inertialDelta.Rd, SLAM_Params );
             %fn_Generate_CovMatrixInv( SLAM_Params, Zobs, Rd );
     save([ Data_config.TEMP_DIR 'CovMatrixInv.mat'],'CovMatrixInv', '-v7.3');   
     save([ Data_config.TEMP_DIR 'ImuTimestamps.mat'], 'ImuTimestamps');
@@ -146,11 +153,11 @@ if(PreIntegration_options.bSimData)
 tic
     if(PreIntegration_options.bGNopt == 1)
         %% GN Iterations 
-        [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, Jd, CovMatrixInv, ...
+        [X_obj, nReason] = fn_GaussNewton_GraphSLAM(K, X_obj, nPoses, nPts, inertialDelta.Jd, CovMatrixInv, ...
                         nIMUrate, nIMUdata,  ImuTimestamps, dtIMU, RptFeatureObs, SLAM_Params );
         
     else    
-        [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, Jd, ...
+        [x,Reason,Info] = fn_LeastSqrLM_GraphSLAM(nUV, K, x, nPoses, nPts, inertialDelta.Jd, ...
                         CovMatrixInv, nIMUrate, nIMUdata, ImuTimestamps, dtIMU, RptFeatureObs, ...
                         bUVonly, bPreInt, bAddZg, bAddZau2c, bAddZtu2c, bAddZbf,bAddZbw, bVarBias);
     end
@@ -187,7 +194,7 @@ toc
     %% Show uncertainty
     if(PreIntegration_options.bShowUncertainty == 1)
         fn_CalcShowUncert_general( RptFeatureObs, ImuTimestamps, ...
-                        dtIMU, ef, K, X_obj, nPoses, nPts, Jd, ...
+                        dtIMU, ef, K, X_obj, nPoses, nPts, inertialDelta.Jd, ...
                         CovMatrixInv, nIMUrate, nIMUdata );    
     end
 

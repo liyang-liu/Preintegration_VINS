@@ -1,4 +1,4 @@
-function Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, SLAM_Params )
+function Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, inertialDelta, SLAM_Params )
     global PreIntegration_options
     
     %% camera observations (u,v)
@@ -27,18 +27,18 @@ function Zobs = SLAM_Z_Init( Zobs, RptFeatureObs, nPoseNew, nPts, dp, dv, dphi, 
     % Add interated IMU observations
     if(PreIntegration_options.bPerfectIMUdlt == 1)
 
-        [dp, dv, dphi] = fnCalPerfectIMUdlt_general(X_obj, nPoseNew, nPts, Jd, dtIMU, SLAM_Params); 
+        inertialDelta = fnCalPerfectIMUdlt_general(X_obj, nPoseNew, nPts, Jd, dtIMU, SLAM_Params); 
     end
     for p = 2 : nPoseNew
-        Zobs.intlDelta(p-1).deltaP.val = dp(:, p);
+        Zobs.intlDelta(p-1).deltaP.val = inertialDelta.dp(:, p);
         Zobs.intlDelta(p-1).deltaP.row = (1:3) + zrow;
         zrow = zrow + 3;
 
-        Zobs.intlDelta(p-1).deltaV.val = dv(:, p);
+        Zobs.intlDelta(p-1).deltaV.val = inertialDelta.dv(:, p);
         Zobs.intlDelta(p-1).deltaV.row = (1:3) + zrow;
         zrow = zrow + 3;
 
-        Zobs.intlDelta(p-1).deltaPhi.val = dphi(:, p);
+        Zobs.intlDelta(p-1).deltaPhi.val = inertialDelta.dphi(:, p);
         Zobs.intlDelta(p-1).deltaPhi.row = (1:3) + zrow;
         zrow = zrow + 3;
     end

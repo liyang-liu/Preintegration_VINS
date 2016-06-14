@@ -1,4 +1,4 @@
-function [X_obj, xcol] = fn_InitVelocity( nFrames, X_obj, xcol, dp, dv, dtIMU, imuData_cell, nIMUdata, nIMUrate, dt, SLAM_Params )
+function [X_obj, xcol] = fn_InitVelocity( nFrames, X_obj, xcol, inertialDelta, dtIMU, imuData_cell, nIMUdata, nIMUrate, dt, SLAM_Params )
 
    global PreIntegration_options
  
@@ -6,7 +6,7 @@ function [X_obj, xcol] = fn_InitVelocity( nFrames, X_obj, xcol, dp, dv, dtIMU, i
         
         %% The velocity of the first pose.
         X_obj.velocity(1).xyz = ...
-            ( X_obj.pose(1).trans.xyz - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0  - dp(:,2) ) ...
+            ( X_obj.pose(1).trans.xyz - 0.5 * dtIMU(2) * dtIMU(2) * SLAM_Params.g0  - inertialDelta.dp(:,2) ) ...
             /  ( dtIMU(2) ); 
         X_obj.velocity(1).col = (1:3) + xcol;   xcol = xcol + 3;    
 
@@ -17,13 +17,13 @@ function [X_obj, xcol] = fn_InitVelocity( nFrames, X_obj, xcol, dp, dv, dtIMU, i
             X_obj.velocity(pid).xyz = ...
                 ( X_obj.pose(pid).trans.xyz - X_obj.pose(pid-1).trans.xyz ...
                 - 0.5 * dtIMU(pid+1) * dtIMU(pid+1) * SLAM_Params.g0 ...
-                - Ri' * dp(:,(pid+1)) ) / ( dtIMU(pid+1) ) ;
+                - Ri' * inertialDelta.dp(:,(pid+1)) ) / ( dtIMU(pid+1) ) ;
             X_obj.velocity(pid).col = (1:3) + xcol;  xcol = xcol + 3;    
         end
         
         %% The velocity of the last pose.
         Ri = fn_RFromAngVec( X_obj.pose(nFrames-1).ang.val ); 
-        X_obj.velocity(nFrames).xyz = X_obj.velocity(nFrames-1).xyz + dtIMU(nFrames) * SLAM_Params.g0 + Ri' * dv(:, nFrames);
+        X_obj.velocity(nFrames).xyz = X_obj.velocity(nFrames-1).xyz + dtIMU(nFrames) * SLAM_Params.g0 + Ri' * inertialDelta.dv(:, nFrames);
         X_obj.velocity(nFrames).col = (1:3) + xcol;     xcol = xcol + 3;     
         
     else

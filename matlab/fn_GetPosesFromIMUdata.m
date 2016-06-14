@@ -1,4 +1,4 @@
-function [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nFrames, nPts, dtIMU, dp, dv, dphi, ...
+function [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nFrames, nPts, dtIMU, inertialDelta, ...
                     K, RptFeatureObs, SLAM_Params)
  %fn_GetPosesFromIMUdata(dtIMU, g0, dp, dv, dphi,nFrames, nPts, ...
  %                    K, bSimData, bMalaga, RptFeatureObs, Tu2c, Ru2c)
@@ -28,13 +28,13 @@ function [Rcam, Acam, Tcam, Feature3D] = fn_GetPosesFromIMUdata( nFrames, nPts, 
     [ Acam(1, frm), Acam(2, frm), Acam(3, frm) ] = fn_ABGFromR( Rcam(:,:,frm) );    
     
     for(frm = 2:nFrames)
-       vimu(:, frm) = vimu(:, frm-1) + dtIMU(frm) * SLAM_Params.g0 + (Rimu(:,:,frm-1))' * dv(:,frm);
+       vimu(:, frm) = vimu(:, frm-1) + dtIMU(frm) * SLAM_Params.g0 + (Rimu(:,:,frm-1))' * inertialDelta.dv(:,frm);
        Timu(:, frm) = Timu(:, frm-1) ...
                         + 0.5 * dtIMU(frm) * ( vimu(:, frm-1) + vimu(:, frm) ) ... %You-Bing might have made a mistake here !!!
                         ...%+ dtIMU(frm) * vimu(:, frm)
                         + 0.5 * dtIMU(frm) * dtIMU(frm) * SLAM_Params.g0 ...
-                        + (Rimu(:,:,frm-1))' * dp(:, frm);       
-       dR = fn_RFromABG( dphi(1, frm), dphi(2, frm), dphi(3, frm) );
+                        + (Rimu(:,:,frm-1))' * inertialDelta.dp(:, frm);       
+       dR = fn_RFromAngVec( inertialDelta.dphi(:, frm) );
        Rimu(:, :, frm) = dR * Rimu( :, :, frm-1 );
        [Aimu(1, frm), Aimu(2, frm), Aimu(3, frm)] = fn_ABGFromR(Rimu(:,:,frm));
        Tcam(:, frm) = SLAM_Params.Ru2c * (Timu(:, frm) - SLAM_Params.Tu2c + (Rimu(:,:,frm))' * SLAM_Params.Tu2c );

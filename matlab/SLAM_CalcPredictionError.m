@@ -43,7 +43,7 @@ function e = SLAM_CalcPredictionError( X, nPoses, nPts )
 
     % 2. IMU dlt error:
     ePreInt = fn_CalcPredictionError_ZintlDelta(X, Zobs, nPoses, nPts, SLAM_Params.bf0, ...
-                        SLAM_Params.bw0, dtIMU, Jd, nIMUrate, ImuTimestamps );
+                        SLAM_Params.bw0, dtIMU, inertialDelta.Jd, nIMUrate, ImuTimestamps );
     
     if ( PreIntegration_options.bPreInt == 1 )
         e.intlDelta =  ePreInt.intlDelta;

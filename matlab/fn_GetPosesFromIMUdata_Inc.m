@@ -1,5 +1,5 @@
 function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetPosesFromIMUdata_Inc(nPoseOld, ...
-                nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, dp, dv, dphi, ...
+                nPoseNew, nPoses, R0imu, T0imu, v0imu, dtIMU, inertialDelta, ...
                 K, Feature3D, RptFidSet, RptFeatureObs, SLAM_Params)
             
     global PreIntegration_options
@@ -27,11 +27,11 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetP
     for(pid = (nPoseOld+1):nPoseNew)%2:(nPoses+1))
         
        vimu(:, pid) = vimu(:, pid-1) + dtIMU(pid) * SLAM_Params.g0 + ...
-           (Rimu(:,:,pid-1))' * dv(:,pid);
+           (Rimu(:,:,pid-1))' * inertialDelta.dv(:,pid);
        Timu(:, pid) = Timu(:, pid-1) + dtIMU(pid)*vimu(:, pid-1)...// (+vimu(:, pid))
-          + 0.5 * dtIMU(pid) * dtIMU(pid) * SLAM_Params.g0 + ...
-           (Rimu(:,:,pid-1))' * dp(:, pid);       
-       dR = fn_RFromABG(dphi(1, pid), dphi(2, pid), dphi(3, pid));
+                + 0.5 * dtIMU(pid) * dtIMU(pid) * SLAM_Params.g0 + ...
+                    (Rimu(:,:,pid-1))' * inertialDelta.dp(:, pid);       
+       dR = fn_RFromAngVec( inertialDelta.dphi(:, pid) );
        Rimu(:,:,pid) = dR * Rimu(:,:,pid-1);
 
        Tcam(:, pid) = SLAM_Params.Ru2c * (Timu(:, pid) - SLAM_Params.Tu2c + (Rimu(:,:,pid))' * SLAM_Params.Tu2c);
@@ -48,7 +48,7 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetP
     % in UVs
     for(fidx=1:nRptfs)
        nObs = 1;
-       if(RptFeatureObs(fidx).obsv(nObs).pid >= nPoseNew)
+       if( RptFeatureObs(fidx).obsv(nObs).pid >= nPoseNew )
            continue;
        end
        
@@ -79,9 +79,10 @@ function [Rcam, Acam, Tcam, vimu, Feature3D, RptFidSet, RptFeatureObs] = fn_GetP
                             Rcam(:, :, pid2), Tcam(:, pid2), comfeatures);
 
         p1f = p3d' - Tcam(:, pid1); p2f = p3d' - Tcam(:, pid2);
-        fangle = 180*acos(p1f'*p2f/(norm(p1f)*norm(p2f)))/pi;
+        fangle = 180 * acos( p1f' * p2f / ( norm(p1f) * norm(p2f) ) ) / pi;
 
-        if(fangle < 1)%0.5)%1.5)%
+        %if(fangle < 1)%0.5)%1.5)%
+        if( fangle < PreIntegration_options.minFeatureParallax )%0.5)%1.5)%
            fprintf('P%d-P%d: Angle(%d) = %f!\n', pid1, pid2, comid, fangle); 
            smallAngleSet = [smallAngleSet, fidx];
            continue;
